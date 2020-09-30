@@ -62,7 +62,7 @@ docs:
   script:
     - pip install -r requirements.txt
     - pip install -r docs/requirements.txt
-    - python -m sphinx -W docs/ -D nbsphinx_execute='always' -d build/doctrees build/html -b html
+    - python -m sphinx -W docs/ -d build/doctrees build/html -b html
     - python -m sphinx -W docs/ build/linkcheck -b linkcheck
   artifacts:
     paths:

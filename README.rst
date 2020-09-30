@@ -2,7 +2,7 @@
 audobject
 =========
 
-Generic interface for storing and restoring objects to and from yaml_.
+Generic interface for serializing objects to yaml_.
 
 .. _yaml:
     https://yaml.org/
