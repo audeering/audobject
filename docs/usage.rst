@@ -287,3 +287,34 @@ we can achieve the same with ``lambda`` expressions.
     d_yaml = d.to_yaml_s()
     d2 = audobject.Object.from_yaml_s(d_yaml)
     print(d2)
+
+Object ID
+---------
+
+Every object has an ID.
+
+.. jupyter-execute::
+
+    o = MyObject('I am unique!', num_repeat=2)
+    print(o.id)
+
+Objects with exact same properties share the same ID.
+
+.. jupyter-execute::
+
+    o2 = MyObject('I am unique!', num_repeat=2)
+    print(o.id == o2.id)
+
+When an object is serialized the ID does not change.
+
+.. jupyter-execute::
+
+    o3 = audobject.Object.from_yaml_s(o.to_yaml_s())
+    print(o3.id == o.id)
+
+Objects with different properties get different IDs.
+
+.. jupyter-execute::
+
+    o4 = MyObject('I am different!', num_repeat=2)
+    print(o.id == o4.id)

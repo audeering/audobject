@@ -76,8 +76,7 @@ class Object:
 
     Example:
 
-    >>> import audobject
-    >>> class Foo(audobject.Object):
+    >>> class Foo(Object):
     ...    def __init__(self, bar: str):
     ...        self.bar = bar
     >>> foo = Foo('hello object!')
@@ -87,6 +86,30 @@ class Object:
 
     """
     _value_resolver = {}
+
+    @property
+    def id(self) -> str:
+        r"""Object identifier.
+
+        .. note:: Objects with same properties have the same ID.
+
+        Example:
+
+        >>> class Foo(Object):
+        ...    def __init__(self, bar: str):
+        ...        self.bar = bar
+        >>> foo1 = Foo('I am unique!')
+        >>> print(foo1.id)
+        35b222ae-4086-05e6-ac8b-b86f65df22ff
+        >>> foo2 = Foo('I am different!')
+        >>> print(foo2.id)
+        5ef54bc6-8beb-ff4b-b256-b80b15db5753
+        >>> foo3 = Foo('I am unique!')
+        >>> print(foo1.id == foo3.id)
+        True
+
+        """
+        return audeer.uid(from_string=str(self))
 
     @staticmethod
     def from_dict(d: dict) -> 'Object':
@@ -279,13 +302,13 @@ class Object:
         class_name = tokens[-1]
         return module_name, class_name
 
-    def __eq__(self, other):
-        return repr(self) == repr(other)
+    def __eq__(self, other: 'Object') -> bool:
+        return self.id == other.id
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self.to_dict())
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.to_yaml_s()
 
 
