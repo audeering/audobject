@@ -19,6 +19,7 @@
     :hidden:
 
     api
+    testing
     genindex
 
 .. toctree::

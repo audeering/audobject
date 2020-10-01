@@ -1,5 +1,6 @@
 from audobject.core.api import (
     Object,
+    TupleResolver,
     ValueResolver,
 )
 

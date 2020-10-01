@@ -352,3 +352,31 @@ class ValueResolver:
 
         """
         raise NotImplementedError  # pragma: no cover
+
+
+class TupleResolver(ValueResolver):
+    r"""Tuple resolver."""
+
+    def encode(self, value: tuple) -> list:
+        r"""Encodes ``tuple`` as ``list``.
+
+        Args:
+            value: tuple
+
+        Returns:
+            list
+
+        """
+        return list(value)
+
+    def decode(self, value: list) -> tuple:
+        r"""Decodes ``list`` as ``tuple``.
+
+        Args:
+            value: list
+
+        Returns:
+            tuple
+
+        """
+        return tuple(value)
