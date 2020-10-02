@@ -3,6 +3,12 @@ audobject
 
 .. automodule:: audobject
 
+config
+------
+
+.. autoclass:: config
+    :members:
+
 Object
 ------
 

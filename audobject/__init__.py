@@ -1,3 +1,5 @@
+from audobject import define
+from audobject.core.config import config
 from audobject.core.api import (
     Object,
     TupleResolver,

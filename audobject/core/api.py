@@ -1,15 +1,19 @@
 import importlib
+import inspect
 import os
 import typing
 import warnings
 
 import oyaml as yaml
 
-
 import audeer
+
+from audobject.core.config import config
+from audobject.core import define
 
 
 OBJECT_TAG = '$'
+VERSION_TAG = '=='
 
 
 class Object:
@@ -109,7 +113,8 @@ class Object:
         True
 
         """
-        return audeer.uid(from_string=str(self))
+        string = self.to_yaml_s(include_version=False)
+        return audeer.uid(from_string=string)
 
     @staticmethod
     def from_dict(d: dict) -> 'Object':
@@ -121,13 +126,17 @@ class Object:
         Returns:
             object
 
+        Raises:
+            RuntimeError: if a mandatory parameter of the object
+                is missing in the dictionary
+
         """
         name = next(iter(d))
-        cls = Object._get_class(name)
+        cls, version, installed_version = Object._get_class(name)
         params = {}
         for key, value in d[name].items():
             params[key] = Object._decode_value(cls, key, value)
-        return cls(**params)
+        return Object._get_object(cls, version, installed_version, params)
 
     @staticmethod
     def from_yaml(
@@ -160,8 +169,15 @@ class Object:
         """
         return Object.from_dict(yaml.load(string, yaml.Loader))
 
-    def to_dict(self) -> dict:
+    def to_dict(
+            self,
+            *,
+            include_version: bool = True,
+    ) -> dict:
         r"""Converts object to a dictionary.
+
+        Args:
+            include_version: add version to class name
 
         Returns:
             dictionary with parameters
@@ -170,18 +186,36 @@ class Object:
         name = f'{OBJECT_TAG}' \
                f'{self.__class__.__module__}.' \
                f'{self.__class__.__name__}'
+        if include_version:
+            version = Object._get_version(self.__class__.__module__)
+            if version is not None:
+                name += f'{VERSION_TAG}{version}'
+            else:
+                warnings.warn(
+                    f"Could not determine a version for "
+                    f"module '{self.__class__.__module__}'.",
+                    RuntimeWarning,
+                )
         return {
             name: {
-                key: self._encode_value(key, value) for key, value in
-                self.__dict__.items() if not key.startswith('_')
+                key: self._encode_value(
+                    key, value, include_version
+                ) for key, value in self.__dict__.items()
+                if not key.startswith('_')
             }
         }
 
-    def to_yaml(self, path_or_stream: typing.Union[str, typing.IO]):
+    def to_yaml(
+            self,
+            path_or_stream: typing.Union[str, typing.IO],
+            *,
+            include_version: bool = True,
+    ):
         r"""Save object to YAML file.
 
         Args:
             path_or_stream: file path or stream
+            include_version: add version to class name
 
         """
         if isinstance(path_or_stream, str):
@@ -189,19 +223,34 @@ class Object:
             root = os.path.dirname(path_or_stream)
             audeer.mkdir(root)
             with open(path_or_stream, 'w') as fp:
-                return self.to_yaml(fp)
-        return yaml.dump(self.to_dict(), path_or_stream)
+                return self.to_yaml(fp, include_version=include_version)
+        else:
+            return yaml.dump(
+                self.to_dict(include_version=include_version),
+                path_or_stream,
+            )
 
-    def to_yaml_s(self) -> str:
+    def to_yaml_s(
+            self,
+            *,
+            include_version: bool = True,
+    ) -> str:
         r"""Convert object to YAML string.
+
+        Args:
+            include_version: add version to class name
 
         Returns:
             YAML string
 
         """
-        return yaml.dump(self.to_dict())
+        return yaml.dump(self.to_dict(include_version=include_version))
 
-    def _encode_value(self, name: str, value: typing.Any):
+    def _encode_value(
+            self, name: str,
+            value: typing.Any,
+            include_version: bool,
+    ):
         r"""Encode a value by first looking for a custom resolver,
         otherwise switch to default encoder."""
         if name in self._value_resolver:
@@ -209,26 +258,31 @@ class Object:
                 value = self._value_resolver[name].encode(value)
             else:
                 value = self._value_resolver[name][0](value)
-        return Object._encode_value_default(value)
+        return Object._encode_value_default(value, include_version)
 
     @staticmethod
-    def _encode_value_default(value: typing.Any):
+    def _encode_value_default(
+            value: typing.Any,
+            include_version: bool,
+    ):
         r"""Default value encoder."""
         if value is None:
             return None
         elif Object._is_class(value):
-            return value.to_dict()
+            return value.to_dict(include_version=include_version)
         elif isinstance(value, (str, int, float, bool)):
             return value
         elif isinstance(value, list):
             return [
-                Object._encode_value_default(item) for item in value
+                Object._encode_value_default(
+                    item, include_version
+                ) for item in value
             ]
         elif isinstance(value, dict):
             return {
-                Object._encode_value_default(key):
-                    Object._encode_value_default(val) for key, val
-                in value.items()
+                Object._encode_value_default(key, include_version):
+                    Object._encode_value_default(val, include_version)
+                for key, val in value.items()
             }
         else:
             warnings.warn(
@@ -272,13 +326,95 @@ class Object:
             return value
 
     @staticmethod
-    def _get_class(key: str):
+    def _get_class(key: str) -> (type, str, str):
         r"""Load class module."""
         if key.startswith(OBJECT_TAG):
             key = key[len(OBJECT_TAG):]
-        module_name, class_name = Object._split_key(key)
+        module_name, class_name, version = Object._split_key(key)
+        installed_version = Object._get_version(module_name)
         module = importlib.import_module(module_name)
-        return getattr(module, class_name)
+        return getattr(module, class_name), version, installed_version
+
+    @staticmethod
+    def _get_object(
+        cls: type,
+        version: str,
+        installed_version: str,
+        params: dict,
+    ) -> 'Object':
+        r"""Create object from parameters."""
+        signature = inspect.signature(cls.__init__)
+        supports_kwargs = 'kwargs' in signature.parameters
+
+        # check for missing mandatory parameters
+        required_params = set([
+            p.name for p in signature.parameters.values()
+            if p.default == inspect.Parameter.empty and p.name not in [
+                'self', 'kwargs',
+            ]
+        ])
+        missing_required_params = list(required_params - set(params))
+        if len(missing_required_params) > 0:
+            raise RuntimeError(
+                f"Missing mandatory parameter(s) "
+                f"{missing_required_params} "
+                f"while instantiating '{cls}' from "
+                f"version '{version}' when using "
+                f"version '{installed_version}'."
+            )
+
+        # check for missing optional parameters
+        optional_params = set([
+            p.name for p in signature.parameters.values()
+            if p.default != inspect.Parameter.empty and p.name not in [
+                'self', 'kwargs',
+            ]
+        ])
+        missing_optional_params = list(optional_params - set(params))
+        if len(missing_optional_params) > 0:
+            if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
+                    define.SignatureMismatchWarnLevel.STANDARD:
+                warnings.warn(
+                    f"Missing optional parameter(s) "
+                    f"{missing_optional_params} "
+                    f"while instantiating '{cls}' from "
+                    f"version '{version}' when using "
+                    f"version '{installed_version}'.",
+                    RuntimeWarning,
+                )
+
+        # unless kwargs are supported check for additional parameters
+        if not supports_kwargs:
+            supported_params = set([
+                p.name for p in signature.parameters.values()
+                if p.name not in ['self', 'kwargs']
+            ])
+            additional_params = list(set(params) - supported_params)
+            if len(additional_params):
+                if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
+                        define.SignatureMismatchWarnLevel.SILENT:
+                    warnings.warn(
+                        f"Ignoring parameter(s) "
+                        f"{additional_params} "
+                        f"while instantiating '{cls}' from "
+                        f"version '{version}' when using "
+                        f"version '{installed_version}'.",
+                        RuntimeWarning,
+                    )
+                params = {
+                    key: value for key, value in params.items()
+                    if key in supported_params
+                }
+
+        return cls(**params)
+
+    @staticmethod
+    def _get_version(module_name: str) -> typing.Optional[str]:
+        module = importlib.import_module(module_name.split('.')[0])
+        if '__version__' in module.__dict__:
+            return module.__version__
+        else:
+            return None
 
     @staticmethod
     def _is_class(value: typing.Any):
@@ -295,21 +431,24 @@ class Object:
         return False
 
     @staticmethod
-    def _split_key(key: str) -> [str, str]:
-        r"""Split value key in module and class name."""
+    def _split_key(key: str) -> [str, str, typing.Optional[str]]:
+        r"""Split value key in module, class and version."""
+        version = None
+        if VERSION_TAG in key:
+            key, version = key.split(VERSION_TAG)
         tokens = key.split('.')
         module_name = '.'.join(tokens[:-1])
         class_name = tokens[-1]
-        return module_name, class_name
+        return module_name, class_name, version
 
     def __eq__(self, other: 'Object') -> bool:
         return self.id == other.id
 
     def __repr__(self) -> str:
-        return str(self.to_dict())
+        return str(self.to_dict(include_version=False))
 
     def __str__(self) -> str:
-        return self.to_yaml_s()
+        return self.to_yaml_s(include_version=False)
 
 
 DefaultValueType = typing.Union[

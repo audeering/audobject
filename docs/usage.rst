@@ -21,6 +21,8 @@ Let's create a class that derives from :class:`audobject.Object`.
 
 .. jupyter-execute::
 
+    __version__ = '1.0.0'  # pretend we have a package version
+
     class MyObject(audobject.Object):
         def __init__(
                 self,
@@ -318,3 +320,161 @@ Objects with different properties get different IDs.
 
     o4 = MyObject('I am different!', num_repeat=2)
     print(o.id == o4.id)
+
+Versioning
+----------
+
+When an object is converted to YAML
+the package version is stored.
+But what happens if we later load the object
+with a different package version?
+
+Let's create another instance of ``MyObject``.
+
+.. jupyter-execute::
+
+    o = MyObject('I am a 1.0.0!', num_repeat=2)
+    print(o)
+
+And convert it to YAML.
+
+.. jupyter-execute::
+
+    o_yaml = o.to_yaml_s()
+    print(o_yaml)
+
+Now we pretend that we update the package to ``2.0.0``.
+It includes a new version of ``MyObject``,
+with a slightly changed ``__str__`` function.
+
+.. jupyter-execute::
+
+    __version__ = '2.0.0'
+
+    class MyObject(audobject.Object):
+        def __init__(
+                self,
+                string: str,
+                *,
+                num_repeat: int = 1,
+        ):
+            self.string = string
+            self.num_repeat = num_repeat
+
+        def __str__(self) -> str:
+            return ','.join([self.string] * self.num_repeat)
+
+Since the signature of the constructor has not changed,
+the object will be created without problems.
+However, when we print the object
+the strings are now separated by comma.
+
+.. jupyter-execute::
+
+    o2 = audobject.Object.from_yaml_s(o_yaml)
+    print(o2)
+
+In the next release, we decide to introduce an argument
+that let the user set a custom delimiter.
+
+.. jupyter-execute::
+
+    __version__ = '2.1.0'
+
+    class MyObject(audobject.Object):
+        def __init__(
+                self,
+                string: str,
+                delimiter: str,
+                *,
+                num_repeat: int = 1,
+        ):
+            self.string = string
+            self.delimiter = delimiter
+            self.num_repeat = num_repeat
+
+        def __str__(self) -> str:
+            return ' '.join([self.string] * self.num_repeat)
+
+If we now instantiate the object,
+we will get an error,
+because we are missing a value
+for the new argument.
+
+.. jupyter-execute::
+    :stderr:
+    :raises:
+
+    audobject.Object.from_yaml_s(o_yaml)
+
+Since we want to be backward compatible,
+we decide to release a bug fix,
+where we initialize the new argument with a default value.
+
+.. jupyter-execute::
+
+    __version__ = '2.1.1'
+
+    class MyObject(audobject.Object):
+        def __init__(
+                self,
+                string: str,
+                delimiter: str = ',',
+                *,
+                num_repeat: int = 1,
+        ):
+            self.string = string
+            self.delimiter = delimiter
+            self.num_repeat = num_repeat
+
+        def __str__(self) -> str:
+            return ' '.join([self.string] * self.num_repeat)
+
+And in fact, it successfully creates the object again.
+It works, because it now has a default value for the missing argument.
+
+.. jupyter-execute::
+
+    o3 = audobject.Object.from_yaml_s(o_yaml)
+    print(o3)
+
+Finally, we will do it the other way round.
+Create an object with version ``2.1.1``.
+
+.. jupyter-execute::
+
+    o4 = MyObject('I am a 2.1.1!', num_repeat=2)
+    print(o4)
+
+Convert it to YAML.
+
+.. jupyter-execute::
+
+    o4_yaml = o4.to_yaml_s()
+    print(o4_yaml)
+
+And load it with ``1.0.0``.
+
+.. jupyter-execute::
+    :stderr:
+
+    __version__ = '1.0.0'
+
+    class MyObject(audobject.Object):
+        def __init__(
+                self,
+                string: str,
+                *,
+                num_repeat: int = 1,
+        ):
+            self.string = string
+            self.num_repeat = num_repeat
+
+        def __str__(self) -> str:
+            return ' '.join([self.string] * self.num_repeat)
+
+    o5 = audobject.Object.from_yaml_s(o4_yaml)
+    print(o5)
+
+In fact, it works, too.
+However, a warning is given that an argument was ignored.
