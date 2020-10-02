@@ -7,6 +7,7 @@ from audobject.core.parameters import (
 from audobject.core.api import (
     Object,
     TupleResolver,
+    TypeResolver,
     ValueResolver,
 )
 

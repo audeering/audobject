@@ -35,11 +35,14 @@ class TestObject(Object):
     ):
         self.name = name
         self.point = point
-        self._value_resolver['point'] = TupleResolver()
+        self.add_value_resolver('point', TupleResolver())
         self.date = date or datetime.now()
-        self._value_resolver['date'] = (
-            lambda x: x.strftime('%Y-%m-%d %H:%M:%S.%f'),
-            lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        self.add_value_resolver(
+            'date',
+            (
+                lambda x: x.strftime('%Y-%m-%d %H:%M:%S.%f'),
+                lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+            )
         )
         for key, value in kwargs.items():
             self.__dict__[key] = value

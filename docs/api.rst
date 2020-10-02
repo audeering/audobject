@@ -32,3 +32,9 @@ TupleResolver
 
 .. autoclass:: TupleResolver
     :members:
+
+TypeResolver
+------------
+
+.. autoclass:: TypeResolver
+    :members:

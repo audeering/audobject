@@ -18,23 +18,23 @@ pytest.PARAMS = [
 pytest.PARAMETERS = audobject.Parameters().add(
     audobject.Parameter(
         name='foo',
-        dtype=str,
+        value_type=str,
         description='a string',
         choices=[None, 'foo'],
     )
 ).add(
     audobject.Parameter(
         name='bar',
-        dtype=int,
+        value_type=int,
         description='an integer',
-        default=1,
+        default_value=1,
         version='>=2.0.0',
     )
 ).add(
     audobject.Parameter(
         name='toggle',
-        dtype=bool,
+        value_type=bool,
         description='a boolean',
-        default=False,
+        default_value=False,
     )
 )

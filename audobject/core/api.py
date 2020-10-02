@@ -91,6 +91,19 @@ class Object:
     """
     _value_resolver = {}
 
+    def add_value_resolver(
+            self,
+            name: str,
+            resolver: typing.Union[
+                'ValueResolver',
+                typing.Tuple[
+                    typing.Callable[[typing.Any], typing.Any],
+                    typing.Callable[[typing.Any], typing.Any],
+                ],
+            ]
+    ):
+        self._value_resolver[f'{self.__class__}.{name}'] = resolver
+
     @property
     def id(self) -> str:
         r"""Object identifier.
@@ -173,7 +186,7 @@ class Object:
             self,
             *,
             include_version: bool = True,
-    ) -> dict:
+    ) -> typing.Dict[str, typing.Any]:
         r"""Converts object to a dictionary.
 
         Args:
@@ -247,17 +260,19 @@ class Object:
         return yaml.dump(self.to_dict(include_version=include_version))
 
     def _encode_value(
-            self, name: str,
+            self,
+            name: str,
             value: typing.Any,
             include_version: bool,
     ):
         r"""Encode a value by first looking for a custom resolver,
         otherwise switch to default encoder."""
-        if name in self._value_resolver:
-            if isinstance(self._value_resolver[name], ValueResolver):
-                value = self._value_resolver[name].encode(value)
+        resolver_key = f'{self.__class__}.{name}'
+        if resolver_key in self._value_resolver:
+            if isinstance(self._value_resolver[resolver_key], ValueResolver):
+                value = self._value_resolver[resolver_key].encode(value)
             else:
-                value = self._value_resolver[name][0](value)
+                value = self._value_resolver[resolver_key][0](value)
         return Object._encode_value_default(value, include_version)
 
     @staticmethod
@@ -301,11 +316,12 @@ class Object:
     ) -> typing.Any:
         r"""Decode a value by first looking for a custom resolver,
         otherwise switch to default encoder."""
-        if name in cls._value_resolver:
-            if isinstance(cls._value_resolver[name], ValueResolver):
-                value = cls._value_resolver[name].decode(value)
+        resolver_key = f'{cls}.{name}'
+        if resolver_key in cls._value_resolver:
+            if isinstance(cls._value_resolver[resolver_key], ValueResolver):
+                value = cls._value_resolver[resolver_key].decode(value)
             else:
-                value = cls._value_resolver[name][1](value)
+                value = cls._value_resolver[resolver_key][1](value)
         return Object._decode_value_default(value)
 
     @staticmethod
@@ -350,7 +366,7 @@ class Object:
         required_params = set([
             p.name for p in signature.parameters.values()
             if p.default == inspect.Parameter.empty and p.name not in [
-                'self', 'kwargs',
+                'self', 'args', 'kwargs',
             ]
         ])
         missing_required_params = list(required_params - set(params))
@@ -367,7 +383,7 @@ class Object:
         optional_params = set([
             p.name for p in signature.parameters.values()
             if p.default != inspect.Parameter.empty and p.name not in [
-                'self', 'kwargs',
+                'self', 'args', 'kwargs',
             ]
         ])
         missing_optional_params = list(optional_params - set(params))
@@ -456,7 +472,7 @@ DefaultValueType = typing.Union[
 ]
 
 
-class ValueResolver:
+class ValueResolver(Object):
     r"""Abstract resolver class.
 
     Implement for parameters that are not one of
@@ -519,3 +535,31 @@ class TupleResolver(ValueResolver):
 
         """
         return tuple(value)
+
+
+class TypeResolver(ValueResolver):
+    r"""Type resolver."""
+
+    def encode(self, value: type) -> str:
+        r"""Encodes ``type`` as ``str``.
+
+        Args:
+            value: type class
+
+        Returns:
+            string
+
+        """
+        return str(value)[len("<class '"):-len("'>")]
+
+    def decode(self, value: str) -> type:
+        r"""Decodes ``str`` as ``type``.
+
+        Args:
+            value: type string
+
+        Returns:
+            type
+
+        """
+        return eval(value)

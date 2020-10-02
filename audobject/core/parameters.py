@@ -2,10 +2,15 @@ import argparse
 import os
 import pkg_resources
 import typing
-import oyaml as yaml
+
+from audobject.core.api import (
+    Object,
+    TypeResolver,
+    ValueResolver,
+)
 
 
-class Parameter:
+class Parameter(Object):
     r"""Single parameter.
 
     A parameter steers the behaviour of a an object (e.g. tuning a model).
@@ -14,9 +19,12 @@ class Parameter:
 
     Args:
         name: name
-        dtype: data type
+        value_type: data type, one of
+            (``None``, ``str``, ``int``, ``float``, ``bool``)
+            or a ``list`` or ``dict`` of those
         description: description
-        default: default value
+        value: value, if ``None`` set to ``default_value``
+        default_value: default value
         choices: list with choices
         version: string defining in which versions the parameter is used
             (e.g. ``'>=1.0.0,<2.0.0,!=1.5.0'``),
@@ -29,9 +37,9 @@ class Parameter:
     Example:
         >>> foo = Parameter(
         ...     name='foo',
-        ...     dtype=str,
+        ...     value_type=str,
         ...     description='some parameter',
-        ...     default='bar',
+        ...     default_value='bar',
         ...     choices=['bar', 'Bar', 'BAR'],
         ...     version='>=1.0.0,<2.0.0',
         ... )
@@ -59,33 +67,34 @@ class Parameter:
             self,
             *,
             name: str,
-            dtype: type,
+            value_type: type,
             description: str,
-            default: typing.Any = None,
+            value: typing.Any = None,
+            default_value: typing.Any = None,
             choices: typing.Sequence[typing.Any] = None,
             version: str = None,
     ):
 
         self.name = name
         r"""Name of parameter"""
-        self.dtype = dtype
+        self.value_type = value_type
+        self.add_value_resolver('value_type', TypeResolver())
         r"""Data type of parameter"""
         self.description = description
+        r"""Value of parameter, use 'set_value' for type checking"""
+        self.value = None
         r"""Description of parameter"""
-        self.default = default
+        self.default_value = default_value
         r"""Default value of parameter"""
         self.choices = choices
         r"""Possible choices for parameter"""
         self.version = version
         r"""Versions in which the parameter is used"""
 
-        self._value = None
-        self.set_value(default)
-
-    @property
-    def value(self) -> typing.Any:
-        r"""Returns the current value."""
-        return self._value
+        if value is not None:
+            self.set_value(value)
+        else:
+            self.set_value(default_value)
 
     def __repr__(self) -> str:  # pragma: no cover
         return str({self.name: self.value})
@@ -106,6 +115,8 @@ class Parameter:
     def set_value(self, value: typing.Any):
         r"""Sets a new value.
 
+        Applies additional checks, e.g. if value is of the expected type.
+
         Args:
             value: new value
 
@@ -114,21 +125,25 @@ class Parameter:
             ValueError: if value is not in choices
 
         """
-        if value is not None and not isinstance(value, self.dtype):
+        if value is not None and not isinstance(value, self.value_type):
             raise TypeError(
                 f"Invalid type '{type(value)}' for parameter {self.name}, "
-                f"expected {self.dtype}."
+                f"expected {self.value_type}."
             )
         if self.choices is not None and value not in self.choices:
             raise ValueError(
                 f"Invalid value '{value}' for parameter {self.name}, "
                 f"expected one of {self.choices}."
             )
-        self._value = value
+        self.value = value
 
 
-class Parameters:
+class Parameters(Object):
     r"""List of parameters.
+
+    Args:
+        *args: :class:`audobject.Parameter` objects
+        **kwargs: :class:`audobject.Parameter` objects
 
     Example:
         >>> # create list of parameters
@@ -136,7 +151,7 @@ class Parameters:
         >>> # create parameter
         >>> foo = Parameter(
         ...     name='foo',
-        ...     dtype=str,
+        ...     value_type=str,
         ...     description='foooo',
         ... )
         >>> # add parameter to list
@@ -149,6 +164,15 @@ class Parameters:
         'foo'
 
     """
+    def __init__(
+            self,
+            *args,
+            **kwargs,
+    ):
+        for param in args:
+            self.add(param)
+        for param in kwargs.values():
+            self.add(param)
 
     def add(
             self,
@@ -167,7 +191,10 @@ class Parameters:
         self.__dict__[param.name] = param
         return self
 
-    def from_dict(self, d: typing.Dict[str, typing.Any]) -> 'Parameters':
+    def from_dict(
+            self,
+            d: typing.Dict[str, typing.Any],
+    ) -> 'Parameters':
         r"""Update parameter values from a dictionary.
 
         .. note:: Ignores keys that are not in the list of parameters.
@@ -181,9 +208,34 @@ class Parameters:
                 self.__setattr__(key, value)
         return self
 
-    def get_parameter(self, name: str) -> Parameter:
+    def get_parameter(
+            self,
+            name: str,
+    ) -> Parameter:
         r"""Returns the parameter object."""
         return self.__dict__[name]
+
+    def filter_by_version(
+            self,
+            version: str,
+    ) -> 'Parameters':
+        r"""Filter parameters by version.
+
+        Returns a subset including only those parameters that match a given
+        version.
+
+        Args:
+            version: version string
+
+        Returns:
+            List with matching parameters
+
+        """
+        params = Parameters()
+        for name, param in self.items():
+            if version in param:
+                params.add(param)
+        return params
 
     def from_command_line(
             self,
@@ -197,15 +249,6 @@ class Parameters:
         """
         return self.from_dict(args.__dict__)
 
-    def from_yaml(
-            self,
-            file: str,
-    ) -> 'Parameters':
-        with open(file, 'r') as fp:
-            d = yaml.load(fp, Loader=yaml.Loader)
-            self.from_dict(d)
-        return self
-
     def keys(self) -> typing.KeysView[str]:
         r"""Returns the parameter keys."""
         return self.__dict__.keys()
@@ -217,8 +260,6 @@ class Parameters:
     def to_command_line(
             self,
             parser: argparse.ArgumentParser,
-            *,
-            version: str = None,
     ):
         r"""Add parameters to command line parser.
 
@@ -226,20 +267,16 @@ class Parameters:
 
         Args:
             parser: command line parser
-            version: version string (only matching parameters are included)
 
         """
         for name, param in self.items():
-
-            if version not in param:
-                continue
 
             if param.version is not None:
                 help = f'{param.description} (version: {param.version})'
             else:
                 help = param.description
 
-            if param.dtype == bool:
+            if param.value_type == bool:
                 parser.add_argument(
                     f'--{name}',
                     action='store_true',
@@ -248,31 +285,11 @@ class Parameters:
             else:
                 parser.add_argument(
                     f'--{name}',
-                    type=param.dtype,
-                    default=param.default,
+                    type=param.value_type,
+                    default=param.default_value,
                     choices=param.choices,
                     help=help,
                 )
-
-    def to_dict(
-            self,
-            *,
-            sort: bool = False,
-            version: str = None,
-    ) -> typing.Dict[str, typing.Any]:
-        r"""Returns parameters as dictionary.
-
-        Args:
-            sort: sort parameters by name
-            version: version string (only matching parameters are included)
-
-        """
-        names = [p.name for p in self.values() if version in p]
-        if sort:
-            names = sorted(names)
-        return {
-            name: self.get_parameter(name).value for name in names
-        }
 
     def to_path(
             self,
@@ -281,7 +298,6 @@ class Parameters:
             include: typing.Sequence[str] = None,
             exclude: typing.Sequence[str] = None,
             sort: bool = False,
-            version: str = None,
     ):
         r"""Creates path from parameters.
 
@@ -290,10 +306,14 @@ class Parameters:
             include: list of parameters to include
             exclude: list of parameters to exclude
             sort: sort parameters by name
-            version: version string (only matching parameters are included)
 
         """
-        d = self.to_dict(sort=sort, version=version)
+        names = self.keys()
+        if sort:
+            names = sorted(names)
+        d = {
+            name: self.get_parameter(name).value for name in names
+        }
         exclude = set(exclude or [])
         if include is not None:
             for key in d:
@@ -303,40 +323,6 @@ class Parameters:
             d.pop(key)
         parts = ['{}[{}]'.format(key, value) for key, value in d.items()]
         return delimiter.join(parts)
-
-    def to_yaml(
-            self,
-            file: str,
-            *,
-            sort: bool = False,
-            version: str = None,
-            force_create: bool = False,
-    ):
-        r"""Writes parameters to a yaml file.
-
-        .. note:: If file exists its content will be updated. Except if
-            ``force_create`` is set, in that case the file will always be
-            created.
-
-        Args:
-            file: file path
-            sort: sort parameters by name
-            version: version string (only matching parameters will be written)
-            force_create: create file even if it exists
-
-        """
-        p = self.to_dict(sort=sort, version=version)
-
-        if not force_create and os.path.exists(file):
-            with open(file, 'r') as fp:
-                d = yaml.load(fp, Loader=yaml.Loader)
-                for key, value in p.items():
-                    d[key] = value
-        else:
-            d = p
-
-        with open(file, 'w') as fp:
-            yaml.dump(d, fp)
 
     def values(self) -> typing.ValuesView[typing.Any]:
         r"""Returns parameter values.
@@ -351,7 +337,7 @@ class Parameters:
         return object.__getattribute__(self, name)
 
     def __repr__(self):  # pragma: no cover
-        return str(self.to_dict())
+        return str({param.name: param.value for param in self.values()})
 
     def __setattr__(self, name: str, value: typing.Any):
         p = self.__dict__[name]
@@ -362,12 +348,16 @@ class Parameters:
             [
                 'Name', 'Value', 'Default', 'Choices',
                 'Description', 'Version',
+            ],
+            [
+                '----', '-----', '-------', '-------',
+                '-----------', '-------',
             ]
         ]
         for name, p in self.items():
             table.append(
                 [
-                    name, p.value, p.default, p.choices,
+                    name, p.value, p.default_value, p.choices,
                     p.description, p.version,
                 ]
             )

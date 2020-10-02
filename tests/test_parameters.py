@@ -32,9 +32,9 @@ import audobject
 def test_parameter_type(dtype, default, choices, value):
     p = audobject.Parameter(
         name='foo',
-        dtype=dtype,
+        value_type=dtype,
         description='bar',
-        default=default,
+        default_value=default,
         choices=choices,
     )
     assert p.value == default
@@ -62,7 +62,7 @@ def test_parameter_type(dtype, default, choices, value):
 def test_parameter_version(param_version, check_version, result):
     p = audobject.Parameter(
         name='foo',
-        dtype=str,
+        value_type=str,
         description='bar',
         version=param_version,
     )
@@ -77,16 +77,22 @@ def test_parameter_version(param_version, check_version, result):
         ),
         (
             [
-                audobject.Parameter(name='foo', dtype=str, description='bar'),
-                audobject.Parameter(name='idx', dtype=int, description='int')
+                audobject.Parameter(
+                    name='foo',
+                    value_type=str,
+                    description='bar',
+                ),
+                audobject.Parameter(
+                    name='idx',
+                    value_type=int,
+                    description='int',
+                )
             ]
         ),
     ]
 )
 def test_parameters_init(params):
-    pp = audobject.Parameters()
-    for p in params:
-        pp.add(p)
+    pp = audobject.Parameters(*params)
     for p in params:
         assert p.name in pp.keys()
         assert p in pp.values()
@@ -114,47 +120,32 @@ def test_parameters_command_line():
     assert p.toggle is True
 
     parser = argparse.ArgumentParser()
-    p.to_command_line(parser, version='1.0.0')
+    p_filter = p.filter_by_version('1.0.0')
+    p_filter.to_command_line(parser)
     with pytest.raises(SystemExit):
         parser.parse_args(args=[f'--bar={new_value}'])
 
 
-def test_parameters_dict():
-
-    p = pytest.PARAMETERS
-    old_value = p.bar
-    new_value = old_value + 1
-
-    d = p.to_dict()
-    assert d['bar'] == p.bar
-    d['bar'] = new_value
-    assert p.bar == old_value
-
-    p.from_dict(d)
-    assert p.bar == new_value
-
-    assert list(d) == ['foo', 'bar', 'toggle']
-    d = p.to_dict(sort=True)
-    assert list(d) == ['bar', 'foo', 'toggle']
-
-    assert 'bar' in d
-    d = p.to_dict(version='1.0.0')
-    assert 'bar' not in d
-
-
-def test_parameters_path():
+@pytest.mark.parametrize(
+    'delimiter, sort',
+    [
+        (',', True),
+        (';', False),
+    ]
+)
+def test_parameters_path(delimiter, sort):
 
     p = pytest.PARAMETERS
 
-    path = p.to_path(delimiter=',')
-    for item in path.split(','):
+    path = p.to_path(delimiter=delimiter, sort=sort)
+    for item in path.split(delimiter):
         key, value = parse.parse('{}[{}]', item)
         assert str(p.get_parameter(key).value) == value
 
-    path = p.to_path(delimiter=',', include=['bar'])
+    path = p.to_path(delimiter=delimiter, include=['bar'])
     assert 'bar' in path
     assert 'foo' not in path
-    path = p.to_path(delimiter=',', exclude=['bar'])
+    path = p.to_path(delimiter=delimiter, exclude=['bar'])
     assert 'bar' not in path
     assert 'foo' in path
 
@@ -174,16 +165,6 @@ def test_parameters_yaml(tmpdir):
 
     p = pytest.PARAMETERS
     file = os.path.join(tmpdir, 'params.yaml')
-    old_value = p.bar
-    new_value = old_value + 1
-
     p.to_yaml(file)
-    p.bar = new_value
-    assert p.bar != old_value
-    p.from_yaml(file)
-    assert p.bar == old_value
-
-    p.bar = new_value
-    p.to_yaml(file)
-    p.from_yaml(file)
-    assert p.bar == new_value
+    p2 = audobject.Object.from_yaml(file)
+    assert p == p2

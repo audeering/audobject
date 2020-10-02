@@ -250,7 +250,7 @@ the variable while retaining its type.
                 date: datetime,
         ):
             self.date = date
-            self._value_resolver['date'] = DatetimeResolver()
+            self.add_value_resolver('date', DatetimeResolver())
 
         def __str__(self) -> str:
             return self.date.strftime('%Y-%m-%d %H:%M:%S.%f')
@@ -276,9 +276,12 @@ we can achieve the same with ``lambda`` expressions.
                 date: datetime,
         ):
             self.date = date
-            self._value_resolver['dt'] = (
-                lambda x: x.strftime('%Y-%m-%d %H:%M:%S.%f'),
-                lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f'),
+            self.add_value_resolver(
+                'date',
+                (
+                    lambda x: x.strftime('%Y-%m-%d %H:%M:%S.%f'),
+                    lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f'),
+                )
             )
 
         def __str__(self) -> str:
@@ -478,3 +481,131 @@ And load it with ``1.0.0``.
 
 In fact, it works, too.
 However, a warning is given that an argument was ignored.
+
+Parameters
+----------
+
+You have probably used argparse_ before.
+It is a package to write user-friendly command-line interfaces
+that allows the user to define what arguments are required,
+what are the expected types, default values, etc.
+
+The idea behind :class:`audobject.Parameters` is similar
+(in fact, we will see that i even has an interface to argparse_).
+:class:`audobject.Parameters` is basically a collection of
+named values that control the behaviour of an object.
+Each value is wrapped in a :class:`audobject.Parameter`
+object and has a specific type and default value,
+possibly one of a set of choices.
+And it can be bound a parameter to a specific versions.
+
+Let's pick up the previous example and define two parameters.
+A parameter that holds a string.
+
+.. jupyter-execute::
+
+    string = audobject.Parameter(
+        name='string',
+        value_type=str,
+        description='the string we want to repeat',
+        value='bar',
+        choices=['bar', 'Bar', 'BAR'],
+    )
+    print(string)
+
+And a parameter that defines how many times we want to repeat the string.
+
+.. jupyter-execute::
+
+    repeat = audobject.Parameter(
+        name='num_repeat',
+        value_type=int,
+        description='the number of times we want to repeat',
+        default_value=1,
+    )
+    print(repeat)
+
+Now we combine the two parameters into a list.
+
+.. jupyter-execute::
+
+    params = audobject.Parameters(string, repeat)
+    print(params)
+
+We can access the values of the parameters using ``.`` notation.
+
+.. jupyter-execute::
+
+    params.string = 'BAR'
+    params.num_repeat = 2
+    print(params)
+
+If we try to assign a value that is not in choices,
+we will get an error.
+
+.. jupyter-execute::
+    :stderr:
+    :raises:
+
+    params.string = 'par'
+
+It is possible to assign a version (or a range of versions)
+to a parameter.
+
+.. jupyter-execute::
+
+    delim = audobject.Parameter(
+        name='delimiter',
+        value_type=str,
+        description='defines the delimiter',
+        default_value=',',
+        version='>=2.0.0,<3.0.0'
+    )
+    params.add(delim)
+    print(params)
+
+We can check if a parameter is available for a specific version.
+
+.. jupyter-execute::
+
+    '1.0.0' in delim, '2.4.0' in delim
+
+We can also filter a list of parameters by version.
+
+.. jupyter-execute::
+
+    params_v3 = params.filter_by_version('3.0.0')
+    print(params_v3)
+
+Or add them to a command line interface.
+
+.. jupyter-execute::
+
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    params.to_command_line(parser)
+    print(parser.format_help())
+
+Or update the values from a command line interface.
+
+.. jupyter-execute::
+
+    args = parser.parse_args(
+        args=['--string=Bar', '--delimiter=;']
+    )
+    params.from_command_line(args)
+    print(params)
+
+Finally, since :class:`audobject.Parameters`
+implements :class:`audobject.Object`
+we can read/write the parameters from/to a file.
+
+.. jupyter-execute::
+
+    file = 'params.yaml'
+    params.to_yaml(file)
+    params2 = audobject.Object.from_yaml(file)
+    print(params2)
+
+.. _argparse: https://docs.python.org/3/library/argparse.html
