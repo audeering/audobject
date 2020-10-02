@@ -15,6 +15,18 @@ Object
 .. autoclass:: Object
     :members:
 
+Parameter
+---------
+
+.. autoclass:: Parameter
+    :members:
+
+Parameters
+----------
+
+.. autoclass:: Parameters
+    :members:
+
 TupleResolver
 -------------
 
