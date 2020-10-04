@@ -12,10 +12,6 @@ from audobject.core.config import config
 from audobject.core import define
 
 
-OBJECT_TAG = '$'
-VERSION_TAG = '=='
-
-
 class Object:
     r"""Base class for objects we want to serialize to YAML.
 
@@ -46,38 +42,6 @@ class Object:
               def bar(self):
                   return self._bar
 
-    * If the type of a variable is not one of
-      ``(None, Object, str, int, float, bool, list, dict)``,
-      a special resolver must be provided:
-
-      .. code-block:: python
-
-          class TupleResolver(audobject.ValueResolver):
-
-              def encode(self, value: tuple) -> list:
-                  return list(value)
-
-              def decode(self, value: list) -> tuple:
-                  return tuple(value)
-
-          class Foo(audobject.Object):
-              def __init__(self, foo: tuple):
-                  self._value_resolver['foo'] = TupleResolver()
-                  self.foo = foo
-
-      Or alternatively:
-
-      .. code-block:: python
-
-        class Foo(audobject.Object):
-
-            def __init__(self, foo: tuple):
-                self._value_resolver['foo'] = (
-                    lambda x: list(x),
-                    lambda x: tuple(x),
-                )
-                self.foo = foo
-
     Example:
 
     >>> class Foo(Object):
@@ -85,25 +49,10 @@ class Object:
     ...        self.bar = bar
     >>> foo = Foo('hello object!')
     >>> print(foo)
-    $audobject.core.api.Foo:
+    $audobject.core.object.Foo:
       bar: hello object!
 
     """
-    _value_resolver = {}
-
-    def add_value_resolver(
-            self,
-            name: str,
-            resolver: typing.Union[
-                'ValueResolver',
-                typing.Tuple[
-                    typing.Callable[[typing.Any], typing.Any],
-                    typing.Callable[[typing.Any], typing.Any],
-                ],
-            ]
-    ):
-        self._value_resolver[f'{self.__class__}.{name}'] = resolver
-
     @property
     def id(self) -> str:
         r"""Object identifier.
@@ -117,10 +66,10 @@ class Object:
         ...        self.bar = bar
         >>> foo1 = Foo('I am unique!')
         >>> print(foo1.id)
-        35b222ae-4086-05e6-ac8b-b86f65df22ff
+        893df240-babe-d796-cdf1-c436171b7a96
         >>> foo2 = Foo('I am different!')
         >>> print(foo2.id)
-        5ef54bc6-8beb-ff4b-b256-b80b15db5753
+        9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190
         >>> foo3 = Foo('I am unique!')
         >>> print(foo1.id == foo3.id)
         True
@@ -148,7 +97,7 @@ class Object:
         cls, version, installed_version = Object._get_class(name)
         params = {}
         for key, value in d[name].items():
-            params[key] = Object._decode_value(cls, key, value)
+            params[key] = Object._decode_value(value)
         return Object._get_object(cls, version, installed_version, params)
 
     @staticmethod
@@ -196,13 +145,13 @@ class Object:
             dictionary with parameters
 
         """
-        name = f'{OBJECT_TAG}' \
+        name = f'{define.OBJECT_TAG}' \
                f'{self.__class__.__module__}.' \
                f'{self.__class__.__name__}'
         if include_version:
             version = Object._get_version(self.__class__.__module__)
             if version is not None:
-                name += f'{VERSION_TAG}{version}'
+                name += f'{define.VERSION_TAG}{version}'
             else:
                 warnings.warn(
                     f"Could not determine a version for "
@@ -267,12 +216,10 @@ class Object:
     ):
         r"""Encode a value by first looking for a custom resolver,
         otherwise switch to default encoder."""
-        resolver_key = f'{self.__class__}.{name}'
-        if resolver_key in self._value_resolver:
-            if isinstance(self._value_resolver[resolver_key], ValueResolver):
-                value = self._value_resolver[resolver_key].encode(value)
-            else:
-                value = self._value_resolver[resolver_key][0](value)
+        if hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
+            resolvers = self.__dict__[define.CUSTOM_VALUE_RESOLVERS]
+            if name in resolvers:
+                value = resolvers[name].encode(value)
         return Object._encode_value_default(value, include_version)
 
     @staticmethod
@@ -285,7 +232,7 @@ class Object:
             return None
         elif Object._is_class(value):
             return value.to_dict(include_version=include_version)
-        elif isinstance(value, (str, int, float, bool)):
+        elif isinstance(value, define.DEFAULT_VALUE_TYPES):
             return value
         elif isinstance(value, list):
             return [
@@ -301,41 +248,24 @@ class Object:
             }
         else:
             warnings.warn(
-                f"No encoding exists for type '{type(value)}'. "
-                f"Calling 'repr()' to encode the value. "
+                f"No default encoding exists for type '{type(value)}'. "
                 f"Consider to register a custom resolver.",
                 RuntimeWarning,
             )
-            return repr(value)
+            return value
 
     @staticmethod
-    def _decode_value(
-            cls: 'Object',
-            name: str,
-            value: typing.Any
-    ) -> typing.Any:
-        r"""Decode a value by first looking for a custom resolver,
-        otherwise switch to default encoder."""
-        resolver_key = f'{cls}.{name}'
-        if resolver_key in cls._value_resolver:
-            if isinstance(cls._value_resolver[resolver_key], ValueResolver):
-                value = cls._value_resolver[resolver_key].decode(value)
-            else:
-                value = cls._value_resolver[resolver_key][1](value)
-        return Object._decode_value_default(value)
-
-    @staticmethod
-    def _decode_value_default(value: typing.Any) -> typing.Any:
+    def _decode_value(value: typing.Any) -> typing.Any:
         r"""Default value decoder."""
         if isinstance(value, list):
-            return [Object._decode_value_default(v) for v in value]
+            return [Object._decode_value(v) for v in value]
         elif isinstance(value, dict):
             name = next(iter(value))
             if Object._is_class(name):
                 return Object.from_dict(value)
             else:
                 return {
-                    k: Object._decode_value_default(v) for k, v in
+                    k: Object._decode_value(v) for k, v in
                     value.items()
                 }
         else:
@@ -344,8 +274,8 @@ class Object:
     @staticmethod
     def _get_class(key: str) -> (type, str, str):
         r"""Load class module."""
-        if key.startswith(OBJECT_TAG):
-            key = key[len(OBJECT_TAG):]
+        if key.startswith(define.OBJECT_TAG):
+            key = key[len(define.OBJECT_TAG):]
         module_name, class_name, version = Object._split_key(key)
         installed_version = Object._get_version(module_name)
         module = importlib.import_module(module_name)
@@ -438,7 +368,7 @@ class Object:
         if isinstance(value, Object):
             return True
         elif isinstance(value, str):
-            if value.startswith(OBJECT_TAG):
+            if value.startswith(define.OBJECT_TAG):
                 return True
             # only for backward compatibility with `auglib` and `audbenchmark`
             if value.startswith('auglib.core.') or \
@@ -450,8 +380,8 @@ class Object:
     def _split_key(key: str) -> [str, str, typing.Optional[str]]:
         r"""Split value key in module, class and version."""
         version = None
-        if VERSION_TAG in key:
-            key, version = key.split(VERSION_TAG)
+        if define.VERSION_TAG in key:
+            key, version = key.split(define.VERSION_TAG)
         tokens = key.split('.')
         module_name = '.'.join(tokens[:-1])
         class_name = tokens[-1]
@@ -465,101 +395,3 @@ class Object:
 
     def __str__(self) -> str:
         return self.to_yaml_s(include_version=False)
-
-
-DefaultValueType = typing.Union[
-    None, Object, str, int, float, bool, list, dict,
-]
-
-
-class ValueResolver(Object):
-    r"""Abstract resolver class.
-
-    Implement for parameters that are not one of
-    ``(None, Object, str, int, float, bool, list, dict)``.
-
-    """
-    def encode(self, value: typing.Any) -> DefaultValueType:
-        r"""Encode value.
-
-        The type of the returned value must be one of
-        ``(None, Object, str, int, float, bool, list, dict)``.
-
-        Args:
-            value: value to encode
-
-        Returns:
-            encoded value
-
-        """
-        raise NotImplementedError  # pragma: no cover
-
-    def decode(self, value: DefaultValueType) -> typing.Any:
-        r"""Decode value.
-
-        Takes the encoded value and converts it back to its original type.
-
-        Args:
-            value: value to decode
-
-        Returns:
-            decoded value
-
-        """
-        raise NotImplementedError  # pragma: no cover
-
-
-class TupleResolver(ValueResolver):
-    r"""Tuple resolver."""
-
-    def encode(self, value: tuple) -> list:
-        r"""Encodes ``tuple`` as ``list``.
-
-        Args:
-            value: tuple
-
-        Returns:
-            list
-
-        """
-        return list(value)
-
-    def decode(self, value: list) -> tuple:
-        r"""Decodes ``list`` as ``tuple``.
-
-        Args:
-            value: list
-
-        Returns:
-            tuple
-
-        """
-        return tuple(value)
-
-
-class TypeResolver(ValueResolver):
-    r"""Type resolver."""
-
-    def encode(self, value: type) -> str:
-        r"""Encodes ``type`` as ``str``.
-
-        Args:
-            value: type class
-
-        Returns:
-            string
-
-        """
-        return str(value)[len("<class '"):-len("'>")]
-
-    def decode(self, value: str) -> type:
-        r"""Decodes ``str`` as ``type``.
-
-        Args:
-            value: type string
-
-        Returns:
-            type
-
-        """
-        return eval(value)

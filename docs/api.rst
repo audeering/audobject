@@ -9,6 +9,11 @@ config
 .. autoclass:: config
     :members:
 
+init_object_decorator
+---------------------
+
+.. autofunction:: init_object_decorator
+
 Object
 ------
 

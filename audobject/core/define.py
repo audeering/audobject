@@ -1,3 +1,12 @@
+import datetime
+
+
+OBJECT_TAG = '$'
+VERSION_TAG = '=='
+DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
+CUSTOM_VALUE_RESOLVERS = '_custom_value_resolvers'
+
+
 class SignatureMismatchWarnLevel:
     r"""Controls verbosity for signature mismatch.
 

@@ -3,10 +3,14 @@ import os
 import pkg_resources
 import typing
 
-from audobject.core.api import (
+from audobject.core.decorator import (
+    init_object_decorator,
+)
+from audobject.core.object import (
     Object,
+)
+from audobject.core.resolver import (
     TypeResolver,
-    ValueResolver,
 )
 
 
@@ -63,6 +67,9 @@ class Parameter(Object):
 
     """  # noqa: E501
 
+    @init_object_decorator({
+        'value_type': TypeResolver,
+    })
     def __init__(
             self,
             *,
@@ -78,7 +85,6 @@ class Parameter(Object):
         self.name = name
         r"""Name of parameter"""
         self.value_type = value_type
-        self.add_value_resolver('value_type', TypeResolver())
         r"""Data type of parameter"""
         self.description = description
         r"""Value of parameter, use 'set_value' for type checking"""

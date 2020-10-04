@@ -1,5 +1,14 @@
 from datetime import datetime
-from audobject.core.api import Object, TupleResolver
+
+from audobject.core.decorator import (
+    init_object_decorator,
+)
+from audobject.core.object import (
+    Object,
+)
+from audobject.core.resolver import (
+    TupleResolver,
+)
 
 
 class TestObject(Object):
@@ -21,10 +30,13 @@ class TestObject(Object):
       point:
       - 0
       - 0
-      date: '1991-02-20 00:00:00.000000'
+      date: 1991-02-20 00:00:00
       var: 1.234
 
     """
+    @init_object_decorator({
+        'point': TupleResolver,
+    })
     def __init__(
             self,
             name: str,
@@ -35,14 +47,6 @@ class TestObject(Object):
     ):
         self.name = name
         self.point = point
-        self.add_value_resolver('point', TupleResolver())
         self.date = date or datetime.now()
-        self.add_value_resolver(
-            'date',
-            (
-                lambda x: x.strftime('%Y-%m-%d %H:%M:%S.%f'),
-                lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
-            )
-        )
         for key, value in kwargs.items():
             self.__dict__[key] = value

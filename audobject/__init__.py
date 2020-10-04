@@ -1,11 +1,16 @@
 from audobject import define
 from audobject.core.config import config
-from audobject.core.parameters import (
+from audobject.core.parameter import (
     Parameter,
     Parameters,
 )
-from audobject.core.api import (
+from audobject.core.decorator import (
+    init_object_decorator,
+)
+from audobject.core.object import (
     Object,
+)
+from audobject.core.resolver import (
     TupleResolver,
     TypeResolver,
     ValueResolver,

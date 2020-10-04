@@ -173,36 +173,42 @@ Value resolver
 --------------
 
 As long as the type of our variables is one of
-``(None, Object, str, int, float, bool, list, dict)``,
-it is ensured that we can correctly
-re-instantiate an instance from YAML.
-Variables with other types
-will be converted as to a string by calling ``repr()``,
-which is usually not what we want.
+``(None, Object, str, int, float, bool, list, dict, datetime.datetime)``,
+it is ensured that we get a clean YAML file.
+Other types may be encoded using the ``!!python/object`` tag
+and clutter the YAML syntax.
 
-To illustrate this, let's use an instance of ``datetime``.
+To illustrate this, let's use an instance of timedelta_.
 
 .. jupyter-execute::
 
-    from datetime import datetime
+    from datetime import timedelta
 
-    class MyDateObject(audobject.Object):
+    class MyDeltaObject(audobject.Object):
 
         def __init__(
                 self,
-                date: datetime,
+                delta: timedelta,
         ):
-            self.date = date
+            self.delta = delta
 
         def __str__(self) -> str:
-            return self.date.strftime('%Y-%m-%d %H:%M:%S.%f')
-
+            return str(self.delta)
 
 As before, we can create an instance and print it.
 
 .. jupyter-execute::
 
-    d = MyDateObject(datetime.now())
+    delta = timedelta(
+        days=50,
+        seconds=27,
+        microseconds=10,
+        milliseconds=29000,
+        minutes=5,
+        hours=8,
+        weeks=2
+    )
+    d = MyDeltaObject(delta)
     print(d)
 
 But if we convert it to YAML,
@@ -214,84 +220,67 @@ we'll see a warning.
     d_yaml = d.to_yaml_s()
     print(d_yaml)
 
-And in fact, our code will break
-if we re-instantiate the object
-and try to print it.
+And in fact, we can see that
+the ``delta`` value is encoded
+with a ``!!python/object`` tag,
+which is followed by some plain numbers.
+Only after looking into the documentation of
+timedelta_ we can guess that
+they probably encode ``days``, ``seconds``,
+and ``microseconds``.
 
-.. jupyter-execute::
-    :stderr:
-    :raises:
-
-    d2 = audobject.Object.from_yaml_s(d_yaml)
-    print(d2)
-
-The problem comes from the fact
-that the type of the ``date`` variable
-turned from ``datetime`` to ``str``.
-To avoid this we can provide a resolver,
-which properly encodes and decodes
-the variable while retaining its type.
+We can avoid this by providing a custom resolver
+that defines how a timedelta_ object should be
+encoded and decoded.
 
 .. jupyter-execute::
 
-    class DatetimeResolver(audobject.ValueResolver):
+    class DeltaResolver(audobject.ValueResolver):
 
-        def encode(self, value: datetime) -> str:
-            return value.strftime('%Y-%m-%d %H:%M:%S.%f')
-
-        def decode(self, value: str) -> datetime:
-            return datetime.strptime(value, '%Y-%m-%d %H:%M:%S.%f')
-
-
-    class MySafeDateObject(audobject.Object):
-
-        def __init__(
-                self,
-                date: datetime,
-        ):
-            self.date = date
-            self.add_value_resolver('date', DatetimeResolver())
-
-        def __str__(self) -> str:
-            return self.date.strftime('%Y-%m-%d %H:%M:%S.%f')
-
-Now, the following code works as expected.
-
-.. jupyter-execute::
-
-    d = MySafeDateObject(datetime.now())
-    d_yaml = d.to_yaml_s()
-    d2 = audobject.Object.from_yaml_s(d_yaml)
-    print(d2)
-
-If we don't want to define a resolver class,
-we can achieve the same with ``lambda`` expressions.
-
-.. jupyter-execute::
-
-    class MySafeDateObject2(audobject.Object):
-
-        def __init__(
-                self,
-                date: datetime,
-        ):
-            self.date = date
-            self.add_value_resolver(
-                'date',
-                (
-                    lambda x: x.strftime('%Y-%m-%d %H:%M:%S.%f'),
-                    lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f'),
-                )
+        def decode(self, value: dict) -> timedelta:
+            return timedelta(
+                days=value['days'],
+                seconds=value['seconds'],
+                microseconds=value['microseconds'],
             )
 
+        def encode(self, value: timedelta) -> dict:
+            return {
+                'days': value.days,
+                'seconds': value.seconds,
+                'microseconds': value.microseconds,
+            }
+
+        def encode_type(self):
+            return dict
+
+To apply our custom resolver to the
+``delta`` variable, we use
+:meth:`audobject.init_object_decorator`
+on the ``__init__`` function of our class.
+
+.. jupyter-execute::
+
+    class MyResolvedDeltaObject(audobject.Object):
+
+        @audobject.init_object_decorator({'delta': DeltaResolver})
+        def __init__(
+                self,
+                delta: timedelta,
+        ):
+            self.delta = delta
+
         def __str__(self) -> str:
-            return self.date.strftime('%Y-%m-%d %H:%M:%S.%f')
+            return str(self.delta)
 
+Now, we don't get a warning
+and the ``!!python/object`` tag has disappeared.
 
-    d = MySafeDateObject2(datetime.now())
+.. jupyter-execute::
+
+    d = MyResolvedDeltaObject(delta)
     d_yaml = d.to_yaml_s()
-    d2 = audobject.Object.from_yaml_s(d_yaml)
-    print(d2)
+    print(d_yaml)
 
 Object ID
 ---------
@@ -608,4 +597,5 @@ we can read/write the parameters from/to a file.
     params2 = audobject.Object.from_yaml(file)
     print(params2)
 
+.. _timedelta: https://docs.python.org/3/library/datetime.html#timedelta-objects
 .. _argparse: https://docs.python.org/3/library/argparse.html
