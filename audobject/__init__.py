@@ -9,6 +9,7 @@ from audobject.core.decorator import (
 )
 from audobject.core.object import (
     Object,
+    DictObject,
 )
 from audobject.core.resolver import (
     TupleResolver,

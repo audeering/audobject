@@ -7,6 +7,7 @@ from audobject.core.decorator import (
     init_object_decorator,
 )
 from audobject.core.object import (
+    DictObject,
     Object,
 )
 from audobject.core.resolver import (
@@ -133,11 +134,10 @@ class Parameter(Object):
         self.value = value
 
 
-class Parameters(Object):
+class Parameters(DictObject):
     r"""List of parameters.
 
     Args:
-        *args: :class:`audobject.Parameter` objects
         **kwargs: :class:`audobject.Parameter` objects
 
     Example:
@@ -162,8 +162,7 @@ class Parameters(Object):
             self,
             **kwargs,
     ):
-        for name, param in kwargs.items():
-            self[name] = param
+        super().__init__(**kwargs)
 
     def from_dict(
             self,
@@ -215,14 +214,6 @@ class Parameters(Object):
 
         """
         return self.from_dict(args.__dict__)
-
-    def keys(self) -> typing.KeysView[str]:
-        r"""Returns the parameter keys."""
-        return self.__dict__.keys()
-
-    def items(self) -> typing.ItemsView[str, Parameter]:
-        r"""Returns the parameter values."""
-        return self.__dict__.items()
 
     def to_command_line(
             self,
@@ -291,30 +282,15 @@ class Parameters(Object):
         parts = ['{}[{}]'.format(key, value) for key, value in d.items()]
         return delimiter.join(parts)
 
-    def values(self) -> typing.ValuesView[typing.Any]:
-        r"""Returns parameter values.
-
-        """
-        return self.__dict__.values()
-
     def __getattribute__(self, name) -> typing.Any:
         if not name == '__dict__' and name in self.__dict__:
             p = self.__dict__[name]
             return p.value
         return object.__getattribute__(self, name)
 
-    def __getitem__(self, name: str) -> Parameter:
-        return self.__dict__[name]
-
-    def __repr__(self):  # pragma: no cover
-        return str({name: param.value for name, param in self.items()})
-
     def __setattr__(self, name: str, value: typing.Any):
         p = self.__dict__[name]
         p.set_value(value)
-
-    def __setitem__(self, name: str, param: Parameter):
-        self.__dict__[name] = param
 
     def __str__(self):  # pragma: no cover
         table = [

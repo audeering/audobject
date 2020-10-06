@@ -9,6 +9,13 @@ config
 .. autoclass:: config
     :members:
 
+DictObject
+----------
+
+.. autoclass:: DictObject
+    :members:
+    :inherited-members:
+
 init_object_decorator
 ---------------------
 
@@ -25,12 +32,14 @@ Parameter
 
 .. autoclass:: Parameter
     :members:
+    :inherited-members:
 
 Parameters
 ----------
 
 .. autoclass:: Parameters
     :members:
+    :inherited-members:
 
 TupleResolver
 -------------

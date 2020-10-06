@@ -92,11 +92,9 @@ def test_parameter_version(param_version, check_version, result):
 def test_parameters_init(params):
     pp = audobject.Parameters(**params)
     for name, p in params.items():
+        assert name in pp
         assert name in pp.keys()
         assert p in pp.values()
-    for name, value in pp.items():
-        assert name in pp.keys()
-        assert value in pp.values()
 
 
 def test_parameters_command_line():

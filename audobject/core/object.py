@@ -277,3 +277,55 @@ class Object:
 
     def __str__(self) -> str:
         return self.to_yaml_s(include_version=False)
+
+
+class DictObject(Object):
+    r"""Object dictionary.
+
+    Args:
+        **kwargs: items
+
+    Example:
+        >>> # create dictionary
+        >>> params =  DictObject(foo='foo', bar='bar')
+        >>> # set item
+        >>> params['foo'] = 'FOO'
+        >>> # get item
+        >>> params['foo']
+        'FOO'
+        >>> # add item
+        >>> params['new'] = 1.234
+        >>> print(params)
+        $audobject.core.object.DictObject:
+          foo: FOO
+          bar: bar
+          new: 1.234
+
+    """  # noqa: E501
+    def __init__(
+            self,
+            **kwargs,
+    ):
+        for key, value in kwargs.items():
+            self[key] = value
+
+    def keys(self) -> typing.KeysView[str]:
+        r"""Return the keys."""
+        return self.__dict__.keys()
+
+    def items(self) -> typing.ItemsView[str, typing.Any]:
+        r"""Return items view."""
+        return self.__dict__.items()
+
+    def values(self) -> typing.ValuesView[typing.Any]:
+        r"""Return values."""
+        return self.__dict__.values()
+
+    def __contains__(self, key):
+        return key in self.__dict__
+
+    def __getitem__(self, name: str) -> typing.Any:
+        return self.__dict__[name]
+
+    def __setitem__(self, key: str, value: typing.Any):
+        self.__dict__[key] = value
