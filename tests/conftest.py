@@ -15,26 +15,21 @@ pytest.PARAMS = [
         pytest.COLUMNS[2]: idx,
     } for idx in range(3)
 ]
-pytest.PARAMETERS = audobject.Parameters().add(
-    audobject.Parameter(
-        name='foo',
+pytest.PARAMETERS = audobject.Parameters(
+    foo=audobject.Parameter(
         value_type=str,
         description='a string',
         choices=[None, 'foo'],
-    )
-).add(
-    audobject.Parameter(
-        name='bar',
+    ),
+    bar=audobject.Parameter(
         value_type=int,
         description='an integer',
         default_value=1,
         version='>=2.0.0',
-    )
-).add(
-    audobject.Parameter(
-        name='toggle',
+    ),
+    toggle=audobject.Parameter(
         value_type=bool,
         description='a boolean',
         default_value=False,
-    )
+    ),
 )

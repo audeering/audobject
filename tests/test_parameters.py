@@ -8,7 +8,7 @@ import audobject
 
 
 @pytest.mark.parametrize(
-    'dtype,default,choices,value',
+    'value_type, default_value, choices, value',
     [
         (str, None, None, None),
         (str, 'default', None, 'value'),
@@ -29,15 +29,14 @@ import audobject
         ),
     ]
 )
-def test_parameter_type(dtype, default, choices, value):
+def test_parameter_type(value_type, default_value, choices, value):
     p = audobject.Parameter(
-        name='foo',
-        value_type=dtype,
+        value_type=value_type,
         description='bar',
-        default_value=default,
+        default_value=default_value,
         choices=choices,
     )
-    assert p.value == default
+    assert p.value == default_value
     p.set_value(value)
     assert p.value == value
 
@@ -61,7 +60,6 @@ def test_parameter_type(dtype, default, choices, value):
 )
 def test_parameter_version(param_version, check_version, result):
     p = audobject.Parameter(
-        name='foo',
         value_type=str,
         description='bar',
         version=param_version,
@@ -73,31 +71,31 @@ def test_parameter_version(param_version, check_version, result):
     'params',
     [
         (
-            []
+            {}
         ),
         (
-            [
-                audobject.Parameter(
-                    name='foo',
-                    value_type=str,
-                    description='bar',
-                ),
-                audobject.Parameter(
-                    name='idx',
-                    value_type=int,
-                    description='int',
-                )
-            ]
+            {
+                'foo':
+                    audobject.Parameter(
+                        value_type=str,
+                        description='bar',
+                    ),
+                'idx':
+                    audobject.Parameter(
+                        value_type=int,
+                        description='int',
+                    )
+            }
         ),
     ]
 )
 def test_parameters_init(params):
-    pp = audobject.Parameters(*params)
-    for p in params:
-        assert p.name in pp.keys()
+    pp = audobject.Parameters(**params)
+    for name, p in params.items():
+        assert name in pp.keys()
         assert p in pp.values()
-    for key, value in pp.items():
-        assert key in pp.keys()
+    for name, value in pp.items():
+        assert name in pp.keys()
         assert value in pp.values()
 
 
@@ -140,7 +138,7 @@ def test_parameters_path(delimiter, sort):
     path = p.to_path(delimiter=delimiter, sort=sort)
     for item in path.split(delimiter):
         key, value = parse.parse('{}[{}]', item)
-        assert str(p.get_parameter(key).value) == value
+        assert str(p[key].value) == value
 
     path = p.to_path(delimiter=delimiter, include=['bar'])
     assert 'bar' in path
@@ -153,7 +151,7 @@ def test_parameters_path(delimiter, sort):
 def test_parameters_value():
 
     p = pytest.PARAMETERS
-    old_value = p.get_parameter('bar').value
+    old_value = p['bar'].value
     new_value = old_value + 1
 
     assert p.bar == old_value

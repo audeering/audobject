@@ -22,7 +22,6 @@ class Parameter(Object):
     It is possible to bound a parameter to a specific version (range).
 
     Args:
-        name: name
         value_type: data type, one of
             (``None``, ``str``, ``int``, ``float``, ``bool``)
             or a ``list`` or ``dict`` of those
@@ -40,7 +39,6 @@ class Parameter(Object):
 
     Example:
         >>> foo = Parameter(
-        ...     name='foo',
         ...     value_type=str,
         ...     description='some parameter',
         ...     default_value='bar',
@@ -63,7 +61,7 @@ class Parameter(Object):
         ...     foo.set_value('par')
         ... except ValueError as ex:
         ...     print(ex)
-        Invalid value 'par' for parameter foo, expected one of ['bar', 'Bar', 'BAR'].
+        Invalid value 'par', expected one of ['bar', 'Bar', 'BAR'].
 
     """  # noqa: E501
 
@@ -73,17 +71,14 @@ class Parameter(Object):
     def __init__(
             self,
             *,
-            name: str,
-            value_type: type,
-            description: str,
+            value_type: type = str,
+            description: str = '',
             value: typing.Any = None,
             default_value: typing.Any = None,
             choices: typing.Sequence[typing.Any] = None,
             version: str = None,
     ):
 
-        self.name = name
-        r"""Name of parameter"""
         self.value_type = value_type
         r"""Data type of parameter"""
         self.description = description
@@ -101,12 +96,6 @@ class Parameter(Object):
             self.set_value(value)
         else:
             self.set_value(default_value)
-
-    def __repr__(self) -> str:  # pragma: no cover
-        return str({self.name: self.value})
-
-    def __str__(self) -> str:  # pragma: no cover
-        return str(self.__dict__)
 
     def __contains__(self, version: typing.Optional[str]) -> bool:
 
@@ -133,12 +122,12 @@ class Parameter(Object):
         """
         if value is not None and not isinstance(value, self.value_type):
             raise TypeError(
-                f"Invalid type '{type(value)}' for parameter {self.name}, "
+                f"Invalid type '{type(value)}', "
                 f"expected {self.value_type}."
             )
         if self.choices is not None and value not in self.choices:
             raise ValueError(
-                f"Invalid value '{value}' for parameter {self.name}, "
+                f"Invalid value '{value}', "
                 f"expected one of {self.choices}."
             )
         self.value = value
@@ -156,46 +145,25 @@ class Parameters(Object):
         >>> params = Parameters()
         >>> # create parameter
         >>> foo = Parameter(
-        ...     name='foo',
         ...     value_type=str,
-        ...     description='foooo',
+        ...     description='foo',
         ... )
         >>> # add parameter to list
-        >>> params.add(foo)
-        {'foo': None}
-        >>> # get/set parameter through list
+        >>> params['foo'] = foo
+        >>> params['foo']
+        {'$audobject.core.parameter.Parameter': {'value_type': 'str', 'description': 'foo', 'value': None, 'default_value': None, 'choices': None, 'version': None}}
+        >>> # get / set parameter value
+        >>> params.foo = 'bar'
         >>> params.foo
-        >>> params.foo = 'foo'
-        >>> params.foo
-        'foo'
+        'bar'
 
-    """
+    """  # noqa: E501
     def __init__(
             self,
-            *args,
             **kwargs,
     ):
-        for param in args:
-            self.add(param)
-        for param in kwargs.values():
-            self.add(param)
-
-    def add(
-            self,
-            param: Parameter,
-    ) -> 'Parameters':
-        r"""Adds a new parameter.
-
-        You can get and set values of an added parameter
-        via :attr:`params.name`
-        and :attr:`params.name = new_value`.
-
-        Args:
-            param: parameter
-
-        """
-        self.__dict__[param.name] = param
-        return self
+        for name, param in kwargs.items():
+            self[name] = param
 
     def from_dict(
             self,
@@ -213,13 +181,6 @@ class Parameters(Object):
             if key in self.keys():
                 self.__setattr__(key, value)
         return self
-
-    def get_parameter(
-            self,
-            name: str,
-    ) -> Parameter:
-        r"""Returns the parameter object."""
-        return self.__dict__[name]
 
     def filter_by_version(
             self,
@@ -240,7 +201,7 @@ class Parameters(Object):
         params = Parameters()
         for name, param in self.items():
             if version in param:
-                params.add(param)
+                params[name] = param
         return params
 
     def from_command_line(
@@ -318,7 +279,7 @@ class Parameters(Object):
         if sort:
             names = sorted(names)
         d = {
-            name: self.get_parameter(name).value for name in names
+            name: self[name].value for name in names
         }
         exclude = set(exclude or [])
         if include is not None:
@@ -342,12 +303,18 @@ class Parameters(Object):
             return p.value
         return object.__getattribute__(self, name)
 
+    def __getitem__(self, name: str) -> Parameter:
+        return self.__dict__[name]
+
     def __repr__(self):  # pragma: no cover
-        return str({param.name: param.value for param in self.values()})
+        return str({name: param.value for name, param in self.items()})
 
     def __setattr__(self, name: str, value: typing.Any):
         p = self.__dict__[name]
         p.set_value(value)
+
+    def __setitem__(self, name: str, param: Parameter):
+        self.__dict__[name] = param
 
     def __str__(self):  # pragma: no cover
         table = [

@@ -494,7 +494,6 @@ A parameter that holds a string.
 .. jupyter-execute::
 
     string = audobject.Parameter(
-        name='string',
         value_type=str,
         description='the string we want to repeat',
         value='bar',
@@ -507,7 +506,6 @@ And a parameter that defines how many times we want to repeat the string.
 .. jupyter-execute::
 
     repeat = audobject.Parameter(
-        name='num_repeat',
         value_type=int,
         description='the number of times we want to repeat',
         default_value=1,
@@ -518,7 +516,10 @@ Now we combine the two parameters into a list.
 
 .. jupyter-execute::
 
-    params = audobject.Parameters(string, repeat)
+    params = audobject.Parameters(
+        string=string,
+        num_repeat=repeat,
+    )
     print(params)
 
 We can access the values of the parameters using ``.`` notation.
@@ -544,13 +545,12 @@ to a parameter.
 .. jupyter-execute::
 
     delim = audobject.Parameter(
-        name='delimiter',
         value_type=str,
         description='defines the delimiter',
         default_value=',',
         version='>=2.0.0,<3.0.0'
     )
-    params.add(delim)
+    params['delimiter'] = delim
     print(params)
 
 We can check if a parameter is available for a specific version.

@@ -1,0 +1,121 @@
+import importlib
+import inspect
+import typing
+import warnings
+
+from audobject.core.config import config
+from audobject.core import define
+
+
+def get_class(key: str) -> (type, str, str):
+    r"""Load class module."""
+    if key.startswith(define.OBJECT_TAG):
+        key = key[len(define.OBJECT_TAG):]
+    module_name, class_name, version = split_key(key)
+    installed_version = get_version(module_name)
+    module = importlib.import_module(module_name)
+    return getattr(module, class_name), version, installed_version
+
+
+def get_object(
+        cls: type,
+        version: str,
+        installed_version: str,
+        params: dict,
+) -> typing.Any:
+    r"""Create object from parameters."""
+    signature = inspect.signature(cls.__init__)
+    supports_kwargs = 'kwargs' in signature.parameters
+
+    # check for missing mandatory parameters
+    required_params = set([
+        p.name for p in signature.parameters.values()
+        if p.default == inspect.Parameter.empty and p.name not in [
+            'self', 'args', 'kwargs',
+        ]
+    ])
+    missing_required_params = list(required_params - set(params))
+    if len(missing_required_params) > 0:
+        raise RuntimeError(
+            f"Missing mandatory parameter(s) "
+            f"{missing_required_params} "
+            f"while instantiating '{cls}' from "
+            f"version '{version}' when using "
+            f"version '{installed_version}'."
+        )
+
+    # check for missing optional parameters
+    optional_params = set([
+        p.name for p in signature.parameters.values()
+        if p.default != inspect.Parameter.empty and p.name not in [
+            'self', 'args', 'kwargs',
+        ]
+    ])
+    missing_optional_params = list(optional_params - set(params))
+    if len(missing_optional_params) > 0:
+        if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
+                define.SignatureMismatchWarnLevel.STANDARD:
+            warnings.warn(
+                f"Missing optional parameter(s) "
+                f"{missing_optional_params} "
+                f"while instantiating '{cls}' from "
+                f"version '{version}' when using "
+                f"version '{installed_version}'.",
+                RuntimeWarning,
+            )
+
+    # unless kwargs are supported check for additional parameters
+    if not supports_kwargs:
+        supported_params = set([
+            p.name for p in signature.parameters.values()
+            if p.name not in ['self', 'kwargs']
+        ])
+        additional_params = list(set(params) - supported_params)
+        if len(additional_params):
+            if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
+                    define.SignatureMismatchWarnLevel.SILENT:
+                warnings.warn(
+                    f"Ignoring parameter(s) "
+                    f"{additional_params} "
+                    f"while instantiating '{cls}' from "
+                    f"version '{version}' when using "
+                    f"version '{installed_version}'.",
+                    RuntimeWarning,
+                )
+            params = {
+                key: value for key, value in params.items()
+                if key in supported_params
+            }
+
+    return cls(**params)
+
+
+def get_version(module_name: str) -> typing.Optional[str]:
+    module = importlib.import_module(module_name.split('.')[0])
+    if '__version__' in module.__dict__:
+        return module.__version__
+    else:
+        return None
+
+
+def is_class(value: typing.Any):
+    r"""Check if value is a class."""
+    if isinstance(value, str):
+        if value.startswith(define.OBJECT_TAG):
+            return True
+        # only for backward compatibility with `auglib` and `audbenchmark`
+        if value.startswith('auglib.core.') or \
+                value.startswith('audbenchmark.core.'):
+            return True  # pragma: no cover
+    return False
+
+
+def split_key(key: str) -> [str, str, typing.Optional[str]]:
+    r"""Split value key in module, class and version."""
+    version = None
+    if define.VERSION_TAG in key:
+        key, version = key.split(define.VERSION_TAG)
+    tokens = key.split('.')
+    module_name = '.'.join(tokens[:-1])
+    class_name = tokens[-1]
+    return module_name, class_name, version

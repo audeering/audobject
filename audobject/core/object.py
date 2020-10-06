@@ -1,5 +1,3 @@
-import importlib
-import inspect
 import os
 import typing
 import warnings
@@ -8,8 +6,8 @@ import oyaml as yaml
 
 import audeer
 
-from audobject.core.config import config
 from audobject.core import define
+from audobject.core import utils
 
 
 class Object:
@@ -94,11 +92,11 @@ class Object:
 
         """
         name = next(iter(d))
-        cls, version, installed_version = Object._get_class(name)
+        cls, version, installed_version = utils.get_class(name)
         params = {}
         for key, value in d[name].items():
             params[key] = Object._decode_value(value)
-        return Object._get_object(cls, version, installed_version, params)
+        return utils.get_object(cls, version, installed_version, params)
 
     @staticmethod
     def from_yaml(
@@ -149,7 +147,7 @@ class Object:
                f'{self.__class__.__module__}.' \
                f'{self.__class__.__name__}'
         if include_version:
-            version = Object._get_version(self.__class__.__module__)
+            version = utils.get_version(self.__class__.__module__)
             if version is not None:
                 name += f'{define.VERSION_TAG}{version}'
             else:
@@ -230,7 +228,7 @@ class Object:
         r"""Default value encoder."""
         if value is None:
             return None
-        elif Object._is_class(value):
+        elif isinstance(value, Object) or utils.is_class(value):
             return value.to_dict(include_version=include_version)
         elif isinstance(value, define.DEFAULT_VALUE_TYPES):
             return value
@@ -261,7 +259,7 @@ class Object:
             return [Object._decode_value(v) for v in value]
         elif isinstance(value, dict):
             name = next(iter(value))
-            if Object._is_class(name):
+            if isinstance(name, Object) or utils.is_class(name):
                 return Object.from_dict(value)
             else:
                 return {
@@ -270,122 +268,6 @@ class Object:
                 }
         else:
             return value
-
-    @staticmethod
-    def _get_class(key: str) -> (type, str, str):
-        r"""Load class module."""
-        if key.startswith(define.OBJECT_TAG):
-            key = key[len(define.OBJECT_TAG):]
-        module_name, class_name, version = Object._split_key(key)
-        installed_version = Object._get_version(module_name)
-        module = importlib.import_module(module_name)
-        return getattr(module, class_name), version, installed_version
-
-    @staticmethod
-    def _get_object(
-        cls: type,
-        version: str,
-        installed_version: str,
-        params: dict,
-    ) -> 'Object':
-        r"""Create object from parameters."""
-        signature = inspect.signature(cls.__init__)
-        supports_kwargs = 'kwargs' in signature.parameters
-
-        # check for missing mandatory parameters
-        required_params = set([
-            p.name for p in signature.parameters.values()
-            if p.default == inspect.Parameter.empty and p.name not in [
-                'self', 'args', 'kwargs',
-            ]
-        ])
-        missing_required_params = list(required_params - set(params))
-        if len(missing_required_params) > 0:
-            raise RuntimeError(
-                f"Missing mandatory parameter(s) "
-                f"{missing_required_params} "
-                f"while instantiating '{cls}' from "
-                f"version '{version}' when using "
-                f"version '{installed_version}'."
-            )
-
-        # check for missing optional parameters
-        optional_params = set([
-            p.name for p in signature.parameters.values()
-            if p.default != inspect.Parameter.empty and p.name not in [
-                'self', 'args', 'kwargs',
-            ]
-        ])
-        missing_optional_params = list(optional_params - set(params))
-        if len(missing_optional_params) > 0:
-            if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
-                    define.SignatureMismatchWarnLevel.STANDARD:
-                warnings.warn(
-                    f"Missing optional parameter(s) "
-                    f"{missing_optional_params} "
-                    f"while instantiating '{cls}' from "
-                    f"version '{version}' when using "
-                    f"version '{installed_version}'.",
-                    RuntimeWarning,
-                )
-
-        # unless kwargs are supported check for additional parameters
-        if not supports_kwargs:
-            supported_params = set([
-                p.name for p in signature.parameters.values()
-                if p.name not in ['self', 'kwargs']
-            ])
-            additional_params = list(set(params) - supported_params)
-            if len(additional_params):
-                if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
-                        define.SignatureMismatchWarnLevel.SILENT:
-                    warnings.warn(
-                        f"Ignoring parameter(s) "
-                        f"{additional_params} "
-                        f"while instantiating '{cls}' from "
-                        f"version '{version}' when using "
-                        f"version '{installed_version}'.",
-                        RuntimeWarning,
-                    )
-                params = {
-                    key: value for key, value in params.items()
-                    if key in supported_params
-                }
-
-        return cls(**params)
-
-    @staticmethod
-    def _get_version(module_name: str) -> typing.Optional[str]:
-        module = importlib.import_module(module_name.split('.')[0])
-        if '__version__' in module.__dict__:
-            return module.__version__
-        else:
-            return None
-
-    @staticmethod
-    def _is_class(value: typing.Any):
-        r"""Check if value is a class."""
-        if isinstance(value, Object):
-            return True
-        elif isinstance(value, str):
-            if value.startswith(define.OBJECT_TAG):
-                return True
-            # only for backward compatibility with `auglib` and `audbenchmark`
-            if value.startswith('auglib.core.') or \
-                    value.startswith('audbenchmark.core.'):
-                return True  # pragma: no cover
-        return False
-
-    @staticmethod
-    def _split_key(key: str) -> [str, str, typing.Optional[str]]:
-        r"""Split value key in module, class and version."""
-        version = None
-        if define.VERSION_TAG in key:
-            key, version = key.split(define.VERSION_TAG)
-        tokens = key.split('.')
-        module_name = '.'.join(tokens[:-1])
-        class_name = tokens[-1]
-        return module_name, class_name, version
 
     def __eq__(self, other: 'Object') -> bool:
         return self.id == other.id
