@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
+
+Version 0.3.0 (2020-10-08)
+--------------------------
+
+* Added: option to ignore variables
+* Added: option to override variables
+* Changed: change ``sanity_check=True`` to ``check_vars=False``
+
 Version 0.2.0 (2020-10-08)
 --------------------------
 
