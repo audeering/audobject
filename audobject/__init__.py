@@ -5,7 +5,7 @@ from audobject.core.parameter import (
     Parameters,
 )
 from audobject.core.decorator import (
-    init_object_decorator,
+    init_decorator,
 )
 from audobject.core.dictionary import (
     Dictionary,

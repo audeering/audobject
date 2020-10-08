@@ -24,6 +24,7 @@ Let's create a class that derives from :class:`audobject.Object`.
     __version__ = '1.0.0'  # pretend we have a package version
 
     class MyObject(audobject.Object):
+
         def __init__(
                 self,
                 string: str,
@@ -78,9 +79,7 @@ Hidden variable
 
 In the constructor of ``MyObject`` we have assigned
 every parameter to class variables with the same name.
-This is the core concept we have to follow
-when we derive from :class:`audobject.Object`.
-Any other class variables we make private,
+Any other class variables we should declare as private,
 i.e. start with a ``_``.
 
 For example, we could store the message
@@ -89,6 +88,7 @@ we want to print in a variable.
 .. jupyter-execute::
 
     class MyObjectWithHiddenVariable(audobject.Object):
+
         def __init__(
                 self,
                 string: str,
@@ -128,6 +128,76 @@ we can still access it as if it was a variable of the instance.
 
     print(o.message)
 
+Sanity check
+------------
+
+It may happen that we accidentally
+assign a parameter to a class variable
+of different name.
+
+.. jupyter-execute::
+
+    class MyBadObject(audobject.Object):
+
+        def __init__(
+                self,
+                string: str,
+                *,
+                num_repeat: int = 1,
+        ):
+            self.msg = string
+            self.repeat = num_repeat
+
+        def __str__(self) -> str:
+            return ' '.join([self.msg] * self.repeat)
+
+At a first glance, everything works as expected.
+
+.. jupyter-execute::
+
+    bad = MyBadObject('test', num_repeat=2)
+    print(bad)
+
+But if we try to instantiate the object
+from YAML, we'll get an error.
+
+.. jupyter-execute::
+    :stderr:
+    :raises:
+
+    bad_yaml = bad.to_yaml_s()
+    bad2 = audobject.Object.from_yaml_s(bad_yaml)
+    print(bad2)
+
+To avoid such surprises,
+we can decorate the ``__init__`` function
+of our class with :meth:`audobject.init_decorator`.
+
+.. jupyter-execute::
+
+    class MyBadObjectWithSanityCheck(audobject.Object):
+
+        @audobject.init_decorator()
+        def __init__(
+                self,
+                string: str,
+                *,
+                num_repeat: int = 1,
+        ):
+            self.msg = string
+            self.repeat = num_repeat
+
+        def __str__(self) -> str:
+            return ' '.join([self.msg] * self.repeat)
+
+This will perform a sanity check when we create the object.
+
+.. jupyter-execute::
+    :stderr:
+    :raises:
+
+    MyBadObjectWithSanityCheck('test', num_repeat=2)
+
 Object as variable
 ------------------
 
@@ -138,6 +208,8 @@ For instance, we can define the following class.
 .. jupyter-execute::
 
     class MySuperObject(audobject.Object):
+
+        @audobject.init_decorator()
         def __init__(
                 self,
                 obj: MyObject,
@@ -186,6 +258,7 @@ To illustrate this, let's use an instance of timedelta_.
 
     class MyDeltaObject(audobject.Object):
 
+        @audobject.init_decorator()
         def __init__(
                 self,
                 delta: timedelta,
@@ -255,15 +328,17 @@ encoded and decoded.
             return dict
 
 To apply our custom resolver to the
-``delta`` variable, we use
-:meth:`audobject.init_object_decorator`
-on the ``__init__`` function of our class.
+``delta`` variable, we pass it to the
+:meth:`audobject.init_decorator`
+decorator of the ``__init__`` function.
 
 .. jupyter-execute::
 
     class MyResolvedDeltaObject(audobject.Object):
 
-        @audobject.init_object_decorator({'delta': DeltaResolver})
+        @audobject.init_decorator(
+            resolvers={'delta': DeltaResolver},
+        )
         def __init__(
                 self,
                 delta: timedelta,
@@ -344,6 +419,8 @@ with a slightly changed ``__str__`` function.
     __version__ = '2.0.0'
 
     class MyObject(audobject.Object):
+
+        @audobject.init_decorator()
         def __init__(
                 self,
                 string: str,
@@ -374,6 +451,8 @@ that let the user set a custom delimiter.
     __version__ = '2.1.0'
 
     class MyObject(audobject.Object):
+
+        @audobject.init_decorator()
         def __init__(
                 self,
                 string: str,
@@ -408,6 +487,8 @@ where we initialize the new argument with a default value.
     __version__ = '2.1.1'
 
     class MyObject(audobject.Object):
+
+        @audobject.init_decorator()
         def __init__(
                 self,
                 string: str,
@@ -453,6 +534,8 @@ And load it with ``1.0.0``.
     __version__ = '1.0.0'
 
     class MyObject(audobject.Object):
+
+        @audobject.init_decorator()
         def __init__(
                 self,
                 string: str,

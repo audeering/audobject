@@ -42,3 +42,17 @@ def test_no_encoder(tmpdir):
     path = os.path.join(tmpdir, 'test.yaml')
     with pytest.warns(RuntimeWarning):
         obj.to_yaml(path)
+
+
+def test_sanity():
+
+    class BadObject(audobject.Object):
+        @audobject.init_decorator(sanity_check=True)
+        def __init__(
+                self,
+                foo: str,
+        ):
+            self.bar = foo
+
+    with pytest.raises(RuntimeError):
+        BadObject('foo')

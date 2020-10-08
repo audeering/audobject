@@ -4,7 +4,7 @@ import pkg_resources
 import typing
 
 from audobject.core.decorator import (
-    init_object_decorator,
+    init_decorator,
 )
 from audobject.core.dictionary import (
     Dictionary,
@@ -68,9 +68,11 @@ class Parameter(Object):
 
     """  # noqa: E501
 
-    @init_object_decorator({
-        'value_type': TypeResolver,
-    })
+    @init_decorator(
+        resolvers={
+            'value_type': TypeResolver,
+        }
+    )
     def __init__(
             self,
             *,

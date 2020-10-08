@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from audobject.core.decorator import (
-    init_object_decorator,
+    init_decorator,
 )
 from audobject.core.object import (
     Object,
@@ -34,9 +34,11 @@ class TestObject(Object):
       var: 1.234
 
     """
-    @init_object_decorator({
-        'point': TupleResolver,
-    })
+    @init_decorator(
+        resolvers={
+            'point': TupleResolver,
+        },
+    )
     def __init__(
             self,
             name: str,

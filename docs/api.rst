@@ -16,10 +16,10 @@ Dictionary
     :members:
     :inherited-members:
 
-init_object_decorator
----------------------
+init_decorator
+--------------
 
-.. autofunction:: init_object_decorator
+.. autofunction:: init_decorator
 
 Object
 ------
