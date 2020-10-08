@@ -21,6 +21,7 @@ import audobject.testing
     ]
 )
 def test(tmpdir, obj):
+
     assert obj == audobject.Object.from_yaml_s(obj.to_yaml_s())
     path = os.path.join(tmpdir, 'test.yaml')
     obj.to_yaml(path)
@@ -34,7 +35,44 @@ def test(tmpdir, obj):
             assert t2.__dict__[key] == value
 
 
-def test_no_encoder(tmpdir):
+class IgnoreVarsObject(audobject.Object):
+
+    @audobject.init_decorator(
+        ignore_vars=['ignore', 'hidden']
+    )
+    def __init__(
+            self,
+            string: str,
+            *,
+            ignore: str = None,
+    ):
+        self.string = string
+        self.hidden = ignore
+
+
+def test_ignore_vars():
+
+    o = IgnoreVarsObject('test', ignore='ignore')
+    assert 'ignore' not in o.__dict__
+    assert o.hidden == 'ignore'
+    o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
+    assert 'ignore' not in o2.__dict__
+    assert o2.hidden is None
+
+
+def test_override_vars():
+
+    o = audobject.testing.TestObject(name='name')
+    assert o.name == 'name'
+    o2 = audobject.Object.from_yaml_s(
+        o.to_yaml_s(),
+        override_vars={'name': 'override'},
+    )
+    assert o2.name == 'override'
+
+
+def test_no_resolver(tmpdir):
+
     obj = audobject.testing.TestObject(
         'test',
         no_encoder=(1, 2, 3),
@@ -44,10 +82,10 @@ def test_no_encoder(tmpdir):
         obj.to_yaml(path)
 
 
-def test_sanity():
+def test_sanity_check():
 
     class BadObject(audobject.Object):
-        @audobject.init_decorator(sanity_check=True)
+        @audobject.init_decorator(check_vars=True)
         def __init__(
                 self,
                 foo: str,

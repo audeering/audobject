@@ -64,74 +64,35 @@ of the object from its YAML representation.
     o2 = audobject.Object.from_yaml_s(o_yaml)
     print(o2)
 
-We can also save the object to disk and
+If we want to, we can override specific
+variables when we instantiate an object.
+
+.. jupyter-execute::
+
+    o3 = audobject.Object.from_yaml_s(
+        o_yaml,
+        override_vars = {
+            'string': 'I have been overridden!'
+        }
+    )
+    print(o3)
+
+And we can save an object to disk and
 re-instantiate it from there.
 
 .. jupyter-execute::
 
     file = 'my.yaml'
     o.to_yaml(file)
-    o3 = audobject.Object.from_yaml(file)
-    print(o3)
+    o4 = audobject.Object.from_yaml(file)
+    print(o4)
 
-Hidden variable
+Check variables
 ---------------
 
 In the constructor of ``MyObject`` we have assigned
 every parameter to class variables with the same name.
-Any other class variables we should declare as private,
-i.e. start with a ``_``.
-
-For example, we could store the message
-we want to print in a variable.
-
-.. jupyter-execute::
-
-    class MyObjectWithHiddenVariable(audobject.Object):
-
-        def __init__(
-                self,
-                string: str,
-                *,
-                num_repeat: int = 1,
-        ):
-            self.string = string
-            self.num_repeat = num_repeat
-            self._message = ' '.join([self.string] * self.num_repeat)
-
-        @property
-        def message(self) -> str:
-            return self._message
-
-        def __str__(self) -> str:
-            return self._message
-
-The new class still works as expected.
-
-.. jupyter-execute::
-
-    o = MyObjectWithHiddenVariable('hello object!', num_repeat=3)
-    print(o)
-
-And if we print,
-we see that the new (hidden) variable is not stored.
-
-.. jupyter-execute::
-
-    o_yaml = o.to_yaml_s()
-    print(o_yaml)
-
-Yet, since we added a property for it,
-we can still access it as if it was a variable of the instance.
-
-.. jupyter-execute::
-
-    print(o.message)
-
-Sanity check
-------------
-
-It may happen that we accidentally
+However, it may happen that we accidentally
 assign a parameter to a class variable
 of different name.
 
@@ -177,7 +138,9 @@ of our class with :meth:`audobject.init_decorator`.
 
     class MyBadObjectWithSanityCheck(audobject.Object):
 
-        @audobject.init_decorator()
+        @audobject.init_decorator(
+            check_vars=True,
+        )
         def __init__(
                 self,
                 string: str,
@@ -198,6 +161,105 @@ This will perform a sanity check when we create the object.
 
     MyBadObjectWithSanityCheck('test', num_repeat=2)
 
+Hidden variables
+----------------
+
+Often, we will have additional class variables
+that are not covered by a parameter in the the constructor.
+
+One way to deal with those variables is
+to declare them as private,
+i.e. start with a ``_``.
+For example, we could store the message
+we want to print in a variable.
+
+.. jupyter-execute::
+
+    class MyObjectWithHiddenVariable(audobject.Object):
+
+        @audobject.init_decorator(
+            check_vars=True,
+        )
+        def __init__(
+                self,
+                string: str,
+                *,
+                num_repeat: int = 1,
+        ):
+            self.string = string
+            self.num_repeat = num_repeat
+            self._message = ' '.join([self.string] * self.num_repeat)
+
+        @property
+        def message(self) -> str:
+            return self._message
+
+        def __str__(self) -> str:
+            return self._message
+
+The new class still works as expected.
+
+.. jupyter-execute::
+
+    o = MyObjectWithHiddenVariable('hello object!', num_repeat=3)
+    print(o)
+
+And if we print,
+we see that the new (hidden) variable is not stored.
+
+.. jupyter-execute::
+
+    o_yaml = o.to_yaml_s()
+    print(o_yaml)
+
+Yet, since we added a property for it,
+we can still access it as if it was a variable of the instance.
+
+.. jupyter-execute::
+
+    print(o.message)
+
+Ignored variables
+-----------------
+
+Instead of making variables that are not covered by the constructor private,
+we can tell the object to ignore them.
+Again, we do this with the :meth:`audobject.init_decorator`.
+
+.. jupyter-execute::
+
+    class MyObjectWithIgnoredVariable(audobject.Object):
+
+        @audobject.init_decorator(
+            check_vars=True,
+            ignore_vars=['message'],
+        )
+        def __init__(
+                self,
+                string: str,
+                *,
+                num_repeat: int = 1,
+        ):
+            self.string = string
+            self.num_repeat = num_repeat
+            self.message = ' '.join([self.string] * self.num_repeat)
+
+        @property
+        def message(self) -> str:
+            return self._message
+
+        def __str__(self) -> str:
+            return self._message
+
+As before, we don't see a warning
+and ``message`` is not stored to YAML.
+
+.. jupyter-execute::
+
+    o = MyObjectWithHiddenVariable('hello object!', num_repeat=3)
+    o_yaml = o.to_yaml_s()
+    print(o_yaml)
+
 Object as variable
 ------------------
 
@@ -209,7 +271,9 @@ For instance, we can define the following class.
 
     class MySuperObject(audobject.Object):
 
-        @audobject.init_decorator()
+        @audobject.init_decorator(
+            check_vars=True,
+        )
         def __init__(
                 self,
                 obj: MyObject,
@@ -258,7 +322,9 @@ To illustrate this, let's use an instance of timedelta_.
 
     class MyDeltaObject(audobject.Object):
 
-        @audobject.init_decorator()
+        @audobject.init_decorator(
+            check_vars=True,
+        )
         def __init__(
                 self,
                 delta: timedelta,
@@ -337,6 +403,7 @@ decorator of the ``__init__`` function.
     class MyResolvedDeltaObject(audobject.Object):
 
         @audobject.init_decorator(
+            check_vars=True,
             resolvers={'delta': DeltaResolver},
         )
         def __init__(
@@ -420,7 +487,9 @@ with a slightly changed ``__str__`` function.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator()
+        @audobject.init_decorator(
+            check_vars=True,
+        )
         def __init__(
                 self,
                 string: str,
@@ -452,7 +521,9 @@ that let the user set a custom delimiter.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator()
+        @audobject.init_decorator(
+            check_vars=True,
+        )
         def __init__(
                 self,
                 string: str,
@@ -488,7 +559,9 @@ where we initialize the new argument with a default value.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator()
+        @audobject.init_decorator(
+            check_vars=True,
+        )
         def __init__(
                 self,
                 string: str,
@@ -535,7 +608,9 @@ And load it with ``1.0.0``.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator()
+        @audobject.init_decorator(
+            check_vars=True,
+        )
         def __init__(
                 self,
                 string: str,

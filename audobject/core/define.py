@@ -5,6 +5,7 @@ OBJECT_TAG = '$'
 VERSION_TAG = '=='
 DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
 CUSTOM_VALUE_RESOLVERS = '_custom_value_resolvers'
+IGNORE_VARIABLES = '_ignore_variables'
 
 
 class SignatureMismatchWarnLevel:

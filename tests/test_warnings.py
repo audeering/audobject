@@ -75,3 +75,7 @@ class MyObject(audobject.Object):
 
 with pytest.raises(RuntimeError):
     audobject.Object.from_yaml_s(o_yaml)
+
+
+audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL = \
+    audobject.define.SignatureMismatchWarnLevel.STANDARD

@@ -77,11 +77,16 @@ class Object:
         return audeer.uid(from_string=string)
 
     @staticmethod
-    def from_dict(d: dict) -> 'Object':
+    def from_dict(
+            d: typing.Dict[str, typing.Any],
+            *,
+            override_vars: typing.Dict[str, typing.Any] = None,
+    ) -> 'Object':
         r"""Create object from dictionary.
 
         Args:
-            d: dictionary with parameters
+            d: dictionary with variables
+            override_vars: dictionary with variables that should be overridden
 
         Returns:
             object
@@ -95,17 +100,23 @@ class Object:
         cls, version, installed_version = utils.get_class(name)
         params = {}
         for key, value in d[name].items():
-            params[key] = Object._decode_value(value)
+            params[key] = Object._decode_value(value, override_vars)
+        if override_vars is not None:
+            for key, value in override_vars.items():
+                params[key] = value
         return utils.get_object(cls, version, installed_version, params)
 
     @staticmethod
     def from_yaml(
             path_or_stream: typing.Union[str, typing.IO],
+            *,
+            override_vars: typing.Dict[str, typing.Any] = None,
     ) -> 'Object':
         r"""Create object from YAML file.
 
         Args:
             path_or_stream: file path or stream
+            override_vars: dictionary with variables that should be overridden
 
         Returns:
             object
@@ -114,20 +125,31 @@ class Object:
         if isinstance(path_or_stream, str):
             with open(path_or_stream, 'r') as fp:
                 return Object.from_yaml(fp)
-        return Object.from_dict(yaml.load(path_or_stream, yaml.Loader))
+        return Object.from_dict(
+            yaml.load(path_or_stream, yaml.Loader),
+            override_vars=override_vars,
+        )
 
     @staticmethod
-    def from_yaml_s(string: str) -> 'Object':
+    def from_yaml_s(
+            string: str,
+            *,
+            override_vars: typing.Dict[str, typing.Any] = None,
+    ) -> 'Object':
         r"""Create object from YAML string.
 
         Args:
             string: YAML string
+            override_vars: dictionary with variables that should be overridden
 
         Returns:
             object
 
         """
-        return Object.from_dict(yaml.load(string, yaml.Loader))
+        return Object.from_dict(
+            yaml.load(string, yaml.Loader),
+            override_vars=override_vars,
+        )
 
     def to_dict(
             self,
@@ -158,10 +180,10 @@ class Object:
                 )
         return {
             name: {
-                key: self._encode_value(
+                key: self._encode_variable(
                     key, value, include_version
                 ) for key, value in self.__dict__.items()
-                if not key.startswith('_')
+                if not self._ignore_variable(key)
             }
         }
 
@@ -206,7 +228,27 @@ class Object:
         """
         return yaml.dump(self.to_dict(include_version=include_version))
 
-    def _encode_value(
+    @staticmethod
+    def _decode_value(
+            value: typing.Any,
+            override_vars: typing.Dict[str, typing.Any],
+    ) -> typing.Any:
+        r"""Default value decoder."""
+        if isinstance(value, list):
+            return [Object._decode_value(v, override_vars) for v in value]
+        elif isinstance(value, dict):
+            name = next(iter(value))
+            if isinstance(name, Object) or utils.is_class(name):
+                return Object.from_dict(value, override_vars=override_vars)
+            else:
+                return {
+                    k: Object._decode_value(v, override_vars) for k, v in
+                    value.items()
+                }
+        else:
+            return value
+
+    def _encode_variable(
             self,
             name: str,
             value: typing.Any,
@@ -218,10 +260,10 @@ class Object:
             resolvers = self.__dict__[define.CUSTOM_VALUE_RESOLVERS]
             if name in resolvers:
                 value = resolvers[name].encode(value)
-        return Object._encode_value_default(value, include_version)
+        return Object._encode_value(value, include_version)
 
     @staticmethod
-    def _encode_value_default(
+    def _encode_value(
             value: typing.Any,
             include_version: bool,
     ):
@@ -234,14 +276,14 @@ class Object:
             return value
         elif isinstance(value, list):
             return [
-                Object._encode_value_default(
+                Object._encode_value(
                     item, include_version
                 ) for item in value
             ]
         elif isinstance(value, dict):
             return {
-                Object._encode_value_default(key, include_version):
-                    Object._encode_value_default(val, include_version)
+                Object._encode_value(key, include_version):
+                    Object._encode_value(val, include_version)
                 for key, val in value.items()
             }
         else:
@@ -252,22 +294,17 @@ class Object:
             )
             return value
 
-    @staticmethod
-    def _decode_value(value: typing.Any) -> typing.Any:
-        r"""Default value decoder."""
-        if isinstance(value, list):
-            return [Object._decode_value(v) for v in value]
-        elif isinstance(value, dict):
-            name = next(iter(value))
-            if isinstance(name, Object) or utils.is_class(name):
-                return Object.from_dict(value)
-            else:
-                return {
-                    k: Object._decode_value(v) for k, v in
-                    value.items()
-                }
-        else:
-            return value
+    def _ignore_variable(
+            self,
+            name: str,
+    ) -> bool:
+        r"""Check if a variable should be ignored."""
+        if name.startswith('_'):
+            return True
+        if define.IGNORE_VARIABLES in self.__dict__:
+            if name in self.__dict__[define.IGNORE_VARIABLES]:
+                return True
+        return False
 
     def __eq__(self, other: 'Object') -> bool:
         return self.id == other.id
