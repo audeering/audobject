@@ -6,8 +6,10 @@ import typing
 from audobject.core.decorator import (
     init_object_decorator,
 )
+from audobject.core.dictionary import (
+    Dictionary,
+)
 from audobject.core.object import (
-    DictObject,
     Object,
 )
 from audobject.core.resolver import (
@@ -93,6 +95,9 @@ class Parameter(Object):
         self.version = version
         r"""Versions in which the parameter is used"""
 
+        if default_value is not None:
+            self._check_value(default_value)
+
         if value is not None:
             self.set_value(value)
         else:
@@ -121,6 +126,11 @@ class Parameter(Object):
             ValueError: if value is not in choices
 
         """
+        self._check_value(value)
+        self.value = value
+
+    def _check_value(self, value: typing.Any):
+        r"""Check if value matches expected type."""
         if value is not None and not isinstance(value, self.value_type):
             raise TypeError(
                 f"Invalid type '{type(value)}', "
@@ -131,31 +141,41 @@ class Parameter(Object):
                 f"Invalid value '{value}', "
                 f"expected one of {self.choices}."
             )
-        self.value = value
 
 
-class Parameters(DictObject):
+class Parameters(Dictionary):
     r"""List of parameters.
 
     Args:
         **kwargs: :class:`audobject.Parameter` objects
 
     Example:
-        >>> # create list of parameters
-        >>> params = Parameters()
         >>> # create parameter
         >>> foo = Parameter(
         ...     value_type=str,
         ...     description='foo',
         ... )
-        >>> # add parameter to list
-        >>> params['foo'] = foo
-        >>> params['foo']
-        {'$audobject.core.parameter.Parameter': {'value_type': 'str', 'description': 'foo', 'value': None, 'default_value': None, 'choices': None, 'version': None}}
+        >>> # create list of parameters
+        >>> params = Parameters(foo=foo)
         >>> # get / set parameter value
         >>> params.foo = 'bar'
         >>> params.foo
         'bar'
+        >>> # add another parameter to list
+        >>> pi = Parameter(
+        ...     value_type=float,
+        ...     description='mathematical constant',
+        ...     value=3.14159265359,
+        ... )
+        >>> params['pi'] = pi
+        >>> print(params)
+        Name  Value          Default  Choices  Description            Version
+        ----  -----          -------  -------  -----------            -------
+        foo   bar            None     None     foo                    None
+        pi    3.14159265359  None     None     mathematical constant  None
+        >>> # convert to dictionary
+        >>> params()
+        {'foo': 'bar', 'pi': 3.14159265359}
 
     """  # noqa: E501
     def __init__(
@@ -163,23 +183,6 @@ class Parameters(DictObject):
             **kwargs,
     ):
         super().__init__(**kwargs)
-
-    def from_dict(
-            self,
-            d: typing.Dict[str, typing.Any],
-    ) -> 'Parameters':
-        r"""Update parameter values from a dictionary.
-
-        .. note:: Ignores keys that are not in the list of parameters.
-
-        Args:
-            d: dictionary with new values
-
-        """
-        for key, value in d.items():
-            if key in self.keys():
-                self.__setattr__(key, value)
-        return self
 
     def filter_by_version(
             self,
@@ -213,7 +216,10 @@ class Parameters(DictObject):
             args: command line arguments
 
         """
-        return self.from_dict(args.__dict__)
+        for key, value in args.__dict__.items():
+            if key in self.keys():
+                self.__setattr__(key, value)
+        return self
 
     def to_command_line(
             self,
@@ -281,6 +287,11 @@ class Parameters(DictObject):
             d.pop(key)
         parts = ['{}[{}]'.format(key, value) for key, value in d.items()]
         return delimiter.join(parts)
+
+    def __call__(self):
+        return {
+            name: param.value for name, param in self.items()
+        }
 
     def __getattribute__(self, name) -> typing.Any:
         if not name == '__dict__' and name in self.__dict__:

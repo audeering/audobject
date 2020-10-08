@@ -9,10 +9,10 @@ config
 .. autoclass:: config
     :members:
 
-DictObject
+Dictionary
 ----------
 
-.. autoclass:: DictObject
+.. autoclass:: Dictionary
     :members:
     :inherited-members:
 

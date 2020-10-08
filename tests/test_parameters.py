@@ -70,31 +70,12 @@ def test_parameter_version(param_version, check_version, result):
 @pytest.mark.parametrize(
     'params',
     [
-        (
-            {}
-        ),
-        (
-            {
-                'foo':
-                    audobject.Parameter(
-                        value_type=str,
-                        description='bar',
-                    ),
-                'idx':
-                    audobject.Parameter(
-                        value_type=int,
-                        description='int',
-                    )
-            }
-        ),
+        pytest.PARAMETERS
     ]
 )
-def test_parameters_init(params):
-    pp = audobject.Parameters(**params)
-    for name, p in params.items():
-        assert name in pp
-        assert name in pp.keys()
-        assert p in pp.values()
+def test_parameters_call(params):
+    d = {name: param.value for name, param in params.items()}
+    assert params() == d
 
 
 def test_parameters_command_line():
@@ -120,6 +101,37 @@ def test_parameters_command_line():
     p_filter.to_command_line(parser)
     with pytest.raises(SystemExit):
         parser.parse_args(args=[f'--bar={new_value}'])
+
+
+@pytest.mark.parametrize(
+    'params',
+    [
+        (
+            {}
+        ),
+        (
+            {
+                'foo':
+                    audobject.Parameter(
+                        value_type=str,
+                        description='bar',
+                    ),
+                'idx':
+                    audobject.Parameter(
+                        value_type=int,
+                        description='int',
+                    )
+            }
+        ),
+    ]
+)
+def test_parameters_init(params):
+    pp = audobject.Parameters(**params)
+    assert len(pp) == len(params)
+    for name, p in params.items():
+        assert name in pp
+        assert name in pp.keys()
+        assert p in pp.values()
 
 
 @pytest.mark.parametrize(
@@ -155,6 +167,37 @@ def test_parameters_value():
     assert p.bar == old_value
     p.bar = new_value
     assert p.bar == new_value
+
+
+@pytest.mark.parametrize(
+    'other',
+    [
+        (
+            {}
+        ),
+        (
+            {
+                'foo':
+                    audobject.Parameter(
+                        value_type=str,
+                        description='bar',
+                    ),
+                'idx':
+                    audobject.Parameter(
+                        value_type=int,
+                        description='int',
+                    )
+            }
+        ),
+    ]
+)
+def test_parameters_update(other):
+
+    p = pytest.PARAMETERS
+    p.update(other)
+    for key, value in other.items():
+        assert key in p
+        assert p[key] == value
 
 
 def test_parameters_yaml(tmpdir):

@@ -471,6 +471,49 @@ And load it with ``1.0.0``.
 In fact, it works, too.
 However, a warning is given that an argument was ignored.
 
+Dictionary
+----------
+
+:class:`audobject.Dictionary` implements a
+:class:`audobject.Object` that can used like a dictionary.
+
+.. jupyter-execute::
+
+    d = audobject.Dictionary(
+        string='I am a dictionary!',
+        pi=3.14159265359,
+    )
+    print(d)
+
+We can use ``[]`` notation to access the
+values of the dictionary.
+
+.. jupyter-execute::
+
+    d['string'] = 'Still a dictionary!'
+    d['new'] = None
+    print(d)
+
+And update from another dictionary.
+
+.. jupyter-execute::
+
+    d2 = audobject.Dictionary(
+        string='I will be a dictionary forever!',
+        object=MyObject('Hey, I am an object.'),
+    )
+    d.update(d2)
+    print(d)
+
+And we can read/write the dictionary from/to a file.
+
+.. jupyter-execute::
+
+    file = 'dict.yaml'
+    d.to_yaml(file)
+    d3 = audobject.Object.from_yaml(file)
+    print(d3)
+
 Parameters
 ----------
 
@@ -521,6 +564,13 @@ Now we combine the two parameters into a list.
         num_repeat=repeat,
     )
     print(params)
+
+If we call the list,
+we get a dictionary of parameter names and values.
+
+.. jupyter-execute::
+
+    params()
 
 We can access the values of the parameters using ``.`` notation.
 
@@ -586,9 +636,14 @@ Or update the values from a command line interface.
     params.from_command_line(args)
     print(params)
 
-Finally, since :class:`audobject.Parameters`
-implements :class:`audobject.Object`
-we can read/write the parameters from/to a file.
+It is possible to convert it into a file path
+that keeps track of the parameters.
+
+.. jupyter-execute::
+
+    params.to_path(sort=True)
+
+Last but not least, we can read/write the parameters from/to a file.
 
 .. jupyter-execute::
 

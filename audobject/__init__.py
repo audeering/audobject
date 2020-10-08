@@ -7,9 +7,11 @@ from audobject.core.parameter import (
 from audobject.core.decorator import (
     init_object_decorator,
 )
+from audobject.core.dictionary import (
+    Dictionary,
+)
 from audobject.core.object import (
     Object,
-    DictObject,
 )
 from audobject.core.resolver import (
     TupleResolver,
