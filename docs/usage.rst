@@ -64,16 +64,14 @@ of the object from its YAML representation.
     o2 = audobject.Object.from_yaml_s(o_yaml)
     print(o2)
 
-If we want to, we can override specific
+If we want, we can override specific
 variables when we instantiate an object.
 
 .. jupyter-execute::
 
     o3 = audobject.Object.from_yaml_s(
         o_yaml,
-        override_vars = {
-            'string': 'I have been overridden!'
-        }
+        string='I was set to a different value!'
     )
     print(o3)
 

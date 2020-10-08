@@ -66,7 +66,7 @@ def test_override_vars():
     assert o.name == 'name'
     o2 = audobject.Object.from_yaml_s(
         o.to_yaml_s(),
-        override_vars={'name': 'override'},
+        name='override',
     )
     assert o2.name == 'override'
 

@@ -79,14 +79,13 @@ class Object:
     @staticmethod
     def from_dict(
             d: typing.Dict[str, typing.Any],
-            *,
-            override_vars: typing.Dict[str, typing.Any] = None,
+            **kwargs,
     ) -> 'Object':
         r"""Create object from dictionary.
 
         Args:
             d: dictionary with variables
-            override_vars: dictionary with variables that should be overridden
+            kwargs: additional variables
 
         Returns:
             object
@@ -100,23 +99,21 @@ class Object:
         cls, version, installed_version = utils.get_class(name)
         params = {}
         for key, value in d[name].items():
-            params[key] = Object._decode_value(value, override_vars)
-        if override_vars is not None:
-            for key, value in override_vars.items():
-                params[key] = value
+            params[key] = Object._decode_value(value, **kwargs)
+        for key, value in kwargs.items():
+            params[key] = value
         return utils.get_object(cls, version, installed_version, params)
 
     @staticmethod
     def from_yaml(
             path_or_stream: typing.Union[str, typing.IO],
-            *,
-            override_vars: typing.Dict[str, typing.Any] = None,
+            **kwargs,
     ) -> 'Object':
         r"""Create object from YAML file.
 
         Args:
             path_or_stream: file path or stream
-            override_vars: dictionary with variables that should be overridden
+            kwargs: additional variables
 
         Returns:
             object
@@ -127,28 +124,27 @@ class Object:
                 return Object.from_yaml(fp)
         return Object.from_dict(
             yaml.load(path_or_stream, yaml.Loader),
-            override_vars=override_vars,
+            **kwargs,
         )
 
     @staticmethod
     def from_yaml_s(
-            string: str,
-            *,
-            override_vars: typing.Dict[str, typing.Any] = None,
+            yaml_string: str,
+            **kwargs,
     ) -> 'Object':
         r"""Create object from YAML string.
 
         Args:
-            string: YAML string
-            override_vars: dictionary with variables that should be overridden
+            yaml_string: YAML string
+            kwargs: additional variables
 
         Returns:
             object
 
         """
         return Object.from_dict(
-            yaml.load(string, yaml.Loader),
-            override_vars=override_vars,
+            yaml.load(yaml_string, yaml.Loader),
+            **kwargs,
         )
 
     def to_dict(
@@ -230,23 +226,23 @@ class Object:
 
     @staticmethod
     def _decode_value(
-            value: typing.Any,
-            override_vars: typing.Dict[str, typing.Any],
+            value_to_decode: typing.Any,
+            **kwargs,
     ) -> typing.Any:
         r"""Default value decoder."""
-        if isinstance(value, list):
-            return [Object._decode_value(v, override_vars) for v in value]
-        elif isinstance(value, dict):
-            name = next(iter(value))
+        if isinstance(value_to_decode, list):
+            return [Object._decode_value(v, **kwargs) for v in value_to_decode]
+        elif isinstance(value_to_decode, dict):
+            name = next(iter(value_to_decode))
             if isinstance(name, Object) or utils.is_class(name):
-                return Object.from_dict(value, override_vars=override_vars)
+                return Object.from_dict(value_to_decode, **kwargs)
             else:
                 return {
-                    k: Object._decode_value(v, override_vars) for k, v in
-                    value.items()
+                    k: Object._decode_value(v, **kwargs) for k, v in
+                    value_to_decode.items()
                 }
         else:
-            return value
+            return value_to_decode
 
     def _encode_variable(
             self,
