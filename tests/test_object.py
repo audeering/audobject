@@ -12,6 +12,7 @@ import audobject.testing
         audobject.testing.TestObject(
             'test',
             d={'a': 1, 'b': 2, 'c': 3},
+            d_empty={},
             f=1.0,
             i=0,
             l=[1, 2, 3],
