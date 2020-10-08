@@ -7,6 +7,11 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.3.1 (2020-10-08)
+--------------------------
+
+* Changed: replace ``override_vars`` with ``kwargs``
+
 Version 0.3.0 (2020-10-08)
 --------------------------
 
