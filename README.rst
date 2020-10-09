@@ -8,4 +8,4 @@ Generic interface for serializing objects to yaml_.
     https://yaml.org/
 
 For documentation see:
-http://jwagner.pp.audeering.com/audobject/
+http://tools.pp.audeering.com/audobject/
