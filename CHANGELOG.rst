@@ -7,6 +7,16 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.0 (2020-10-19)
+--------------------------
+
+* Added: :meth:`audobject.Object.arguments`, :meth:`audobject.Object.hidden_arguments`, :meth:`audobject.Object.resolvers`
+* Added: ``hide`` to :meth:`audobject.init_decorator` (replaces ``ignore_vars``)
+* Changed: Serialize only arguments of __init__ to YAML
+* Changed: Raise error if user tries to hide argument without default value
+* Changed: Raise error if argument that is not hidden is not assigned to a variable
+* Removed: ``check_vars`` from :meth:`audobject.init_decorator`
+
 Version 0.3.3 (2020-10-09)
 --------------------------
 
