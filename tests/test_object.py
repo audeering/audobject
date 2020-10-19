@@ -36,32 +36,31 @@ def test(tmpdir, obj):
             assert t2.__dict__[key] == value
 
 
-class IgnoreVarsObject(audobject.Object):
+class ObjectWithHiddenArguments(audobject.Object):
 
     @audobject.init_decorator(
-        ignore_vars=['ignore', 'hidden']
+        hide=['hidden']
     )
     def __init__(
             self,
             string: str,
             *,
-            ignore: str = None,
+            hidden: str = None,
     ):
         self.string = string
-        self.hidden = ignore
+        self.hidden = hidden
 
 
-def test_ignore_vars():
+def test_hidden_attributes():
 
-    o = IgnoreVarsObject('test', ignore='ignore')
-    assert 'ignore' not in o.__dict__
-    assert o.hidden == 'ignore'
+    o = ObjectWithHiddenArguments('test', hidden='hidden')
+    assert o.hidden == 'hidden'
     o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
-    assert 'ignore' not in o2.__dict__
+    assert isinstance(o2, ObjectWithHiddenArguments)
     assert o2.hidden is None
 
 
-def test_override_vars():
+def test_override_attributes():
 
     o = audobject.testing.TestObject(name='name')
     assert o.name == 'name'
@@ -69,6 +68,7 @@ def test_override_vars():
         o.to_yaml_s(),
         name='override',
     )
+    assert isinstance(o2, audobject.testing.TestObject)
     assert o2.name == 'override'
 
 
@@ -83,10 +83,23 @@ def test_no_resolver(tmpdir):
         obj.to_yaml(path)
 
 
-def test_sanity_check():
+def test_bad_object():
 
     class BadObject(audobject.Object):
-        @audobject.init_decorator(check_vars=True)
+        def __init__(
+                self,
+                foo: str = None,
+        ):
+            self.bar = foo
+
+    o = BadObject('foo')
+    with pytest.raises(RuntimeError):
+        o.to_yaml_s()  # argument foo not assigned to an attribute
+
+    class BadObject(audobject.Object):
+        @audobject.init_decorator(
+            hide=['foo'],
+        )
         def __init__(
                 self,
                 foo: str,
@@ -94,4 +107,4 @@ def test_sanity_check():
             self.bar = foo
 
     with pytest.raises(RuntimeError):
-        BadObject('foo')
+        BadObject('foo')  # cannot hide argument without default value

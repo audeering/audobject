@@ -1,3 +1,4 @@
+import inspect
 import os
 import typing
 import warnings
@@ -11,34 +12,7 @@ from audobject.core import utils
 
 
 class Object:
-    r"""Base class for objects we want to serialize to YAML.
-
-    Objects can be reconstructed from YAML if the following rules apply:
-
-    * Every parameter of the constructor is assigned to a class variables
-      with the name of the parameter:
-
-      .. code-block:: python
-
-          class Foo(audobject.Object):
-              def __init__(self, foo: str):
-                  self.foo = foo
-                  # self.bar = foo  # bad, name of parameter is 'foo'
-
-    * Other class variables are private,
-      i.e. start with a ``_`` (use properties to expose them):
-
-      .. code-block:: python
-
-          class Foo(audobject.Object):
-              def __init__(self, foo: str):
-                  self.foo = foo
-                  self._bar = foo + foo
-                  # self.bar = foo + foo  # bad, 'bar' is not a parameter
-
-              @property
-              def bar(self):
-                  return self._bar
+    r"""Base class for objects that can be serialized to YAML.
 
     Example:
 
@@ -52,10 +26,67 @@ class Object:
 
     """
     @property
+    def arguments(self) -> typing.Dict[str, typing.Any]:
+        r"""Returns arguments that are serialized.
+
+        Returns:
+            Dictionary of arguments and their values.
+
+        Raises:
+            RuntimeError: if arguments are found that are not assigned to
+                attributes of the same name
+
+        """
+        signature = inspect.signature(self.__init__)
+        # if 'kwargs' are allowed, check all members
+        # otherwise only arguments from __init__
+        if 'kwargs' in signature.parameters:
+            names = self.__dict__
+        else:
+            names = [p.name for p in signature.parameters.values()]
+        # remove hidden variables
+        hidden = list(self.hidden_arguments)
+        names = [
+            name for name in names if (
+                (name != 'self')
+                and (not name.startswith('_'))
+                and (name not in hidden)
+            )
+        ]
+        # check for missing attributes
+        missing = []
+        for name in names:
+            if name not in self.__dict__:
+                missing.append(name)
+        if len(missing) > 0:
+            raise RuntimeError(f'Arguments(s) {missing} not '
+                               f'assigned to attribute(s) '
+                               f'of same name(s).')
+        return {
+            name: self.__dict__[name] for name in names if (
+                (name in self.__dict__)
+            )
+        }
+
+    @property
+    def hidden_arguments(self) -> typing.List[str]:
+        r"""Returns hidden arguments.
+
+        Returns:
+            List with names of hidden arguments.
+
+        """
+        if define.HIDDEN_ATTRIBUTES in self.__dict__:
+            names = list(self.__dict__[define.HIDDEN_ATTRIBUTES])
+        else:
+            names = []
+        return names
+
+    @property
     def id(self) -> str:
         r"""Object identifier.
 
-        .. note:: Objects with same properties have the same ID.
+        The ID of an object ID is created from its non-hidden arguments.
 
         Example:
 
@@ -91,7 +122,7 @@ class Object:
             object
 
         Raises:
-            RuntimeError: if a mandatory parameter of the object
+            RuntimeError: if a mandatory argument of the object
                 is missing in the dictionary
 
         """
@@ -147,6 +178,18 @@ class Object:
             **kwargs,
         )
 
+    @property
+    def resolvers(self):
+        r"""Return resolvers.
+
+        Returns:
+            Dictionary with resolvers.
+
+        """
+        if hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
+            return self.__dict__[define.CUSTOM_VALUE_RESOLVERS]
+        return {}
+
     def to_dict(
             self,
             *,
@@ -174,14 +217,10 @@ class Object:
                     f"module '{self.__class__.__module__}'.",
                     RuntimeWarning,
                 )
-        return {
-            name: {
-                key: self._encode_variable(
-                    key, value, include_version
-                ) for key, value in self.__dict__.items()
-                if not self._ignore_variable(key)
-            }
-        }
+        d = {}
+        for key, value in self.arguments.items():
+            d[key] = self._encode_variable(key, value, include_version)
+        return {name: d}
 
     def to_yaml(
             self,
@@ -254,10 +293,8 @@ class Object:
     ):
         r"""Encode a value by first looking for a custom resolver,
         otherwise switch to default encoder."""
-        if hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
-            resolvers = self.__dict__[define.CUSTOM_VALUE_RESOLVERS]
-            if name in resolvers:
-                value = resolvers[name].encode(value)
+        if name in self.resolvers:
+            value = self.resolvers[name].encode(value)
         return Object._encode_value(value, include_version)
 
     @staticmethod
@@ -291,18 +328,6 @@ class Object:
                 RuntimeWarning,
             )
             return value
-
-    def _ignore_variable(
-            self,
-            name: str,
-    ) -> bool:
-        r"""Check if a variable should be ignored."""
-        if name.startswith('_'):
-            return True
-        if define.IGNORE_VARIABLES in self.__dict__:
-            if name in self.__dict__[define.IGNORE_VARIABLES]:
-                return True
-        return False
 
     def __eq__(self, other: 'Object') -> bool:
         return self.id == other.id

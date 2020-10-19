@@ -23,11 +23,11 @@ def get_object(
         installed_version: str,
         params: dict,
 ) -> typing.Any:
-    r"""Create object from parameters."""
+    r"""Create object from arguments."""
     signature = inspect.signature(cls.__init__)
     supports_kwargs = 'kwargs' in signature.parameters
 
-    # check for missing mandatory parameters
+    # check for missing mandatory arguments
     required_params = set([
         p.name for p in signature.parameters.values()
         if p.default == inspect.Parameter.empty and p.name not in [
@@ -37,14 +37,14 @@ def get_object(
     missing_required_params = list(required_params - set(params))
     if len(missing_required_params) > 0:
         raise RuntimeError(
-            f"Missing mandatory parameter(s) "
+            f"Missing mandatory argument(s) "
             f"{missing_required_params} "
             f"while instantiating '{cls}' from "
             f"version '{version}' when using "
             f"version '{installed_version}'."
         )
 
-    # check for missing optional parameters
+    # check for missing optional arguments
     optional_params = set([
         p.name for p in signature.parameters.values()
         if p.default != inspect.Parameter.empty and p.name not in [
@@ -56,7 +56,7 @@ def get_object(
         if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
                 define.SignatureMismatchWarnLevel.STANDARD:
             warnings.warn(
-                f"Missing optional parameter(s) "
+                f"Missing optional argument(s) "
                 f"{missing_optional_params} "
                 f"while instantiating '{cls}' from "
                 f"version '{version}' when using "
@@ -64,7 +64,7 @@ def get_object(
                 RuntimeWarning,
             )
 
-    # unless kwargs are supported check for additional parameters
+    # unless kwargs are supported check for additional arguments
     if not supports_kwargs:
         supported_params = set([
             p.name for p in signature.parameters.values()
@@ -75,7 +75,7 @@ def get_object(
             if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
                     define.SignatureMismatchWarnLevel.SILENT:
                 warnings.warn(
-                    f"Ignoring parameter(s) "
+                    f"Ignoring argument(s) "
                     f"{additional_params} "
                     f"while instantiating '{cls}' from "
                     f"version '{version}' when using "

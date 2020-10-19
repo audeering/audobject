@@ -4,8 +4,8 @@ import datetime
 OBJECT_TAG = '$'
 VERSION_TAG = '=='
 DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
-CUSTOM_VALUE_RESOLVERS = '_custom_value_resolvers'
-IGNORE_VARIABLES = '_ignore_variables'
+CUSTOM_VALUE_RESOLVERS = '_object_resolvers_'
+HIDDEN_ATTRIBUTES = '_object_hidden_'
 
 
 class SignatureMismatchWarnLevel:

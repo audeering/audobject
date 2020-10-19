@@ -3,9 +3,8 @@ Usage
 
 The aim of :mod:`audobject` is to provide
 a base class, namely :class:`audobject.Object`,
-which allows it to convert the state
-of an object to a YAML string and at
-later stage recover the object from it.
+which allows it to convert an object to a YAML string
+and re-instantiate the object from it.
 
 
 .. jupyter-execute::
@@ -54,7 +53,7 @@ we can also print a YAML representation of the object.
     print(o_yaml)
 
 As we see it holds the name of the class
-and the values of the parameters
+and the values of the arguments
 that were used to initialize the object.
 This allows it to create a new instance
 of the object from its YAML representation.
@@ -64,8 +63,8 @@ of the object from its YAML representation.
     o2 = audobject.Object.from_yaml_s(o_yaml)
     print(o2)
 
-If we want, we can override specific
-variables when we instantiate an object.
+If we want, we can override
+arguments when we instantiate an object.
 
 .. jupyter-execute::
 
@@ -75,8 +74,7 @@ variables when we instantiate an object.
     )
     print(o3)
 
-And we can save an object to disk and
-re-instantiate it from there.
+Or save an object to disk and re-instantiate it from there.
 
 .. jupyter-execute::
 
@@ -85,14 +83,50 @@ re-instantiate it from there.
     o4 = audobject.Object.from_yaml(file)
     print(o4)
 
-Check variables
----------------
+And we can get a dictionary of all arguments and their values.
+
+.. jupyter-execute::
+
+    o4.arguments
+
+Object ID
+---------
+
+Every object has an ID.
+
+.. jupyter-execute::
+
+    o = MyObject('I am unique!', num_repeat=2)
+    print(o.id)
+
+Objects with exact same arguments share the same ID.
+
+.. jupyter-execute::
+
+    o2 = MyObject('I am unique!', num_repeat=2)
+    print(o.id == o2.id)
+
+When an object is serialized the ID does not change.
+
+.. jupyter-execute::
+
+    o3 = audobject.Object.from_yaml_s(o.to_yaml_s())
+    print(o3.id == o.id)
+
+Objects with different arguments get different IDs.
+
+.. jupyter-execute::
+
+    o4 = MyObject('I am different!', num_repeat=2)
+    print(o.id == o4.id)
+
+Malformed objects
+-----------------
 
 In the constructor of ``MyObject`` we have assigned
-every parameter to class variables with the same name.
-However, it may happen that we accidentally
-assign a parameter to a class variable
-of different name.
+every argument to an attribute with the same name.
+This ensures that we can re-instantiate the object from YAML.
+Let's create a class where we don't follow this rule.
 
 .. jupyter-execute::
 
@@ -128,150 +162,183 @@ from YAML, we'll get an error.
     bad2 = audobject.Object.from_yaml_s(bad_yaml)
     print(bad2)
 
-To avoid such surprises,
-we can decorate the ``__init__`` function
-of our class with :meth:`audobject.init_decorator`.
+However, in the next section we'll learn
+that it's possible to hide arguments.
+If we hide an argument, we don't have to set
+it to an attribute of the same name.
 
-.. jupyter-execute::
-
-    class MyBadObjectWithSanityCheck(audobject.Object):
-
-        @audobject.init_decorator(
-            check_vars=True,
-        )
-        def __init__(
-                self,
-                string: str,
-                *,
-                num_repeat: int = 1,
-        ):
-            self.msg = string
-            self.repeat = num_repeat
-
-        def __str__(self) -> str:
-            return ' '.join([self.msg] * self.repeat)
-
-This will perform a sanity check when we create the object.
-
-.. jupyter-execute::
-    :stderr:
-    :raises:
-
-    MyBadObjectWithSanityCheck('test', num_repeat=2)
-
-Hidden variables
+Hidden arguments
 ----------------
 
-Often, we will have additional class variables
-that are not covered by a parameter in the the constructor.
+Hidden arguments are arguments that are not serialized.
 
-One way to deal with those variables is
-to declare them as private,
-i.e. start with a ``_``.
-For example, we could store the message
-we want to print in a variable.
+.. note:: Only arguments with a default value can be hidden.
+
+Let's introduce a new argument ``verbose`` and hide it
+with the :meth:`audobject.init_decorator` decorator.
 
 .. jupyter-execute::
 
-    class MyObjectWithHiddenVariable(audobject.Object):
+    class MyObjectWithHiddenArgument(audobject.Object):
 
         @audobject.init_decorator(
-            check_vars=True,
+            hide=['verbose'],
         )
         def __init__(
                 self,
                 string: str,
                 *,
                 num_repeat: int = 1,
+                verbose: bool = False,
         ):
             self.string = string
             self.num_repeat = num_repeat
-            self._message = ' '.join([self.string] * self.num_repeat)
-
-        @property
-        def message(self) -> str:
-            return self._message
+            self.debug = verbose  # 'verbose' is hidden, so we can set it to a different name
 
         def __str__(self) -> str:
-            return self._message
+            if self.debug:
+                print('LOG: print message')
+            return ' '.join([self.string] * self.num_repeat)
 
-The new class still works as expected.
+If we set ``verbose=True``, debug message are printed.
 
 .. jupyter-execute::
 
-    o = MyObjectWithHiddenVariable('hello object!', num_repeat=3)
+    o = MyObjectWithHiddenArgument('hello object!', num_repeat=3, verbose=True)
     print(o)
 
-And if we print,
-we see that the new (hidden) variable is not stored.
+But since ``verbose`` is a hidden argument,
+it is not stored to YAML.
 
 .. jupyter-execute::
 
     o_yaml = o.to_yaml_s()
     print(o_yaml)
 
-Yet, since we added a property for it,
-we can still access it as if it was a variable of the instance.
+That means when we re-instantiate the object,
+``verbose`` will be set to its default value (``False``)
+and we won't see debug messages.
 
 .. jupyter-execute::
 
-    print(o.message)
+    o2 = audobject.Object.from_yaml_s(o_yaml)
+    print(o2)
 
-Ignored variables
------------------
-
-Instead of making variables that are not covered by the constructor private,
-we can tell the object to ignore them.
-Again, we do this with the :meth:`audobject.init_decorator`.
+However, we can set ``verbose=True`` when we load the object.
 
 .. jupyter-execute::
 
-    class MyObjectWithIgnoredVariable(audobject.Object):
+    o3 = audobject.Object.from_yaml_s(o_yaml, verbose=True)
+    print(o3)
 
-        @audobject.init_decorator(
-            check_vars=True,
-            ignore_vars=['message'],
-        )
+Note that hidden arguments are not taken into account for the UID.
+
+.. jupyter-execute::
+
+    print(o2.id)
+    print(o3.id)
+
+It is possible to get a list of hidden arguments.
+
+.. jupyter-execute::
+
+    o3.hidden_arguments
+
+Object with kwargs
+------------------
+
+Usually, the attributes that are serialized to YAML
+are automatically derived from the arguments of the
+``__init__`` function.
+For instance, we can add an attribute ``other``.
+
+.. jupyter-execute::
+
+    class MyObjectWithOther(MyObject):
+
         def __init__(
                 self,
                 string: str,
                 *,
                 num_repeat: int = 1,
         ):
-            self.string = string
-            self.num_repeat = num_repeat
-            self.message = ' '.join([self.string] * self.num_repeat)
+            super().__init__(string, num_repeat=num_repeat)
+            self.other = 'not an argument'
 
-        @property
-        def message(self) -> str:
-            return self._message
 
-        def __str__(self) -> str:
-            return self._message
-
-As before, we don't see a warning
-and ``message`` is not stored to YAML.
+But since it is not an argument of the constructor,
+it is not serialized.
 
 .. jupyter-execute::
 
-    o = MyObjectWithHiddenVariable('hello object!', num_repeat=3)
+    o = MyObjectWithOther('I have another attribute')
     o_yaml = o.to_yaml_s()
     print(o_yaml)
 
-Object as variable
+However, if the ``__init__`` function accepts ``**kwargs``,
+any attribute could be an argument
+and hence all attributes are serialized.
+
+.. jupyter-execute::
+
+    class MyObjectWithKwargs(MyObject):
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.other = 'not an argument'
+
+And ``other`` shows up in the YAML string.
+
+.. jupyter-execute::
+
+    o = MyObjectWithKwargs('I have kwargs')
+    o_yaml = o.to_yaml_s()
+    print(o_yaml)
+
+To avoid this, we can add ``other`` to the list
+of ignored arguments.
+
+.. jupyter-execute::
+
+    class MyObjectWithKwargs(MyObject):
+
+        @audobject.init_decorator(
+            hide=['other'],
+        )
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.other = 'not an argument'
+
+    o = MyObjectWithKwargs('I have kwargs')
+    o_yaml = o.to_yaml_s()
+    print(o_yaml)
+
+Or we make it a private attribute
+(i.e. prepend '_' to the name).
+
+.. jupyter-execute::
+
+    class MyObjectWithKwargs(MyObject):
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self._other = 'not an argument'
+
+    o = MyObjectWithKwargs('I have kwargs')
+    o_yaml = o.to_yaml_s()
+    print(o_yaml)
+
+Object as argument
 ------------------
 
-It is possible to have instances of :class:`audobject.Object`
-as variables.
+It is possible to have arguments of
+type :class:`audobject.Object`.
 For instance, we can define the following class.
 
 .. jupyter-execute::
 
     class MySuperObject(audobject.Object):
 
-        @audobject.init_decorator(
-            check_vars=True,
-        )
         def __init__(
                 self,
                 obj: MyObject,
@@ -306,7 +373,7 @@ From which we can re-instantiate the object.
 Value resolver
 --------------
 
-As long as the type of our variables is one of
+As long as the type of the arguments is one of
 ``(None, Object, str, int, float, bool, list, dict, datetime.datetime)``,
 it is ensured that we get a clean YAML file.
 Other types may be encoded using the ``!!python/object`` tag
@@ -320,9 +387,6 @@ To illustrate this, let's use an instance of timedelta_.
 
     class MyDeltaObject(audobject.Object):
 
-        @audobject.init_decorator(
-            check_vars=True,
-        )
         def __init__(
                 self,
                 delta: timedelta,
@@ -392,7 +456,7 @@ encoded and decoded.
             return dict
 
 To apply our custom resolver to the
-``delta`` variable, we pass it to the
+``delta`` argument, we pass it to the
 :meth:`audobject.init_decorator`
 decorator of the ``__init__`` function.
 
@@ -401,7 +465,6 @@ decorator of the ``__init__`` function.
     class MyResolvedDeltaObject(audobject.Object):
 
         @audobject.init_decorator(
-            check_vars=True,
             resolvers={'delta': DeltaResolver},
         )
         def __init__(
@@ -421,37 +484,6 @@ and the ``!!python/object`` tag has disappeared.
     d = MyResolvedDeltaObject(delta)
     d_yaml = d.to_yaml_s()
     print(d_yaml)
-
-Object ID
----------
-
-Every object has an ID.
-
-.. jupyter-execute::
-
-    o = MyObject('I am unique!', num_repeat=2)
-    print(o.id)
-
-Objects with exact same properties share the same ID.
-
-.. jupyter-execute::
-
-    o2 = MyObject('I am unique!', num_repeat=2)
-    print(o.id == o2.id)
-
-When an object is serialized the ID does not change.
-
-.. jupyter-execute::
-
-    o3 = audobject.Object.from_yaml_s(o.to_yaml_s())
-    print(o3.id == o.id)
-
-Objects with different properties get different IDs.
-
-.. jupyter-execute::
-
-    o4 = MyObject('I am different!', num_repeat=2)
-    print(o.id == o4.id)
 
 Versioning
 ----------
@@ -485,9 +517,6 @@ with a slightly changed ``__str__`` function.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator(
-            check_vars=True,
-        )
         def __init__(
                 self,
                 string: str,
@@ -519,9 +548,6 @@ that let the user set a custom delimiter.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator(
-            check_vars=True,
-        )
         def __init__(
                 self,
                 string: str,
@@ -557,9 +583,6 @@ where we initialize the new argument with a default value.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator(
-            check_vars=True,
-        )
         def __init__(
                 self,
                 string: str,
@@ -606,9 +629,6 @@ And load it with ``1.0.0``.
 
     class MyObject(audobject.Object):
 
-        @audobject.init_decorator(
-            check_vars=True,
-        )
         def __init__(
                 self,
                 string: str,

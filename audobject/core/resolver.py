@@ -10,7 +10,7 @@ DefaultValueType = typing.Union[
 class ValueResolver:
     r"""Abstract resolver class.
 
-    Implement for parameters that are not one of
+    Implement for arguments that are not one of
     ``(None, Object, str, int, float, bool, list, dict)``.
 
     """
