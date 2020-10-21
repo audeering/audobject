@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from audobject.core.decorator import (
     init_decorator,
 )
@@ -23,15 +21,14 @@ class TestObject(Object):
     Example:
 
     >>> from datetime import datetime
-    >>> foo = TestObject('test', date=datetime(1991, 2, 20), var=1.234)
+    >>> foo = TestObject('test', pi=3.1416)
     >>> print(foo)
     $audobject.core.testing.TestObject:
       name: test
       point:
       - 0
       - 0
-      date: 1991-02-20 00:00:00
-      var: 1.234
+      pi: 3.1416
 
     """
     @init_decorator(
@@ -44,11 +41,9 @@ class TestObject(Object):
             name: str,
             *,
             point: (int, int) = (0, 0),
-            date: datetime = None,
             **kwargs,
     ):
         self.name = name
         self.point = point
-        self.date = date or datetime.now()
         for key, value in kwargs.items():
             self.__dict__[key] = value

@@ -9,20 +9,23 @@ import audeer
 
 from audobject.core import define
 from audobject.core import utils
+from audobject.core.resolver import (
+    DefaultValueType,
+    ValueResolver,
+)
 
 
 class Object:
     r"""Base class for objects that can be serialized to YAML.
 
     Example:
-
-    >>> class Foo(Object):
-    ...    def __init__(self, bar: str):
-    ...        self.bar = bar
-    >>> foo = Foo('hello object!')
-    >>> print(foo)
-    $audobject.core.object.Foo:
-      bar: hello object!
+        >>> class Foo(Object):
+        ...    def __init__(self, bar: str):
+        ...        self.bar = bar
+        >>> foo = Foo('hello object!')
+        >>> print(foo)
+        $audobject.core.object.Foo:
+          bar: hello object!
 
     """
     @property
@@ -36,7 +39,13 @@ class Object:
             RuntimeError: if arguments are found that are not assigned to
                 attributes of the same name
 
-        """
+        Example:
+            >>> import audobject.testing
+            >>> o = audobject.testing.TestObject('test', point=(1, 1))
+            >>> o.arguments
+            {'name': 'test', 'point': (1, 1)}
+
+        """  # noqa: E501
         signature = inspect.signature(self.__init__)
         # if 'kwargs' are allowed, check all members
         # otherwise only arguments from __init__
@@ -89,19 +98,18 @@ class Object:
         The ID of an object ID is created from its non-hidden arguments.
 
         Example:
-
-        >>> class Foo(Object):
-        ...    def __init__(self, bar: str):
-        ...        self.bar = bar
-        >>> foo1 = Foo('I am unique!')
-        >>> print(foo1.id)
-        893df240-babe-d796-cdf1-c436171b7a96
-        >>> foo2 = Foo('I am different!')
-        >>> print(foo2.id)
-        9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190
-        >>> foo3 = Foo('I am unique!')
-        >>> print(foo1.id == foo3.id)
-        True
+            >>> class Foo(Object):
+            ...    def __init__(self, bar: str):
+            ...        self.bar = bar
+            >>> foo1 = Foo('I am unique!')
+            >>> print(foo1.id)
+            893df240-babe-d796-cdf1-c436171b7a96
+            >>> foo2 = Foo('I am different!')
+            >>> print(foo2.id)
+            9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190
+            >>> foo3 = Foo('I am unique!')
+            >>> print(foo1.id == foo3.id)
+            True
 
         """
         string = self.to_yaml_s(include_version=False)
@@ -179,7 +187,7 @@ class Object:
         )
 
     @property
-    def resolvers(self):
+    def resolvers(self) -> typing.Dict[str, ValueResolver]:
         r"""Return resolvers.
 
         Returns:
@@ -194,19 +202,36 @@ class Object:
             self,
             *,
             include_version: bool = True,
-    ) -> typing.Dict[str, typing.Any]:
+            flatten: bool = False,
+    ) -> typing.Dict[str, DefaultValueType]:
         r"""Converts object to a dictionary.
+
+        Includes items from :meth:`audobject.Object.arguments`.
+        If an argument has a resolver, its value is encoded.
+        Usually, the object can be re-instantiated using
+        :meth:`audobject.Object.from_dict`.
+        However, if ``flatten=True``, this is not possible.
 
         Args:
             include_version: add version to class name
+            flatten: flatten the dictionary
 
         Returns:
-            dictionary with parameters
+            dictionary that represent the object
 
-        """
+        Example:
+            >>> import audobject.testing
+            >>> o = audobject.testing.TestObject('test', point=(1, 1))
+            >>> o.to_dict(include_version=False)
+            {'$audobject.core.testing.TestObject': {'name': 'test', 'point': [1, 1]}}
+            >>> o.to_dict(flatten=True)
+            {'name': 'test', 'point.0': 1, 'point.1': 1}
+
+        """  # noqa: E501
         name = f'{define.OBJECT_TAG}' \
                f'{self.__class__.__module__}.' \
                f'{self.__class__.__name__}'
+
         if include_version:
             version = utils.get_version(self.__class__.__module__)
             if version is not None:
@@ -217,10 +242,13 @@ class Object:
                     f"module '{self.__class__.__module__}'.",
                     RuntimeWarning,
                 )
-        d = {}
-        for key, value in self.arguments.items():
-            d[key] = self._encode_variable(key, value, include_version)
-        return {name: d}
+
+        d = {
+            key: self._encode_variable(key, value, include_version)
+            for key, value in self.arguments.items()
+        }
+
+        return Object._flatten(d) if flatten else {name: d}
 
     def to_yaml(
             self,
@@ -260,7 +288,17 @@ class Object:
         Returns:
             YAML string
 
-        """
+        Example:
+            >>> import audobject.testing
+            >>> o = audobject.testing.TestObject('test', point=(1, 1))
+            >>> print(o.to_yaml_s(include_version=False))
+            $audobject.core.testing.TestObject:
+              name: test
+              point:
+              - 1
+              - 1
+
+        """  # noqa: E501
         return yaml.dump(self.to_dict(include_version=include_version))
 
     @staticmethod
@@ -293,8 +331,7 @@ class Object:
     ):
         r"""Encode a value by first looking for a custom resolver,
         otherwise switch to default encoder."""
-        if name in self.resolvers:
-            value = self.resolvers[name].encode(value)
+        value = self._resolve_value(name, value)
         return Object._encode_value(value, include_version)
 
     @staticmethod
@@ -328,6 +365,45 @@ class Object:
                 RuntimeWarning,
             )
             return value
+
+    @staticmethod
+    def _flatten(
+        d: typing.Dict[str, DefaultValueType],
+    ):
+        r"""Flattens a dictionary."""
+        def helper(dict_in: dict, dict_out: dict, prefix: str):
+            for key, value in dict_out.items():
+                if utils.is_class(key):
+                    helper(dict_in, value, prefix)
+                elif isinstance(value, (list, tuple)):
+                    helper(
+                        dict_in,
+                        {idx: item for idx, item in enumerate(value)},
+                        f'{prefix}.{key}' if prefix else key,
+                    )
+                elif isinstance(value, dict):
+                    helper(
+                        dict_in,
+                        value,
+                        f'{prefix}.{key}' if prefix else key,
+                    )
+                else:
+                    if prefix:
+                        key = f'{prefix}.{key}'
+                    dict_in[key] = value
+
+        ret = {}
+        helper(ret, d, '')
+        return ret
+
+    def _resolve_value(
+            self,
+            name: str,
+            value: typing.Any,
+    ) -> DefaultValueType:
+        if name in self.resolvers:
+            value = self.resolvers[name].encode(value)
+        return value
 
     def __eq__(self, other: 'Object') -> bool:
         return self.id == other.id

@@ -21,7 +21,7 @@ def init_decorator(
     using the according :class:`audobject.ValueResolver`.
 
     Args:
-        ignore_vars: hidden attributes (deprecated, use ``hidden``)
+        ignore_vars: hidden attributes (deprecated, use ``hide``)
         hide: hidden attributes
         resolvers: dictionary with resolvers
 

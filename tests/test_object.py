@@ -36,6 +36,59 @@ def test(tmpdir, obj):
             assert t2.__dict__[key] == value
 
 
+@pytest.mark.parametrize(
+    'obj, expected',
+    [
+        (
+            audobject.testing.TestObject(
+                'test',
+                point=(1, 1),
+                object=audobject.testing.TestObject(
+                    'test',
+                    foo='foo',
+                    point=(2, 2),
+                    list=[
+                        audobject.testing.TestObject(
+                            'test',
+                            point=(3, 3),
+                        ),
+                        'foo',
+                    ],
+                    dict={
+                        'object': audobject.testing.TestObject(
+                            'test',
+                            bar='bar',
+                            point=(4, 4),
+                        ),
+                        'foo': 'foo',
+                    }
+                )
+            ),
+            {
+                'name': 'test',
+                'point.0': 1,
+                'point.1': 1,
+                'object.name': 'test',
+                'object.point.0': 2,
+                'object.point.1': 2,
+                'object.foo': 'foo',
+                'object.list.0.name': 'test',
+                'object.list.0.point.0': 3,
+                'object.list.0.point.1': 3,
+                'object.list.1': 'foo',
+                'object.dict.object.name': 'test',
+                'object.dict.object.point.0': 4,
+                'object.dict.object.point.1': 4,
+                'object.dict.object.bar': 'bar',
+                'object.dict.foo': 'foo'
+            },
+        ),
+    ]
+)
+def test_flatten(obj, expected):
+    assert obj.to_dict(flatten=True) == expected
+
+
 class ObjectWithHiddenArguments(audobject.Object):
 
     @audobject.init_decorator(
@@ -94,7 +147,8 @@ def test_bad_object():
 
     o = BadObject('foo')
     with pytest.raises(RuntimeError):
-        o.to_yaml_s()  # argument foo not assigned to an attribute
+        with pytest.warns(RuntimeWarning):
+            o.to_yaml_s()  # argument foo not assigned to an attribute
 
     class BadObject(audobject.Object):
         @audobject.init_decorator(

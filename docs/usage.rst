@@ -45,34 +45,54 @@ Now we instantiate an object and print it.
 
 As expected we see that ``string`` is repeated ``num_repeat`` times.
 But since we derived from :class:`audobject.Object`
-we can also print a YAML representation of the object.
+we get some additional functionality.
+
+For instance, we can get a dictionary
+with the arguments the object was initialized with.
+
+.. jupyter-execute::
+
+    o.arguments
+
+Or a dictionary that also stores module,
+object name and package version.
+
+.. jupyter-execute::
+
+    o_dict = o.to_dict()
+    print(o_dict)
+
+And we can re-instantiate the object from it.
+
+.. jupyter-execute::
+
+    o2 = o.from_dict(o_dict)
+    print(o2)
+
+We can also convert it to YAML.
 
 .. jupyter-execute::
 
     o_yaml = o.to_yaml_s()
     print(o_yaml)
 
-As we see it holds the name of the class
-and the values of the arguments
-that were used to initialize the object.
-This allows it to create a new instance
-of the object from its YAML representation.
+And create the object from YAML.
 
 .. jupyter-execute::
 
-    o2 = audobject.Object.from_yaml_s(o_yaml)
-    print(o2)
+    o3 = audobject.Object.from_yaml_s(o_yaml)
+    print(o3)
 
 If we want, we can override
 arguments when we instantiate an object.
 
 .. jupyter-execute::
 
-    o3 = audobject.Object.from_yaml_s(
+    o4 = audobject.Object.from_yaml_s(
         o_yaml,
         string='I was set to a different value!'
     )
-    print(o3)
+    print(o4)
 
 Or save an object to disk and re-instantiate it from there.
 
@@ -80,14 +100,8 @@ Or save an object to disk and re-instantiate it from there.
 
     file = 'my.yaml'
     o.to_yaml(file)
-    o4 = audobject.Object.from_yaml(file)
-    print(o4)
-
-And we can get a dictionary of all arguments and their values.
-
-.. jupyter-execute::
-
-    o4.arguments
+    o5 = audobject.Object.from_yaml(file)
+    print(o5)
 
 Object ID
 ---------
@@ -485,6 +499,52 @@ and the ``!!python/object`` tag has disappeared.
     d_yaml = d.to_yaml_s()
     print(d_yaml)
 
+Flat dictionary
+---------------
+
+Let's create a class that takes
+as input a string, a list and a dictionary.
+
+.. jupyter-execute::
+
+    class MyListDictObject(audobject.Object):
+
+        def __init__(
+                self,
+                a_str: str,
+                a_list: list,
+                a_dict: dict,
+        ):
+            self.a_str = a_str
+            self.a_list = a_list
+            self.a_dict = a_dict
+
+And initialize an object.
+
+.. jupyter-execute::
+
+    o = MyListDictObject(
+        a_str='test',
+        a_list=[1, '2', o],
+        a_dict={'pi': 3.1416, 'e': 2.71828},
+    )
+    o.to_dict()
+
+As expected, the dictionary of the object
+looks pretty nested.
+This is not always handy,
+e.g. if we try to store the object to a
+`Lookup table`_, this would not work.
+Therefore, in can sometimes be useful to
+get a flatten version of the dictionary.
+
+.. jupyter-execute::
+
+    o.to_dict(flatten=True)
+
+However, it's important to note that it's not possible
+to re-instantiate an object from a flattened dictionary.
+
 Versioning
 ----------
 
@@ -830,3 +890,4 @@ Last but not least, we can read/write the parameters from/to a file.
 
 .. _timedelta: https://docs.python.org/3/library/datetime.html#timedelta-objects
 .. _argparse: https://docs.python.org/3/library/argparse.html
+.. _`Lookup table`: http://tools.pp.audeering.com/audfactory/api-audfactory.html#lookup
