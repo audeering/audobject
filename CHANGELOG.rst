@@ -7,6 +7,11 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.1 (2020-10-21)
+--------------------------
+
+* Added: argument ``flatten`` to :meth:`audobject.Object.to_dict`
+
 Version 0.4.0 (2020-10-19)
 --------------------------
 
