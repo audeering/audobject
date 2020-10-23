@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.2 (2020-10-23)
+--------------------------
+
+* Changed: better error messages
+* Changed: :meth:`audobject.init_decorator` stores hidden arguments before calling ``__init__``
+
 Version 0.4.1 (2020-10-21)
 --------------------------
 
