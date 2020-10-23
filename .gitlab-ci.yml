@@ -20,15 +20,15 @@ test-3.6:
   stage: test
   image: docker.audeering.com/python:3.6
 
-test-3.7:
-  extends: .pytest
-  stage: test
-  image: docker.audeering.com/python:3.7
-
-test-3.8:
-  extends: .pytest
-  stage: test
-  image: docker.audeering.com/python:3.8
+#test-3.7:
+#  extends: .pytest
+#  stage: test
+#  image: docker.audeering.com/python:3.7
+#
+#test-3.8:
+#  extends: .pytest
+#  stage: test
+#  image: docker.audeering.com/python:3.8
 
 test-windows-general:
   # Based on Python 3.8 by default

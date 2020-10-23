@@ -68,9 +68,14 @@ class Object:
             if name not in self.__dict__:
                 missing.append(name)
         if len(missing) > 0:
-            raise RuntimeError(f'Arguments(s) {missing} not '
-                               f'assigned to attribute(s) '
-                               f'of same name(s).')
+            print(self.__class__.__name__)
+            raise RuntimeError(
+                f'Arguments '
+                f'{missing} '
+                f'of '
+                f'{self.__class__} '
+                f'not assigned to attributes of same name.'
+            )
         return {
             name: self.__dict__[name] for name in names if (
                 (name in self.__dict__)

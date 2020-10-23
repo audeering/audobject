@@ -43,6 +43,19 @@ def test(tmpdir, obj):
             audobject.testing.TestObject(
                 'test',
                 point=(1, 1),
+                foo={},
+                bar=[],
+            ),
+            {
+                'name': 'test',
+                'point.0': 1,
+                'point.1': 1,
+            }
+        ),
+        (
+            audobject.testing.TestObject(
+                'test',
+                point=(1, 1),
                 object=audobject.testing.TestObject(
                     'test',
                     foo='foo',

@@ -45,8 +45,6 @@ def init_decorator(
                     ):
                         kwargs[name] = resolver_obj.decode(kwargs[name])
 
-            func(self, *args, **kwargs)
-
             if hide is not None or ignore_vars is not None:
 
                 signature = inspect.signature(func)
@@ -77,11 +75,16 @@ def init_decorator(
                         invalid.append(var)
                 if len(invalid) > 0:
                     raise RuntimeError(
-                        f'Cannot hide argument(s) {invalid} '
-                        f'that do not have a default value.'
+                        f'Cannot hide arguments '
+                        f'{invalid} '
+                        f'of '
+                        f'{self.__class__} '
+                        f'as they do not have default values.'
                     )
 
                 setattr(self, define.HIDDEN_ATTRIBUTES, hidden)
+
+            func(self, *args, **kwargs)
 
         return wrapper
 
