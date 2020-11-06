@@ -11,7 +11,6 @@ stages:
     - python -V
   script:
     - pip install -r requirements.txt
-    - PIP_INDEX_URL=""  # https://gitlab.audeering.com/devops/gitlab/-/issues/80
     - pip install -r tests/requirements.txt
     - python -m pytest
 
@@ -20,15 +19,15 @@ test-3.6:
   stage: test
   image: docker.audeering.com/python:3.6
 
-#test-3.7:  # https://gitlab.audeering.com/devops/gitlab/-/issues/81
-#  extends: .pytest
-#  stage: test
-#  image: docker.audeering.com/python:3.7
-#
-#test-3.8:  # https://gitlab.audeering.com/devops/gitlab/-/issues/81
-#  extends: .pytest
-#  stage: test
-#  image: docker.audeering.com/python:3.8
+test-3.7:
+  extends: .pytest
+  stage: test
+  image: docker.audeering.com/python:3.7
+
+test-3.8:
+  extends: .pytest
+  stage: test
+  image: docker.audeering.com/python:3.8
 
 test-windows-general:
   # Based on Python 3.8 by default
@@ -46,8 +45,6 @@ docs:
   image: docker.audeering.com/python:3.6
   script:
     - pip install -r requirements.txt
-    - pip install sphinx-audeering-theme  # https://gitlab.audeering.com/devops/gitlab/-/issues/80
-    - PIP_INDEX_URL=""  # https://gitlab.audeering.com/devops/gitlab/-/issues/80
     - pip install -r docs/requirements.txt
     - python -m sphinx -W docs/ build/html -b html
     - python -m sphinx -W docs/ build/linkcheck -b linkcheck
