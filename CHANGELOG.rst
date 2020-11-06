@@ -7,6 +7,11 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.3 (2020-11-06)
+--------------------------
+
+* Changed: raise error when serializing a callable
+
 Version 0.4.2 (2020-10-23)
 --------------------------
 
