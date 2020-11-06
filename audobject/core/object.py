@@ -363,6 +363,10 @@ class Object:
                     Object._encode_value(val, include_version)
                 for key, val in value.items()
             }
+        elif callable(value):
+            raise RuntimeError(
+                f"Cannot encode type '{type(value)}'."
+            )
         else:
             warnings.warn(
                 f"No default encoding exists for type '{type(value)}'. "

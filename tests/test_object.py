@@ -138,15 +138,45 @@ def test_override_attributes():
     assert o2.name == 'override'
 
 
-def test_no_resolver(tmpdir):
+def test_no_resolver():
 
     obj = audobject.testing.TestObject(
         'test',
         no_encoder=(1, 2, 3),
     )
-    path = os.path.join(tmpdir, 'test.yaml')
     with pytest.warns(RuntimeWarning):
-        obj.to_yaml(path)
+        obj.to_yaml_s()
+
+    obj = audobject.testing.TestObject(
+        'test',
+        no_encoder=lambda x: x,
+    )
+    with pytest.raises(RuntimeError):
+        obj.to_yaml_s()
+
+    def func():
+        pass
+
+    obj = audobject.testing.TestObject(
+        'test',
+        no_encoder=func,
+    )
+    with pytest.raises(RuntimeError):
+        obj.to_yaml_s()
+
+    obj = audobject.testing.TestObject(
+        'test',
+        no_encoder=[func],
+    )
+    with pytest.raises(RuntimeError):
+        obj.to_yaml_s()
+
+    obj = audobject.testing.TestObject(
+        'test',
+        no_encoder={'func': func},
+    )
+    with pytest.raises(RuntimeError):
+        obj.to_yaml_s()
 
 
 def test_bad_object():
