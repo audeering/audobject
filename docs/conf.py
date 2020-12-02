@@ -1,11 +1,17 @@
-import subprocess
+import configparser
 from datetime import date
+import os
+import subprocess
 
+
+config = configparser.ConfigParser()
+config.read(os.path.join('..', 'setup.cfg'))
 
 # Project -----------------------------------------------------------------
-project = 'audobject'
+author = config['metadata']['author']
 copyright = f'2020-{date.today().year} audEERING GmbH'
-author = 'Johannes Wagner'
+project = config['metadata']['name']
+
 # The x.y.z version read from tags
 try:
     version = subprocess.check_output(['git', 'describe', '--tags',
