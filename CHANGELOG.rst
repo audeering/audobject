@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.4 (2020-12-03)
+--------------------------
+
+* Changed: parse authors and project name from setup
+* Changed: use :func:`audeer.deprecated_keyword_argument`
+
 Version 0.4.3 (2020-11-06)
 --------------------------
 
