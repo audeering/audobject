@@ -3,13 +3,19 @@ import inspect
 import typing
 import warnings
 
+import audeer
+
 from audobject.core import define
 from audobject.core.resolver import ValueResolver
 
 
+@audeer.deprecated_keyword_argument(
+    deprecated_argument='ignore_vars',
+    removal_version='0.5.0',
+    new_argument='hide',
+)
 def init_decorator(
         hide: typing.Sequence[str] = None,
-        ignore_vars: typing.Sequence[str] = None,
         resolvers: typing.Dict[str, typing.Type[ValueResolver]] = None,
 ):
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
@@ -21,7 +27,6 @@ def init_decorator(
     using the according :class:`audobject.ValueResolver`.
 
     Args:
-        ignore_vars: hidden attributes (deprecated, use ``hide``)
         hide: hidden attributes
         resolvers: dictionary with resolvers
 
@@ -45,7 +50,7 @@ def init_decorator(
                     ):
                         kwargs[name] = resolver_obj.decode(kwargs[name])
 
-            if hide is not None or ignore_vars is not None:
+            if hide is not None:
 
                 signature = inspect.signature(func)
                 required = set([
@@ -56,15 +61,6 @@ def init_decorator(
                 ])
 
                 hidden = []
-                if ignore_vars is not None:  # pragma: no cover
-                    warnings.warn(
-                        "Argument 'ignore_vars' of "
-                        "'init_decorator()' is deprecated, "
-                        "please use 'hide' instead.",
-                        DeprecationWarning,
-                    )
-                    for var in ignore_vars:
-                        hidden.append(var)
                 if hide is not None:
                     for var in hide:
                         hidden.append(var)
