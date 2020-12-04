@@ -7,6 +7,11 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.5 (2020-12-04)
+--------------------------
+
+* Added: ``borrow`` argument to :meth:`audobject.init_decorator`
+
 Version 0.4.4 (2020-12-03)
 --------------------------
 
