@@ -36,6 +36,48 @@ def test(tmpdir, obj):
             assert t2.__dict__[key] == value
 
 
+class Point:
+    def __init__(
+            self,
+            x: int,
+            y: int,
+    ):
+        self.x = x
+        self.y = y
+
+
+class ObjectWithBorrowedArguments(audobject.Object):
+
+    @audobject.init_decorator(
+        borrow={
+            'x': 'point',
+            'y': 'point',
+        },
+    )
+    def __init__(
+            self,
+            x: int,
+            y: int,
+    ):
+        self.point = Point(x, y)
+
+
+def test_borrowed():
+    x = 0,
+    y = 1
+    o = ObjectWithBorrowedArguments(x, y)
+    assert x not in o.__dict__
+    assert y not in o.__dict__
+    assert o.point.x == x
+    assert o.point.y == y
+    o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
+    assert isinstance(o2, ObjectWithBorrowedArguments)
+    assert x not in o2.__dict__
+    assert y not in o2.__dict__
+    assert o2.point.x == x
+    assert o2.point.y == y
+
+
 @pytest.mark.parametrize(
     'obj, expected',
     [
@@ -205,3 +247,55 @@ def test_bad_object():
 
     with pytest.raises(RuntimeError):
         BadObject('foo')  # cannot hide argument without default value
+
+    class BadObject(audobject.Object):
+        @audobject.init_decorator(
+            borrow={
+                'x': 'point',
+                'y': 'point',
+            },
+        )
+        def __init__(
+                self,
+                x: int,
+                y: int,
+        ):
+            pass
+
+    with pytest.raises(RuntimeError):
+        BadObject(0, 1).to_yaml_s()  # cannot borrow from missing attribute
+
+    class BadObject(audobject.Object):
+        @audobject.init_decorator(
+            borrow={
+                'x': 'point',
+                'y': 'point',
+            },
+        )
+        def __init__(
+                self,
+                x: int,
+                y: int,
+        ):
+            self.point = 0
+
+    with pytest.raises(RuntimeError):
+        BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute
+
+    class BadObject(audobject.Object):
+        @audobject.init_decorator(
+            borrow={
+                'x': 'point',
+                'y': 'point',
+                'z': 'point',
+            },
+        )
+        def __init__(
+                self,
+                x: int,
+                y: int,
+        ):
+            self.point = Point(x, y)
+
+    with pytest.raises(RuntimeError):
+        BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute

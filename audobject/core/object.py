@@ -47,40 +47,75 @@ class Object:
 
         """  # noqa: E501
         signature = inspect.signature(self.__init__)
+
         # if 'kwargs' are allowed, check all members
         # otherwise only arguments from __init__
         if 'kwargs' in signature.parameters:
             names = self.__dict__
         else:
             names = [p.name for p in signature.parameters.values()]
-        # remove hidden variables
-        hidden = list(self.hidden_arguments)
+
+        # remove hidden and borrowed attributes
+        borrowed = self.borrowed_arguments
+        hidden = self.hidden_arguments
         names = [
             name for name in names if (
                 (name != 'self')
                 and (not name.startswith('_'))
                 and (name not in hidden)
+                and (name not in borrowed.values())
             )
         ]
+
         # check for missing attributes
         missing = []
         for name in names:
-            if name not in self.__dict__:
+            if (name not in self.__dict__) and (name not in borrowed):
                 missing.append(name)
         if len(missing) > 0:
-            print(self.__class__.__name__)
             raise RuntimeError(
-                f'Arguments '
+                'Arguments '
                 f'{missing} '
-                f'of '
+                'of '
                 f'{self.__class__} '
-                f'not assigned to attributes of same name.'
+                'not assigned to attributes of same name.'
             )
-        return {
+
+        # check borrowed attributes
+        for key, value in borrowed.items():
+            if (not hasattr(self, value)) or \
+                    (not hasattr(self.__dict__[value], key)):
+                raise RuntimeError(
+                    'Cannot borrow attribute '
+                    f"'{key}' "
+                    'from '
+                    f"'self.{value}'."
+                )
+
+        # pick arguments from self and borrowed attributes
+        args = {
             name: self.__dict__[name] for name in names if (
                 (name in self.__dict__)
             )
         }
+        for key, value in borrowed.items():
+            args[key] = self.__dict__[value].__dict__[key]
+
+        return args
+
+    @property
+    def borrowed_arguments(self) -> typing.Dict[str, str]:
+        r"""Returns borrowed arguments.
+
+        Returns:
+            Dictionary with borrowed arguments.
+
+        """
+        if define.BORROWED_ATTRIBUTES in self.__dict__:
+            borrowed = self.__dict__[define.BORROWED_ATTRIBUTES]
+        else:
+            borrowed = {}
+        return borrowed
 
     @property
     def hidden_arguments(self) -> typing.List[str]:
@@ -91,7 +126,7 @@ class Object:
 
         """
         if define.HIDDEN_ATTRIBUTES in self.__dict__:
-            names = list(self.__dict__[define.HIDDEN_ATTRIBUTES])
+            names = self.__dict__[define.HIDDEN_ATTRIBUTES]
         else:
             names = []
         return names

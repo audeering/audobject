@@ -15,18 +15,29 @@ from audobject.core.resolver import ValueResolver
     new_argument='hide',
 )
 def init_decorator(
+        *,
+        borrow: typing.Dict[str, str] = None,
         hide: typing.Sequence[str] = None,
         resolvers: typing.Dict[str, typing.Type[ValueResolver]] = None,
 ):
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
 
+    If your class expects an argument ``x`` which is passed on as an argument
+    to a class ``C`` stored under ``self.c``, you can borrow the argument from
+    ``c`` by setting ``borrow['x'] = 'c'``. This will store ``x`` in the YAML
+    representation, even so your class does have an actual corresponding
+    attribute ``self.x``.
+
     Arguments listed in ``hidden`` are not serialized to YAML.
+    Note that objects you borrow attributes from, are also treated as
+    hidden arguments.
 
     If a dictionary of :class:`audobject.ValueResolver` is passed,
     matching attributes will be encoded / decoded
     using the according :class:`audobject.ValueResolver`.
 
     Args:
+        borrow: borrowed attributes
         hide: hidden attributes
         resolvers: dictionary with resolvers
 
@@ -50,6 +61,9 @@ def init_decorator(
                     ):
                         kwargs[name] = resolver_obj.decode(kwargs[name])
 
+            if borrow is not None:
+                setattr(self, define.BORROWED_ATTRIBUTES, borrow)
+
             if hide is not None:
 
                 signature = inspect.signature(func)
@@ -60,13 +74,8 @@ def init_decorator(
                     ]
                 ])
 
-                hidden = []
-                if hide is not None:
-                    for var in hide:
-                        hidden.append(var)
-
                 invalid = []
-                for var in hidden:
+                for var in hide:
                     if var in required:
                         invalid.append(var)
                 if len(invalid) > 0:
@@ -78,7 +87,7 @@ def init_decorator(
                         f'as they do not have default values.'
                     )
 
-                setattr(self, define.HIDDEN_ATTRIBUTES, hidden)
+                setattr(self, define.HIDDEN_ATTRIBUTES, hide)
 
             func(self, *args, **kwargs)
 

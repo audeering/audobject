@@ -258,6 +258,48 @@ It is possible to get a list of hidden arguments.
 
     o3.hidden_arguments
 
+Borrowed arguments
+------------------
+
+It is possible to borrow arguments from an instance attribute.
+For instance, here we borrow the attributes ``x`` and ``y``
+from ``self.point``.
+
+.. jupyter-execute::
+
+    class Point:
+
+        def __init__(
+                self,
+                x: int,
+                y: int,
+        ):
+            self.x = x
+            self.y = y
+
+
+    class ObjectWithBorrowedArguments(audobject.Object):
+
+        @audobject.init_decorator(
+            borrow={
+                'x': 'point',
+                'y': 'point',
+            },
+        )
+        def __init__(
+                self,
+                x: int,
+                y: int,
+        ):
+            self.point = Point(x, y)
+
+
+    t = ObjectWithBorrowedArguments(0, 1)
+    print(t.to_yaml_s())
+
+Note that attributes we borrow from are automatically
+treated as hidden arguments.
+
 Object with kwargs
 ------------------
 
