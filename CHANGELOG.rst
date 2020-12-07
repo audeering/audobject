@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.6 (2020-12-04)
+--------------------------
+
+* Fixed: avoid warnings for unsupported ``kwargs`` in
+  :meth:`audobject.Object.from_dict`
+
 Version 0.4.5 (2020-12-04)
 --------------------------
 
