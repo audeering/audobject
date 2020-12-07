@@ -22,10 +22,15 @@ def get_object(
         version: str,
         installed_version: str,
         params: dict,
+        **kwargs,
 ) -> typing.Any:
     r"""Create object from arguments."""
     signature = inspect.signature(cls.__init__)
     supports_kwargs = 'kwargs' in signature.parameters
+    supported_params = set([
+        p.name for p in signature.parameters.values()
+        if p.name not in ['self', 'kwargs']
+    ])
 
     # check for missing mandatory arguments
     required_params = set([
@@ -66,10 +71,6 @@ def get_object(
 
     # unless kwargs are supported check for additional arguments
     if not supports_kwargs:
-        supported_params = set([
-            p.name for p in signature.parameters.values()
-            if p.name not in ['self', 'kwargs']
-        ])
         additional_params = list(set(params) - supported_params)
         if len(additional_params):
             if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
@@ -86,6 +87,11 @@ def get_object(
                 key: value for key, value in params.items()
                 if key in supported_params
             }
+
+    # select supported params from kwargs
+    for key, value in kwargs.items():
+        if key in supported_params:
+            params[key] = value
 
     return cls(**params)
 

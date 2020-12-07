@@ -159,13 +159,32 @@ class ObjectWithHiddenArguments(audobject.Object):
         self.hidden = hidden
 
 
-def test_hidden_attributes():
+def test_hidden_attributes(tmpdir):
+
+    path = os.path.join(tmpdir, 'test.yaml')
 
     o = ObjectWithHiddenArguments('test', hidden='hidden')
     assert o.hidden == 'hidden'
+
     o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
     assert isinstance(o2, ObjectWithHiddenArguments)
     assert o2.hidden is None
+
+    o.to_yaml(path, include_version=False)
+    o2 = audobject.Object.from_yaml(path)
+    assert isinstance(o2, ObjectWithHiddenArguments)
+    assert o2.hidden is None
+
+    o2 = audobject.Object.from_yaml_s(
+        o.to_yaml_s(include_version=False), hidden='hidden',
+    )
+    assert isinstance(o2, ObjectWithHiddenArguments)
+    assert o2.hidden == 'hidden'
+
+    o.to_yaml(path, include_version=False)
+    o2 = audobject.Object.from_yaml(path, hidden='hidden')
+    assert isinstance(o2, ObjectWithHiddenArguments)
+    assert o2.hidden == 'hidden'
 
 
 def test_override_attributes():

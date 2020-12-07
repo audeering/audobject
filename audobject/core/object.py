@@ -179,9 +179,9 @@ class Object:
         params = {}
         for key, value in d[name].items():
             params[key] = Object._decode_value(value, **kwargs)
-        for key, value in kwargs.items():
-            params[key] = value
-        return utils.get_object(cls, version, installed_version, params)
+        return utils.get_object(
+            cls, version, installed_version, params, **kwargs,
+        )
 
     @staticmethod
     def from_yaml(
@@ -200,7 +200,7 @@ class Object:
         """
         if isinstance(path_or_stream, str):
             with open(path_or_stream, 'r') as fp:
-                return Object.from_yaml(fp)
+                return Object.from_yaml(fp, **kwargs)
         return Object.from_dict(
             yaml.load(path_or_stream, yaml.Loader),
             **kwargs,
