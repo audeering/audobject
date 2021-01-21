@@ -449,6 +449,9 @@ class Object:
             value = self.resolvers[name].encode(value)
         return value
 
+    def __hash__(self) -> int:
+        return hash(self.id)
+
     def __eq__(self, other: 'Object') -> bool:
         return self.id == other.id
 

@@ -34,6 +34,9 @@ def test(tmpdir, obj):
     for key, value in obj.__dict__.items():
         if not key.strip('_'):
             assert t2.__dict__[key] == value
+    # test hashable collection
+    assert hash(obj) == hash(obj.id)
+    set().add(obj)
 
 
 class Point:
