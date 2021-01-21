@@ -55,30 +55,38 @@ class ObjectWithBorrowedArguments(audobject.Object):
         borrow={
             'x': 'point',
             'y': 'point',
+            'z': 'd',
         },
     )
     def __init__(
             self,
             x: int,
             y: int,
+            z: int,
     ):
         self.point = Point(x, y)
+        self.d = {'z': z}
 
 
 def test_borrowed():
-    x = 0,
+    x = 0
     y = 1
-    o = ObjectWithBorrowedArguments(x, y)
+    z = 2
+    o = ObjectWithBorrowedArguments(x, y, z)
     assert x not in o.__dict__
     assert y not in o.__dict__
+    assert z not in o.__dict__
     assert o.point.x == x
     assert o.point.y == y
+    assert o.d['z'] == z
     o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
     assert isinstance(o2, ObjectWithBorrowedArguments)
     assert x not in o2.__dict__
     assert y not in o2.__dict__
+    assert z not in o2.__dict__
     assert o2.point.x == x
     assert o2.point.y == y
+    assert o.d['z'] == z
 
 
 @pytest.mark.parametrize(
@@ -285,7 +293,8 @@ def test_bad_object():
             pass
 
     with pytest.raises(RuntimeError):
-        BadObject(0, 1).to_yaml_s()  # cannot borrow from missing attribute
+        with pytest.warns(RuntimeWarning):
+            BadObject(0, 1).to_yaml_s()  # cannot borrow from missing attribute
 
     class BadObject(audobject.Object):
         @audobject.init_decorator(

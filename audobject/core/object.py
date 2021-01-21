@@ -1,3 +1,4 @@
+import collections.abc
 import inspect
 import os
 import typing
@@ -83,8 +84,13 @@ class Object:
 
         # check borrowed attributes
         for key, value in borrowed.items():
-            if (not hasattr(self, value)) or \
-                    (not hasattr(self.__dict__[value], key)):
+            can_borrow = False
+            if hasattr(self, value):
+                if hasattr(self.__dict__[value], key):
+                    can_borrow = True
+                elif isinstance(self.__dict__[value], collections.abc.Mapping):
+                    can_borrow = True
+            if not can_borrow:
                 raise RuntimeError(
                     'Cannot borrow attribute '
                     f"'{key}' "
@@ -99,7 +105,10 @@ class Object:
             )
         }
         for key, value in borrowed.items():
-            args[key] = self.__dict__[value].__dict__[key]
+            if hasattr(self.__dict__[value], key):
+                args[key] = self.__dict__[value].__dict__[key]
+            else:
+                args[key] = self.__dict__[value][key]
 
         return args
 

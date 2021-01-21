@@ -23,10 +23,10 @@ def init_decorator(
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
 
     If your class expects an argument ``x`` which is passed on as an argument
-    to a class ``C`` stored under ``self.c``, you can borrow the argument from
-    ``c`` by setting ``borrow['x'] = 'c'``. This will store ``x`` in the YAML
-    representation, even so your class does have an actual corresponding
-    attribute ``self.x``.
+    to a class ``C`` or to a dictionary with key ``x`` and stored under
+    ``self.c``, you can borrow the argument from ``c`` by setting ``borrow[
+    'x'] = 'c'``. This will store ``x`` in the YAML representation, even so
+    your class does have an actual corresponding attribute ``self.x``.
 
     Arguments listed in ``hidden`` are not serialized to YAML.
     Note that objects you borrow attributes from, are also treated as

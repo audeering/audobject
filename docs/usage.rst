@@ -262,8 +262,8 @@ Borrowed arguments
 ------------------
 
 It is possible to borrow arguments from an instance attribute.
-For instance, here we borrow the attributes ``x`` and ``y``
-from ``self.point``.
+For instance, here we borrow the attributes ``x``, ``y``, and ``z``
+from ``self.point`` and a dictionary ``self.d``.
 
 .. jupyter-execute::
 
@@ -284,17 +284,20 @@ from ``self.point``.
             borrow={
                 'x': 'point',
                 'y': 'point',
+                'z': 'd',
             },
         )
         def __init__(
                 self,
                 x: int,
                 y: int,
+                z: int,
         ):
             self.point = Point(x, y)
+            self.d = {'z': z}
 
 
-    t = ObjectWithBorrowedArguments(0, 1)
+    t = ObjectWithBorrowedArguments(0, 1, 2)
     print(t.to_yaml_s())
 
 Note that attributes we borrow from are automatically
