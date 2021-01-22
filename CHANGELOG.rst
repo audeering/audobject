@@ -7,6 +7,13 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.7 (2021-01-22)
+--------------------------
+
+* Changed: :class:`audobject.Object` implements ``__hash__()``
+* Changed: borrow arguments from dictionary
+
+
 Version 0.4.6 (2020-12-04)
 --------------------------
 
