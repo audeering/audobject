@@ -16,7 +16,7 @@ Version 0.4.8 (2021-03-24)
 Version 0.4.7 (2021-01-22)
 --------------------------
 
-* Changed: :class:`audobject.Object` implements ``__hash__()``
+* Changed: ``audobject.Object`` implements ``__hash__()``
 * Changed: borrow arguments from dictionary
 
 
@@ -24,18 +24,18 @@ Version 0.4.6 (2020-12-04)
 --------------------------
 
 * Fixed: avoid warnings for unsupported ``kwargs`` in
-  :meth:`audobject.Object.from_dict`
+  ``audobject.Object.from_dict()``
 
 Version 0.4.5 (2020-12-04)
 --------------------------
 
-* Added: ``borrow`` argument to :meth:`audobject.init_decorator`
+* Added: ``borrow`` argument to ``audobject.init_decorator()``
 
 Version 0.4.4 (2020-12-03)
 --------------------------
 
 * Changed: parse authors and project name from setup
-* Changed: use :func:`audeer.deprecated_keyword_argument`
+* Changed: use ``audeer.deprecated_keyword_argument()``
 
 Version 0.4.3 (2020-11-06)
 --------------------------
@@ -46,22 +46,25 @@ Version 0.4.2 (2020-10-23)
 --------------------------
 
 * Changed: better error messages
-* Changed: :meth:`audobject.init_decorator` stores hidden arguments before calling ``__init__``
+* Changed: ``audobject.init_decorator()`` stores hidden arguments
+  before calling ``__init__``
 
 Version 0.4.1 (2020-10-21)
 --------------------------
 
-* Added: argument ``flatten`` to :meth:`audobject.Object.to_dict`
+* Added: argument ``flatten`` to ``audobject.Object.to_dict()``
 
 Version 0.4.0 (2020-10-19)
 --------------------------
 
-* Added: :meth:`audobject.Object.arguments`, :meth:`audobject.Object.hidden_arguments`, :meth:`audobject.Object.resolvers`
-* Added: ``hide`` to :meth:`audobject.init_decorator` (replaces ``ignore_vars``)
-* Changed: Serialize only arguments of __init__ to YAML
+* Added: ``audobject.Object.arguments()``,
+  ``audobject.Object.hidden_arguments()``,
+  ``audobject.Object.resolvers()``
+* Added: ``hide`` to ``audobject.init_decorator()`` (replaces ``ignore_vars``)
+* Changed: Serialize only arguments of ``__init__`` to YAML
 * Changed: Raise error if user tries to hide argument without default value
 * Changed: Raise error if argument that is not hidden is not assigned to a variable
-* Removed: ``check_vars`` from :meth:`audobject.init_decorator`
+* Removed: ``check_vars`` from ``audobject.init_decorator``
 
 Version 0.3.3 (2020-10-09)
 --------------------------
@@ -88,8 +91,8 @@ Version 0.3.0 (2020-10-08)
 Version 0.2.0 (2020-10-08)
 --------------------------
 
-* Added: :meth:`audobject.init_decorator`
-* Added: :class:`audobject.Dictionary`
+* Added: ``audobject.init_decorator()``
+* Added: ``audobject.Dictionary``
 
 Version 0.1.0 (2020-10-02)
 --------------------------
