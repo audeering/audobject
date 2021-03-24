@@ -1,0 +1,1740 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>audobject &mdash; audobject Documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="audobject.define" href="define.html" />
+    <link rel="prev" title="Usage" href="usage.html" />
+    
+  
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          <a href="index.html">
+          
+            <img src="_static/images/audeering.svg" class="logo" alt="audEERING"/>
+          
+          
+            <span> audobject</span>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.4.9
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">audobject</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#config">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dictionary">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#init-decorator">init_decorator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#object">Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tupleresolver">TupleResolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typeresolver">TypeResolver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">audobject</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>audobject</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://gitlab.audeering.com/audeering/audobject/blob/v0.4.9/docs/api.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-audobject">
+<span id="audobject"></span><h1>audobject<a class="headerlink" href="#module-audobject" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="config">
+<h2>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="audobject.config">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">config</span></code><a class="reference internal" href="_modules/audobject/core/config.html#config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.config" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL">
+<code class="sig-name descname"><span class="pre">SIGNATURE_MISMATCH_WARN_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls when a warning is shown in case of a signature mismatch,
+see <a class="reference internal" href="define.html#audobject.define.SignatureMismatchWarnLevel" title="audobject.define.SignatureMismatchWarnLevel"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.define.SignatureMismatchWarnLevel</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dictionary">
+<h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="audobject.Dictionary">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Dictionary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary that can be serialized to YAML.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – items</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># set item</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;FOO&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get item</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span>
+<span class="go">&#39;FOO&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># add item</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">$audobject.core.dictionary.Dictionary:</span>
+<span class="go">  foo: FOO</span>
+<span class="go">  bar: bar</span>
+<span class="go">  new: 1.234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="s1">&#39;Foo&#39;</span><span class="p">,</span> <span class="n">none</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">$audobject.core.dictionary.Dictionary:</span>
+<span class="go">  foo: Foo</span>
+<span class="go">  bar: bar</span>
+<span class="go">  new: 1.234</span>
+<span class="go">  none: null</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="audobject.Dictionary.arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Dictionary.arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns arguments that are serialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of arguments and their values.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if arguments are found that are not assigned to
+    attributes of the same name</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">arguments</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: (1, 1)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Dictionary.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns borrowed arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with borrowed arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.from_dict">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if a mandatory argument of the object
+    is missing in the dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.from_yaml">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yaml_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – YAML string</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Dictionary.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns hidden arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with names of hidden arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.id">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Dictionary.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object identifier.</p>
+<p>The ID of an object ID is created from its non-hidden arguments.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">bar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">893df240-babe-d796-cdf1-c436171b7a96</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo3</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">foo3</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.items">
+<code class="sig-name descname"><span class="pre">items</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return items view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ItemsView" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemsView</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.keys">
+<code class="sig-name descname"><span class="pre">keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.KeysView" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeysView</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.resolvers">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Dictionary.resolvers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return resolvers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueResolver</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with resolvers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.to_dict">
+<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts object to a dictionary.</p>
+<p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
+If an argument has a resolver, its value is encoded.
+Usually, the object can be re-instantiated using
+<a class="reference internal" href="#audobject.Object.from_dict" title="audobject.Object.from_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.from_dict()</span></code></a>.
+However, if <code class="docutils literal notranslate"><span class="pre">flatten=True</span></code>, this is not possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+<li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dictionary that represent the object</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;$audobject.core.testing.TestObject&#39;: {&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: [1, 1]}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point.0&#39;: 1, &#39;point.1&#39;: 1}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.to_yaml">
+<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save object to YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.to_yaml_s">
+<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert object to YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>YAML string</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">$audobject.core.testing.TestObject:</span>
+<span class="go">  name: test</span>
+<span class="go">  point:</span>
+<span class="go">  - 1</span>
+<span class="go">  - 1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the dictionary with the key/value pairs from other.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dictionary</span></code>) – the other dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Dictionary.values">
+<code class="sig-name descname"><span class="pre">values</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ValuesView" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValuesView</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="init-decorator">
+<h2>init_decorator<a class="headerlink" href="#init-decorator" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="audobject.init_decorator">
+<code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">init_decorator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">borrow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolvers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/decorator.html#init_decorator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.init_decorator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function of <a class="reference internal" href="#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
+<p>If your class expects an argument <code class="docutils literal notranslate"><span class="pre">x</span></code> which is passed on as an argument
+to a class <code class="docutils literal notranslate"><span class="pre">C</span></code> or to a dictionary with key <code class="docutils literal notranslate"><span class="pre">x</span></code> and stored under
+<code class="docutils literal notranslate"><span class="pre">self.c</span></code>, you can borrow the argument from <code class="docutils literal notranslate"><span class="pre">c</span></code> by setting <code class="docutils literal notranslate"><span class="pre">borrow[</span>
+<span class="pre">'x']</span> <span class="pre">=</span> <span class="pre">'c'</span></code>. This will store <code class="docutils literal notranslate"><span class="pre">x</span></code> in the YAML representation, even so
+your class does have an actual corresponding attribute <code class="docutils literal notranslate"><span class="pre">self.x</span></code>.</p>
+<p>Arguments listed in <code class="docutils literal notranslate"><span class="pre">hidden</span></code> are not serialized to YAML.
+Note that objects you borrow attributes from, are also treated as
+hidden arguments.</p>
+<p>If a dictionary of <code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.ValueResolver</span></code> is passed,
+matching attributes will be encoded / decoded
+using the according <code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.ValueResolver</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>borrow</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – borrowed attributes</p></li>
+<li><p><strong>hide</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – hidden attributes</p></li>
+<li><p><strong>resolvers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ValueResolver</span></code>]]]) – dictionary with resolvers</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if arguments are not assigned to attributes of same name</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="object">
+<h2>Object<a class="headerlink" href="#object" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="audobject.Object">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Object</span></code><a class="reference internal" href="_modules/audobject/core/object.html#Object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for objects that can be serialized to YAML.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">bar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;hello object!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+<span class="go">$audobject.core.object.Foo:</span>
+<span class="go">  bar: hello object!</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="audobject.Object.arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Object.arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns arguments that are serialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of arguments and their values.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if arguments are found that are not assigned to
+    attributes of the same name</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">arguments</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: (1, 1)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Object.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns borrowed arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with borrowed arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.from_dict">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if a mandatory argument of the object
+    is missing in the dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.from_yaml">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yaml_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – YAML string</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Object.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns hidden arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with names of hidden arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.id">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Object.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object identifier.</p>
+<p>The ID of an object ID is created from its non-hidden arguments.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">bar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">893df240-babe-d796-cdf1-c436171b7a96</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo3</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">foo3</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.resolvers">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Object.resolvers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return resolvers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueResolver</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with resolvers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.to_dict">
+<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts object to a dictionary.</p>
+<p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
+If an argument has a resolver, its value is encoded.
+Usually, the object can be re-instantiated using
+<a class="reference internal" href="#audobject.Object.from_dict" title="audobject.Object.from_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.from_dict()</span></code></a>.
+However, if <code class="docutils literal notranslate"><span class="pre">flatten=True</span></code>, this is not possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+<li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dictionary that represent the object</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;$audobject.core.testing.TestObject&#39;: {&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: [1, 1]}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point.0&#39;: 1, &#39;point.1&#39;: 1}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.to_yaml">
+<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save object to YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Object.to_yaml_s">
+<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert object to YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>YAML string</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">$audobject.core.testing.TestObject:</span>
+<span class="go">  name: test</span>
+<span class="go">  point:</span>
+<span class="go">  - 1</span>
+<span class="go">  - 1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="parameter">
+<h2>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="audobject.Parameter">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Parameter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">value_type=&lt;class</span> <span class="pre">'str'&gt;</span></em>, <em class="sig-param"><span class="pre">description=''</span></em>, <em class="sig-param"><span class="pre">value=None</span></em>, <em class="sig-param"><span class="pre">default_value=None</span></em>, <em class="sig-param"><span class="pre">choices=None</span></em>, <em class="sig-param"><span class="pre">version=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Single parameter.</p>
+<p>A parameter steers the behaviour of a an object (e.g. tuning a model).
+It has a specific type and default value, possibly one of a set of choices.
+It is possible to bound a parameter to a specific version (range).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a>) – data type, one of
+(<code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>)
+or a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code> of those</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – description</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – value, if <code class="docutils literal notranslate"><span class="pre">None</span></code> set to <code class="docutils literal notranslate"><span class="pre">default_value</span></code></p></li>
+<li><p><strong>default_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – default value</p></li>
+<li><p><strong>choices</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]) – list with choices</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – string defining in which versions the parameter is used
+(e.g. <code class="docutils literal notranslate"><span class="pre">'&gt;=1.0.0,&lt;2.0.0,!=1.5.0'</span></code>),
+<code class="docutils literal notranslate"><span class="pre">None</span></code> matches any version</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.9)"><strong>TypeError</strong></a> – if value has an invalid type</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if value is not in choices</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">value_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;some parameter&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">default_value</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;Bar&#39;</span><span class="p">,</span> <span class="s1">&#39;BAR&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;&gt;=1.0.0,&lt;2.0.0&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># check version</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;1.5.0&#39;</span> <span class="ow">in</span> <span class="n">foo</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;2.0.0&#39;</span> <span class="ow">in</span> <span class="n">foo</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get/set value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&#39;bar&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;Bar&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&#39;Bar&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># set invalid value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">foo</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;par&#39;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+<span class="go">Invalid value &#39;par&#39;, expected one of [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;].</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="audobject.Parameter.arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Parameter.arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns arguments that are serialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of arguments and their values.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if arguments are found that are not assigned to
+    attributes of the same name</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">arguments</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: (1, 1)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Parameter.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns borrowed arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with borrowed arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="audobject.Parameter.choices">
+<code class="sig-name descname"><span class="pre">choices</span></code><a class="headerlink" href="#audobject.Parameter.choices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Possible choices for parameter</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="audobject.Parameter.default_value">
+<code class="sig-name descname"><span class="pre">default_value</span></code><a class="headerlink" href="#audobject.Parameter.default_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default value of parameter</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="audobject.Parameter.description">
+<code class="sig-name descname"><span class="pre">description</span></code><a class="headerlink" href="#audobject.Parameter.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value of parameter, use ‘set_value’ for type checking</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.from_dict">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if a mandatory argument of the object
+    is missing in the dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.from_yaml">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yaml_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – YAML string</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Parameter.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns hidden arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with names of hidden arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.id">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Parameter.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object identifier.</p>
+<p>The ID of an object ID is created from its non-hidden arguments.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">bar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">893df240-babe-d796-cdf1-c436171b7a96</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo3</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">foo3</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.resolvers">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Parameter.resolvers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return resolvers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueResolver</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with resolvers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.set_value">
+<code class="sig-name descname"><span class="pre">set_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameter.set_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameter.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a new value.</p>
+<p>Applies additional checks, e.g. if value is of the expected type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – new value</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.9)"><strong>TypeError</strong></a> – if value has an invalid type</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if value is not in choices</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.to_dict">
+<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts object to a dictionary.</p>
+<p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
+If an argument has a resolver, its value is encoded.
+Usually, the object can be re-instantiated using
+<a class="reference internal" href="#audobject.Object.from_dict" title="audobject.Object.from_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.from_dict()</span></code></a>.
+However, if <code class="docutils literal notranslate"><span class="pre">flatten=True</span></code>, this is not possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+<li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dictionary that represent the object</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;$audobject.core.testing.TestObject&#39;: {&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: [1, 1]}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point.0&#39;: 1, &#39;point.1&#39;: 1}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.to_yaml">
+<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save object to YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameter.to_yaml_s">
+<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert object to YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>YAML string</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">$audobject.core.testing.TestObject:</span>
+<span class="go">  name: test</span>
+<span class="go">  point:</span>
+<span class="go">  - 1</span>
+<span class="go">  - 1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="audobject.Parameter.value">
+<code class="sig-name descname"><span class="pre">value</span></code><a class="headerlink" href="#audobject.Parameter.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description of parameter</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="audobject.Parameter.value_type">
+<code class="sig-name descname"><span class="pre">value_type</span></code><a class="headerlink" href="#audobject.Parameter.value_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data type of parameter</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="audobject.Parameter.version">
+<code class="sig-name descname"><span class="pre">version</span></code><a class="headerlink" href="#audobject.Parameter.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Versions in which the parameter is used</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="audobject.Parameters">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Parameters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – <a class="reference internal" href="#audobject.Parameter" title="audobject.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameter</span></code></a> objects</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create parameter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">value_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create list of parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span> <span class="o">=</span> <span class="n">Parameters</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="n">foo</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get / set parameter value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span><span class="o">.</span><span class="n">foo</span>
+<span class="go">&#39;bar&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># add another parameter to list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pi</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">value_type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;mathematical constant&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">value</span><span class="o">=</span><span class="mf">3.14159265359</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;pi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pi</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="go">Name  Value          Default  Choices  Description            Version</span>
+<span class="go">----  -----          -------  -------  -----------            -------</span>
+<span class="go">foo   bar            None     None     foo                    None</span>
+<span class="go">pi    3.14159265359  None     None     mathematical constant  None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># convert to dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span><span class="p">()</span>
+<span class="go">{&#39;foo&#39;: &#39;bar&#39;, &#39;pi&#39;: 3.14159265359}</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="audobject.Parameters.arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Parameters.arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns arguments that are serialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of arguments and their values.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if arguments are found that are not assigned to
+    attributes of the same name</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">arguments</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: (1, 1)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Parameters.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns borrowed arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with borrowed arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.filter_by_version">
+<code class="sig-name descname"><span class="pre">filter_by_version</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.filter_by_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.filter_by_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter parameters by version.</p>
+<p>Returns a subset including only those parameters that match a given
+version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – version string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List with matching parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.from_command_line">
+<code class="sig-name descname"><span class="pre">from_command_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.from_command_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.from_command_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse parameters from command line parser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code></a>) – command line arguments</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.from_dict">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – if a mandatory argument of the object
+    is missing in the dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.from_yaml">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create object from YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yaml_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – YAML string</p></li>
+<li><p><strong>kwargs</strong> – additional variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Parameters.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns hidden arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List with names of hidden arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.id">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Parameters.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object identifier.</p>
+<p>The ID of an object ID is created from its non-hidden arguments.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">bar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">893df240-babe-d796-cdf1-c436171b7a96</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo3</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">foo3</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.items">
+<code class="sig-name descname"><span class="pre">items</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return items view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ItemsView" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemsView</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.keys">
+<code class="sig-name descname"><span class="pre">keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.KeysView" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeysView</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.resolvers">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Parameters.resolvers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return resolvers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueResolver</span></code>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with resolvers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.to_command_line">
+<code class="sig-name descname"><span class="pre">to_command_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.to_command_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.to_command_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add parameters to command line parser.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Command line arguments are named –&lt;name&gt;.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parser</strong> (<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code></a>) – command line parser</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.to_dict">
+<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts object to a dictionary.</p>
+<p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
+If an argument has a resolver, its value is encoded.
+Usually, the object can be re-instantiated using
+<a class="reference internal" href="#audobject.Object.from_dict" title="audobject.Object.from_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.from_dict()</span></code></a>.
+However, if <code class="docutils literal notranslate"><span class="pre">flatten=True</span></code>, this is not possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+<li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dictionary that represent the object</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;$audobject.core.testing.TestObject&#39;: {&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: [1, 1]}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">{&#39;name&#39;: &#39;test&#39;, &#39;point.0&#39;: 1, &#39;point.1&#39;: 1}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.to_path">
+<code class="sig-name descname"><span class="pre">to_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.to_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.to_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates path from parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delimiter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – delimiter character</p></li>
+<li><p><strong>include</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – list of parameters to include</p></li>
+<li><p><strong>exclude</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – list of parameters to exclude</p></li>
+<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – sort parameters by name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.to_yaml">
+<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save object to YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
+<li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.to_yaml_s">
+<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert object to YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>YAML string</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">audobject.testing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">o</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">TestObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="go">$audobject.core.testing.TestObject:</span>
+<span class="go">  name: test</span>
+<span class="go">  point:</span>
+<span class="go">  - 1</span>
+<span class="go">  - 1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the dictionary with the key/value pairs from other.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dictionary</span></code>) – the other dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.Parameters.values">
+<code class="sig-name descname"><span class="pre">values</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ValuesView" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValuesView</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tupleresolver">
+<h2>TupleResolver<a class="headerlink" href="#tupleresolver" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="audobject.TupleResolver">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">TupleResolver</span></code><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuple resolver.</p>
+<dl class="py method">
+<dt id="audobject.TupleResolver.decode">
+<code class="sig-name descname"><span class="pre">decode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decodes <code class="docutils literal notranslate"><span class="pre">list</span></code> as <code class="docutils literal notranslate"><span class="pre">tuple</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) – list</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.TupleResolver.encode">
+<code class="sig-name descname"><span class="pre">encode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encodes <code class="docutils literal notranslate"><span class="pre">tuple</span></code> as <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – tuple</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.TupleResolver.encode_type">
+<code class="sig-name descname"><span class="pre">encode_type</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.encode_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return encoded type.</p>
+<p>Returns: list</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="typeresolver">
+<h2>TypeResolver<a class="headerlink" href="#typeresolver" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="audobject.TypeResolver">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">TypeResolver</span></code><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type resolver.</p>
+<dl class="py method">
+<dt id="audobject.TypeResolver.decode">
+<code class="sig-name descname"><span class="pre">decode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decodes <code class="docutils literal notranslate"><span class="pre">str</span></code> as <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – type string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.TypeResolver.encode">
+<code class="sig-name descname"><span class="pre">encode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encodes <code class="docutils literal notranslate"><span class="pre">type</span></code> as <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a>) – type class</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="audobject.TypeResolver.encode_type">
+<code class="sig-name descname"><span class="pre">encode_type</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.encode_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return encoded type.</p>
+<p>Returns: encoded type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="define.html" class="btn btn-neutral float-right" title="audobject.define" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div>
+      
+      
+      
+      
+      
+      
+      
+        <ul>
+          <li><a href="http://data.pp.audeering.com">Data</a></li>
+          <li><a href="http://devops.pp.audeering.com/sphinx/">Documentation</a></li>
+          <li><a href="http://devops.pp.audeering.com">Infrastructure</a></li>
+          <li><a href="http://models.pp.audeering.com">Models</a></li>
+          <li><a href="http://devops.pp.audeering.com/python/">Python</a></li>
+          <li><a href="http://tools.pp.audeering.com">Tools</a></li>
+        </ul>
+      
+    <p>
+        
+        
+        
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/03/24 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+        
+    </p>
+  </div>
+
+  <div role="contentinfo">
+    <p>
+        
+      &copy; 2020-2021 audEERING GmbH
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

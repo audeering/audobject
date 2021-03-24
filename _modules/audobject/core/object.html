@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>audobject.core.object &mdash; audobject Documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/audeering.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    
+  
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          <a href="../../../index.html">
+          
+            <img src="../../../_static/images/audeering.svg" class="logo" alt="audEERING"/>
+          
+          
+            <span> audobject</span>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.4.9
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">audobject</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>audobject.core.object</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for audobject.core.object</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections.abc</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">oyaml</span> <span class="k">as</span> <span class="nn">yaml</span>
+
+<span class="kn">import</span> <span class="nn">audeer</span>
+
+<span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">define</span>
+<span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">audobject.core.resolver</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DefaultValueType</span><span class="p">,</span>
+    <span class="n">ValueResolver</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="Object"><a class="viewcode-back" href="../../../api.html#audobject.Object">[docs]</a><span class="k">class</span> <span class="nc">Object</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Base class for objects that can be serialized to YAML.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; class Foo(Object):</span>
+<span class="sd">        ...    def __init__(self, bar: str):</span>
+<span class="sd">        ...        self.bar = bar</span>
+<span class="sd">        &gt;&gt;&gt; foo = Foo(&#39;hello object!&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; print(foo)</span>
+<span class="sd">        $audobject.core.object.Foo:</span>
+<span class="sd">          bar: hello object!</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns arguments that are serialized.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of arguments and their values.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: if arguments are found that are not assigned to</span>
+<span class="sd">                attributes of the same name</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; import audobject.testing</span>
+<span class="sd">            &gt;&gt;&gt; o = audobject.testing.TestObject(&#39;test&#39;, point=(1, 1))</span>
+<span class="sd">            &gt;&gt;&gt; o.arguments</span>
+<span class="sd">            {&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: (1, 1)}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">)</span>
+
+        <span class="c1"># if &#39;kwargs&#39; are allowed, check all members</span>
+        <span class="c1"># otherwise only arguments from __init__</span>
+        <span class="k">if</span> <span class="s1">&#39;kwargs&#39;</span> <span class="ow">in</span> <span class="n">signature</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">signature</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+        <span class="c1"># remove hidden and borrowed attributes</span>
+        <span class="n">borrowed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">borrowed_arguments</span>
+        <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_arguments</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">if</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">))</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">hidden</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="c1"># check for missing attributes</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="p">):</span>
+                <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s1">&#39;Arguments &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1"> &#39;</span>
+                <span class="s1">&#39;of &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1"> &#39;</span>
+                <span class="s1">&#39;not assigned to attributes of same name.&#39;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># check borrowed attributes</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">can_borrow</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">value</span><span class="p">],</span> <span class="n">key</span><span class="p">):</span>
+                    <span class="n">can_borrow</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">value</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">):</span>
+                    <span class="n">can_borrow</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">can_borrow</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s1">&#39;Cannot borrow attribute &#39;</span>
+                    <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
+                    <span class="s1">&#39;from &#39;</span>
+                    <span class="sa">f</span><span class="s2">&quot;&#39;self.</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># pick arguments from self and borrowed attributes</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">if</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">value</span><span class="p">],</span> <span class="n">key</span><span class="p">):</span>
+                <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">value</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">args</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">borrowed_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns borrowed arguments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary with borrowed arguments.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">define</span><span class="o">.</span><span class="n">BORROWED_ATTRIBUTES</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="n">borrowed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">BORROWED_ATTRIBUTES</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">borrowed</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">borrowed</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hidden_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns hidden arguments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List with names of hidden arguments.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">define</span><span class="o">.</span><span class="n">HIDDEN_ATTRIBUTES</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">HIDDEN_ATTRIBUTES</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">names</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Object identifier.</span>
+
+<span class="sd">        The ID of an object ID is created from its non-hidden arguments.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; class Foo(Object):</span>
+<span class="sd">            ...    def __init__(self, bar: str):</span>
+<span class="sd">            ...        self.bar = bar</span>
+<span class="sd">            &gt;&gt;&gt; foo1 = Foo(&#39;I am unique!&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(foo1.id)</span>
+<span class="sd">            893df240-babe-d796-cdf1-c436171b7a96</span>
+<span class="sd">            &gt;&gt;&gt; foo2 = Foo(&#39;I am different!&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(foo2.id)</span>
+<span class="sd">            9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190</span>
+<span class="sd">            &gt;&gt;&gt; foo3 = Foo(&#39;I am unique!&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(foo1.id == foo3.id)</span>
+<span class="sd">            True</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">audeer</span><span class="o">.</span><span class="n">uid</span><span class="p">(</span><span class="n">from_string</span><span class="o">=</span><span class="n">string</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Object.from_dict"><a class="viewcode-back" href="../../../api.html#audobject.Object.from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span>
+            <span class="n">d</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from dictionary.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            d: dictionary with variables</span>
+<span class="sd">            kwargs: additional variables</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: if a mandatory argument of the object</span>
+<span class="sd">                is missing in the dictionary</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">installed_version</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_class</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">_decode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">installed_version</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Object.from_yaml"><a class="viewcode-back" href="../../../api.html#audobject.Object.from_yaml">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span>
+            <span class="n">path_or_stream</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">IO</span><span class="p">],</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from YAML file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path_or_stream: file path or stream</span>
+<span class="sd">            kwargs: additional variables</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Object.from_yaml_s"><a class="viewcode-back" href="../../../api.html#audobject.Object.from_yaml_s">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_yaml_s</span><span class="p">(</span>
+            <span class="n">yaml_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from YAML string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            yaml_string: YAML string</span>
+<span class="sd">            kwargs: additional variables</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">resolvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueResolver</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return resolvers.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary with resolvers.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="Object.to_dict"><a class="viewcode-back" href="../../../api.html#audobject.Object.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">flatten</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DefaultValueType</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
+
+<span class="sd">        Includes items from :meth:`audobject.Object.arguments`.</span>
+<span class="sd">        If an argument has a resolver, its value is encoded.</span>
+<span class="sd">        Usually, the object can be re-instantiated using</span>
+<span class="sd">        :meth:`audobject.Object.from_dict`.</span>
+<span class="sd">        However, if ``flatten=True``, this is not possible.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            include_version: add version to class name</span>
+<span class="sd">            flatten: flatten the dictionary</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dictionary that represent the object</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; import audobject.testing</span>
+<span class="sd">            &gt;&gt;&gt; o = audobject.testing.TestObject(&#39;test&#39;, point=(1, 1))</span>
+<span class="sd">            &gt;&gt;&gt; o.to_dict(include_version=False)</span>
+<span class="sd">            {&#39;$audobject.core.testing.TestObject&#39;: {&#39;name&#39;: &#39;test&#39;, &#39;point&#39;: [1, 1]}}</span>
+<span class="sd">            &gt;&gt;&gt; o.to_dict(flatten=True)</span>
+<span class="sd">            {&#39;name&#39;: &#39;test&#39;, &#39;point.0&#39;: 1, &#39;point.1&#39;: 1}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">define</span><span class="o">.</span><span class="n">OBJECT_TAG</span><span class="si">}</span><span class="s1">&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s1">.&#39;</span> \
+               <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="k">if</span> <span class="n">include_version</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">define</span><span class="o">.</span><span class="n">VERSION_TAG</span><span class="si">}{</span><span class="n">version</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Could not determine a version for &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;module &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">,</span>
+                    <span class="ne">RuntimeWarning</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_variable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">flatten</span> <span class="k">else</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="Object.to_yaml"><a class="viewcode-back" href="../../../api.html#audobject.Object.to_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">to_yaml</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">path_or_stream</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">IO</span><span class="p">],</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Save object to YAML file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path_or_stream: file path or stream</span>
+<span class="sd">            include_version: add version to class name</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">path_or_stream</span> <span class="o">=</span> <span class="n">audeer</span><span class="o">.</span><span class="n">safe_path</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">)</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">)</span>
+            <span class="n">audeer</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">),</span>
+                <span class="n">path_or_stream</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Object.to_yaml_s"><a class="viewcode-back" href="../../../api.html#audobject.Object.to_yaml_s">[docs]</a>    <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            include_version: add version to class name</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            YAML string</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; import audobject.testing</span>
+<span class="sd">            &gt;&gt;&gt; o = audobject.testing.TestObject(&#39;test&#39;, point=(1, 1))</span>
+<span class="sd">            &gt;&gt;&gt; print(o.to_yaml_s(include_version=False))</span>
+<span class="sd">            $audobject.core.testing.TestObject:</span>
+<span class="sd">              name: test</span>
+<span class="sd">              point:</span>
+<span class="sd">              - 1</span>
+<span class="sd">              - 1</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+        <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_decode_value</span><span class="p">(</span>
+            <span class="n">value_to_decode</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decode value.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">value_to_decode</span><span class="p">:</span>  <span class="c1"># not empty</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">return</span> <span class="p">[</span>
+                    <span class="n">Object</span><span class="o">.</span><span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_to_decode</span>
+                <span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">Object</span><span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_class</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">{</span>
+                        <span class="n">k</span><span class="p">:</span> <span class="n">Object</span><span class="o">.</span><span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span>
+                        <span class="n">value_to_decode</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="p">}</span>
+        <span class="k">return</span> <span class="n">value_to_decode</span>
+
+    <span class="k">def</span> <span class="nf">_encode_variable</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+            <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Encode a value by first looking for a custom resolver,</span>
+<span class="sd">        otherwise switch to default encoder.&quot;&quot;&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_encode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_encode_value</span><span class="p">(</span>
+            <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+            <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Default value encoder.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Object</span><span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_class</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">DEFAULT_VALUE_TYPES</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="n">Object</span><span class="o">.</span><span class="n">_encode_value</span><span class="p">(</span>
+                    <span class="n">item</span><span class="p">,</span> <span class="n">include_version</span>
+                <span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span>
+            <span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="n">Object</span><span class="o">.</span><span class="n">_encode_value</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">include_version</span><span class="p">):</span>
+                    <span class="n">Object</span><span class="o">.</span><span class="n">_encode_value</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="k">elif</span> <span class="n">callable</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Cannot encode type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;No default encoding exists for type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Consider to register a custom resolver.&quot;</span><span class="p">,</span>
+                <span class="ne">RuntimeWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_flatten</span><span class="p">(</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DefaultValueType</span><span class="p">],</span>
+    <span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Flattens a dictionary.&quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">dict_in</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">dict_out</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dict_out</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_class</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+                    <span class="n">helper</span><span class="p">(</span><span class="n">dict_in</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                    <span class="n">helper</span><span class="p">(</span>
+                        <span class="n">dict_in</span><span class="p">,</span>
+                        <span class="p">{</span><span class="n">idx</span><span class="p">:</span> <span class="n">item</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">)},</span>
+                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">key</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">helper</span><span class="p">(</span>
+                        <span class="n">dict_in</span><span class="p">,</span>
+                        <span class="n">value</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">prefix</span> <span class="k">else</span> <span class="n">key</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
+                        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">dict_in</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">helper</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="nf">_resolve_value</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DefaultValueType</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolvers</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolvers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Object&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div>
+      
+      
+      
+      
+      
+      
+      
+        <ul>
+          <li><a href="http://data.pp.audeering.com">Data</a></li>
+          <li><a href="http://devops.pp.audeering.com/sphinx/">Documentation</a></li>
+          <li><a href="http://devops.pp.audeering.com">Infrastructure</a></li>
+          <li><a href="http://models.pp.audeering.com">Models</a></li>
+          <li><a href="http://devops.pp.audeering.com/python/">Python</a></li>
+          <li><a href="http://tools.pp.audeering.com">Tools</a></li>
+        </ul>
+      
+    <p>
+        
+        
+        
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/03/24 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+        
+    </p>
+  </div>
+
+  <div role="contentinfo">
+    <p>
+        
+      &copy; 2020-2021 audEERING GmbH
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/thebelab-helper.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

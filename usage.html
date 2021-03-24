@@ -1,0 +1,1876 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; audobject Documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="audobject" href="api.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+    
+  
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          <a href="index.html">
+          
+            <img src="_static/images/audeering.svg" class="logo" alt="audEERING"/>
+          
+          
+            <span> audobject</span>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.4.9
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#object-class">Object class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#object-id">Object ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#malformed-objects">Malformed objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hidden-arguments">Hidden arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#borrowed-arguments">Borrowed arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#object-with-kwargs">Object with kwargs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#object-as-argument">Object as argument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#value-resolver">Value resolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flat-dictionary">Flat dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dictionary">Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">audobject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">audobject</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://gitlab.audeering.com/audeering/audobject/blob/v0.4.9/docs/usage.rst" class="fa fa-gitlab"> Edit on GitLab</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<p>The aim of <a class="reference internal" href="api.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a> is to provide
+a base class, namely <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>,
+which allows it to convert an object to a YAML string
+and re-instantiate the object from it.</p>
+<div class="jupyter_cell docutils container">
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="section" id="object-class">
+<h2>Object class<a class="headerlink" href="#object-class" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create a class that derives from <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>  <span class="c1"># pretend we have a package version</span>
+
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Now we instantiate an object and print it.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;hello object!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>hello object! hello object!
+</pre></div>
+</div>
+</div>
+</div>
+<p>As expected we see that <code class="docutils literal notranslate"><span class="pre">string</span></code> is repeated <code class="docutils literal notranslate"><span class="pre">num_repeat</span></code> times.
+But since we derived from <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>
+we get some additional functionality.</p>
+<p>For instance, we can get a dictionary
+with the arguments the object was initialized with.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">.</span><span class="n">arguments</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;string&#39;: &#39;hello object!&#39;, &#39;num_repeat&#39;: 2}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or a dictionary that also stores module,
+object name and package version.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_dict</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;$__main__.MyObject==1.0.0&#39;: {&#39;string&#39;: &#39;hello object!&#39;, &#39;num_repeat&#39;: 2}}
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can re-instantiate the object from it.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">o_dict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>hello object! hello object!
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also convert it to YAML.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObject==1.0.0:
+  string: hello object!
+  num_repeat: 2
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>And create the object from YAML.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>hello object! hello object!
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we want, we can override
+arguments when we instantiate an object.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span>
+    <span class="n">o_yaml</span><span class="p">,</span>
+    <span class="n">string</span><span class="o">=</span><span class="s1">&#39;I was set to a different value!&#39;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I was set to a different value! I was set to a different value!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or save an object to disk and re-instantiate it from there.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;my.yaml&#39;</span>
+<span class="n">o</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">o5</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>hello object! hello object!
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="object-id">
+<h2>Object ID<a class="headerlink" href="#object-id" title="Permalink to this headline">¶</a></h2>
+<p>Every object has an ID.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>10e6cf43-5246-94cd-04d2-35d51ac22bb2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Objects with exact same arguments share the same ID.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">o2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>When an object is serialized the ID does not change.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">o</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Objects with different arguments get different IDs.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">o4</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="malformed-objects">
+<h2>Malformed objects<a class="headerlink" href="#malformed-objects" title="Permalink to this headline">¶</a></h2>
+<p>In the constructor of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code> we have assigned
+every argument to an attribute with the same name.
+This ensures that we can re-instantiate the object from YAML.
+Let’s create a class where we don’t follow this rule.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyBadObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeat</span> <span class="o">=</span> <span class="n">num_repeat</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>At a first glance, everything works as expected.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bad</span> <span class="o">=</span> <span class="n">MyBadObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bad</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>test test
+</pre></div>
+</div>
+</div>
+</div>
+<p>But if we try to instantiate the object
+from YAML, we’ll get an error.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">17</span><span class="o">-</span><span class="n">d42688ac16e3</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">to_yaml_s</span><span class="nt">(self, include_version)</span>
+<span class="g g-Whitespace">    </span><span class="mi">349</span> 
+<span class="g g-Whitespace">    </span><span class="mi">350</span>         <span class="s2">&quot;&quot;&quot;  # noqa: E501</span>
+<span class="ne">--&gt; </span><span class="mi">351</span><span class="s2">         return yaml.dump(self.to_dict(include_version=include_version))</span>
+<span class="g g-Whitespace">    </span><span class="mi">352</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">353</span><span class="s2">     @staticmethod</span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">to_dict</span><span class="nt">(self, include_version, flatten)</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span><span class="s2">         d = {</span>
+<span class="g g-Whitespace">    </span><span class="mi">296</span><span class="s2">             key: self._encode_variable(key, value, include_version)</span>
+<span class="nn">--&gt; 297             for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span><span class="s2">         }</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span><span class="s2"> </span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">arguments</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="s2">                 missing.append(name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span><span class="s2">         if len(missing) &gt; 0:</span>
+<span class="ne">---&gt; </span><span class="mi">77</span><span class="s2">             raise RuntimeError(</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span><span class="s2">                 &#39;Arguments &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span><span class="s2">                 f&#39;</span><span class="si">{missing}</span><span class="s2"> &#39;</span>
+
+<span class="ne">RuntimeError</span>: Arguments [&#39;string&#39;, &#39;num_repeat&#39;] of &lt;class &#39;__main__.MyBadObject&#39;&gt; not assigned to attributes of same name.
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, in the next section we’ll learn
+that it’s possible to hide arguments.
+If we hide an argument, we don’t have to set
+it to an attribute of the same name.</p>
+</div>
+<div class="section" id="hidden-arguments">
+<h2>Hidden arguments<a class="headerlink" href="#hidden-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Hidden arguments are arguments that are not serialized.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only arguments with a default value can be hidden.</p>
+</div>
+<p>Let’s introduce a new argument <code class="docutils literal notranslate"><span class="pre">verbose</span></code> and hide it
+with the <a class="reference internal" href="api.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a> decorator.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithHiddenArgument</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
+        <span class="n">hide</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">verbose</span>  <span class="c1"># &#39;verbose&#39; is hidden, so we can set it to a different name</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;LOG: print message&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>If we set <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>, debug message are printed.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithHiddenArgument</span><span class="p">(</span><span class="s1">&#39;hello object!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>LOG: print message
+hello object! hello object! hello object!
+</pre></div>
+</div>
+</div>
+</div>
+<p>But since <code class="docutils literal notranslate"><span class="pre">verbose</span></code> is a hidden argument,
+it is not stored to YAML.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithHiddenArgument==1.0.0:
+  string: hello object!
+  num_repeat: 3
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>That means when we re-instantiate the object,
+<code class="docutils literal notranslate"><span class="pre">verbose</span></code> will be set to its default value (<code class="docutils literal notranslate"><span class="pre">False</span></code>)
+and we won’t see debug messages.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>hello object! hello object! hello object!
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, we can set <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code> when we load the object.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>LOG: print message
+hello object! hello object! hello object!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that hidden arguments are not taken into account for the UID.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b3579494-fb4f-35f3-62be-1ceedd745e38
+b3579494-fb4f-35f3-62be-1ceedd745e38
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is possible to get a list of hidden arguments.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span><span class="o">.</span><span class="n">hidden_arguments</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;verbose&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="borrowed-arguments">
+<h2>Borrowed arguments<a class="headerlink" href="#borrowed-arguments" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to borrow arguments from an instance attribute.
+For instance, here we borrow the attributes <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code>
+from <code class="docutils literal notranslate"><span class="pre">self.point</span></code> and a dictionary <code class="docutils literal notranslate"><span class="pre">self.d</span></code>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+
+<span class="k">class</span> <span class="nc">ObjectWithBorrowedArguments</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
+        <span class="n">borrow</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;point&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;point&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">}</span>
+
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">ObjectWithBorrowedArguments</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.ObjectWithBorrowedArguments==1.0.0:
+  x: 0
+  y: 1
+  z: 2
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that attributes we borrow from are automatically
+treated as hidden arguments.</p>
+</div>
+<div class="section" id="object-with-kwargs">
+<h2>Object with kwargs<a class="headerlink" href="#object-with-kwargs" title="Permalink to this headline">¶</a></h2>
+<p>Usually, the attributes that are serialized to YAML
+are automatically derived from the arguments of the
+<code class="docutils literal notranslate"><span class="pre">__init__</span></code> function.
+For instance, we can add an attribute <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithOther</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="n">num_repeat</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>But since it is not an argument of the constructor,
+it is not serialized.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithOther</span><span class="p">(</span><span class="s1">&#39;I have another attribute&#39;</span><span class="p">)</span>
+<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithOther==1.0.0:
+  string: I have another attribute
+  num_repeat: 1
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, if the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function accepts <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>,
+any attribute could be an argument
+and hence all attributes are serialized.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>And <code class="docutils literal notranslate"><span class="pre">other</span></code> shows up in the YAML string.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
+<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
+  string: I have kwargs
+  num_repeat: 1
+  other: not an argument
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>To avoid this, we can add <code class="docutils literal notranslate"><span class="pre">other</span></code> to the list
+of ignored arguments.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+
+    <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
+        <span class="n">hide</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;other&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
+
+<span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
+<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
+  string: I have kwargs
+  num_repeat: 1
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or we make it a private attribute
+(i.e. prepend ‘_’ to the name).</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
+
+<span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
+<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
+  string: I have kwargs
+  num_repeat: 1
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="object-as-argument">
+<h2>Object as argument<a class="headerlink" href="#object-as-argument" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to have arguments of
+type <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.
+For instance, we can define the following class.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySuperObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">obj</span><span class="p">:</span> <span class="n">MyObject</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s1">]&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>And initialize it with an instance of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;eat me!&#39;</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">MySuperObject</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[eat me!]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This translates to the following YAML string.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w_yaml</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MySuperObject==1.0.0:
+  obj:
+    $__main__.MyObject==1.0.0:
+      string: eat me!
+      num_repeat: 1
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>From which we can re-instantiate the object.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">w_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[eat me!]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="value-resolver">
+<h2>Value resolver<a class="headerlink" href="#value-resolver" title="Permalink to this headline">¶</a></h2>
+<p>As long as the type of the arguments is one of
+<code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">Object,</span> <span class="pre">str,</span> <span class="pre">int,</span> <span class="pre">float,</span> <span class="pre">bool,</span> <span class="pre">list,</span> <span class="pre">dict,</span> <span class="pre">datetime.datetime)</span></code>,
+it is ensured that we get a clean YAML file.
+Other types may be encoded using the <code class="docutils literal notranslate"><span class="pre">!!python/object</span></code> tag
+and clutter the YAML syntax.</p>
+<p>To illustrate this, let’s use an instance of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#timedelta-objects">timedelta</a>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+
+<span class="k">class</span> <span class="nc">MyDeltaObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">delta</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>As before, we can create an instance and print it.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span>
+    <span class="n">days</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">seconds</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
+    <span class="n">microseconds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">milliseconds</span><span class="o">=</span><span class="mi">29000</span><span class="p">,</span>
+    <span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">hours</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">weeks</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">MyDeltaObject</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>64 days, 8:05:56.000010
+</pre></div>
+</div>
+</div>
+</div>
+<p>But if we convert it to YAML,
+we’ll see a warning.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d_yaml</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyDeltaObject==1.0.0:
+  delta: !!python/object/apply:datetime.timedelta
+  - 64
+  - 29156
+  - 10
+
+</pre></div>
+</div>
+<div class="stderr docutils container">
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:415: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
+  warnings.warn(
+</pre>
+</div>
+</div>
+</div>
+<p>And in fact, we can see that
+the <code class="docutils literal notranslate"><span class="pre">delta</span></code> value is encoded
+with a <code class="docutils literal notranslate"><span class="pre">!!python/object</span></code> tag,
+which is followed by some plain numbers.
+Only after looking into the documentation of
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#timedelta-objects">timedelta</a> we can guess that
+they probably encode <code class="docutils literal notranslate"><span class="pre">days</span></code>, <code class="docutils literal notranslate"><span class="pre">seconds</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">microseconds</span></code>.</p>
+<p>We can avoid this by providing a custom resolver
+that defines how a <a class="reference external" href="https://docs.python.org/3/library/datetime.html#timedelta-objects">timedelta</a> object should be
+encoded and decoded.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DeltaResolver</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">ValueResolver</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">timedelta</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span>
+            <span class="n">days</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">],</span>
+            <span class="n">seconds</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;seconds&#39;</span><span class="p">],</span>
+            <span class="n">microseconds</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;microseconds&#39;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;days&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">days</span><span class="p">,</span>
+            <span class="s1">&#39;seconds&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span>
+            <span class="s1">&#39;microseconds&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">microseconds</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">dict</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>To apply our custom resolver to the
+<code class="docutils literal notranslate"><span class="pre">delta</span></code> argument, we pass it to the
+<a class="reference internal" href="api.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a>
+decorator of the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyResolvedDeltaObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
+        <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="n">DeltaResolver</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">delta</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Now, we don’t get a warning
+and the <code class="docutils literal notranslate"><span class="pre">!!python/object</span></code> tag has disappeared.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">MyResolvedDeltaObject</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="n">d_yaml</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyResolvedDeltaObject==1.0.0:
+  delta:
+    days: 64
+    seconds: 29156
+    microseconds: 10
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="flat-dictionary">
+<h2>Flat dictionary<a class="headerlink" href="#flat-dictionary" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create a class that takes
+as input a string, a list and a dictionary.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyListDictObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">a_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">a_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+            <span class="n">a_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_str</span> <span class="o">=</span> <span class="n">a_str</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">a_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_dict</span> <span class="o">=</span> <span class="n">a_dict</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>And initialize an object.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyListDictObject</span><span class="p">(</span>
+    <span class="n">a_str</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>
+    <span class="n">a_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">o</span><span class="p">],</span>
+    <span class="n">a_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;pi&#39;</span><span class="p">:</span> <span class="mf">3.1416</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mf">2.71828</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;$__main__.MyListDictObject==1.0.0&#39;: {&#39;a_str&#39;: &#39;test&#39;,
+  &#39;a_list&#39;: [1,
+   &#39;2&#39;,
+   {&#39;$__main__.MyObject==1.0.0&#39;: {&#39;string&#39;: &#39;eat me!&#39;, &#39;num_repeat&#39;: 1}}],
+  &#39;a_dict&#39;: {&#39;pi&#39;: 3.1416, &#39;e&#39;: 2.71828}}}
+</pre></div>
+</div>
+</div>
+</div>
+<p>As expected, the dictionary of the object
+looks pretty nested.
+This is not always handy,
+e.g. if we try to store the object to a
+<a class="reference external" href="http://tools.pp.audeering.com/audfactory/api-audfactory.html#lookup">Lookup table</a>, this would not work.
+Therefore, in can sometimes be useful to
+get a flatten version of the dictionary.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;a_str&#39;: &#39;test&#39;,
+ &#39;a_list.0&#39;: 1,
+ &#39;a_list.1&#39;: &#39;2&#39;,
+ &#39;a_list.2.string&#39;: &#39;eat me!&#39;,
+ &#39;a_list.2.num_repeat&#39;: 1,
+ &#39;a_dict.pi&#39;: 3.1416,
+ &#39;a_dict.e&#39;: 2.71828}
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, it’s important to note that it’s not possible
+to re-instantiate an object from a flattened dictionary.</p>
+</div>
+<div class="section" id="versioning">
+<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
+<p>When an object is converted to YAML
+the package version is stored.
+But what happens if we later load the object
+with a different package version?</p>
+<p>Let’s create another instance of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 1.0.0!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 1.0.0! I am a 1.0.0!
+</pre></div>
+</div>
+</div>
+</div>
+<p>And convert it to YAML.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObject==1.0.0:
+  string: I am a 1.0.0!
+  num_repeat: 2
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we pretend that we update the package to <code class="docutils literal notranslate"><span class="pre">2.0.0</span></code>.
+It includes a new version of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code>,
+with a slightly changed <code class="docutils literal notranslate"><span class="pre">__str__</span></code> function.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.0.0&#39;</span>
+
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Since the signature of the constructor has not changed,
+the object will be created without problems.
+However, when we print the object
+the strings are now separated by comma.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 1.0.0!,I am a 1.0.0!
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the next release, we decide to introduce an argument
+that let the user set a custom delimiter.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.0&#39;</span>
+
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">delimiter</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delimiter</span> <span class="o">=</span> <span class="n">delimiter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>If we now instantiate the object,
+we will get an error,
+because we are missing a value
+for the new argument.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">50</span><span class="o">-</span><span class="mi">92</span><span class="n">c8d098dd61</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span> 
+<span class="g g-Whitespace">    </span><span class="mi">232</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">233</span><span class="s2">         return Object.from_dict(</span>
+<span class="g g-Whitespace">    </span><span class="mi">234</span><span class="s2">             yaml.load(yaml_string, yaml.Loader),</span>
+<span class="g g-Whitespace">    </span><span class="mi">235</span><span class="s2">             **kwargs,</span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">from_dict</span><span class="nt">(d, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span><span class="s2">         for key, value in d[name].items():</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span><span class="s2">             params[key] = Object._decode_value(value, **kwargs)</span>
+<span class="ne">--&gt; </span><span class="mi">191</span><span class="s2">         return utils.get_object(</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span><span class="s2">             cls, version, installed_version, params, **kwargs,</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span><span class="s2">         )</span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/utils.py</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span><span class="s2">     missing_required_params = list(required_params - set(params))</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span><span class="s2">     if len(missing_required_params) &gt; 0:</span>
+<span class="ne">---&gt; </span><span class="mi">44</span><span class="s2">         raise RuntimeError(</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span><span class="s2">             f&quot;Missing mandatory arguments &quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">46</span><span class="s2">             f&quot;</span><span class="si">{missing_required_params}</span><span class="s2"> &quot;</span>
+
+<span class="ne">RuntimeError</span>: Missing mandatory arguments [&#39;delimiter&#39;] while instantiating &lt;class &#39;__main__.MyObject&#39;&gt; from version &#39;1.0.0&#39; when using version &#39;2.1.0&#39;.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since we want to be backward compatible,
+we decide to release a bug fix,
+where we initialize the new argument with a default value.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.1&#39;</span>
+
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">delimiter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delimiter</span> <span class="o">=</span> <span class="n">delimiter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>And in fact, it successfully creates the object again.
+It works, because it now has a default value for the missing argument.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 1.0.0! I am a 1.0.0!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we will do it the other way round.
+Create an object with version <code class="docutils literal notranslate"><span class="pre">2.1.1</span></code>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 2.1.1!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 2.1.1! I am a 2.1.1!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Convert it to YAML.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4_yaml</span> <span class="o">=</span> <span class="n">o4</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o4_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObject==2.1.1:
+  string: I am a 2.1.1!
+  delimiter: &#39;,&#39;
+  num_repeat: 2
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>And load it with <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
+
+<span class="n">o5</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o4_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 2.1.1! I am a 2.1.1!
+</pre></div>
+</div>
+<div class="stderr docutils container">
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:78: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
+  warnings.warn(
+</pre>
+</div>
+</div>
+</div>
+<p>In fact, it works, too.
+However, a warning is given that an argument was ignored.</p>
+</div>
+<div class="section" id="dictionary">
+<h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="api.html#audobject.Dictionary" title="audobject.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Dictionary</span></code></a> implements a
+<a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a> that can used like a dictionary.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span>
+    <span class="n">string</span><span class="o">=</span><span class="s1">&#39;I am a dictionary!&#39;</span><span class="p">,</span>
+    <span class="n">pi</span><span class="o">=</span><span class="mf">3.14159265359</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$audobject.core.dictionary.Dictionary:
+  string: I am a dictionary!
+  pi: 3.14159265359
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">[]</span></code> notation to access the
+values of the dictionary.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Still a dictionary!&#39;</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$audobject.core.dictionary.Dictionary:
+  string: Still a dictionary!
+  pi: 3.14159265359
+  new: null
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>And update from another dictionary.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span>
+    <span class="n">string</span><span class="o">=</span><span class="s1">&#39;I will be a dictionary forever!&#39;</span><span class="p">,</span>
+    <span class="nb">object</span><span class="o">=</span><span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;Hey, I am an object.&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$audobject.core.dictionary.Dictionary:
+  string: I will be a dictionary forever!
+  pi: 3.14159265359
+  new: null
+  object:
+    $__main__.MyObject:
+      string: Hey, I am an object.
+      num_repeat: 1
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can read/write the dictionary from/to a file.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;dict.yaml&#39;</span>
+<span class="n">d</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">d3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$audobject.core.dictionary.Dictionary:
+  string: I will be a dictionary forever!
+  pi: 3.14159265359
+  new: null
+  object:
+    $__main__.MyObject:
+      string: Hey, I am an object.
+      num_repeat: 1
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>You have probably used <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a> before.
+It is a package to write user-friendly command-line interfaces
+that allows the user to define what arguments are required,
+what are the expected types, default values, etc.</p>
+<p>The idea behind <a class="reference internal" href="api.html#audobject.Parameters" title="audobject.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameters</span></code></a> is similar
+(in fact, we will see that i even has an interface to <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>).
+<a class="reference internal" href="api.html#audobject.Parameters" title="audobject.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameters</span></code></a> is basically a collection of
+named values that control the behaviour of an object.
+Each value is wrapped in a <a class="reference internal" href="api.html#audobject.Parameter" title="audobject.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameter</span></code></a>
+object and has a specific type and default value,
+possibly one of a set of choices.
+And it can be bound a parameter to a specific versions.</p>
+<p>Let’s pick up the previous example and define two parameters.
+A parameter that holds a string.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+    <span class="n">value_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;the string we want to repeat&#39;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+    <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;Bar&#39;</span><span class="p">,</span> <span class="s1">&#39;BAR&#39;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$audobject.core.parameter.Parameter:
+  value_type: str
+  description: the string we want to repeat
+  value: bar
+  default_value: null
+  choices:
+  - bar
+  - Bar
+  - BAR
+  version: null
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>And a parameter that defines how many times we want to repeat the string.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">repeat</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+    <span class="n">value_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;the number of times we want to repeat&#39;</span><span class="p">,</span>
+    <span class="n">default_value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">repeat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$audobject.core.parameter.Parameter:
+  value_type: int
+  description: the number of times we want to repeat
+  value: 1
+  default_value: 1
+  choices: null
+  version: null
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we combine the two parameters into a list.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameters</span><span class="p">(</span>
+    <span class="n">string</span><span class="o">=</span><span class="n">string</span><span class="p">,</span>
+    <span class="n">num_repeat</span><span class="o">=</span><span class="n">repeat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Name        Value  Default  Choices                Description                            Version
+----        -----  -------  -------                -----------                            -------
+string      bar    None     [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;]  the string we want to repeat           None   
+num_repeat  1      1        None                   the number of times we want to repeat  None   
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we call the list,
+we get a dictionary of parameter names and values.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;string&#39;: &#39;bar&#39;, &#39;num_repeat&#39;: 1}
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can access the values of the parameters using <code class="docutils literal notranslate"><span class="pre">.</span></code> notation.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;BAR&#39;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Name        Value  Default  Choices                Description                            Version
+----        -----  -------  -------                -----------                            -------
+string      BAR    None     [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;]  the string we want to repeat           None   
+num_repeat  2      1        None                   the number of times we want to repeat  None   
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we try to assign a value that is not in choices,
+we will get an error.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">65</span><span class="o">-</span><span class="n">b1e018ec004c</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span>     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">305</span>         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">306</span>         <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">307</span> 
+<span class="g g-Whitespace">    </span><span class="mi">308</span>     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">set_value</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span> 
+<span class="g g-Whitespace">    </span><span class="mi">130</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">131</span><span class="s2">         self._check_value(value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span><span class="s2">         self.value = value</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span><span class="s2"> </span>
+
+<span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">_check_value</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span><span class="s2">             )</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span><span class="s2">         if self.choices is not None and value not in self.choices:</span>
+<span class="ne">--&gt; </span><span class="mi">142</span><span class="s2">             raise ValueError(</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span><span class="s2">                 f&quot;Invalid value &#39;</span><span class="si">{value}</span><span class="s2">&#39;, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span><span class="s2">                 f&quot;expected one of </span><span class="si">{self.choices}</span><span class="s2">.&quot;</span>
+
+<span class="ne">ValueError</span>: Invalid value &#39;par&#39;, expected one of [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;].
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is possible to assign a version (or a range of versions)
+to a parameter.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delim</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+    <span class="n">value_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;defines the delimiter&#39;</span><span class="p">,</span>
+    <span class="n">default_value</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;&gt;=2.0.0,&lt;3.0.0&#39;</span>
+<span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s1">&#39;delimiter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">delim</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Name        Value  Default  Choices                Description                            Version       
+----        -----  -------  -------                -----------                            -------       
+string      BAR    None     [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;]  the string we want to repeat           None          
+num_repeat  2      1        None                   the number of times we want to repeat  None          
+delimiter   ,      ,        None                   defines the delimiter                  &gt;=2.0.0,&lt;3.0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can check if a parameter is available for a specific version.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;1.0.0&#39;</span> <span class="ow">in</span> <span class="n">delim</span><span class="p">,</span> <span class="s1">&#39;2.4.0&#39;</span> <span class="ow">in</span> <span class="n">delim</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(False, True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also filter a list of parameters by version.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params_v3</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">filter_by_version</span><span class="p">(</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params_v3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Name        Value  Default  Choices                Description                            Version
+----        -----  -------  -------                -----------                            -------
+string      BAR    None     [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;]  the string we want to repeat           None   
+num_repeat  2      1        None                   the number of times we want to repeat  None   
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or add them to a command line interface.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">params</span><span class="o">.</span><span class="n">to_command_line</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">format_help</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>usage: ipykernel_launcher.py [-h] [--string {bar,Bar,BAR}]
+                             [--num_repeat NUM_REPEAT] [--delimiter DELIMITER]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --string {bar,Bar,BAR}
+                        the string we want to repeat
+  --num_repeat NUM_REPEAT
+                        the number of times we want to repeat
+  --delimiter DELIMITER
+                        defines the delimiter (version: &gt;=2.0.0,&lt;3.0.0)
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or update the values from a command line interface.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;--string=Bar&#39;</span><span class="p">,</span> <span class="s1">&#39;--delimiter=;&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">params</span><span class="o">.</span><span class="n">from_command_line</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Name        Value  Default  Choices                Description                            Version       
+----        -----  -------  -------                -----------                            -------       
+string      Bar    None     [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;]  the string we want to repeat           None          
+num_repeat  1      1        None                   the number of times we want to repeat  None          
+delimiter   ;      ,        None                   defines the delimiter                  &gt;=2.0.0,&lt;3.0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is possible to convert it into a file path
+that keeps track of the parameters.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">to_path</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;delimiter[;]/num_repeat[1]/string[Bar]&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Last but not least, we can read/write the parameters from/to a file.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;params.yaml&#39;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="n">params2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Name        Value  Default  Choices                Description                            Version       
+----        -----  -------  -------                -----------                            -------       
+string      Bar    None     [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;]  the string we want to repeat           None          
+num_repeat  1      1        None                   the number of times we want to repeat  None          
+delimiter   ;      ,        None                   defines the delimiter                  &gt;=2.0.0,&lt;3.0.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="audobject" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div>
+      
+      
+      
+      
+      
+      
+      
+        <ul>
+          <li><a href="http://data.pp.audeering.com">Data</a></li>
+          <li><a href="http://devops.pp.audeering.com/sphinx/">Documentation</a></li>
+          <li><a href="http://devops.pp.audeering.com">Infrastructure</a></li>
+          <li><a href="http://models.pp.audeering.com">Models</a></li>
+          <li><a href="http://devops.pp.audeering.com/python/">Python</a></li>
+          <li><a href="http://tools.pp.audeering.com">Tools</a></li>
+        </ul>
+      
+    <p>
+        
+        
+        
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/03/24 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+        
+    </p>
+  </div>
+
+  <div role="contentinfo">
+    <p>
+        
+      &copy; 2020-2021 audEERING GmbH
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
