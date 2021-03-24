@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.9 (2021-03-24)
+--------------------------
+
+* Fixed: package metadata defined in ``setup.cfg``
+
+
 Version 0.4.8 (2021-03-24)
 --------------------------
 
