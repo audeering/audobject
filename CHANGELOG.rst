@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.8 (2021-03-24)
+--------------------------
+
+* Changed: move to Github and make open source release
+
+
 Version 0.4.7 (2021-01-22)
 --------------------------
 
