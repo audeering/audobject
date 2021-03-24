@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.11 (2021-03-24)
+---------------------------
+
+* Fixed: remove footer links in documentation
+
+
 Version 0.4.10 (2021-03-24)
 ---------------------------
 
