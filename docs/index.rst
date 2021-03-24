@@ -7,7 +7,7 @@
     :maxdepth: 2
     :hidden:
 
-    installation
+    install
     usage
 
 .. Warning: the usage of genindex is a hack to get a TOC entry, see
