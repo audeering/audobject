@@ -579,7 +579,8 @@ As expected, the dictionary of the object
 looks pretty nested.
 This is not always handy,
 e.g. if we try to store the object to a
-`Lookup table`_, this would not work.
+:class:`audfactory.Lookup`_ table,
+this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.
 
@@ -935,4 +936,3 @@ Last but not least, we can read/write the parameters from/to a file.
 
 .. _timedelta: https://docs.python.org/3/library/datetime.html#timedelta-objects
 .. _argparse: https://docs.python.org/3/library/argparse.html
-.. _`Lookup table`: http://tools.pp.audeering.com/audfactory/api-audfactory.html#lookup
