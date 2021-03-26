@@ -7,6 +7,13 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.12 (2021-03-26)
+---------------------------
+
+* Fixed: link "Edit on Github" in documentation
+* Fixed: link to ``audfactory.Lookup`` in documentation
+
+
 Version 0.4.11 (2021-03-24)
 ---------------------------
 
