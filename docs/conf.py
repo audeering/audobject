@@ -70,7 +70,7 @@ html_theme_options = {
     'logo_only': False,
     'footer_links': False,
 }
-html_context = { 
+html_context = {
     'display_github': True,
 }
 html_title = title
