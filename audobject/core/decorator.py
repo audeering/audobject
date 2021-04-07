@@ -51,7 +51,10 @@ def init_decorator(
         def wrapper(self, *args, **kwargs):
 
             if resolvers is not None:
-                setattr(self, define.CUSTOM_VALUE_RESOLVERS, {})
+
+                if not hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
+                    setattr(self, define.CUSTOM_VALUE_RESOLVERS, {})
+
                 for name, resolver in resolvers.items():
                     resolver_obj = resolver()
                     self.__dict__[define.CUSTOM_VALUE_RESOLVERS][name] = \
@@ -62,7 +65,12 @@ def init_decorator(
                         kwargs[name] = resolver_obj.decode(kwargs[name])
 
             if borrow is not None:
-                setattr(self, define.BORROWED_ATTRIBUTES, borrow)
+
+                if not hasattr(self, define.BORROWED_ATTRIBUTES):
+                    setattr(self, define.BORROWED_ATTRIBUTES, {})
+
+                for key, value in borrow.items():
+                    self.__dict__[define.BORROWED_ATTRIBUTES][key] = value
 
             if hide is not None:
 
@@ -87,7 +95,9 @@ def init_decorator(
                         f'as they do not have default values.'
                     )
 
-                setattr(self, define.HIDDEN_ATTRIBUTES, hide)
+                if not hasattr(self, define.HIDDEN_ATTRIBUTES):
+                    setattr(self, define.HIDDEN_ATTRIBUTES, [])
+                self.__dict__[define.HIDDEN_ATTRIBUTES] += hide
 
             func(self, *args, **kwargs)
 

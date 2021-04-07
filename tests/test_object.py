@@ -155,47 +155,75 @@ def test_flatten(obj, expected):
     assert obj.to_dict(flatten=True) == expected
 
 
-class ObjectWithHiddenArguments(audobject.Object):
+class ParentWithHiddenArguments(audobject.Object):
 
     @audobject.init_decorator(
-        hide=['hidden']
+        hide=['hidden_parent']
+    )
+    def __init__(
+            self,
+            hidden_parent: str = None,
+    ):
+        self.hidden_parent = hidden_parent
+
+
+class ChildWithHiddenArguments(ParentWithHiddenArguments):
+
+    @audobject.init_decorator(
+        hide=['hidden_child']
     )
     def __init__(
             self,
             string: str,
             *,
-            hidden: str = None,
+            hidden_child: str = None,
+            hidden_parent: str = None,
     ):
+        super().__init__(hidden_parent)
         self.string = string
-        self.hidden = hidden
+        self.hidden_child = hidden_child
 
 
 def test_hidden_attributes(tmpdir):
 
     path = os.path.join(tmpdir, 'test.yaml')
 
-    o = ObjectWithHiddenArguments('test', hidden='hidden')
-    assert o.hidden == 'hidden'
+    o = ChildWithHiddenArguments(
+        'test',
+        hidden_child='hidden_child',
+        hidden_parent='hidden_parent',
+    )
+    assert o.hidden_child == 'hidden_child'
+    assert o.hidden_parent == 'hidden_parent'
 
     o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
-    assert isinstance(o2, ObjectWithHiddenArguments)
-    assert o2.hidden is None
+    assert isinstance(o2, ChildWithHiddenArguments)
+    assert o2.hidden_child is None
+    assert o2.hidden_parent is None
 
     o.to_yaml(path, include_version=False)
     o2 = audobject.Object.from_yaml(path)
-    assert isinstance(o2, ObjectWithHiddenArguments)
-    assert o2.hidden is None
+    assert isinstance(o2, ChildWithHiddenArguments)
+    assert o2.hidden_child is None
 
     o2 = audobject.Object.from_yaml_s(
-        o.to_yaml_s(include_version=False), hidden='hidden',
+        o.to_yaml_s(include_version=False),
+        hidden_child='hidden_child',
+        hidden_parent='hidden_parent',
     )
-    assert isinstance(o2, ObjectWithHiddenArguments)
-    assert o2.hidden == 'hidden'
+    assert isinstance(o2, ChildWithHiddenArguments)
+    assert o2.hidden_child == 'hidden_child'
+    assert o2.hidden_parent == 'hidden_parent'
 
     o.to_yaml(path, include_version=False)
-    o2 = audobject.Object.from_yaml(path, hidden='hidden')
-    assert isinstance(o2, ObjectWithHiddenArguments)
-    assert o2.hidden == 'hidden'
+    o2 = audobject.Object.from_yaml(
+        path,
+        hidden_child='hidden_child',
+        hidden_parent='hidden_parent',
+    )
+    assert isinstance(o2, ChildWithHiddenArguments)
+    assert o2.hidden_child == 'hidden_child'
+    assert o2.hidden_parent == 'hidden_parent'
 
 
 def test_override_attributes():
@@ -276,7 +304,8 @@ def test_bad_object():
             self.bar = foo
 
     with pytest.raises(RuntimeError):
-        BadObject('foo')  # cannot hide argument without default value
+        with pytest.warns(RuntimeWarning):
+            BadObject('foo')  # cannot hide argument without default value
 
     class BadObject(audobject.Object):
         @audobject.init_decorator(
@@ -311,7 +340,8 @@ def test_bad_object():
             self.point = 0
 
     with pytest.raises(RuntimeError):
-        BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute
+        with pytest.warns(RuntimeWarning):
+            BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute
 
     class BadObject(audobject.Object):
         @audobject.init_decorator(
@@ -329,4 +359,5 @@ def test_bad_object():
             self.point = Point(x, y)
 
     with pytest.raises(RuntimeError):
-        BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute
+        with pytest.warns(RuntimeWarning):
+            BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute
