@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Usage &mdash; audobject Documentation</title>
@@ -69,7 +70,7 @@
             
             
               <div class="version">
-                v0.4.12
+                v0.4.13
               </div>
             
           
@@ -93,7 +94,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting started</span></p>
+              <p><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
@@ -112,14 +113,14 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Documentation</span></p>
+<p><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">audobject</a></li>
 <li class="toctree-l1"><a class="reference internal" href="define.html">audobject.define</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -175,7 +176,7 @@
         
             
             
-              <a href="https://github.com/audeering/audobject/blob/v0.4.12/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/audeering/audobject/blob/v0.4.13/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -189,7 +190,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="usage">
+  <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <p>The aim of <a class="reference internal" href="api.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a> is to provide
 a base class, namely <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>,
@@ -199,7 +200,7 @@ and re-instantiate the object from it.</p>
 <div class="cell_output docutils container">
 </div>
 </div>
-<div class="section" id="object-class">
+<section id="object-class">
 <h2>Object class<a class="headerlink" href="#object-class" title="Permalink to this headline">¶</a></h2>
 <p>Let’s create a class that derives from <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
@@ -350,8 +351,8 @@ arguments when we instantiate an object.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="object-id">
+</section>
+<section id="object-id">
 <h2>Object ID<a class="headerlink" href="#object-id" title="Permalink to this headline">¶</a></h2>
 <p>Every object has an ID.</p>
 <div class="jupyter_cell jupyter_container docutils container">
@@ -409,8 +410,8 @@ arguments when we instantiate an object.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="malformed-objects">
+</section>
+<section id="malformed-objects">
 <h2>Malformed objects<a class="headerlink" href="#malformed-objects" title="Permalink to this headline">¶</a></h2>
 <p>In the constructor of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code> we have assigned
 every argument to an attribute with the same name.
@@ -499,8 +500,8 @@ from YAML, we’ll get an error.</p>
 that it’s possible to hide arguments.
 If we hide an argument, we don’t have to set
 it to an attribute of the same name.</p>
-</div>
-<div class="section" id="hidden-arguments">
+</section>
+<section id="hidden-arguments">
 <h2>Hidden arguments<a class="headerlink" href="#hidden-arguments" title="Permalink to this headline">¶</a></h2>
 <p>Hidden arguments are arguments that are not serialized.</p>
 <div class="admonition note">
@@ -629,8 +630,8 @@ b3579494-fb4f-35f3-62be-1ceedd745e38
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="borrowed-arguments">
+</section>
+<section id="borrowed-arguments">
 <h2>Borrowed arguments<a class="headerlink" href="#borrowed-arguments" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to borrow arguments from an instance attribute.
 For instance, here we borrow the attributes <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code>
@@ -684,8 +685,8 @@ from <code class="docutils literal notranslate"><span class="pre">self.point</sp
 </div>
 <p>Note that attributes we borrow from are automatically
 treated as hidden arguments.</p>
-</div>
-<div class="section" id="object-with-kwargs">
+</section>
+<section id="object-with-kwargs">
 <h2>Object with kwargs<a class="headerlink" href="#object-with-kwargs" title="Permalink to this headline">¶</a></h2>
 <p>Usually, the attributes that are serialized to YAML
 are automatically derived from the arguments of the
@@ -758,7 +759,9 @@ and hence all attributes are serialized.</p>
   string: I have kwargs
   num_repeat: 1
   other: not an argument
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -816,8 +819,8 @@ of ignored arguments.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="object-as-argument">
+</section>
+<section id="object-as-argument">
 <h2>Object as argument<a class="headerlink" href="#object-as-argument" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to have arguments of
 type <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.
@@ -888,8 +891,8 @@ For instance, we can define the following class.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="value-resolver">
+</section>
+<section id="value-resolver">
 <h2>Value resolver<a class="headerlink" href="#value-resolver" title="Permalink to this headline">¶</a></h2>
 <p>As long as the type of the arguments is one of
 <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">Object,</span> <span class="pre">str,</span> <span class="pre">int,</span> <span class="pre">float,</span> <span class="pre">bool,</span> <span class="pre">list,</span> <span class="pre">dict,</span> <span class="pre">datetime.datetime)</span></code>,
@@ -1048,8 +1051,8 @@ and the <code class="docutils literal notranslate"><span class="pre">!!python/ob
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="flat-dictionary">
+</section>
+<section id="flat-dictionary">
 <h2>Flat dictionary<a class="headerlink" href="#flat-dictionary" title="Permalink to this headline">¶</a></h2>
 <p>Let’s create a class that takes
 as input a string, a list and a dictionary.</p>
@@ -1098,7 +1101,7 @@ as input a string, a list and a dictionary.</p>
 looks pretty nested.
 This is not always handy,
 e.g. if we try to store the object to a
-<a class="reference external" href="https://audeering.github.io/audfactory/api-audfactory.html#audfactory.Lookup" title="(in audfactory vv1.0.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
+<a class="reference external" href="https://audeering.github.io/audfactory/api-audfactory.html#audfactory.Lookup" title="(in audfactory vv1.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
 this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.</p>
@@ -1122,8 +1125,8 @@ get a flatten version of the dictionary.</p>
 </div>
 <p>However, it’s important to note that it’s not possible
 to re-instantiate an object from a flattened dictionary.</p>
-</div>
-<div class="section" id="versioning">
+</section>
+<section id="versioning">
 <h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
 <p>When an object is converted to YAML
 the package version is stored.
@@ -1385,8 +1388,8 @@ Create an object with version <code class="docutils literal notranslate"><span c
 </div>
 <p>In fact, it works, too.
 However, a warning is given that an argument was ignored.</p>
-</div>
-<div class="section" id="dictionary">
+</section>
+<section id="dictionary">
 <h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="api.html#audobject.Dictionary" title="audobject.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Dictionary</span></code></a> implements a
 <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a> that can used like a dictionary.</p>
@@ -1479,8 +1482,8 @@ values of the dictionary.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="parameters">
+</section>
+<section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <p>You have probably used <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a> before.
 It is a package to write user-friendly command-line interfaces
@@ -1779,8 +1782,8 @@ delimiter   ;      ,        None                   defines the delimiter        
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -1805,7 +1808,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/03/26 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/04/07 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
