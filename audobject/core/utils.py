@@ -94,7 +94,15 @@ def get_object(
         if key in supported_params:
             params[key] = value
 
-    # if function has init decorator, add stream to parameters
+    # If function has init decorator, add stream to parameters.
+    # The additional parameter will be popped by the decorator
+    # before the object is created.
+    # If the class does not have a decorator
+    # a TypeError will be raised since we call
+    # the class with an unexpected argument.
+    # Unfortunately, there is no straight-forward way
+    # to check if a method of a class has a decorator
+    # so we have to use a try-except block
     try:
         params[define.STREAM_ATTRIBUTE] = stream
         return cls(**params)
