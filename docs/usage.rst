@@ -6,6 +6,16 @@ a base class, namely :class:`audobject.Object`,
 which allows it to convert an object to a YAML string
 and re-instantiate the object from it.
 
+.. set temporal working directory
+.. jupyter-execute::
+    :hide-code:
+
+    import os
+    import audeer
+    _cwd_root = os.getcwd()
+    _tmp_root = audeer.mkdir(os.path.join('docs', 'tmp'))
+    os.chdir(_tmp_root)
+
 
 Object class
 ------------
@@ -542,25 +552,21 @@ and the ``!!python/object`` tag has disappeared.
     d_yaml = d.to_yaml_s()
     print(d_yaml)
 
-File dependencies
------------------
+File path as argument
+---------------------
 
 Portability is a core feature of
 :mod:`audobject`.
 Now assume we have an object
-that takes as argument the path to a file
-and reads from it.
+that takes as argument the path to a file.
 When we serialize the object
 we want to make sure that:
 
 1. we store the file path relative to the YAML file
-2. it gets expanded to a valid path even if we move to another location
+2. the path is correctly expanded when we re-instantiate the object
 
 This can be achieved using
 :class:`audobject.FilePathResolver`.
-Here we create a class that
-takes as input a file path
-and reads its content.
 
 .. jupyter-execute::
 
@@ -577,75 +583,57 @@ and reads its content.
         ):
             self.path = path
 
-        def read(self):
-            print(self.path)
-            with open(self.path, 'r') as fp:
-                print(fp.readlines())
-
-Let's create a file and instantiate an object.
+Here, we instantiate the object with an absolute path.
 
 .. jupyter-execute::
 
     import os
-
     import audeer
 
 
-    root = audeer.safe_path('file-test')
-    resource_path = os.path.join(root, 're', 'source.txt')
-    audeer.mkdir(os.path.dirname(resource_path))
-    with open(resource_path, 'w') as fp:
-        fp.write('Hey, you found me!')
+    path = os.path.join('re', 'source.txt')  # ./re/source.txt
+    o = MyObjectWithFile(path)
+    o.path
 
-    o = MyObjectWithFile(resource_path)
-    o.read()
-
-If we serialize the object
-and read its content,
-we see that the file path
-is stored relative to the YAML file.
+But when we serialize the object,
+we can see that the path is
+stored relative to the directory
+of the YAML file.
 
 .. jupyter-execute::
 
     import yaml
 
 
-    yaml_path = os.path.join(root, 'yaml', 'object.yaml')
+    yaml_path = os.path.join('yaml', 'object.yaml')  # ./yaml/object.yaml
     o.to_yaml(yaml_path)
 
     with open(yaml_path, 'r') as fp:
-        print(yaml.load(fp, Loader=yaml.Loader))
+        content = yaml.load(fp, Loader=yaml.Loader)
+    content
 
-.. jupyter-execute::
-    :hide-code:
-
-    import shutil
-    new_root = os.path.join('some', 'where', 'else')
-    if os.path.exists(new_root):
-        shutil.rmtree(new_root)
-
-Now we can safely move the YAML file and
-its dependency to another location.
-
-.. jupyter-execute::
-
-    import shutil
-
-
-    new_root = os.path.join('some', 'where', 'else')
-    new_root = audeer.mkdir(new_root)
-    shutil.move(root, new_root)
 
 And when we re-instantiate the object
-from the new location
-the relative path is expanded
-in the new location.
+the path gets expanded again.
 
 .. jupyter-execute::
 
-    new_yaml_path = os.path.join(new_root, 'file-test', 'yaml', 'object.yaml')
-    my2 = audobject.Object.from_yaml(new_yaml_path)
-    my2.read()
+    o2 = audobject.Object.from_yaml(yaml_path)
+    o2.path
+
+This will also work from another location.
+
+.. jupyter-execute::
+
+    import shutil
+
+
+    yaml_path_new = os.path.join('some', 'where', 'yaml', 'object.yaml')
+    audeer.mkdir(os.path.dirname(yaml_path_new))
+    shutil.move(yaml_path, yaml_path_new)
+
+    o3 = audobject.Object.from_yaml(yaml_path_new)
+    o3.path
 
 Flat dictionary
 ---------------
@@ -1037,6 +1025,14 @@ Last but not least, we can read/write the parameters from/to a file.
     params.to_yaml(file)
     params2 = audobject.Object.from_yaml(file)
     print(params2)
+
+.. reset working directory and clean up
+.. jupyter-execute::
+    :hide-code:
+
+    import shutil
+    os.chdir(_cwd_root)
+    shutil.rmtree(_tmp_root)
 
 .. _timedelta: https://docs.python.org/3/library/datetime.html#timedelta-objects
 .. _argparse: https://docs.python.org/3/library/argparse.html
