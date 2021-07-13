@@ -167,12 +167,14 @@ class Object:
     @staticmethod
     def from_dict(
             d: typing.Dict[str, typing.Any],
+            stream: typing.IO = None,
             **kwargs,
     ) -> 'Object':
         r"""Create object from dictionary.
 
         Args:
             d: dictionary with variables
+            stream: set to IO stream when dictionary is read from a file
             kwargs: additional variables
 
         Returns:
@@ -189,7 +191,12 @@ class Object:
         for key, value in d[name].items():
             params[key] = Object._decode_value(value, **kwargs)
         return utils.get_object(
-            cls, version, installed_version, params, **kwargs,
+            cls,
+            version,
+            installed_version,
+            params,
+            stream,
+            **kwargs,
         )
 
     @staticmethod
@@ -212,6 +219,7 @@ class Object:
                 return Object.from_yaml(fp, **kwargs)
         return Object.from_dict(
             yaml.load(path_or_stream, yaml.Loader),
+            stream=path_or_stream,
             **kwargs,
         )
 
@@ -252,6 +260,7 @@ class Object:
             *,
             include_version: bool = True,
             flatten: bool = False,
+            stream: typing.IO = None,
     ) -> typing.Dict[str, DefaultValueType]:
         r"""Converts object to a dictionary.
 
@@ -264,6 +273,7 @@ class Object:
         Args:
             include_version: add version to class name
             flatten: flatten the dictionary
+            stream: set to IO stream if dictionary is written to a file
 
         Returns:
             dictionary that represent the object
@@ -293,7 +303,12 @@ class Object:
                 )
 
         d = {
-            key: self._encode_variable(key, value, include_version)
+            key: self._encode_variable(
+                key,
+                value,
+                include_version,
+                stream,
+            )
             for key, value in self.arguments.items()
         }
 
@@ -320,7 +335,10 @@ class Object:
                 return self.to_yaml(fp, include_version=include_version)
         else:
             return yaml.dump(
-                self.to_dict(include_version=include_version),
+                self.to_dict(
+                    include_version=include_version,
+                    stream=path_or_stream,
+                ),
                 path_or_stream,
             )
 
@@ -377,10 +395,11 @@ class Object:
             name: str,
             value: typing.Any,
             include_version: bool,
+            stream: typing.Optional[typing.IO],
     ):
         r"""Encode a value by first looking for a custom resolver,
         otherwise switch to default encoder."""
-        value = self._resolve_value(name, value)
+        value = self._resolve_value(name, value, stream)
         return Object._encode_value(value, include_version)
 
     @staticmethod
@@ -453,8 +472,11 @@ class Object:
             self,
             name: str,
             value: typing.Any,
+            stream: typing.Optional[typing.IO],
     ) -> DefaultValueType:
         if name in self.resolvers:
+            # let resolver know if we write to a stream
+            self.resolvers[name].__dict__[define.STREAM_ATTRIBUTE] = stream
             value = self.resolvers[name].encode(value)
         return value
 

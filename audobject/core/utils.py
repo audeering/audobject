@@ -22,6 +22,7 @@ def get_object(
         version: str,
         installed_version: str,
         params: dict,
+        stream: typing.Optional[typing.IO],
         **kwargs,
 ) -> typing.Any:
     r"""Create object from arguments."""
@@ -93,6 +94,10 @@ def get_object(
         if key in supported_params:
             params[key] = value
 
+    # if function has init decorator, add stream to parameters
+    if has_decorator(cls, 'init_decorator'):
+        params[define.STREAM_ATTRIBUTE] = stream
+
     return cls(**params)
 
 
@@ -102,6 +107,17 @@ def get_version(module_name: str) -> typing.Optional[str]:
         return module.__version__
     else:
         return None
+
+
+def has_decorator(
+        cls: type,
+        name: str,
+) -> bool:
+    r"""Check if class method has decorator with this name."""
+    lines = [line.strip() for line in inspect.getsourcelines(cls)[0]]
+    lines = [line for line in lines if line.startswith('@')]
+    lines = [line for line in lines if name in line]
+    return len(lines) > 0
 
 
 def is_class(value: typing.Any):

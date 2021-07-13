@@ -7,6 +7,7 @@ DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
 CUSTOM_VALUE_RESOLVERS = '_object_resolvers_'
 BORROWED_ATTRIBUTES = '_object_borrowed_'
 HIDDEN_ATTRIBUTES = '_object_hidden_'
+STREAM_ATTRIBUTE = '_object_stream_'
 
 
 class SignatureMismatchWarnLevel:
