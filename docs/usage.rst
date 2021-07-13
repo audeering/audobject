@@ -592,6 +592,7 @@ Here, we instantiate the object with an absolute path.
 
 
     path = os.path.join('re', 'source.txt')  # ./re/source.txt
+    path = audeer.safe_path(path)
     o = MyObjectWithFile(path)
     o.path
 
