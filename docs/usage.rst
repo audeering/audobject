@@ -606,7 +606,7 @@ Here, we create a file and pass it to the object.
     o.read()
 
 But when we serialize the object,
-we can see that the path is
+the path is
 stored relative to the directory
 of the YAML file.
 
