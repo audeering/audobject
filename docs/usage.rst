@@ -642,7 +642,6 @@ as its relative location to the YAML file must not change).
     shutil.move(root, new_root)
 
     yaml_path_new = os.path.join(new_root, 'yaml', 'object.yaml')
-
     o3 = audobject.Object.from_yaml(yaml_path_new)
     o3.read()
 

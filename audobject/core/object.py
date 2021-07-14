@@ -174,7 +174,7 @@ class Object:
 
         Args:
             d: dictionary with variables
-            root: if dictionary is read from a file, set to source directory
+            root: if dictionary was read from a file, set to source directory
             kwargs: additional variables
 
         Returns:
