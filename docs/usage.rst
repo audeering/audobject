@@ -631,12 +631,12 @@ This will also work from another location.
     yaml_path_new = os.path.join('some', 'where', 'yaml', 'object.yaml')
     audeer.mkdir(os.path.dirname(yaml_path_new))
     shutil.move(yaml_path, yaml_path_new)
+    # move referenced files
 
     o3 = audobject.Object.from_yaml(yaml_path_new)
     o3.path
 
-Note that when moving the YAML file to another location,
-referenced files have to be moved, too,
+Note that referenced files have to be moved, too,
 as the relative location to the YAML file must not change.
 
 Flat dictionary
