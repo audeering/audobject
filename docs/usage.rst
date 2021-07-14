@@ -630,9 +630,9 @@ the path gets expanded again.
     o2 = audobject.Object.from_yaml(yaml_path)
     o2.read()
 
-This will also work from another location
-(note that we also move the referenced file here,
-as its relative location to the YAML file must not change).
+This will also work from another location.
+Note that we have to move all referenced files as well,
+as their relative location to the YAML file must not change.
 
 .. jupyter-execute::
 
