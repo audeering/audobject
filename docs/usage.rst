@@ -614,7 +614,7 @@ of the YAML file.
     content
 
 
-And when we re-instantiate the object
+When we re-instantiate the object
 the path gets expanded again.
 
 .. jupyter-execute::
