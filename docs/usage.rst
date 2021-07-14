@@ -613,7 +613,6 @@ of the YAML file.
         content = yaml.load(fp, Loader=yaml.Loader)
     content
 
-
 When we re-instantiate the object
 the path gets expanded again.
 
@@ -635,6 +634,10 @@ This will also work from another location.
 
     o3 = audobject.Object.from_yaml(yaml_path_new)
     o3.path
+
+Note that when moving the YAML file to another location,
+referenced files have to be moved, too,
+as the relative location to the YAML file must not change.
 
 Flat dictionary
 ---------------
