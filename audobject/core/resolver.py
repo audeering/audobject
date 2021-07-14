@@ -86,7 +86,7 @@ class FilePathResolver(ValueResolver):
         r"""Decode file path.
 
         If object is read from a file,
-        this will convert the relative file path
+        this will convert a relative file path
         to an absolute path by expanding it
         with the source directory.
 
