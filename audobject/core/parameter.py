@@ -318,7 +318,7 @@ class Parameters(Dictionary):
             ]
         ]
         for name, p in self.items():
-            if name != define.STREAM_ATTRIBUTE:
+            if name != define.ROOT_ATTRIBUTE:
                 table.append(
                     [
                         name, p.value, p.default_value, p.choices,

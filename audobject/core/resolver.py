@@ -19,20 +19,20 @@ class ValueResolver:
 
     """
     def __init__(self):
-        self.__dict__[define.STREAM_ATTRIBUTE] = None
+        self.__dict__[define.ROOT_ATTRIBUTE] = None
 
     @property
-    def stream(self) -> typing.Optional[typing.IO]:
-        r"""Access IO stream.
+    def root(self) -> typing.Optional[str]:
+        r"""Root folder.
 
-        Returns stream when reading from or writing to a file,
-        otherwise ``None`` will be returned.
+        Returns root folder when object is serialized to or from a file,
+        otherwise ``None`` is returned.
 
         Returns:
-            IO stream
+            root directory
 
         """
-        return self.__dict__[define.STREAM_ATTRIBUTE]
+        return self.__dict__[define.ROOT_ATTRIBUTE]
 
     def decode(self, value: DefaultValueType) -> typing.Any:
         r"""Decode value.
@@ -97,8 +97,8 @@ class FilePathResolver(ValueResolver):
             expanded file path
 
         """
-        if self.stream is not None:
-            root = os.path.dirname(self.stream.name)
+        if self.root is not None:
+            root = os.path.dirname(self.root)
             value = os.path.join(root, value)
             value = audeer.safe_path(value)
         return value
@@ -118,8 +118,8 @@ class FilePathResolver(ValueResolver):
             relative file path
 
         """
-        if self.stream is not None:
-            root = os.path.dirname(self.stream.name)
+        if self.root is not None:
+            root = os.path.dirname(self.root)
             value = os.path.relpath(value, root)
         return value
 

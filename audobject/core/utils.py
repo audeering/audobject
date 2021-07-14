@@ -22,7 +22,7 @@ def get_object(
         version: str,
         installed_version: str,
         params: dict,
-        stream: typing.Optional[typing.IO],
+        root: typing.Optional[str],
         **kwargs,
 ) -> typing.Any:
     r"""Create object from arguments."""
@@ -104,10 +104,10 @@ def get_object(
     # to check if a method of a class has a decorator
     # so we have to use a try-except block
     try:
-        params[define.STREAM_ATTRIBUTE] = stream
+        params[define.ROOT_ATTRIBUTE] = root
         return cls(**params)
     except TypeError:
-        params.pop(define.STREAM_ATTRIBUTE)
+        params.pop(define.ROOT_ATTRIBUTE)
         return cls(**params)
 
 

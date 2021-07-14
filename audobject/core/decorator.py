@@ -57,9 +57,9 @@ def init_decorator(
                 for name, resolver in resolvers.items():
                     resolver_obj = resolver()
                     # let resolver know if we read from a stream
-                    if define.STREAM_ATTRIBUTE in kwargs:
-                        resolver_obj.__dict__[define.STREAM_ATTRIBUTE] = \
-                            kwargs[define.STREAM_ATTRIBUTE]
+                    if define.ROOT_ATTRIBUTE in kwargs:
+                        resolver_obj.__dict__[define.ROOT_ATTRIBUTE] = \
+                            kwargs[define.ROOT_ATTRIBUTE]
                     self.__dict__[define.CUSTOM_VALUE_RESOLVERS][name] = \
                         resolver_obj
                     if name in kwargs and isinstance(
@@ -103,8 +103,8 @@ def init_decorator(
                 self.__dict__[define.HIDDEN_ATTRIBUTES] += hide
 
             # if stream was set we can pop it now
-            if define.STREAM_ATTRIBUTE in kwargs:
-                kwargs.pop(define.STREAM_ATTRIBUTE)
+            if define.ROOT_ATTRIBUTE in kwargs:
+                kwargs.pop(define.ROOT_ATTRIBUTE)
 
             func(self, *args, **kwargs)
 
