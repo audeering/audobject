@@ -22,6 +22,7 @@ def get_object(
         version: str,
         installed_version: str,
         params: dict,
+        root: typing.Optional[str],
         **kwargs,
 ) -> typing.Any:
     r"""Create object from arguments."""
@@ -93,7 +94,21 @@ def get_object(
         if key in supported_params:
             params[key] = value
 
-    return cls(**params)
+    # If function has init decorator, add stream to parameters.
+    # The additional parameter will be popped by the decorator
+    # before the object is created.
+    # If the class does not have a decorator
+    # a TypeError will be raised since we call
+    # the class with an unexpected argument.
+    # Unfortunately, there is no straight-forward way
+    # to check if a method of a class has a decorator
+    # so we have to use a try-except block
+    try:
+        params[define.ROOT_ATTRIBUTE] = root
+        return cls(**params)
+    except TypeError:
+        params.pop(define.ROOT_ATTRIBUTE)
+        return cls(**params)
 
 
 def get_version(module_name: str) -> typing.Optional[str]:

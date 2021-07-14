@@ -6,6 +6,7 @@ import typing
 from audobject.core.decorator import (
     init_decorator,
 )
+import audobject.core.define as define
 from audobject.core.dictionary import (
     Dictionary,
 )
@@ -317,12 +318,13 @@ class Parameters(Dictionary):
             ]
         ]
         for name, p in self.items():
-            table.append(
-                [
-                    name, p.value, p.default_value, p.choices,
-                    p.description, p.version,
-                ]
-            )
+            if name != define.ROOT_ATTRIBUTE:
+                table.append(
+                    [
+                        name, p.value, p.default_value, p.choices,
+                        p.description, p.version,
+                    ]
+                )
         padding = 2
         # Longest string in each column
         transposed_table = [list(x) for x in zip(*table)]

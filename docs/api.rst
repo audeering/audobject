@@ -21,6 +21,12 @@ init_decorator
 
 .. autofunction:: init_decorator
 
+FilePathResolver
+----------------
+
+.. autoclass:: FilePathResolver
+    :members:
+
 Object
 ------
 
