@@ -605,7 +605,7 @@ Here, we create a file and pass it to the object.
     o = MyObjectWithFile(res_path)
     o.read()
 
-But when we serialize the object,
+When we serialize the object,
 the path is
 stored relative to the directory
 of the YAML file.
