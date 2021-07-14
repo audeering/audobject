@@ -107,7 +107,7 @@ class FilePathResolver(ValueResolver):
         r"""Encode file path.
 
         If object is written to a file,
-        this will convert the file path
+        this will convert a file path
         to a path that is relative to the
         target directory.
 
