@@ -552,8 +552,8 @@ and the ``!!python/object`` tag has disappeared.
     d_yaml = d.to_yaml_s()
     print(d_yaml)
 
-File path as argument
----------------------
+Resolve file paths
+------------------
 
 Portability is a core feature of
 :mod:`audobject`.
@@ -583,18 +583,27 @@ This can be achieved using
         ):
             self.path = path
 
-Here, we instantiate the object with an absolute path.
+        def read(self):  # print path and content
+            print(self.path)
+            with open(self.path, 'r') as fp:
+                print(fp.readlines())
+
+Here, we create a file and pass it to the object.
 
 .. jupyter-execute::
 
     import os
     import audeer
 
+    root = 'root'
 
-    path = os.path.join('re', 'source.txt')  # ./re/source.txt
-    path = audeer.safe_path(path)
-    o = MyObjectWithFile(path)
-    o.path
+    res_path = os.path.join(root, 're', 'source.txt')  # root/re/source.txt
+    audeer.mkdir(os.path.dirname(res_path))
+    with open(res_path, 'w') as fp:
+        fp.write('You found me!')
+
+    o = MyObjectWithFile(res_path)
+    o.read()
 
 But when we serialize the object,
 we can see that the path is
@@ -606,7 +615,7 @@ of the YAML file.
     import yaml
 
 
-    yaml_path = os.path.join('yaml', 'object.yaml')  # ./yaml/object.yaml
+    yaml_path = os.path.join(root, 'yaml', 'object.yaml')  # root/yaml/object.yaml
     o.to_yaml(yaml_path)
 
     with open(yaml_path, 'r') as fp:
@@ -619,25 +628,24 @@ the path gets expanded again.
 .. jupyter-execute::
 
     o2 = audobject.Object.from_yaml(yaml_path)
-    o2.path
+    o2.read()
 
-This will also work from another location.
+This will also work from another location
+(note that we also move the referenced file here,
+as its relative location to the YAML file must not change).
 
 .. jupyter-execute::
 
     import shutil
 
+    new_root = os.path.join('some', 'where', 'else')
+    shutil.move(root, new_root)
 
-    yaml_path_new = os.path.join('some', 'where', 'yaml', 'object.yaml')
-    audeer.mkdir(os.path.dirname(yaml_path_new))
-    shutil.move(yaml_path, yaml_path_new)
-    # move referenced files
+    yaml_path_new = os.path.join(new_root, 'yaml', 'object.yaml')
 
     o3 = audobject.Object.from_yaml(yaml_path_new)
-    o3.path
+    o3.read()
 
-Note that referenced files have to be moved, too,
-as the relative location to the YAML file must not change.
 
 Flat dictionary
 ---------------
