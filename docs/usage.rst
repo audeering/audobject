@@ -557,7 +557,7 @@ Resolve file paths
 
 Portability is a core feature of
 :mod:`audobject`.
-Now assume we have an object
+Assume we have an object
 that takes as argument the path to a file.
 When we serialize the object
 we want to make sure that:
