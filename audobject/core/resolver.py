@@ -98,7 +98,7 @@ class FilePathResolver(ValueResolver):
 
         """
         if self.root is not None:
-            root = os.path.dirname(self.root)
+            root = self.root
             value = os.path.join(root, value)
             value = audeer.safe_path(value)
         return value
@@ -119,7 +119,7 @@ class FilePathResolver(ValueResolver):
 
         """
         if self.root is not None:
-            root = os.path.dirname(self.root)
+            root = self.root
             value = os.path.relpath(value, root)
         return value
 

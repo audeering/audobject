@@ -219,7 +219,7 @@ class Object:
                 return Object.from_yaml(fp, **kwargs)
         return Object.from_dict(
             yaml.load(path_or_stream, yaml.Loader),
-            root=path_or_stream.name,
+            root=os.path.dirname(path_or_stream.name),
             **kwargs,
         )
 
@@ -337,7 +337,7 @@ class Object:
             return yaml.dump(
                 self.to_dict(
                     include_version=include_version,
-                    root=path_or_stream.name,
+                    root=os.path.dirname(path_or_stream.name),
                 ),
                 path_or_stream,
             )
