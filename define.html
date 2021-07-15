@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -31,6 +31,8 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -70,7 +72,7 @@
             
             
               <div class="version">
-                v0.4.13
+                v0.4.14
               </div>
             
           
@@ -94,12 +96,12 @@
               
             
             
-              <p><span class="caption-text">Getting started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
-<p><span class="caption-text">API Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">audobject</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">audobject.define</a><ul>
@@ -109,7 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
-<p><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -165,7 +167,7 @@
         
             
             
-              <a href="https://github.com/audeering/audobject/blob/v0.4.13/docs/define.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/audeering/audobject/blob/v0.4.14/docs/define.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -184,28 +186,28 @@
 <section id="signaturemismatchwarnlevel">
 <h2>SignatureMismatchWarnLevel<a class="headerlink" href="#signaturemismatchwarnlevel" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.define.SignatureMismatchWarnLevel">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.define.</span></code><code class="sig-name descname"><span class="pre">SignatureMismatchWarnLevel</span></code><a class="reference internal" href="_modules/audobject/core/define.html#SignatureMismatchWarnLevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.define.SignatureMismatchWarnLevel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.define.</span></span><span class="sig-name descname"><span class="pre">SignatureMismatchWarnLevel</span></span><a class="reference internal" href="_modules/audobject/core/define.html#SignatureMismatchWarnLevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls verbosity for signature mismatch.</p>
 <p>A signature mismatch might occur
 if an object is loaded from a different package version
 it was generated with.</p>
 <p>Set via <a class="reference internal" href="api.html#audobject.config" title="audobject.config"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.config</span></code></a>.</p>
 <dl class="py attribute">
-<dt id="audobject.define.SignatureMismatchWarnLevel.SILENT">
-<code class="sig-name descname"><span class="pre">SILENT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel.SILENT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.define.SignatureMismatchWarnLevel.SILENT">
+<span class="sig-name descname"><span class="pre">SILENT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel.SILENT" title="Permalink to this definition">¶</a></dt>
 <dd><p>no warnings</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.define.SignatureMismatchWarnLevel.STANDARD">
-<code class="sig-name descname"><span class="pre">STANDARD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel.STANDARD" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.define.SignatureMismatchWarnLevel.STANDARD">
+<span class="sig-name descname"><span class="pre">STANDARD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel.STANDARD" title="Permalink to this definition">¶</a></dt>
 <dd><p>warn when arguments are removed</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.define.SignatureMismatchWarnLevel.VERBOSE">
-<code class="sig-name descname"><span class="pre">VERBOSE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.define.SignatureMismatchWarnLevel.VERBOSE">
+<span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#audobject.define.SignatureMismatchWarnLevel.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd><p>show all warnings</p>
 </dd></dl>
 
@@ -237,7 +239,7 @@ it was generated with.</p>
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/04/07 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/07/15 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -269,6 +271,7 @@ it was generated with.</p>
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>

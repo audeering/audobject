@@ -30,6 +30,8 @@
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/thebelab.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -67,7 +69,7 @@
             
             
               <div class="version">
-                v0.4.13
+                v0.4.14
               </div>
             
           
@@ -91,19 +93,19 @@
               
             
             
-              <p><span class="caption-text">Getting started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
 </ul>
-<p><span class="caption-text">API Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
 </ul>
-<p><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
@@ -173,7 +175,6 @@
 <span></span><span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">typing</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">audeer</span>
 
@@ -229,6 +230,10 @@
 
                 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">resolver</span> <span class="ow">in</span> <span class="n">resolvers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="n">resolver_obj</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">()</span>
+                    <span class="c1"># let resolver know if we read from a stream</span>
+                    <span class="k">if</span> <span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                        <span class="n">resolver_obj</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span> <span class="o">=</span> \
+                            <span class="n">kwargs</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> \
                         <span class="n">resolver_obj</span>
                     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
@@ -271,6 +276,10 @@
                     <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">HIDDEN_ATTRIBUTES</span><span class="p">,</span> <span class="p">[])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">HIDDEN_ATTRIBUTES</span><span class="p">]</span> <span class="o">+=</span> <span class="n">hide</span>
 
+            <span class="c1"># if stream was set we can pop it now</span>
+            <span class="k">if</span> <span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">)</span>
+
             <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">wrapper</span>
@@ -291,7 +300,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/04/07 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/07/15 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -323,6 +332,7 @@
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>

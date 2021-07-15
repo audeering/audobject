@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -31,6 +31,8 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -70,7 +72,7 @@
             
             
               <div class="version">
-                v0.4.13
+                v0.4.14
               </div>
             
           
@@ -94,7 +96,7 @@
               
             
             
-              <p><span class="caption-text">Getting started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
@@ -106,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#object-with-kwargs">Object with kwargs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#object-as-argument">Object as argument</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#value-resolver">Value resolver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolve-file-paths">Resolve file paths</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#flat-dictionary">Flat dictionary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#versioning">Versioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dictionary">Dictionary</a></li>
@@ -113,14 +116,14 @@
 </ul>
 </li>
 </ul>
-<p><span class="caption-text">API Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">audobject</a></li>
 <li class="toctree-l1"><a class="reference internal" href="define.html">audobject.define</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
-<p><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -176,7 +179,7 @@
         
             
             
-              <a href="https://github.com/audeering/audobject/blob/v0.4.13/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/audeering/audobject/blob/v0.4.14/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -205,7 +208,10 @@ and re-instantiate the object from it.</p>
 <p>Let’s create a class that derives from <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>  <span class="c1"># pretend we have a package version</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">audobject</span>
+
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>  <span class="c1"># pretend we have a package version</span>
 
 <span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
@@ -465,24 +471,24 @@ from YAML, we’ll get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">17</span><span class="o">-</span><span class="n">d42688ac16e3</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1642</span><span class="o">/</span><span class="mf">3051616399.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">to_yaml_s</span><span class="nt">(self, include_version)</span>
-<span class="g g-Whitespace">    </span><span class="mi">349</span> 
-<span class="g g-Whitespace">    </span><span class="mi">350</span>         <span class="s2">&quot;&quot;&quot;  # noqa: E501</span>
-<span class="ne">--&gt; </span><span class="mi">351</span><span class="s2">         return yaml.dump(self.to_dict(include_version=include_version))</span>
-<span class="g g-Whitespace">    </span><span class="mi">352</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">353</span><span class="s2">     @staticmethod</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span> 
+<span class="g g-Whitespace">    </span><span class="mi">368</span>         <span class="s2">&quot;&quot;&quot;  # noqa: E501</span>
+<span class="ne">--&gt; </span><span class="mi">369</span><span class="s2">         return yaml.dump(self.to_dict(include_version=include_version))</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span><span class="s2">     @staticmethod</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">to_dict</span><span class="nt">(self, include_version, flatten)</span>
-<span class="g g-Whitespace">    </span><span class="mi">295</span><span class="s2">         d = {</span>
-<span class="g g-Whitespace">    </span><span class="mi">296</span><span class="s2">             key: self._encode_variable(key, value, include_version)</span>
-<span class="nn">--&gt; 297             for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">298</span><span class="s2">         }</span>
-<span class="g g-Whitespace">    </span><span class="mi">299</span><span class="s2"> </span>
+<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
+<span class="g g-Whitespace">    </span><span class="mi">310</span><span class="s2">                 root,</span>
+<span class="g g-Whitespace">    </span><span class="mi">311</span><span class="s2">             )</span>
+<span class="nn">--&gt; 312             for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span><span class="s2">         }</span>
+<span class="g g-Whitespace">    </span><span class="mi">314</span><span class="s2"> </span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">arguments</span><span class="nt">(self)</span>
 <span class="g g-Whitespace">     </span><span class="mi">75</span><span class="s2">                 missing.append(name)</span>
@@ -759,9 +765,7 @@ and hence all attributes are serialized.</p>
   string: I have kwargs
   num_repeat: 1
   other: not an argument
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+
 </pre></div>
 </div>
 </div>
@@ -904,6 +908,7 @@ and clutter the YAML syntax.</p>
 <div class="cell_input code_cell docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 
+
 <span class="k">class</span> <span class="nc">MyDeltaObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -962,7 +967,7 @@ we’ll see a warning.</p>
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:415: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:434: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
   warnings.warn(
 </pre>
 </div>
@@ -1052,6 +1057,134 @@ and the <code class="docutils literal notranslate"><span class="pre">!!python/ob
 </div>
 </div>
 </section>
+<section id="resolve-file-paths">
+<h2>Resolve file paths<a class="headerlink" href="#resolve-file-paths" title="Permalink to this headline">¶</a></h2>
+<p>Portability is a core feature of
+<a class="reference internal" href="api.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a>.
+Assume we have an object
+that takes as argument the path to a file.
+When we serialize the object
+we want to make sure that:</p>
+<ol class="arabic simple">
+<li><p>we store the file path relative to the YAML file</p></li>
+<li><p>the path is correctly expanded when we re-instantiate the object</p></li>
+</ol>
+<p>This can be achieved using
+<a class="reference internal" href="api.html#audobject.FilePathResolver" title="audobject.FilePathResolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.FilePathResolver</span></code></a>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithFile</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
+        <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">audobject</span><span class="o">.</span><span class="n">FilePathResolver</span><span class="p">,</span>  <span class="c1"># ensure portability</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># print path and content</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Here, we create a file and pass it to the object.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">audeer</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span>
+
+<span class="n">res_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;re&#39;</span><span class="p">,</span> <span class="s1">&#39;source.txt&#39;</span><span class="p">)</span>  <span class="c1"># root/re/source.txt</span>
+<span class="n">audeer</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">res_path</span><span class="p">))</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">res_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;You found me!&#39;</span><span class="p">)</span>
+
+<span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithFile</span><span class="p">(</span><span class="n">res_path</span><span class="p">)</span>
+<span class="n">o</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>root/re/source.txt
+[&#39;You found me!&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we serialize the object,
+the path is
+stored relative to the directory
+of the YAML file.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
+
+
+<span class="n">yaml_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;object.yaml&#39;</span><span class="p">)</span>  <span class="c1"># root/yaml/object.yaml</span>
+<span class="n">o</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">)</span>
+<span class="n">content</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;$__main__.MyObjectWithFile==1.0.0&#39;: {&#39;path&#39;: &#39;../re/source.txt&#39;}}
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we re-instantiate the object
+the path gets expanded again.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span>
+<span class="n">o2</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/audobject/audobject/docs/tmp/root/re/source.txt
+[&#39;You found me!&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>This will also work from another location.
+Note that we have to move all referenced files as well,
+as their relative location to the YAML file must not change.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="n">new_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;where&#39;</span><span class="p">,</span> <span class="s1">&#39;else&#39;</span><span class="p">)</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">new_root</span><span class="p">)</span>
+
+<span class="n">yaml_path_new</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_root</span><span class="p">,</span> <span class="s1">&#39;yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;object.yaml&#39;</span><span class="p">)</span>
+<span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">yaml_path_new</span><span class="p">)</span>
+<span class="n">o3</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/audobject/audobject/docs/tmp/some/where/else/re/source.txt
+[&#39;You found me!&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="flat-dictionary">
 <h2>Flat dictionary<a class="headerlink" href="#flat-dictionary" title="Permalink to this headline">¶</a></h2>
 <p>Let’s create a class that takes
@@ -1091,7 +1224,7 @@ as input a string, a list and a dictionary.</p>
 <div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;$__main__.MyListDictObject==1.0.0&#39;: {&#39;a_str&#39;: &#39;test&#39;,
   &#39;a_list&#39;: [1,
    &#39;2&#39;,
-   {&#39;$__main__.MyObject==1.0.0&#39;: {&#39;string&#39;: &#39;eat me!&#39;, &#39;num_repeat&#39;: 1}}],
+   {&#39;$__main__.MyObjectWithFile==1.0.0&#39;: {&#39;path&#39;: &#39;root/re/source.txt&#39;}}],
   &#39;a_dict&#39;: {&#39;pi&#39;: 3.1416, &#39;e&#39;: 2.71828}}}
 </pre></div>
 </div>
@@ -1101,7 +1234,7 @@ as input a string, a list and a dictionary.</p>
 looks pretty nested.
 This is not always handy,
 e.g. if we try to store the object to a
-<a class="reference external" href="https://audeering.github.io/audfactory/api-audfactory.html#audfactory.Lookup" title="(in audfactory vv1.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
+<a class="reference external" href="https://audeering.github.io/audfactory/api-audfactory.html#audfactory.Lookup" title="(in audfactory vv1.0.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
 this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.</p>
@@ -1115,8 +1248,7 @@ get a flatten version of the dictionary.</p>
 <div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;a_str&#39;: &#39;test&#39;,
  &#39;a_list.0&#39;: 1,
  &#39;a_list.1&#39;: &#39;2&#39;,
- &#39;a_list.2.string&#39;: &#39;eat me!&#39;,
- &#39;a_list.2.num_repeat&#39;: 1,
+ &#39;a_list.2.path&#39;: &#39;root/re/source.txt&#39;,
  &#39;a_dict.pi&#39;: 3.1416,
  &#39;a_dict.e&#39;: 2.71828}
 </pre></div>
@@ -1246,29 +1378,29 @@ for the new argument.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">50</span><span class="o">-</span><span class="mi">92</span><span class="n">c8d098dd61</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1642</span><span class="o">/</span><span class="mf">3378476747.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">231</span> 
-<span class="g g-Whitespace">    </span><span class="mi">232</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">233</span><span class="s2">         return Object.from_dict(</span>
-<span class="g g-Whitespace">    </span><span class="mi">234</span><span class="s2">             yaml.load(yaml_string, yaml.Loader),</span>
-<span class="g g-Whitespace">    </span><span class="mi">235</span><span class="s2">             **kwargs,</span>
+<span class="g g-Whitespace">    </span><span class="mi">239</span> 
+<span class="g g-Whitespace">    </span><span class="mi">240</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">241</span><span class="s2">         return Object.from_dict(</span>
+<span class="g g-Whitespace">    </span><span class="mi">242</span><span class="s2">             yaml.load(yaml_string, yaml.Loader),</span>
+<span class="g g-Whitespace">    </span><span class="mi">243</span><span class="s2">             **kwargs,</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">from_dict</span><span class="nt">(d, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">189</span><span class="s2">         for key, value in d[name].items():</span>
-<span class="g g-Whitespace">    </span><span class="mi">190</span><span class="s2">             params[key] = Object._decode_value(value, **kwargs)</span>
-<span class="ne">--&gt; </span><span class="mi">191</span><span class="s2">         return utils.get_object(</span>
-<span class="g g-Whitespace">    </span><span class="mi">192</span><span class="s2">             cls, version, installed_version, params, **kwargs,</span>
-<span class="g g-Whitespace">    </span><span class="mi">193</span><span class="s2">         )</span>
+<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">from_dict</span><span class="nt">(d, root, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">191</span><span class="s2">         for key, value in d[name].items():</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span><span class="s2">             params[key] = Object._decode_value(value, **kwargs)</span>
+<span class="ne">--&gt; </span><span class="mi">193</span><span class="s2">         return utils.get_object(</span>
+<span class="g g-Whitespace">    </span><span class="mi">194</span><span class="s2">             cls,</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span><span class="s2">             version,</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/utils.py</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span><span class="s2">     missing_required_params = list(required_params - set(params))</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span><span class="s2">     if len(missing_required_params) &gt; 0:</span>
-<span class="ne">---&gt; </span><span class="mi">44</span><span class="s2">         raise RuntimeError(</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span><span class="s2">             f&quot;Missing mandatory arguments &quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span><span class="s2">             f&quot;</span><span class="si">{missing_required_params}</span><span class="s2"> &quot;</span>
+<span class="nn">~/work/audobject/audobject/audobject/core/utils.py</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span><span class="s2">     missing_required_params = list(required_params - set(params))</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span><span class="s2">     if len(missing_required_params) &gt; 0:</span>
+<span class="ne">---&gt; </span><span class="mi">45</span><span class="s2">         raise RuntimeError(</span>
+<span class="g g-Whitespace">     </span><span class="mi">46</span><span class="s2">             f&quot;Missing mandatory arguments &quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">47</span><span class="s2">             f&quot;</span><span class="si">{missing_required_params}</span><span class="s2"> &quot;</span>
 
 <span class="ne">RuntimeError</span>: Missing mandatory arguments [&#39;delimiter&#39;] while instantiating &lt;class &#39;__main__.MyObject&#39;&gt; from version &#39;1.0.0&#39; when using version &#39;2.1.0&#39;.
 </pre></div>
@@ -1379,8 +1511,11 @@ Create an object with version <code class="docutils literal notranslate"><span c
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 2.1.1! I am a 2.1.1!
 </pre></div>
 </div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:78: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:79: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
   warnings.warn(
 </pre>
 </div>
@@ -1615,29 +1750,29 @@ we will get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">65</span><span class="o">-</span><span class="n">b1e018ec004c</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1642</span><span class="o">/</span><span class="mf">1473800148.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span>     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">305</span>         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-<span class="ne">--&gt; </span><span class="mi">306</span>         <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">307</span> 
-<span class="g g-Whitespace">    </span><span class="mi">308</span>     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="g g-Whitespace">    </span><span class="mi">305</span>     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">306</span>         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">307</span>         <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">308</span> 
+<span class="g g-Whitespace">    </span><span class="mi">309</span>     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">set_value</span><span class="nt">(self, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">129</span> 
-<span class="g g-Whitespace">    </span><span class="mi">130</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">131</span><span class="s2">         self._check_value(value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">132</span><span class="s2">         self.value = value</span>
-<span class="g g-Whitespace">    </span><span class="mi">133</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span> 
+<span class="g g-Whitespace">    </span><span class="mi">131</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">132</span><span class="s2">         self._check_value(value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span><span class="s2">         self.value = value</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span><span class="s2"> </span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">_check_value</span><span class="nt">(self, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">140</span><span class="s2">             )</span>
-<span class="g g-Whitespace">    </span><span class="mi">141</span><span class="s2">         if self.choices is not None and value not in self.choices:</span>
-<span class="ne">--&gt; </span><span class="mi">142</span><span class="s2">             raise ValueError(</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span><span class="s2">                 f&quot;Invalid value &#39;</span><span class="si">{value}</span><span class="s2">&#39;, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span><span class="s2">                 f&quot;expected one of </span><span class="si">{self.choices}</span><span class="s2">.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span><span class="s2">             )</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span><span class="s2">         if self.choices is not None and value not in self.choices:</span>
+<span class="ne">--&gt; </span><span class="mi">143</span><span class="s2">             raise ValueError(</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span><span class="s2">                 f&quot;Invalid value &#39;</span><span class="si">{value}</span><span class="s2">&#39;, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span><span class="s2">                 f&quot;expected one of </span><span class="si">{self.choices}</span><span class="s2">.&quot;</span>
 
 <span class="ne">ValueError</span>: Invalid value &#39;par&#39;, expected one of [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;].
 </pre></div>
@@ -1703,6 +1838,7 @@ num_repeat  2      1        None                   the number of times we want t
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+
 
 <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
 <span class="n">params</span><span class="o">.</span><span class="n">to_command_line</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
@@ -1782,6 +1918,10 @@ delimiter   ;      ,        None                   defines the delimiter        
 </div>
 </div>
 </div>
+<div class="jupyter_cell docutils container">
+<div class="cell_output docutils container">
+</div>
+</div>
 </section>
 </section>
 
@@ -1808,7 +1948,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/04/07 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/07/15 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -1840,6 +1980,7 @@ delimiter   ;      ,        None                   defines the delimiter        
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>

@@ -6,11 +6,15 @@ a base class, namely :class:`audobject.Object`,
 which allows it to convert an object to a YAML string
 and re-instantiate the object from it.
 
-
+.. set temporal working directory
 .. jupyter-execute::
     :hide-code:
 
-    import audobject
+    import os
+    import audeer
+    _cwd_root = os.getcwd()
+    _tmp_root = audeer.mkdir(os.path.join('docs', 'tmp'))
+    os.chdir(_tmp_root)
 
 
 Object class
@@ -19,6 +23,9 @@ Object class
 Let's create a class that derives from :class:`audobject.Object`.
 
 .. jupyter-execute::
+
+    import audobject
+
 
     __version__ = '1.0.0'  # pretend we have a package version
 
@@ -444,6 +451,7 @@ To illustrate this, let's use an instance of timedelta_.
 
     from datetime import timedelta
 
+
     class MyDeltaObject(audobject.Object):
 
         def __init__(
@@ -543,6 +551,100 @@ and the ``!!python/object`` tag has disappeared.
     d = MyResolvedDeltaObject(delta)
     d_yaml = d.to_yaml_s()
     print(d_yaml)
+
+Resolve file paths
+------------------
+
+Portability is a core feature of
+:mod:`audobject`.
+Assume we have an object
+that takes as argument the path to a file.
+When we serialize the object
+we want to make sure that:
+
+1. we store the file path relative to the YAML file
+2. the path is correctly expanded when we re-instantiate the object
+
+This can be achieved using
+:class:`audobject.FilePathResolver`.
+
+.. jupyter-execute::
+
+    class MyObjectWithFile(audobject.Object):
+
+        @audobject.init_decorator(
+            resolvers={
+                'path': audobject.FilePathResolver,  # ensure portability
+            }
+        )
+        def __init__(
+                self,
+                path: str,
+        ):
+            self.path = path
+
+        def read(self):  # print path and content
+            print(self.path)
+            with open(self.path, 'r') as fp:
+                print(fp.readlines())
+
+Here, we create a file and pass it to the object.
+
+.. jupyter-execute::
+
+    import os
+    import audeer
+
+    root = 'root'
+
+    res_path = os.path.join(root, 're', 'source.txt')  # root/re/source.txt
+    audeer.mkdir(os.path.dirname(res_path))
+    with open(res_path, 'w') as fp:
+        fp.write('You found me!')
+
+    o = MyObjectWithFile(res_path)
+    o.read()
+
+When we serialize the object,
+the path is
+stored relative to the directory
+of the YAML file.
+
+.. jupyter-execute::
+
+    import yaml
+
+
+    yaml_path = os.path.join(root, 'yaml', 'object.yaml')  # root/yaml/object.yaml
+    o.to_yaml(yaml_path)
+
+    with open(yaml_path, 'r') as fp:
+        content = yaml.load(fp, Loader=yaml.Loader)
+    content
+
+When we re-instantiate the object
+the path gets expanded again.
+
+.. jupyter-execute::
+
+    o2 = audobject.Object.from_yaml(yaml_path)
+    o2.read()
+
+This will also work from another location.
+Note that we have to move all referenced files as well,
+as their relative location to the YAML file must not change.
+
+.. jupyter-execute::
+
+    import shutil
+
+    new_root = os.path.join('some', 'where', 'else')
+    shutil.move(root, new_root)
+
+    yaml_path_new = os.path.join(new_root, 'yaml', 'object.yaml')
+    o3 = audobject.Object.from_yaml(yaml_path_new)
+    o3.read()
+
 
 Flat dictionary
 ---------------
@@ -904,6 +1006,7 @@ Or add them to a command line interface.
 
     import argparse
 
+
     parser = argparse.ArgumentParser()
     params.to_command_line(parser)
     print(parser.format_help())
@@ -933,6 +1036,14 @@ Last but not least, we can read/write the parameters from/to a file.
     params.to_yaml(file)
     params2 = audobject.Object.from_yaml(file)
     print(params2)
+
+.. reset working directory and clean up
+.. jupyter-execute::
+    :hide-code:
+
+    import shutil
+    os.chdir(_cwd_root)
+    shutil.rmtree(_tmp_root)
 
 .. _timedelta: https://docs.python.org/3/library/datetime.html#timedelta-objects
 .. _argparse: https://docs.python.org/3/library/argparse.html

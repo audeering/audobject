@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -31,6 +31,8 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -70,7 +72,7 @@
             
             
               <div class="version">
-                v0.4.13
+                v0.4.14
               </div>
             
           
@@ -94,17 +96,18 @@
               
             
             
-              <p><span class="caption-text">Getting started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
-<p><span class="caption-text">API Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">audobject</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#config">config</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dictionary">Dictionary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#init-decorator">init_decorator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filepathresolver">FilePathResolver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#object">Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
@@ -116,7 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
-<p><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -172,7 +175,7 @@
         
             
             
-              <a href="https://github.com/audeering/audobject/blob/v0.4.13/docs/api.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/audeering/audobject/blob/v0.4.14/docs/api.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -191,11 +194,11 @@
 <section id="config">
 <h2>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.config">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">config</span></code><a class="reference internal" href="_modules/audobject/core/config.html#config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.config" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.config">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">config</span></span><a class="reference internal" href="_modules/audobject/core/config.html#config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.config" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py attribute">
-<dt id="audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL">
-<code class="sig-name descname"><span class="pre">SIGNATURE_MISMATCH_WARN_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL">
+<span class="sig-name descname"><span class="pre">SIGNATURE_MISMATCH_WARN_LEVEL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls when a warning is shown in case of a signature mismatch,
 see <a class="reference internal" href="define.html#audobject.define.SignatureMismatchWarnLevel" title="audobject.define.SignatureMismatchWarnLevel"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.define.SignatureMismatchWarnLevel</span></code></a>.</p>
 </dd></dl>
@@ -206,8 +209,8 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 <section id="dictionary">
 <h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.Dictionary">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Dictionary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">Dictionary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary that can be serialized to YAML.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -239,9 +242,9 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 <span class="go">  none: null</span>
 </pre></div>
 </div>
-<dl class="py method">
-<dt id="audobject.Dictionary.arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Dictionary.arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Dictionary.arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]</span></em><a class="headerlink" href="#audobject.Dictionary.arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns arguments that are serialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -264,9 +267,9 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </div>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Dictionary.borrowed_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Dictionary.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Dictionary.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">borrowed_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#audobject.Dictionary.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns borrowed arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -279,18 +282,19 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.from_dict">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.from_dict">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if dictionary was read from a file, set to source directory</p></li>
 <li><p><strong>kwargs</strong> – additional variables</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -303,8 +307,8 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.from_yaml">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.from_yaml">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -314,7 +318,7 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -323,8 +327,8 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.from_yaml_s">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.from_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -334,7 +338,7 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -342,9 +346,9 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Dictionary.hidden_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Dictionary.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Dictionary.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">hidden_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">List[str]</span></em><a class="headerlink" href="#audobject.Dictionary.hidden_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns hidden arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -356,9 +360,9 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Dictionary.id">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Dictionary.id" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Dictionary.id">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#audobject.Dictionary.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object identifier.</p>
 <p>The ID of an object ID is created from its non-hidden arguments.</p>
 <p class="rubric">Example</p>
@@ -384,8 +388,8 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.items">
-<code class="sig-name descname"><span class="pre">items</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.items" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.items" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return items view.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -395,8 +399,8 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.keys">
-<code class="sig-name descname"><span class="pre">keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.keys" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -405,9 +409,9 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Dictionary.resolvers">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Dictionary.resolvers" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Dictionary.resolvers">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">resolvers</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">audobject.core.resolver.ValueResolver]</span></em><a class="headerlink" href="#audobject.Dictionary.resolvers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return resolvers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -420,8 +424,8 @@ see <a class="reference internal" href="define.html#audobject.define.SignatureMi
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.to_dict">
-<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts object to a dictionary.</p>
 <p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
 If an argument has a resolver, its value is encoded.
@@ -433,6 +437,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
 <li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if file is written to disk, set to target directory</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -454,8 +459,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.to_yaml">
-<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.to_yaml">
+<span class="sig-name descname"><span class="pre">to_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save object to YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -468,8 +473,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.to_yaml_s">
-<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.to_yaml_s">
+<span class="sig-name descname"><span class="pre">to_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Dictionary.to_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert object to YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -496,19 +501,19 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.update">
-<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the dictionary with the key/value pairs from other.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>other</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dictionary</span></code>) – the other dictionary</p>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#audobject.Dictionary" title="audobject.core.dictionary.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dictionary</span></code></a>) – the other dictionary</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Dictionary.values">
-<code class="sig-name descname"><span class="pre">values</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.values" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Dictionary.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/dictionary.html#Dictionary.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Dictionary.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -523,8 +528,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <section id="init-decorator">
 <h2>init_decorator<a class="headerlink" href="#init-decorator" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="audobject.init_decorator">
-<code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">init_decorator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">borrow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolvers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/decorator.html#init_decorator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.init_decorator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.init_decorator">
+<span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">init_decorator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">borrow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolvers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/decorator.html#init_decorator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.init_decorator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator for <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function of <a class="reference internal" href="#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <p>If your class expects an argument <code class="docutils literal notranslate"><span class="pre">x</span></code> which is passed on as an argument
 to a class <code class="docutils literal notranslate"><span class="pre">C</span></code> or to a dictionary with key <code class="docutils literal notranslate"><span class="pre">x</span></code> and stored under
@@ -552,11 +557,79 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dd></dl>
 
 </section>
+<section id="filepathresolver">
+<h2>FilePathResolver<a class="headerlink" href="#filepathresolver" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="audobject.FilePathResolver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">FilePathResolver</span></span><a class="reference internal" href="_modules/audobject/core/resolver.html#FilePathResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FilePathResolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>File path resolver.</p>
+<p>Turns file path to a relative path
+when object is serialized to a file
+and expands it again during reading.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="audobject.FilePathResolver.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#FilePathResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FilePathResolver.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode file path.</p>
+<p>If object is read from a file,
+this will convert a relative file path
+to an absolute path by expanding it
+with the source directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – relative file path</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>expanded file path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="audobject.FilePathResolver.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#FilePathResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FilePathResolver.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode file path.</p>
+<p>If object is written to a file,
+this will convert a file path
+to a path that is relative to the
+target directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – original file path</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>relative file path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="audobject.FilePathResolver.encode_type">
+<span class="sig-name descname"><span class="pre">encode_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#FilePathResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FilePathResolver.encode_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return encoded type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encoded type</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="object">
 <h2>Object<a class="headerlink" href="#object" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.Object">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Object</span></code><a class="reference internal" href="_modules/audobject/core/object.html#Object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Object">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">Object</span></span><a class="reference internal" href="_modules/audobject/core/object.html#Object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for objects that can be serialized to YAML.</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
@@ -568,9 +641,9 @@ using the according <code class="xref py py-class docutils literal notranslate">
 <span class="go">  bar: hello object!</span>
 </pre></div>
 </div>
-<dl class="py method">
-<dt id="audobject.Object.arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Object.arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Object.arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]</span></em><a class="headerlink" href="#audobject.Object.arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns arguments that are serialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -593,9 +666,9 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </div>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Object.borrowed_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Object.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Object.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">borrowed_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#audobject.Object.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns borrowed arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -608,18 +681,19 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Object.from_dict">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Object.from_dict">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if dictionary was read from a file, set to source directory</p></li>
 <li><p><strong>kwargs</strong> – additional variables</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -632,8 +706,8 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Object.from_yaml">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Object.from_yaml">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -643,7 +717,7 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -652,8 +726,8 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Object.from_yaml_s">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Object.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.from_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -663,7 +737,7 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -671,9 +745,9 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Object.hidden_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Object.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Object.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">hidden_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">List[str]</span></em><a class="headerlink" href="#audobject.Object.hidden_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns hidden arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -685,9 +759,9 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Object.id">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Object.id" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Object.id">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#audobject.Object.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object identifier.</p>
 <p>The ID of an object ID is created from its non-hidden arguments.</p>
 <p class="rubric">Example</p>
@@ -712,9 +786,9 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Object.resolvers">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Object.resolvers" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Object.resolvers">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">resolvers</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">audobject.core.resolver.ValueResolver]</span></em><a class="headerlink" href="#audobject.Object.resolvers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return resolvers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -727,8 +801,8 @@ using the according <code class="xref py py-class docutils literal notranslate">
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Object.to_dict">
-<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Object.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts object to a dictionary.</p>
 <p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
 If an argument has a resolver, its value is encoded.
@@ -740,6 +814,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
 <li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if file is written to disk, set to target directory</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -761,8 +836,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Object.to_yaml">
-<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Object.to_yaml">
+<span class="sig-name descname"><span class="pre">to_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save object to YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -775,8 +850,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Object.to_yaml_s">
-<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Object.to_yaml_s">
+<span class="sig-name descname"><span class="pre">to_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/object.html#Object.to_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert object to YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -808,8 +883,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <section id="parameter">
 <h2>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.Parameter">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Parameter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">value_type=&lt;class</span> <span class="pre">'str'&gt;</span></em>, <em class="sig-param"><span class="pre">description=''</span></em>, <em class="sig-param"><span class="pre">value=None</span></em>, <em class="sig-param"><span class="pre">default_value=None</span></em>, <em class="sig-param"><span class="pre">choices=None</span></em>, <em class="sig-param"><span class="pre">version=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">value_type=&lt;class</span> <span class="pre">'str'&gt;</span></em>, <em class="sig-param"><span class="pre">description=''</span></em>, <em class="sig-param"><span class="pre">value=None</span></em>, <em class="sig-param"><span class="pre">default_value=None</span></em>, <em class="sig-param"><span class="pre">choices=None</span></em>, <em class="sig-param"><span class="pre">version=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Single parameter.</p>
 <p>A parameter steers the behaviour of a an object (e.g. tuning a model).
 It has a specific type and default value, possibly one of a set of choices.
@@ -863,9 +938,9 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 <span class="go">Invalid value &#39;par&#39;, expected one of [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;].</span>
 </pre></div>
 </div>
-<dl class="py method">
-<dt id="audobject.Parameter.arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Parameter.arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameter.arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]</span></em><a class="headerlink" href="#audobject.Parameter.arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns arguments that are serialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -888,9 +963,9 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </div>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameter.borrowed_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Parameter.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameter.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">borrowed_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#audobject.Parameter.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns borrowed arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -903,36 +978,37 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.Parameter.choices">
-<code class="sig-name descname"><span class="pre">choices</span></code><a class="headerlink" href="#audobject.Parameter.choices" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.choices">
+<span class="sig-name descname"><span class="pre">choices</span></span><a class="headerlink" href="#audobject.Parameter.choices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Possible choices for parameter</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.Parameter.default_value">
-<code class="sig-name descname"><span class="pre">default_value</span></code><a class="headerlink" href="#audobject.Parameter.default_value" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.default_value">
+<span class="sig-name descname"><span class="pre">default_value</span></span><a class="headerlink" href="#audobject.Parameter.default_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default value of parameter</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.Parameter.description">
-<code class="sig-name descname"><span class="pre">description</span></code><a class="headerlink" href="#audobject.Parameter.description" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#audobject.Parameter.description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Value of parameter, use ‘set_value’ for type checking</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameter.from_dict">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.from_dict">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if dictionary was read from a file, set to source directory</p></li>
 <li><p><strong>kwargs</strong> – additional variables</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -945,8 +1021,8 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameter.from_yaml">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.from_yaml">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -956,7 +1032,7 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -965,8 +1041,8 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameter.from_yaml_s">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.from_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -976,7 +1052,7 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -984,9 +1060,9 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameter.hidden_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Parameter.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameter.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">hidden_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">List[str]</span></em><a class="headerlink" href="#audobject.Parameter.hidden_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns hidden arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -998,9 +1074,9 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameter.id">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Parameter.id" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameter.id">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#audobject.Parameter.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object identifier.</p>
 <p>The ID of an object ID is created from its non-hidden arguments.</p>
 <p class="rubric">Example</p>
@@ -1025,9 +1101,9 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameter.resolvers">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Parameter.resolvers" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameter.resolvers">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">resolvers</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">audobject.core.resolver.ValueResolver]</span></em><a class="headerlink" href="#audobject.Parameter.resolvers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return resolvers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1040,8 +1116,8 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameter.set_value">
-<code class="sig-name descname"><span class="pre">set_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameter.set_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameter.set_value" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.set_value">
+<span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameter.set_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameter.set_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets a new value.</p>
 <p>Applies additional checks, e.g. if value is of the expected type.</p>
 <dl class="field-list simple">
@@ -1058,8 +1134,8 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameter.to_dict">
-<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts object to a dictionary.</p>
 <p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
 If an argument has a resolver, its value is encoded.
@@ -1071,6 +1147,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
 <li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if file is written to disk, set to target directory</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1092,8 +1169,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameter.to_yaml">
-<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.to_yaml">
+<span class="sig-name descname"><span class="pre">to_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save object to YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1106,8 +1183,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameter.to_yaml_s">
-<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.to_yaml_s">
+<span class="sig-name descname"><span class="pre">to_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameter.to_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert object to YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1134,20 +1211,20 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.Parameter.value">
-<code class="sig-name descname"><span class="pre">value</span></code><a class="headerlink" href="#audobject.Parameter.value" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#audobject.Parameter.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Description of parameter</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.Parameter.value_type">
-<code class="sig-name descname"><span class="pre">value_type</span></code><a class="headerlink" href="#audobject.Parameter.value_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.value_type">
+<span class="sig-name descname"><span class="pre">value_type</span></span><a class="headerlink" href="#audobject.Parameter.value_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data type of parameter</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="audobject.Parameter.version">
-<code class="sig-name descname"><span class="pre">version</span></code><a class="headerlink" href="#audobject.Parameter.version" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameter.version">
+<span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#audobject.Parameter.version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Versions in which the parameter is used</p>
 </dd></dl>
 
@@ -1157,8 +1234,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.Parameters">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">Parameters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">Parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1194,9 +1271,9 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <span class="go">{&#39;foo&#39;: &#39;bar&#39;, &#39;pi&#39;: 3.14159265359}</span>
 </pre></div>
 </div>
-<dl class="py method">
-<dt id="audobject.Parameters.arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">arguments</span></code><a class="headerlink" href="#audobject.Parameters.arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameters.arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]</span></em><a class="headerlink" href="#audobject.Parameters.arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns arguments that are serialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1219,9 +1296,9 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </div>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameters.borrowed_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">borrowed_arguments</span></code><a class="headerlink" href="#audobject.Parameters.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameters.borrowed_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">borrowed_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">str]</span></em><a class="headerlink" href="#audobject.Parameters.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns borrowed arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1234,8 +1311,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.filter_by_version">
-<code class="sig-name descname"><span class="pre">filter_by_version</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.filter_by_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.filter_by_version" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.filter_by_version">
+<span class="sig-name descname"><span class="pre">filter_by_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.filter_by_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.filter_by_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter parameters by version.</p>
 <p>Returns a subset including only those parameters that match a given
 version.</p>
@@ -1244,7 +1321,7 @@ version.</p>
 <dd class="field-odd"><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – version string</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Parameters" title="audobject.core.parameter.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>List with matching parameters</p>
@@ -1253,32 +1330,33 @@ version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.from_command_line">
-<code class="sig-name descname"><span class="pre">from_command_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.from_command_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.from_command_line" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.from_command_line">
+<span class="sig-name descname"><span class="pre">from_command_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.from_command_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.from_command_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse parameters from command line parser.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code></a>) – command line arguments</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Parameters" title="audobject.core.parameter.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.from_dict">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.from_dict">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – dictionary with variables</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if dictionary was read from a file, set to source directory</p></li>
 <li><p><strong>kwargs</strong> – additional variables</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -1291,8 +1369,8 @@ version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.from_yaml">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.from_yaml">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1302,7 +1380,7 @@ version.</p>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -1311,8 +1389,8 @@ version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.from_yaml_s">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">from_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.from_yaml_s">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.from_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create object from YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1322,7 +1400,7 @@ version.</p>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object</p>
@@ -1330,9 +1408,9 @@ version.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameters.hidden_arguments">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">hidden_arguments</span></code><a class="headerlink" href="#audobject.Parameters.hidden_arguments" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameters.hidden_arguments">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">hidden_arguments</span></span><em class="property"><span class="pre">:</span> <span class="pre">List[str]</span></em><a class="headerlink" href="#audobject.Parameters.hidden_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns hidden arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1344,9 +1422,9 @@ version.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameters.id">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#audobject.Parameters.id" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameters.id">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#audobject.Parameters.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object identifier.</p>
 <p>The ID of an object ID is created from its non-hidden arguments.</p>
 <p class="rubric">Example</p>
@@ -1372,8 +1450,8 @@ version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.items">
-<code class="sig-name descname"><span class="pre">items</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.items" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.items" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return items view.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1383,8 +1461,8 @@ version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.keys">
-<code class="sig-name descname"><span class="pre">keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.keys" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1393,9 +1471,9 @@ version.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="audobject.Parameters.resolvers">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">resolvers</span></code><a class="headerlink" href="#audobject.Parameters.resolvers" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="audobject.Parameters.resolvers">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">resolvers</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict[str,</span> <span class="pre">audobject.core.resolver.ValueResolver]</span></em><a class="headerlink" href="#audobject.Parameters.resolvers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return resolvers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1408,8 +1486,8 @@ version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.to_command_line">
-<code class="sig-name descname"><span class="pre">to_command_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.to_command_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.to_command_line" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.to_command_line">
+<span class="sig-name descname"><span class="pre">to_command_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.to_command_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.to_command_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add parameters to command line parser.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1423,8 +1501,8 @@ version.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.to_dict">
-<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts object to a dictionary.</p>
 <p>Includes items from <a class="reference internal" href="#audobject.Object.arguments" title="audobject.Object.arguments"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code></a>.
 If an argument has a resolver, its value is encoded.
@@ -1436,6 +1514,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
 <li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
+<li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if file is written to disk, set to target directory</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1457,8 +1536,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.to_path">
-<code class="sig-name descname"><span class="pre">to_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.to_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.to_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.to_path">
+<span class="sig-name descname"><span class="pre">to_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/parameter.html#Parameters.to_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Parameters.to_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates path from parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1473,8 +1552,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.to_yaml">
-<code class="sig-name descname"><span class="pre">to_yaml</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.to_yaml">
+<span class="sig-name descname"><span class="pre">to_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save object to YAML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1487,8 +1566,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.to_yaml_s">
-<code class="sig-name descname"><span class="pre">to_yaml_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_yaml_s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.to_yaml_s">
+<span class="sig-name descname"><span class="pre">to_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.to_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert object to YAML string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1515,19 +1594,19 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.update">
-<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the dictionary with the key/value pairs from other.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>other</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dictionary</span></code>) – the other dictionary</p>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#audobject.Dictionary" title="audobject.core.dictionary.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dictionary</span></code></a>) – the other dictionary</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.Parameters.values">
-<code class="sig-name descname"><span class="pre">values</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.values" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.Parameters.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#audobject.Parameters.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1542,12 +1621,12 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <section id="tupleresolver">
 <h2>TupleResolver<a class="headerlink" href="#tupleresolver" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.TupleResolver">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">TupleResolver</span></code><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TupleResolver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">TupleResolver</span></span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tuple resolver.</p>
 <dl class="py method">
-<dt id="audobject.TupleResolver.decode">
-<code class="sig-name descname"><span class="pre">decode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.decode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TupleResolver.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.decode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decodes <code class="docutils literal notranslate"><span class="pre">list</span></code> as <code class="docutils literal notranslate"><span class="pre">tuple</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1563,8 +1642,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.TupleResolver.encode">
-<code class="sig-name descname"><span class="pre">encode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.encode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TupleResolver.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.encode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encodes <code class="docutils literal notranslate"><span class="pre">tuple</span></code> as <code class="docutils literal notranslate"><span class="pre">list</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1580,10 +1659,17 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.TupleResolver.encode_type">
-<code class="sig-name descname"><span class="pre">encode_type</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.encode_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TupleResolver.encode_type">
+<span class="sig-name descname"><span class="pre">encode_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TupleResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TupleResolver.encode_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return encoded type.</p>
-<p>Returns: list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encoded type</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1592,12 +1678,12 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 <section id="typeresolver">
 <h2>TypeResolver<a class="headerlink" href="#typeresolver" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="audobject.TypeResolver">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">audobject.</span></code><code class="sig-name descname"><span class="pre">TypeResolver</span></code><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TypeResolver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">TypeResolver</span></span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type resolver.</p>
 <dl class="py method">
-<dt id="audobject.TypeResolver.decode">
-<code class="sig-name descname"><span class="pre">decode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.decode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TypeResolver.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.decode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decodes <code class="docutils literal notranslate"><span class="pre">str</span></code> as <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1613,8 +1699,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.TypeResolver.encode">
-<code class="sig-name descname"><span class="pre">encode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.encode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TypeResolver.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.encode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encodes <code class="docutils literal notranslate"><span class="pre">type</span></code> as <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1630,13 +1716,15 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dd></dl>
 
 <dl class="py method">
-<dt id="audobject.TypeResolver.encode_type">
-<code class="sig-name descname"><span class="pre">encode_type</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.encode_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="audobject.TypeResolver.encode_type">
+<span class="sig-name descname"><span class="pre">encode_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#TypeResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.TypeResolver.encode_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return encoded type.</p>
-<p>Returns: encoded type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encoded type</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1669,7 +1757,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/04/07 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/07/15 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -1701,6 +1789,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
