@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.4.14 (2021-07-15)
+---------------------------
+
+* Added: ``FilePathResolver``
+
+
 Version 0.4.13 (2021-04-07)
 ---------------------------
 
