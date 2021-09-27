@@ -40,6 +40,6 @@ def test_filepath(tmpdir):
     new_yaml_path = os.path.join(new_root, 'yaml', 'object.yaml')
 
     # re-instantiate object from new location and assert path exists
-    o2 = audobject.Object.from_yaml(new_yaml_path)
+    o2 = audobject.load_from_yaml(new_yaml_path)
     assert isinstance(o2, ObjectWithFile)
     assert os.path.exists(o2.path)

@@ -23,10 +23,10 @@ import audobject.testing
 )
 def test(tmpdir, obj):
 
-    assert obj == audobject.Object.from_yaml_s(obj.to_yaml_s())
+    assert obj == audobject.load_from_yaml_s(obj.to_yaml_s())
     path = os.path.join(tmpdir, 'test.yaml')
     obj.to_yaml(path)
-    t2 = audobject.Object.from_yaml(path)
+    t2 = audobject.load_from_yaml(path)
     assert obj == t2
     assert repr(obj) == repr(t2)
     assert str(obj) == str(t2)
@@ -79,7 +79,7 @@ def test_borrowed():
     assert o.point.x == x
     assert o.point.y == y
     assert o.d['z'] == z
-    o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
+    o2 = audobject.load_from_yaml_s(o.to_yaml_s(include_version=False))
     assert isinstance(o2, ObjectWithBorrowedArguments)
     assert x not in o2.__dict__
     assert y not in o2.__dict__
@@ -196,17 +196,17 @@ def test_hidden_attributes(tmpdir):
     assert o.hidden_child == 'hidden_child'
     assert o.hidden_parent == 'hidden_parent'
 
-    o2 = audobject.Object.from_yaml_s(o.to_yaml_s(include_version=False))
+    o2 = audobject.load_from_yaml_s(o.to_yaml_s(include_version=False))
     assert isinstance(o2, ChildWithHiddenArguments)
     assert o2.hidden_child is None
     assert o2.hidden_parent is None
 
     o.to_yaml(path, include_version=False)
-    o2 = audobject.Object.from_yaml(path)
+    o2 = audobject.load_from_yaml(path)
     assert isinstance(o2, ChildWithHiddenArguments)
     assert o2.hidden_child is None
 
-    o2 = audobject.Object.from_yaml_s(
+    o2 = audobject.load_from_yaml_s(
         o.to_yaml_s(include_version=False),
         hidden_child='hidden_child',
         hidden_parent='hidden_parent',
@@ -216,7 +216,7 @@ def test_hidden_attributes(tmpdir):
     assert o2.hidden_parent == 'hidden_parent'
 
     o.to_yaml(path, include_version=False)
-    o2 = audobject.Object.from_yaml(
+    o2 = audobject.load_from_yaml(
         path,
         hidden_child='hidden_child',
         hidden_parent='hidden_parent',
@@ -230,7 +230,7 @@ def test_override_attributes():
 
     o = audobject.testing.TestObject(name='name')
     assert o.name == 'name'
-    o2 = audobject.Object.from_yaml_s(
+    o2 = audobject.load_from_yaml_s(
         o.to_yaml_s(),
         name='override',
     )

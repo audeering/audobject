@@ -169,7 +169,7 @@ class Object:
             d: typing.Dict[str, typing.Any],
             root: str = None,
             **kwargs,
-    ) -> 'Object':
+    ) -> 'Object':  # pragma: no cover
         r"""Create object from dictionary.
 
         Args:
@@ -186,13 +186,18 @@ class Object:
 
         """
         from audobject.core.api import load_from_dict
+        message = (
+            'audobject.Object.from_dict() is deprecated and will be removed '
+            'with version 1.0.0. Use audobject.load_from_dict() instead.'
+        )
+        warnings.warn(message, category=UserWarning, stacklevel=2)
         return load_from_dict(d, root, **kwargs)
 
     @staticmethod
     def from_yaml(
             path_or_stream: typing.Union[str, typing.IO],
             **kwargs,
-    ) -> 'Object':
+    ) -> 'Object':  # pragma: no cover
         r"""Create object from YAML file.
 
         Args:
@@ -204,13 +209,18 @@ class Object:
 
         """
         from audobject.core.api import load_from_yaml
+        message = (
+            'audobject.Object.from_yaml() is deprecated and will be removed '
+            'with version 1.0.0. Use audobject.load_from_yaml() instead.'
+        )
+        warnings.warn(message, category=UserWarning, stacklevel=2)
         return load_from_yaml(path_or_stream, **kwargs)
 
     @staticmethod
     def from_yaml_s(
             yaml_string: str,
             **kwargs,
-    ) -> 'Object':
+    ) -> 'Object':  # pragma: no cover
         r"""Create object from YAML string.
 
         Args:
@@ -222,6 +232,11 @@ class Object:
 
         """
         from audobject.core.api import load_from_yaml_s
+        message = (
+            'audobject.Object.from_yaml_s() is deprecated and will be removed '
+            'with version 1.0.0. Use audobject.load_from_yaml_s() instead.'
+        )
+        warnings.warn(message, category=UserWarning, stacklevel=2)
         return load_from_yaml_s(yaml_string, **kwargs)
 
     @property
