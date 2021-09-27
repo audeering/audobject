@@ -170,21 +170,6 @@ class Object:
             root: str = None,
             **kwargs,
     ) -> 'Object':  # pragma: no cover
-        r"""Create object from dictionary.
-
-        Args:
-            d: dictionary with variables
-            root: if dictionary was read from a file, set to source directory
-            kwargs: additional variables
-
-        Returns:
-            object
-
-        Raises:
-            RuntimeError: if a mandatory argument of the object
-                is missing in the dictionary
-
-        """
         from audobject.core.api import load_from_dict
         message = (
             'audobject.Object.from_dict() is deprecated and will be removed '
@@ -198,16 +183,6 @@ class Object:
             path_or_stream: typing.Union[str, typing.IO],
             **kwargs,
     ) -> 'Object':  # pragma: no cover
-        r"""Create object from YAML file.
-
-        Args:
-            path_or_stream: file path or stream
-            kwargs: additional variables
-
-        Returns:
-            object
-
-        """
         from audobject.core.api import load_from_yaml
         message = (
             'audobject.Object.from_yaml() is deprecated and will be removed '
@@ -221,16 +196,6 @@ class Object:
             yaml_string: str,
             **kwargs,
     ) -> 'Object':  # pragma: no cover
-        r"""Create object from YAML string.
-
-        Args:
-            yaml_string: YAML string
-            kwargs: additional variables
-
-        Returns:
-            object
-
-        """
         from audobject.core.api import load_from_yaml_s
         message = (
             'audobject.Object.from_yaml_s() is deprecated and will be removed '
