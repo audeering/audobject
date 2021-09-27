@@ -80,7 +80,7 @@ def load_from_yaml(
     """
     if isinstance(path_or_stream, str):
         with open(path_or_stream, 'r') as fp:
-            return Object.from_yaml(fp, **kwargs)
+            return load_from_yaml(fp, **kwargs)
     return load_from_dict(
         yaml.load(path_or_stream, yaml.Loader),
         root=os.path.dirname(path_or_stream.name),
