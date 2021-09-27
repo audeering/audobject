@@ -185,19 +185,8 @@ class Object:
                 is missing in the dictionary
 
         """
-        name = next(iter(d))
-        cls, version, installed_version = utils.get_class(name)
-        params = {}
-        for key, value in d[name].items():
-            params[key] = Object._decode_value(value, **kwargs)
-        return utils.get_object(
-            cls,
-            version,
-            installed_version,
-            params,
-            root,
-            **kwargs,
-        )
+        from audobject.core.api import load_from_dict
+        return load_from_dict(d, root, **kwargs)
 
     @staticmethod
     def from_yaml(
@@ -214,14 +203,8 @@ class Object:
             object
 
         """
-        if isinstance(path_or_stream, str):
-            with open(path_or_stream, 'r') as fp:
-                return Object.from_yaml(fp, **kwargs)
-        return Object.from_dict(
-            yaml.load(path_or_stream, yaml.Loader),
-            root=os.path.dirname(path_or_stream.name),
-            **kwargs,
-        )
+        from audobject.core.api import load_from_yaml
+        return load_from_yaml(path_or_stream, **kwargs)
 
     @staticmethod
     def from_yaml_s(
@@ -238,10 +221,8 @@ class Object:
             object
 
         """
-        return Object.from_dict(
-            yaml.load(yaml_string, yaml.Loader),
-            **kwargs,
-        )
+        from audobject.core.api import load_from_yaml_s
+        return load_from_yaml_s(yaml_string, **kwargs)
 
     @property
     def resolvers(self) -> typing.Dict[str, ValueResolver]:
@@ -367,28 +348,6 @@ class Object:
 
         """  # noqa: E501
         return yaml.dump(self.to_dict(include_version=include_version))
-
-    @staticmethod
-    def _decode_value(
-            value_to_decode: typing.Any,
-            **kwargs,
-    ) -> typing.Any:
-        r"""Decode value."""
-        if value_to_decode:  # not empty
-            if isinstance(value_to_decode, list):
-                return [
-                    Object._decode_value(v, **kwargs) for v in value_to_decode
-                ]
-            elif isinstance(value_to_decode, dict):
-                name = next(iter(value_to_decode))
-                if isinstance(name, Object) or utils.is_class(name):
-                    return Object.from_dict(value_to_decode, **kwargs)
-                else:
-                    return {
-                        k: Object._decode_value(v, **kwargs) for k, v in
-                        value_to_decode.items()
-                    }
-        return value_to_decode
 
     def _encode_variable(
             self,

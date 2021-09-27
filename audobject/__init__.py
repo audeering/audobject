@@ -1,4 +1,9 @@
 from audobject import define
+from audobject.core.api import (
+    load_from_dict,
+    load_from_yaml,
+    load_from_yaml_s,
+)
 from audobject.core.config import config
 from audobject.core.parameter import (
     Parameter,
