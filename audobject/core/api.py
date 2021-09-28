@@ -15,9 +15,10 @@ def from_dict(
     r"""Create object from dictionary.
 
     Args:
-        d: dictionary with variables
+        d: dictionary with arguments
         root: if dictionary was read from a file, set to source directory
-        kwargs: additional variables
+        kwargs: additional keyword arguments to override the values in the
+            dictionary and default values of hidden arguments
 
     Returns:
         object
@@ -50,7 +51,8 @@ def from_yaml(
 
     Args:
         path_or_stream: file path or stream
-        kwargs: additional variables
+        kwargs: additional keyword arguments to override the values in the
+            YAML file and default values of hidden arguments
 
     Returns:
         object
@@ -74,7 +76,8 @@ def from_yaml_s(
 
     Args:
         yaml_string: YAML string
-        kwargs: additional variables
+        kwargs: additional keyword arguments to override the values in the
+            YAML string and default values of hidden arguments
 
     Returns:
         object
