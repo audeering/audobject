@@ -7,28 +7,6 @@ from audobject.core.object import Object
 import audobject.core.utils as utils
 
 
-def _decode_value(
-        value_to_decode: typing.Any,
-        **kwargs,
-) -> typing.Any:
-    r"""Decode value."""
-    if value_to_decode:  # not empty
-        if isinstance(value_to_decode, list):
-            return [
-                _decode_value(v, **kwargs) for v in value_to_decode
-            ]
-        elif isinstance(value_to_decode, dict):
-            name = next(iter(value_to_decode))
-            if isinstance(name, Object) or utils.is_class(name):
-                return load_from_dict(value_to_decode, **kwargs)
-            else:
-                return {
-                    k: _decode_value(v, **kwargs) for k, v in
-                    value_to_decode.items()
-                }
-    return value_to_decode
-
-
 def load_from_dict(
         d: typing.Dict[str, typing.Any],
         root: str = None,
@@ -106,3 +84,25 @@ def load_from_yaml_s(
         yaml.load(yaml_string, yaml.Loader),
         **kwargs,
     )
+
+
+def _decode_value(
+        value_to_decode: typing.Any,
+        **kwargs,
+) -> typing.Any:
+    r"""Decode value."""
+    if value_to_decode:  # not empty
+        if isinstance(value_to_decode, list):
+            return [
+                _decode_value(v, **kwargs) for v in value_to_decode
+            ]
+        elif isinstance(value_to_decode, dict):
+            name = next(iter(value_to_decode))
+            if isinstance(name, Object) or utils.is_class(name):
+                return load_from_dict(value_to_decode, **kwargs)
+            else:
+                return {
+                    k: _decode_value(v, **kwargs) for k, v in
+                    value_to_decode.items()
+                }
+    return value_to_decode
