@@ -27,20 +27,20 @@ FilePathResolver
 .. autoclass:: FilePathResolver
     :members:
 
-load_from_dict
+from_dict
 --------------
 
-.. autofunction:: load_from_dict
+.. autofunction:: from_dict
 
-load_from_yaml
+from_yaml
 --------------
 
-.. autofunction:: load_from_yaml
+.. autofunction:: from_yaml
 
-load_from_yaml_s
+from_yaml_s
 ----------------
 
-.. autofunction:: load_from_yaml_s
+.. autofunction:: from_yaml_s
 
 Object
 ------

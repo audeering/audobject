@@ -7,7 +7,7 @@ from audobject.core.object import Object
 import audobject.core.utils as utils
 
 
-def load_from_dict(
+def from_dict(
         d: typing.Dict[str, typing.Any],
         root: str = None,
         **kwargs,
@@ -42,7 +42,7 @@ def load_from_dict(
     )
 
 
-def load_from_yaml(
+def from_yaml(
         path_or_stream: typing.Union[str, typing.IO],
         **kwargs,
 ) -> 'Object':
@@ -58,15 +58,15 @@ def load_from_yaml(
     """
     if isinstance(path_or_stream, str):
         with open(path_or_stream, 'r') as fp:
-            return load_from_yaml(fp, **kwargs)
-    return load_from_dict(
+            return from_yaml(fp, **kwargs)
+    return from_dict(
         yaml.load(path_or_stream, yaml.Loader),
         root=os.path.dirname(path_or_stream.name),
         **kwargs,
     )
 
 
-def load_from_yaml_s(
+def from_yaml_s(
         yaml_string: str,
         **kwargs,
 ) -> 'Object':
@@ -80,7 +80,7 @@ def load_from_yaml_s(
         object
 
     """
-    return load_from_dict(
+    return from_dict(
         yaml.load(yaml_string, yaml.Loader),
         **kwargs,
     )
@@ -99,7 +99,7 @@ def _decode_value(
         elif isinstance(value_to_decode, dict):
             name = next(iter(value_to_decode))
             if isinstance(name, Object) or utils.is_class(name):
-                return load_from_dict(value_to_decode, **kwargs)
+                return from_dict(value_to_decode, **kwargs)
             else:
                 return {
                     k: _decode_value(v, **kwargs) for k, v in

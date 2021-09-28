@@ -205,5 +205,5 @@ def test_parameters_yaml(tmpdir):
     p = pytest.PARAMETERS
     file = os.path.join(tmpdir, 'params.yaml')
     p.to_yaml(file)
-    p2 = audobject.load_from_yaml(file)
+    p2 = audobject.from_yaml(file)
     assert p == p2
