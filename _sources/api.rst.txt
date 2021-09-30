@@ -27,6 +27,21 @@ FilePathResolver
 .. autoclass:: FilePathResolver
     :members:
 
+from_dict
+--------------
+
+.. autofunction:: from_dict
+
+from_yaml
+--------------
+
+.. autofunction:: from_yaml
+
+from_yaml_s
+----------------
+
+.. autofunction:: from_yaml_s
+
 Object
 ------
 

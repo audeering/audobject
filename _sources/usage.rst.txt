@@ -73,7 +73,7 @@ And we can re-instantiate the object from it.
 
 .. jupyter-execute::
 
-    o2 = o.from_dict(o_dict)
+    o2 = audobject.from_dict(o_dict)
     print(o2)
 
 We can also convert it to YAML.
@@ -87,7 +87,7 @@ And create the object from YAML.
 
 .. jupyter-execute::
 
-    o3 = audobject.Object.from_yaml_s(o_yaml)
+    o3 = audobject.from_yaml_s(o_yaml)
     print(o3)
 
 If we want, we can override
@@ -95,7 +95,7 @@ arguments when we instantiate an object.
 
 .. jupyter-execute::
 
-    o4 = audobject.Object.from_yaml_s(
+    o4 = audobject.from_yaml_s(
         o_yaml,
         string='I was set to a different value!'
     )
@@ -107,7 +107,7 @@ Or save an object to disk and re-instantiate it from there.
 
     file = 'my.yaml'
     o.to_yaml(file)
-    o5 = audobject.Object.from_yaml(file)
+    o5 = audobject.from_yaml(file)
     print(o5)
 
 Object ID
@@ -131,7 +131,7 @@ When an object is serialized the ID does not change.
 
 .. jupyter-execute::
 
-    o3 = audobject.Object.from_yaml_s(o.to_yaml_s())
+    o3 = audobject.from_yaml_s(o.to_yaml_s())
     print(o3.id == o.id)
 
 Objects with different arguments get different IDs.
@@ -180,7 +180,7 @@ from YAML, we'll get an error.
     :raises:
 
     bad_yaml = bad.to_yaml_s()
-    bad2 = audobject.Object.from_yaml_s(bad_yaml)
+    bad2 = audobject.from_yaml_s(bad_yaml)
     print(bad2)
 
 However, in the next section we'll learn
@@ -242,14 +242,14 @@ and we won't see debug messages.
 
 .. jupyter-execute::
 
-    o2 = audobject.Object.from_yaml_s(o_yaml)
+    o2 = audobject.from_yaml_s(o_yaml)
     print(o2)
 
 However, we can set ``verbose=True`` when we load the object.
 
 .. jupyter-execute::
 
-    o3 = audobject.Object.from_yaml_s(o_yaml, verbose=True)
+    o3 = audobject.from_yaml_s(o_yaml, verbose=True)
     print(o3)
 
 Note that hidden arguments are not taken into account for the UID.
@@ -433,7 +433,7 @@ From which we can re-instantiate the object.
 
 .. jupyter-execute::
 
-    w2 = audobject.Object.from_yaml_s(w_yaml)
+    w2 = audobject.from_yaml_s(w_yaml)
     print(w2)
 
 Value resolver
@@ -627,7 +627,7 @@ the path gets expanded again.
 
 .. jupyter-execute::
 
-    o2 = audobject.Object.from_yaml(yaml_path)
+    o2 = audobject.from_yaml(yaml_path)
     o2.read()
 
 This will also work from another location.
@@ -642,7 +642,7 @@ as their relative location to the YAML file must not change.
     shutil.move(root, new_root)
 
     yaml_path_new = os.path.join(new_root, 'yaml', 'object.yaml')
-    o3 = audobject.Object.from_yaml(yaml_path_new)
+    o3 = audobject.from_yaml(yaml_path_new)
     o3.read()
 
 
@@ -744,7 +744,7 @@ the strings are now separated by comma.
 
 .. jupyter-execute::
 
-    o2 = audobject.Object.from_yaml_s(o_yaml)
+    o2 = audobject.from_yaml_s(o_yaml)
     print(o2)
 
 In the next release, we decide to introduce an argument
@@ -779,7 +779,7 @@ for the new argument.
     :stderr:
     :raises:
 
-    audobject.Object.from_yaml_s(o_yaml)
+    audobject.from_yaml_s(o_yaml)
 
 Since we want to be backward compatible,
 we decide to release a bug fix,
@@ -810,7 +810,7 @@ It works, because it now has a default value for the missing argument.
 
 .. jupyter-execute::
 
-    o3 = audobject.Object.from_yaml_s(o_yaml)
+    o3 = audobject.from_yaml_s(o_yaml)
     print(o3)
 
 Finally, we will do it the other way round.
@@ -849,7 +849,7 @@ And load it with ``1.0.0``.
         def __str__(self) -> str:
             return ' '.join([self.string] * self.num_repeat)
 
-    o5 = audobject.Object.from_yaml_s(o4_yaml)
+    o5 = audobject.from_yaml_s(o4_yaml)
     print(o5)
 
 In fact, it works, too.
@@ -895,7 +895,7 @@ And we can read/write the dictionary from/to a file.
 
     file = 'dict.yaml'
     d.to_yaml(file)
-    d3 = audobject.Object.from_yaml(file)
+    d3 = audobject.from_yaml(file)
     print(d3)
 
 Parameters
@@ -1034,7 +1034,7 @@ Last but not least, we can read/write the parameters from/to a file.
 
     file = 'params.yaml'
     params.to_yaml(file)
-    params2 = audobject.Object.from_yaml(file)
+    params2 = audobject.from_yaml(file)
     print(params2)
 
 .. reset working directory and clean up

@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.4.14
+                v0.5.0
               </div>
             
           
@@ -338,84 +338,42 @@
         <span class="n">string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">audeer</span><span class="o">.</span><span class="n">uid</span><span class="p">(</span><span class="n">from_string</span><span class="o">=</span><span class="n">string</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Object.from_dict"><a class="viewcode-back" href="../../../api.html#audobject.Object.from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@audeer</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+        <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
+        <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;audobject.from_dict&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span>
             <span class="n">d</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span>
             <span class="n">root</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from dictionary.</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="kn">from</span> <span class="nn">audobject.core.api</span> <span class="kn">import</span> <span class="n">from_dict</span>
+        <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            d: dictionary with variables</span>
-<span class="sd">            root: if dictionary was read from a file, set to source directory</span>
-<span class="sd">            kwargs: additional variables</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            object</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            RuntimeError: if a mandatory argument of the object</span>
-<span class="sd">                is missing in the dictionary</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
-        <span class="bp">cls</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">installed_version</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_class</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="n">_decode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span>
-            <span class="n">version</span><span class="p">,</span>
-            <span class="n">installed_version</span><span class="p">,</span>
-            <span class="n">params</span><span class="p">,</span>
-            <span class="n">root</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="Object.from_yaml"><a class="viewcode-back" href="../../../api.html#audobject.Object.from_yaml">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@audeer</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+        <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
+        <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;audobject.from_yaml&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span>
             <span class="n">path_or_stream</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">IO</span><span class="p">],</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from YAML file.</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="kn">from</span> <span class="nn">audobject.core.api</span> <span class="kn">import</span> <span class="n">from_yaml</span>
+        <span class="k">return</span> <span class="n">from_yaml</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            path_or_stream: file path or stream</span>
-<span class="sd">            kwargs: additional variables</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            object</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
-            <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
-            <span class="n">root</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path_or_stream</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="Object.from_yaml_s"><a class="viewcode-back" href="../../../api.html#audobject.Object.from_yaml_s">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@audeer</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
+        <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
+        <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;audobject.from_yaml_s&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">from_yaml_s</span><span class="p">(</span>
             <span class="n">yaml_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from YAML string.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            yaml_string: YAML string</span>
-<span class="sd">            kwargs: additional variables</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            object</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
-            <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-        <span class="p">)</span></div>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="kn">from</span> <span class="nn">audobject.core.api</span> <span class="kn">import</span> <span class="n">from_yaml_s</span>
+        <span class="k">return</span> <span class="n">from_yaml_s</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">resolvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueResolver</span><span class="p">]:</span>
@@ -542,28 +500,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
         <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span></div>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_decode_value</span><span class="p">(</span>
-            <span class="n">value_to_decode</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decode value.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">value_to_decode</span><span class="p">:</span>  <span class="c1"># not empty</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">[</span>
-                    <span class="n">Object</span><span class="o">.</span><span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_to_decode</span>
-                <span class="p">]</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">))</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">Object</span><span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_class</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-                    <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="p">{</span>
-                        <span class="n">k</span><span class="p">:</span> <span class="n">Object</span><span class="o">.</span><span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span>
-                        <span class="n">value_to_decode</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                    <span class="p">}</span>
-        <span class="k">return</span> <span class="n">value_to_decode</span>
-
     <span class="k">def</span> <span class="nf">_encode_variable</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -680,7 +616,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/07/15 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/09/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Changelog &mdash; audobject Documentation</title>
@@ -71,7 +70,7 @@
             
             
               <div class="version">
-                v0.4.14
+                v0.5.0
               </div>
             
           
@@ -111,6 +110,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-5-0-2021-09-30">Version 0.5.0 (2021-09-30)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-4-14-2021-07-15">Version 0.4.14 (2021-07-15)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-4-13-2021-04-07">Version 0.4.13 (2021-04-07)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-4-12-2021-03-26">Version 0.4.12 (2021-03-26)</a></li>
@@ -186,7 +186,7 @@
         
             
             
-              <a href="https://github.com/audeering/audobject/blob/v0.4.14/docs/changelog.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/audeering/audobject/blob/v0.5.0/docs/changelog.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -200,103 +200,114 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="changelog">
+  <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<section id="version-0-4-14-2021-07-15">
+<div class="section" id="version-0-5-0-2021-09-30">
+<h2>Version 0.5.0 (2021-09-30)<a class="headerlink" href="#version-0-5-0-2021-09-30" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.from_dict</span></code></p></li>
+<li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.from_yaml</span></code></p></li>
+<li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.from_yaml_s</span></code></p></li>
+<li><p>Deprecated: <code class="docutils literal notranslate"><span class="pre">audobject.Object.from_dict</span></code></p></li>
+<li><p>Deprecated: <code class="docutils literal notranslate"><span class="pre">audobject.Object.from_yaml</span></code></p></li>
+<li><p>Deprecated: <code class="docutils literal notranslate"><span class="pre">audobject.Object.from_yaml_s</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="version-0-4-14-2021-07-15">
 <h2>Version 0.4.14 (2021-07-15)<a class="headerlink" href="#version-0-4-14-2021-07-15" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Added: <code class="docutils literal notranslate"><span class="pre">FilePathResolver</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-13-2021-04-07">
+</div>
+<div class="section" id="version-0-4-13-2021-04-07">
 <h2>Version 0.4.13 (2021-04-07)<a class="headerlink" href="#version-0-4-13-2021-04-07" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed: inherit <code class="docutils literal notranslate"><span class="pre">borrow</span></code>, <code class="docutils literal notranslate"><span class="pre">hide</span></code> and <code class="docutils literal notranslate"><span class="pre">resolvers</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-12-2021-03-26">
+</div>
+<div class="section" id="version-0-4-12-2021-03-26">
 <h2>Version 0.4.12 (2021-03-26)<a class="headerlink" href="#version-0-4-12-2021-03-26" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed: link “Edit on Github” in documentation</p></li>
 <li><p>Fixed: link to <code class="docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code> in documentation</p></li>
 </ul>
-</section>
-<section id="version-0-4-11-2021-03-24">
+</div>
+<div class="section" id="version-0-4-11-2021-03-24">
 <h2>Version 0.4.11 (2021-03-24)<a class="headerlink" href="#version-0-4-11-2021-03-24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed: remove footer links in documentation</p></li>
 </ul>
-</section>
-<section id="version-0-4-10-2021-03-24">
+</div>
+<div class="section" id="version-0-4-10-2021-03-24">
 <h2>Version 0.4.10 (2021-03-24)<a class="headerlink" href="#version-0-4-10-2021-03-24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Changed: add badges to README</p></li>
 <li><p>Fixed: updated all links to Github</p></li>
 </ul>
-</section>
-<section id="version-0-4-9-2021-03-24">
+</div>
+<div class="section" id="version-0-4-9-2021-03-24">
 <h2>Version 0.4.9 (2021-03-24)<a class="headerlink" href="#version-0-4-9-2021-03-24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed: package metadata defined in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-8-2021-03-24">
+</div>
+<div class="section" id="version-0-4-8-2021-03-24">
 <h2>Version 0.4.8 (2021-03-24)<a class="headerlink" href="#version-0-4-8-2021-03-24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Changed: move to Github and make open source release</p></li>
 </ul>
-</section>
-<section id="version-0-4-7-2021-01-22">
+</div>
+<div class="section" id="version-0-4-7-2021-01-22">
 <h2>Version 0.4.7 (2021-01-22)<a class="headerlink" href="#version-0-4-7-2021-01-22" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Changed: <code class="docutils literal notranslate"><span class="pre">audobject.Object</span></code> implements <code class="docutils literal notranslate"><span class="pre">__hash__()</span></code></p></li>
 <li><p>Changed: borrow arguments from dictionary</p></li>
 </ul>
-</section>
-<section id="version-0-4-6-2020-12-04">
+</div>
+<div class="section" id="version-0-4-6-2020-12-04">
 <h2>Version 0.4.6 (2020-12-04)<a class="headerlink" href="#version-0-4-6-2020-12-04" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed: avoid warnings for unsupported <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> in
 <code class="docutils literal notranslate"><span class="pre">audobject.Object.from_dict()</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-5-2020-12-04">
+</div>
+<div class="section" id="version-0-4-5-2020-12-04">
 <h2>Version 0.4.5 (2020-12-04)<a class="headerlink" href="#version-0-4-5-2020-12-04" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Added: <code class="docutils literal notranslate"><span class="pre">borrow</span></code> argument to <code class="docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-4-2020-12-03">
+</div>
+<div class="section" id="version-0-4-4-2020-12-03">
 <h2>Version 0.4.4 (2020-12-03)<a class="headerlink" href="#version-0-4-4-2020-12-03" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Changed: parse authors and project name from setup</p></li>
 <li><p>Changed: use <code class="docutils literal notranslate"><span class="pre">audeer.deprecated_keyword_argument()</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-3-2020-11-06">
+</div>
+<div class="section" id="version-0-4-3-2020-11-06">
 <h2>Version 0.4.3 (2020-11-06)<a class="headerlink" href="#version-0-4-3-2020-11-06" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Changed: raise error when serializing a callable</p></li>
 </ul>
-</section>
-<section id="version-0-4-2-2020-10-23">
+</div>
+<div class="section" id="version-0-4-2-2020-10-23">
 <h2>Version 0.4.2 (2020-10-23)<a class="headerlink" href="#version-0-4-2-2020-10-23" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Changed: better error messages</p></li>
 <li><p>Changed: <code class="docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code> stores hidden arguments
 before calling <code class="docutils literal notranslate"><span class="pre">__init__</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-1-2020-10-21">
+</div>
+<div class="section" id="version-0-4-1-2020-10-21">
 <h2>Version 0.4.1 (2020-10-21)<a class="headerlink" href="#version-0-4-1-2020-10-21" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Added: argument <code class="docutils literal notranslate"><span class="pre">flatten</span></code> to <code class="docutils literal notranslate"><span class="pre">audobject.Object.to_dict()</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-4-0-2020-10-19">
+</div>
+<div class="section" id="version-0-4-0-2020-10-19">
 <h2>Version 0.4.0 (2020-10-19)<a class="headerlink" href="#version-0-4-0-2020-10-19" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.Object.arguments()</span></code>,
@@ -308,47 +319,47 @@ before calling <code class="docutils literal notranslate"><span class="pre">__in
 <li><p>Changed: Raise error if argument that is not hidden is not assigned to a variable</p></li>
 <li><p>Removed: <code class="docutils literal notranslate"><span class="pre">check_vars</span></code> from <code class="docutils literal notranslate"><span class="pre">audobject.init_decorator</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-3-3-2020-10-09">
+</div>
+<div class="section" id="version-0-3-3-2020-10-09">
 <h2>Version 0.3.3 (2020-10-09)<a class="headerlink" href="#version-0-3-3-2020-10-09" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed: dependency to <code class="docutils literal notranslate"><span class="pre">audeer</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-3-2-2020-10-08">
+</div>
+<div class="section" id="version-0-3-2-2020-10-08">
 <h2>Version 0.3.2 (2020-10-08)<a class="headerlink" href="#version-0-3-2-2020-10-08" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fixed: support empty dictionary</p></li>
 </ul>
-</section>
-<section id="version-0-3-1-2020-10-08">
+</div>
+<div class="section" id="version-0-3-1-2020-10-08">
 <h2>Version 0.3.1 (2020-10-08)<a class="headerlink" href="#version-0-3-1-2020-10-08" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Changed: replace <code class="docutils literal notranslate"><span class="pre">override_vars</span></code> with <code class="docutils literal notranslate"><span class="pre">kwargs</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-3-0-2020-10-08">
+</div>
+<div class="section" id="version-0-3-0-2020-10-08">
 <h2>Version 0.3.0 (2020-10-08)<a class="headerlink" href="#version-0-3-0-2020-10-08" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Added: option to ignore variables</p></li>
 <li><p>Added: option to override variables</p></li>
 <li><p>Changed: change <code class="docutils literal notranslate"><span class="pre">sanity_check=True</span></code> to <code class="docutils literal notranslate"><span class="pre">check_vars=False</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-2-0-2020-10-08">
+</div>
+<div class="section" id="version-0-2-0-2020-10-08">
 <h2>Version 0.2.0 (2020-10-08)<a class="headerlink" href="#version-0-2-0-2020-10-08" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></p></li>
 <li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.Dictionary</span></code></p></li>
 </ul>
-</section>
-<section id="version-0-1-0-2020-10-02">
+</div>
+<div class="section" id="version-0-1-0-2020-10-02">
 <h2>Version 0.1.0 (2020-10-02)<a class="headerlink" href="#version-0-1-0-2020-10-02" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Added: initial release</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
@@ -371,7 +382,7 @@ before calling <code class="docutils literal notranslate"><span class="pre">__in
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/07/15 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/09/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
