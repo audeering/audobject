@@ -7,6 +7,17 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.5.0 (2021-09-30)
+--------------------------
+
+* Added: ``audobject.from_dict``
+* Added: ``audobject.from_yaml``
+* Added: ``audobject.from_yaml_s``
+* Deprecated: ``audobject.Object.from_dict``
+* Deprecated: ``audobject.Object.from_yaml``
+* Deprecated: ``audobject.Object.from_yaml_s``
+
+
 Version 0.4.14 (2021-07-15)
 ---------------------------
 
