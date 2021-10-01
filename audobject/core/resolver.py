@@ -184,6 +184,11 @@ class FunctionResolver(ValueResolver):
     def get_source(self, func: typing.Callable) -> str:
         r"""Obtain source code of (lambda) function.
 
+        Retrieving the source of a lambda function can become tricky,
+        see the following link for detailed discussion:
+
+        http://xion.io/post/code/python-get-lambda-code.html
+
         Args:
             func: function object
 
@@ -204,6 +209,7 @@ class FunctionResolver(ValueResolver):
         """Return the source of a (short) lambda function.
         If it's impossible to obtain, returns None.
 
+        Original code:
         https://gist.github.com/Xion/617c1496ff45f3673a5692c3b0e3f75a
 
         """

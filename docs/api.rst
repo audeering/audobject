@@ -42,6 +42,12 @@ from_yaml_s
 
 .. autofunction:: from_yaml_s
 
+FunctionResolver
+----------------
+
+.. autoclass:: FunctionResolver
+    :members:
+
 Object
 ------
 
