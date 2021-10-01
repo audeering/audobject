@@ -2,6 +2,7 @@ import ast
 import datetime
 import inspect
 import os
+import textwrap
 import types
 import typing
 
@@ -169,11 +170,7 @@ class FunctionResolver(ValueResolver):
             source code
 
         """
-        if value.__name__ == "<lambda>":
-            source = self._get_short_lambda_source(value)
-        else:
-            source = inspect.getsource(value)
-        return source
+        return self.get_source(value)
 
     def encode_type(self) -> type:
         r"""Returns encoded type.
@@ -184,8 +181,26 @@ class FunctionResolver(ValueResolver):
         """
         return str
 
+    def get_source(self, func: typing.Callable) -> str:
+        r"""Obtain source code of (lambda) function.
+
+        Args:
+            func: function object
+
+        Returns:
+            source code
+
+        """
+        if func.__name__ == "<lambda>":
+            source = self._get_short_lambda_source(func)
+        else:
+            source = inspect.getsource(func)
+        return textwrap.dedent(source)
+
     @staticmethod
-    def _get_short_lambda_source(lambda_func: typing.Callable):
+    def _get_short_lambda_source(
+            lambda_func: typing.Callable,
+    ):  # pragma: no cover
         """Return the source of a (short) lambda function.
         If it's impossible to obtain, returns None.
 
