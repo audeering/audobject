@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.5.1 (2021-10-04)
+--------------------------
+
+* Added: ``audobject.FunctionResolver``
+
+
 Version 0.5.0 (2021-09-30)
 --------------------------
 
