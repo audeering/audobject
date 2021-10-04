@@ -646,6 +646,85 @@ as their relative location to the YAML file must not change.
     o3.read()
 
 
+Serialize functions
+-------------------
+
+To serialize functions,
+a special resolver
+:class:`audobject.FunctionResolver`
+can be used.
+It encodes the source code of the function
+and dynamically creates the function during decoding.
+
+The following class takes as arguments a function with two parameters.
+
+.. jupyter-execute::
+
+    import typing
+
+
+    class MyObjectWithFunction(audobject.Object):
+
+        @audobject.init_decorator(
+            resolvers={
+                'func': audobject.FunctionResolver,
+            }
+        )
+        def __init__(
+                self,
+                func: typing.Callable[[int, int], int],
+        ):
+            self.func = func
+
+        def __call__(self, a: int, b: int):
+            return self.func(a, b)
+
+Here, we initialize an object with a function that sums up the two parameters.
+
+.. jupyter-execute::
+
+    def add(a, b):
+        return a + b
+
+
+    o = MyObjectWithFunction(add)
+    o(1, 2)
+
+When we serialize the object,
+the definition of our function is stored in plain text.
+
+.. jupyter-execute::
+
+    o_yaml = o.to_yaml_s()
+    print(o_yaml)
+
+From which the function can be dynamically initialized
+when the object is recreated.
+
+.. jupyter-execute::
+
+    o2 = audobject.from_yaml_s(o_yaml)
+    o2(2, 3)
+
+It also works for lambda expressions.
+
+.. jupyter-execute::
+
+    o3 = MyObjectWithFunction(lambda a, b: a * b)
+
+    o3_yaml = o3.to_yaml_s()
+    print(o3_yaml)
+
+.. jupyter-execute::
+
+    o4 = audobject.from_yaml_s(o3_yaml)
+    o4(2, 3)
+
+.. note:: Since the described mechanism
+    offers a way to execute arbitrary Python code,
+    you should never load objects from a source you do not trust!
+
+
 Flat dictionary
 ---------------
 

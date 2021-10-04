@@ -1,7 +1,10 @@
 import os
 import shutil
+import typing
 
 import audeer
+import pytest
+
 import audobject
 
 
@@ -43,3 +46,40 @@ def test_filepath(tmpdir):
     o2 = audobject.from_yaml(new_yaml_path)
     assert isinstance(o2, ObjectWithFile)
     assert os.path.exists(o2.path)
+
+
+class ObjectWithFunction(audobject.Object):
+
+    @audobject.init_decorator(
+        resolvers={
+            'fun1': audobject.FunctionResolver,
+            'fun2': audobject.FunctionResolver,
+        }
+    )
+    def __init__(
+            self,
+            fun1: typing.Callable,
+            fun2: typing.Callable,
+    ):
+        self.fun1 = fun1
+        self.fun2 = fun2
+
+    def __call__(self, *args, **kwargs):
+        return self.fun1(*args, **kwargs) + self.fun2(*args, **kwargs)
+
+
+def test_function(tmpdir):
+
+    def square(x):
+        return x * x
+
+    o = ObjectWithFunction(
+        fun1=square,
+        fun2=lambda x: -(x * x),
+    )
+
+    path = os.path.join(tmpdir, 'foo.yaml')
+    o.to_yaml(path, include_version=False)
+    o2 = audobject.from_yaml(path)
+
+    assert o(10) == o2(10) == 0
