@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.5.0
+                v0.5.1
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#object-as-argument">Object as argument</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#value-resolver">Value resolver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#resolve-file-paths">Resolve file paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#serialize-functions">Serialize functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#flat-dictionary">Flat dictionary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#versioning">Versioning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dictionary">Dictionary</a></li>
@@ -178,7 +179,7 @@
         
             
             
-              <a href="https://github.com/audeering/audobject/blob/v0.5.0/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/audeering/audobject/blob/v0.5.1/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -470,7 +471,7 @@ from YAML, we’ll get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1685</span><span class="o">/</span><span class="mf">2990185952.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1698</span><span class="o">/</span><span class="mf">2990185952.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
@@ -875,7 +876,9 @@ For instance, we can define the following class.</p>
     $__main__.MyObject==1.0.0:
       string: eat me!
       num_repeat: 1
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1184,6 +1187,129 @@ as their relative location to the YAML file must not change.</p>
 </div>
 </div>
 </div>
+<div class="section" id="serialize-functions">
+<h2>Serialize functions<a class="headerlink" href="#serialize-functions" title="Permalink to this headline">¶</a></h2>
+<p>To serialize functions,
+a special resolver
+<a class="reference internal" href="api.html#audobject.FunctionResolver" title="audobject.FunctionResolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.FunctionResolver</span></code></a>
+can be used.
+It encodes the source code of the function
+and dynamically creates the function during decoding.</p>
+<p>The following class takes as arguments a function with two parameters.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">typing</span>
+
+
+<span class="k">class</span> <span class="nc">MyObjectWithFunction</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+
+    <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
+        <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;func&#39;</span><span class="p">:</span> <span class="n">audobject</span><span class="o">.</span><span class="n">FunctionResolver</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">func</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Here, we initialize an object with a function that sums up the two parameters.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+
+<span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithFunction</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
+<span class="n">o</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we serialize the object,
+the definition of our function is stored in plain text.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithFunction==1.0.0:
+  func: &quot;def add(a, b):\n    return a + b\n&quot;
+
+</pre></div>
+</div>
+</div>
+</div>
+<p>From which the function can be dynamically initialized
+when the object is recreated.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="n">o2</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+<p>It also works for lambda expressions.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">MyObjectWithFunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="n">o3_yaml</span> <span class="o">=</span> <span class="n">o3</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3_yaml</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithFunction==1.0.0:
+  func: &#39;lambda a, b: a * b&#39;
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o3_yaml</span><span class="p">)</span>
+<span class="n">o4</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since the described mechanism
+offers a way to execute arbitrary Python code,
+you should never load objects from a source you do not trust!</p>
+</div>
+</div>
 <div class="section" id="flat-dictionary">
 <h2>Flat dictionary<a class="headerlink" href="#flat-dictionary" title="Permalink to this headline">¶</a></h2>
 <p>Let’s create a class that takes
@@ -1223,7 +1349,7 @@ as input a string, a list and a dictionary.</p>
 <div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;$__main__.MyListDictObject==1.0.0&#39;: {&#39;a_str&#39;: &#39;test&#39;,
   &#39;a_list&#39;: [1,
    &#39;2&#39;,
-   {&#39;$__main__.MyObjectWithFile==1.0.0&#39;: {&#39;path&#39;: &#39;root/re/source.txt&#39;}}],
+   {&#39;$__main__.MyObjectWithFunction==1.0.0&#39;: {&#39;func&#39;: &#39;def add(a, b):\n    return a + b\n&#39;}}],
   &#39;a_dict&#39;: {&#39;pi&#39;: 3.1416, &#39;e&#39;: 2.71828}}}
 </pre></div>
 </div>
@@ -1247,7 +1373,7 @@ get a flatten version of the dictionary.</p>
 <div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;a_str&#39;: &#39;test&#39;,
  &#39;a_list.0&#39;: 1,
  &#39;a_list.1&#39;: &#39;2&#39;,
- &#39;a_list.2.path&#39;: &#39;root/re/source.txt&#39;,
+ &#39;a_list.2.func&#39;: &#39;def add(a, b):\n    return a + b\n&#39;,
  &#39;a_dict.pi&#39;: 3.1416,
  &#39;a_dict.e&#39;: 2.71828}
 </pre></div>
@@ -1289,7 +1415,9 @@ with a different package version?</p>
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObject==1.0.0:
   string: I am a 1.0.0!
   num_repeat: 2
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1377,7 +1505,7 @@ for the new argument.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1685</span><span class="o">/</span><span class="mf">3047746122.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1698</span><span class="o">/</span><span class="mf">3047746122.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/api.py</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, **kwargs)</span>
@@ -1746,7 +1874,7 @@ we will get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1685</span><span class="o">/</span><span class="mf">1473800148.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1698</span><span class="o">/</span><span class="mf">1473800148.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
@@ -1854,9 +1982,7 @@ optional arguments:
                         the number of times we want to repeat
   --delimiter DELIMITER
                         defines the delimiter (version: &gt;=2.0.0,&lt;3.0.0)
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+
 </pre></div>
 </div>
 </div>
@@ -1946,7 +2072,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/09/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

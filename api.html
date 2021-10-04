@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.5.0
+                v0.5.1
               </div>
             
           
@@ -110,6 +110,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#from-dict">from_dict</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#from-yaml">from_yaml</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#from-yaml-s">from_yaml_s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functionresolver">FunctionResolver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#object">Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
@@ -177,7 +178,7 @@
         
             
             
-              <a href="https://github.com/audeering/audobject/blob/v0.5.0/docs/api.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/audeering/audobject/blob/v0.5.1/docs/api.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -636,6 +637,85 @@ YAML string and default values of hidden arguments</p></li>
 <dd class="field-odd"><p>object</p>
 </dd>
 </dl>
+</dd></dl>
+
+</div>
+<div class="section" id="functionresolver">
+<h2>FunctionResolver<a class="headerlink" href="#functionresolver" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="audobject.FunctionResolver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">audobject.</span></span><span class="sig-name descname"><span class="pre">FunctionResolver</span></span><a class="reference internal" href="_modules/audobject/core/resolver.html#FunctionResolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FunctionResolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function resolver.</p>
+<p>Encodes source code of function and
+dynamically evaluates it when the value is decoded again.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="audobject.FunctionResolver.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#FunctionResolver.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FunctionResolver.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode (lambda) function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – source code</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>function object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="audobject.FunctionResolver.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#FunctionResolver.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FunctionResolver.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode (lambda) function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>) – function object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>source code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="audobject.FunctionResolver.encode_type">
+<span class="sig-name descname"><span class="pre">encode_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#FunctionResolver.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FunctionResolver.encode_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns encoded type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encoded type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="audobject.FunctionResolver.get_source">
+<span class="sig-name descname"><span class="pre">get_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/audobject/core/resolver.html#FunctionResolver.get_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.FunctionResolver.get_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain source code of (lambda) function.</p>
+<p>Retrieving the source of a lambda function can become tricky,
+see the following link for detailed discussion:</p>
+<p><a class="reference external" href="http://xion.io/post/code/python-get-lambda-code.html">http://xion.io/post/code/python-get-lambda-code.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>) – function object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>source code</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1576,7 +1656,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/09/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

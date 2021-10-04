@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.5.0
+                v0.5.1
               </div>
             
           
@@ -172,8 +172,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for audobject.core.resolver</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span></span><span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="kn">import</span> <span class="nn">audeer</span>
@@ -307,6 +311,140 @@
         <span class="k">return</span> <span class="nb">str</span></div></div>
 
 
+<div class="viewcode-block" id="FunctionResolver"><a class="viewcode-back" href="../../../api.html#audobject.FunctionResolver">[docs]</a><span class="k">class</span> <span class="nc">FunctionResolver</span><span class="p">(</span><span class="n">ValueResolver</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Function resolver.</span>
+
+<span class="sd">    Encodes source code of function and</span>
+<span class="sd">    dynamically evaluates it when the value is decoded again.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FunctionResolver.decode"><a class="viewcode-back" href="../../../api.html#audobject.FunctionResolver.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decode (lambda) function.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value: source code</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            function object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;&lt;string&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">co_consts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">CodeType</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">globals</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="FunctionResolver.encode"><a class="viewcode-back" href="../../../api.html#audobject.FunctionResolver.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Encode (lambda) function.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value: function object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            source code</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_source</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FunctionResolver.encode_type"><a class="viewcode-back" href="../../../api.html#audobject.FunctionResolver.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns encoded type.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            encoded type</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span></div>
+
+<div class="viewcode-block" id="FunctionResolver.get_source"><a class="viewcode-back" href="../../../api.html#audobject.FunctionResolver.get_source">[docs]</a>    <span class="k">def</span> <span class="nf">get_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Obtain source code of (lambda) function.</span>
+
+<span class="sd">        Retrieving the source of a lambda function can become tricky,</span>
+<span class="sd">        see the following link for detailed discussion:</span>
+
+<span class="sd">        http://xion.io/post/code/python-get-lambda-code.html</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            func: function object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            source code</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;&lt;lambda&gt;&quot;</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_short_lambda_source</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">source</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_short_lambda_source</span><span class="p">(</span>
+            <span class="n">lambda_func</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">,</span>
+    <span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+        <span class="sd">&quot;&quot;&quot;Return the source of a (short) lambda function.</span>
+<span class="sd">        If it&#39;s impossible to obtain, returns None.</span>
+
+<span class="sd">        Original code:</span>
+<span class="sd">        https://gist.github.com/Xion/617c1496ff45f3673a5692c3b0e3f75a</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">source_lines</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsourcelines</span><span class="p">(</span><span class="n">lambda_func</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># skip `def`-ed functions and long lambdas</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source_lines</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">source_text</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">linesep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_lines</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># find the AST node of a lambda definition</span>
+        <span class="c1"># so we can locate it in the source code</span>
+        <span class="n">source_ast</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source_text</span><span class="p">)</span>
+        <span class="n">lambda_node</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">source_ast</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lambda_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># could be a single line `def fn(x): ...`</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># HACK: Since we can (and most likely will) get source lines</span>
+        <span class="c1"># where lambdas are just a part of bigger expressions, they will have</span>
+        <span class="c1"># some trailing junk after their definition.</span>
+        <span class="c1">#</span>
+        <span class="c1"># Unfortunately, AST nodes only keep their _starting_ offsets</span>
+        <span class="c1"># from the original source, so we have to determine the end ourselves.</span>
+        <span class="c1"># We do that by gradually shaving extra junk from after the definition.</span>
+        <span class="n">lambda_text</span> <span class="o">=</span> <span class="n">source_text</span><span class="p">[</span><span class="n">lambda_node</span><span class="o">.</span><span class="n">col_offset</span><span class="p">:]</span>
+        <span class="n">lambda_body_text</span> <span class="o">=</span> <span class="n">source_text</span><span class="p">[</span><span class="n">lambda_node</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">col_offset</span><span class="p">:]</span>
+        <span class="n">min_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;lambda:_&#39;</span><span class="p">)</span>  <span class="c1"># shortest possible lambda expression</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">lambda_text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">min_length</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># What&#39;s annoying is that sometimes the junk even parses,</span>
+                <span class="c1"># but results in a *different* lambda. You&#39;d probably have to</span>
+                <span class="c1"># be deliberately malicious to exploit it but here&#39;s one way:</span>
+                <span class="c1">#</span>
+                <span class="c1">#     bloop = lambda x: False, lambda x: True</span>
+                <span class="c1">#     get_short_lamnda_source(bloop[0])</span>
+                <span class="c1">#</span>
+                <span class="c1"># Ideally, we&#39;d just keep shaving until we get the same code,</span>
+                <span class="c1"># but that most likely won&#39;t happen because we can&#39;t replicate</span>
+                <span class="c1"># the exact closure environment.</span>
+                <span class="n">code</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">lambda_body_text</span><span class="p">,</span> <span class="s1">&#39;&lt;unused filename&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;eval&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Thus the next best thing is to assume some divergence due</span>
+                <span class="c1"># to e.g. LOAD_GLOBAL in original code being LOAD_FAST in</span>
+                <span class="c1"># the one compiled above, or vice versa.</span>
+                <span class="c1"># But the resulting code should at least be the same *length*</span>
+                <span class="c1"># if otherwise the same operations are performed in it.</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="o">.</span><span class="n">co_code</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">lambda_func</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_code</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">lambda_text</span>
+            <span class="k">except</span> <span class="ne">SyntaxError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="n">lambda_text</span> <span class="o">=</span> <span class="n">lambda_text</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">lambda_body_text</span> <span class="o">=</span> <span class="n">lambda_body_text</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
 <div class="viewcode-block" id="TupleResolver"><a class="viewcode-back" href="../../../api.html#audobject.TupleResolver">[docs]</a><span class="k">class</span> <span class="nc">TupleResolver</span><span class="p">(</span><span class="n">ValueResolver</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Tuple resolver.&quot;&quot;&quot;</span>
 
@@ -394,7 +532,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/09/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
