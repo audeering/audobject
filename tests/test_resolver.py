@@ -82,3 +82,5 @@ def test_function(tmpdir):
     o2 = audobject.from_yaml(path)
 
     assert o(10) == o2(10) == 0
+    assert o.to_yaml_s(include_version=False) == \
+           o2.to_yaml_s(include_version=False)

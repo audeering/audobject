@@ -184,7 +184,11 @@ class Function(Base):
         code = compile(value, '<string>', 'exec')
         for var in code.co_consts:
             if isinstance(var, types.CodeType):
-                return types.FunctionType(var, globals())
+                func = types.FunctionType(var, globals())
+                # we cannot inspect the source code of
+                # dynamically defined functions so we attach it
+                func.__source__ = value
+                return func
 
     def encode(self, value: typing.Callable) -> str:
         r"""Encode (lambda) function.
@@ -222,11 +226,16 @@ class Function(Base):
             source code
 
         """
-        if func.__name__ == "<lambda>":
-            source = self._get_short_lambda_source(func)
+        # check if source code is attached
+        # otherwise use inspect to get it
+        if hasattr(func, '__source__'):
+            return func.__source__
         else:
-            source = inspect.getsource(func)
-        return textwrap.dedent(source)
+            if func.__name__ == "<lambda>":
+                source = self._get_short_lambda_source(func)
+            else:
+                source = inspect.getsource(func)
+            return textwrap.dedent(source)
 
     @staticmethod
     def _get_short_lambda_source(
