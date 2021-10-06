@@ -13,9 +13,7 @@ from audobject.core.dictionary import (
 from audobject.core.object import (
     Object,
 )
-from audobject.core.resolver import (
-    TypeResolver,
-)
+import audobject.core.resolver as resolver
 
 
 class Parameter(Object):
@@ -71,7 +69,7 @@ class Parameter(Object):
 
     @init_decorator(
         resolvers={
-            'value_type': TypeResolver,
+            'value_type': resolver.Type,
         }
     )
     def __init__(

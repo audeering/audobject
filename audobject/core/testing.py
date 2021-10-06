@@ -4,9 +4,7 @@ from audobject.core.decorator import (
 from audobject.core.object import (
     Object,
 )
-from audobject.core.resolver import (
-    TupleResolver,
-)
+import audobject.core.resolver as resolver
 
 
 class TestObject(Object):
@@ -33,7 +31,7 @@ class TestObject(Object):
     """
     @init_decorator(
         resolvers={
-            'point': TupleResolver,
+            'point': resolver.Tuple,
         },
     )
     def __init__(

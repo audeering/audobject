@@ -5,21 +5,38 @@ import os
 import textwrap
 import types
 import typing
+import warnings
 
 import audeer
 import audobject.core.define as define
 
 
 DefaultValueType = typing.Union[
-    None, str, int, float, bool, list, dict, datetime.datetime,
+    bool,
+    datetime.datetime,
+    dict,
+    float,
+    int,
+    list,
+    None,
+    str,
 ]
 
 
-class ValueResolver:
+class Base:
     r"""Abstract resolver class.
 
-    Implement for arguments that are not one of
-    ``(None, Object, str, int, float, bool, list, dict)``.
+    Implement for arguments that are not one of:
+
+    * ``bool``
+    * ``datetime.datetime``
+    * ``dict``
+    * ``float``
+    * ``int``
+    * ``list``
+    * ``None``
+    * ``Object``
+    * ``str``
 
     """
     def __init__(self):
@@ -55,8 +72,17 @@ class ValueResolver:
     def encode(self, value: typing.Any) -> DefaultValueType:
         r"""Encode value.
 
-        The type of the returned value must be one of
-        ``(None, Object, str, int, float, bool, list, dict)``.
+        The type of the returned value must be one of:
+
+        * ``bool``
+        * ``datetime.datetime``
+        * ``dict``
+        * ``float``
+        * ``int``
+        * ``list``
+        * ``None``
+        * ``Object``
+        * ``str``
 
         Args:
             value: value to encode
@@ -77,7 +103,7 @@ class ValueResolver:
         raise NotImplementedError  # pragma: no cover
 
 
-class FilePathResolver(ValueResolver):
+class FilePath(Base):
     r"""File path resolver.
 
     Turns file path to a relative path
@@ -137,7 +163,7 @@ class FilePathResolver(ValueResolver):
         return str
 
 
-class FunctionResolver(ValueResolver):
+class Function(Base):
     r"""Function resolver.
 
     Encodes source code of function and
@@ -271,7 +297,7 @@ class FunctionResolver(ValueResolver):
         return None
 
 
-class TupleResolver(ValueResolver):
+class Tuple(Base):
     r"""Tuple resolver."""
 
     def decode(self, value: list) -> tuple:
@@ -308,7 +334,7 @@ class TupleResolver(ValueResolver):
         return list
 
 
-class TypeResolver(ValueResolver):
+class Type(Base):
     r"""Type resolver."""
 
     def decode(self, value: str) -> type:
@@ -343,3 +369,70 @@ class TypeResolver(ValueResolver):
 
         """
         return str
+
+
+# deprecated classes
+
+
+# @audeer.deprecated(
+#     removal_version='1.0.0',
+#     alternative='resolver.Base',
+# )
+# ->
+# TypeError: function() argument 1 must be code, not str
+# ->
+# as a workaround we raise the deprecation warning in __init__
+class ValueResolver:  # pragma: no cover
+
+    def __init__(self):
+        message = (
+            'ValueResolver is deprecated and will be removed '
+            'with version 1.0.0. Use resolver.Base instead.'
+        )
+        warnings.warn(message, category=UserWarning, stacklevel=2)
+        self.__dict__[define.ROOT_ATTRIBUTE] = None
+
+    @property
+    def root(self) -> typing.Optional[str]:
+        return self.__dict__[define.ROOT_ATTRIBUTE]
+
+    def decode(self, value: DefaultValueType) -> typing.Any:
+        raise NotImplementedError
+
+    def encode(self, value: typing.Any) -> DefaultValueType:
+        raise NotImplementedError
+
+    def encode_type(self) -> type:
+        raise NotImplementedError
+
+
+@audeer.deprecated(
+    removal_version='1.0.0',
+    alternative='resolver.FilePath',
+)
+class FilePathResolver(FilePath):  # pragma: no cover
+    pass
+
+
+@audeer.deprecated(
+    removal_version='1.0.0',
+    alternative='resolver.Function',
+)
+class FunctionResolver(Function):  # pragma: no cover
+    pass
+
+
+@audeer.deprecated(
+    removal_version='1.0.0',
+    alternative='resolver.Tuple',
+)
+class TupleResolver(Tuple):  # pragma: no cover
+    pass
+
+
+@audeer.deprecated(
+    removal_version='1.0.0',
+    alternative='resolver.Type',
+)
+class TypeResolver(Type):  # pragma: no cover
+    pass

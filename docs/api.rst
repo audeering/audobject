@@ -21,12 +21,6 @@ init_decorator
 
 .. autofunction:: init_decorator
 
-FilePathResolver
-----------------
-
-.. autoclass:: FilePathResolver
-    :members:
-
 from_dict
 --------------
 
@@ -41,12 +35,6 @@ from_yaml_s
 ----------------
 
 .. autofunction:: from_yaml_s
-
-FunctionResolver
-----------------
-
-.. autoclass:: FunctionResolver
-    :members:
 
 Object
 ------
@@ -67,15 +55,3 @@ Parameters
 .. autoclass:: Parameters
     :members:
     :inherited-members:
-
-TupleResolver
--------------
-
-.. autoclass:: TupleResolver
-    :members:
-
-TypeResolver
-------------
-
-.. autoclass:: TypeResolver
-    :members:

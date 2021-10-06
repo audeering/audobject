@@ -1,4 +1,5 @@
 from audobject import define
+from audobject import resolver
 from audobject.core.api import (
     from_dict,
     from_yaml,
