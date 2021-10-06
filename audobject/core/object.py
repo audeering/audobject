@@ -10,10 +10,7 @@ import audeer
 
 from audobject.core import define
 from audobject.core import utils
-from audobject.core.resolver import (
-    DefaultValueType,
-    ValueResolver,
-)
+from audobject.core import resolver
 
 
 class Object:
@@ -202,7 +199,7 @@ class Object:
         return from_yaml_s(yaml_string, **kwargs)
 
     @property
-    def resolvers(self) -> typing.Dict[str, ValueResolver]:
+    def resolvers(self) -> typing.Dict[str, resolver.Base]:
         r"""Return resolvers.
 
         Returns:
@@ -219,7 +216,7 @@ class Object:
             include_version: bool = True,
             flatten: bool = False,
             root: str = None,
-    ) -> typing.Dict[str, DefaultValueType]:
+    ) -> typing.Dict[str, resolver.DefaultValueType]:
         r"""Converts object to a dictionary.
 
         Includes items from :meth:`audobject.Object.arguments`.
@@ -376,7 +373,7 @@ class Object:
 
     @staticmethod
     def _flatten(
-        d: typing.Dict[str, DefaultValueType],
+        d: typing.Dict[str, resolver.DefaultValueType],
     ):
         r"""Flattens a dictionary."""
         def helper(dict_in: dict, dict_out: dict, prefix: str):
@@ -409,7 +406,7 @@ class Object:
             name: str,
             value: typing.Any,
             root: typing.Optional[str],
-    ) -> DefaultValueType:
+    ) -> resolver.DefaultValueType:
         if name in self.resolvers:
             # let resolver know if we write to a stream
             self.resolvers[name].__dict__[define.ROOT_ATTRIBUTE] = root

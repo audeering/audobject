@@ -3,7 +3,6 @@ import shutil
 import typing
 
 import audeer
-import pytest
 
 import audobject
 
@@ -12,7 +11,7 @@ class ObjectWithFile(audobject.Object):
 
     @audobject.init_decorator(
         resolvers={
-            'path': audobject.FilePathResolver,
+            'path': audobject.resolver.FilePath,
         }
     )
     def __init__(
@@ -52,8 +51,8 @@ class ObjectWithFunction(audobject.Object):
 
     @audobject.init_decorator(
         resolvers={
-            'fun1': audobject.FunctionResolver,
-            'fun2': audobject.FunctionResolver,
+            'fun1': audobject.resolver.Function,
+            'fun2': audobject.resolver.Function,
         }
     )
     def __init__(

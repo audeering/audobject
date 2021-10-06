@@ -5,7 +5,7 @@ import typing
 import audeer
 
 from audobject.core import define
-from audobject.core.resolver import ValueResolver
+from audobject.core import resolver
 
 
 @audeer.deprecated_keyword_argument(
@@ -17,7 +17,7 @@ def init_decorator(
         *,
         borrow: typing.Dict[str, str] = None,
         hide: typing.Sequence[str] = None,
-        resolvers: typing.Dict[str, typing.Type[ValueResolver]] = None,
+        resolvers: typing.Dict[str, typing.Type[resolver.Base]] = None,
 ):
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
 
@@ -54,8 +54,8 @@ def init_decorator(
                 if not hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
                     setattr(self, define.CUSTOM_VALUE_RESOLVERS, {})
 
-                for name, resolver in resolvers.items():
-                    resolver_obj = resolver()
+                for name, resolve in resolvers.items():
+                    resolver_obj = resolve()
                     # let resolver know if we read from a stream
                     if define.ROOT_ATTRIBUTE in kwargs:
                         resolver_obj.__dict__[define.ROOT_ATTRIBUTE] = \
