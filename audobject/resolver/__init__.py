@@ -1,7 +1,7 @@
 r"""Resolver classes.
 
-A :class:`auobject.resolver.Base` can be used to control
-the how an object of certain type is represented in YAML.
+:class:`audobject.resolver.Base` can be used to control
+how an object of certain type is represented in YAML.
 
 By default,
 the following types are supported:
@@ -44,7 +44,7 @@ register it using the :func:`audobject.init_decorator`, e.g.:
             self.t = t
 
 
-To write custom resolver derive from
+To write a custom resolver derive from
 :class:`audobject.resolver.Base`, e.g.:
 
 .. code-block::
