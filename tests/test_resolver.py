@@ -95,7 +95,5 @@ def test_function(tmpdir):
     assert func(10, 20, c=30) == o_func(10, 20, c=30) == o_func_2(10, 20, c=30)
     assert o_func.to_yaml_s(include_version=False) == \
            o_func_2.to_yaml_s(include_version=False)
-
-    with pytest.raises(TypeError):
-        # c is a keyword-only argument
-        o_func_2(10, 20, 30)
+    assert func.__defaults__ == o_func_2.func.__defaults__
+    assert func.__kwdefaults__ == o_func_2.func.__kwdefaults__
