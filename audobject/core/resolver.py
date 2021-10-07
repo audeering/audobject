@@ -181,14 +181,24 @@ class Function(Base):
             function object
 
         """
-        code = compile(value, '<string>', 'exec')
-        for var in code.co_consts:
-            if isinstance(var, types.CodeType):
-                func = types.FunctionType(var, globals())
-                # we cannot inspect the source code of
-                # dynamically defined functions so we attach it
-                func.__source__ = value
-                return func
+        func = None
+
+        if value.startswith('lambda'):
+            code = compile(value, '<string>', 'exec')
+            for var in code.co_consts:
+                if isinstance(var, types.CodeType):
+                    func = types.FunctionType(var, globals())
+        else:
+            namespace = {}
+            exec(value, globals(), namespace)
+            func_name = next(iter(namespace))
+            func = namespace[func_name]
+
+        # we cannot inspect the source code of
+        # dynamically defined functions so we attach it
+        func.__source__ = value
+
+        return func
 
     def encode(self, value: typing.Callable) -> str:
         r"""Encode (lambda) function.

@@ -3,6 +3,7 @@ import shutil
 import typing
 
 import audeer
+import pytest
 
 import audobject
 
@@ -51,36 +52,50 @@ class ObjectWithFunction(audobject.Object):
 
     @audobject.init_decorator(
         resolvers={
-            'fun1': audobject.resolver.Function,
-            'fun2': audobject.resolver.Function,
+            'func': audobject.resolver.Function,
         }
     )
     def __init__(
             self,
-            fun1: typing.Callable,
-            fun2: typing.Callable,
+            func: typing.Callable,
     ):
-        self.fun1 = fun1
-        self.fun2 = fun2
+        self.func = func
 
     def __call__(self, *args, **kwargs):
-        return self.fun1(*args, **kwargs) + self.fun2(*args, **kwargs)
+        return self.func(*args, **kwargs)
 
 
 def test_function(tmpdir):
 
-    def square(x):
-        return x * x
+    # lambda
 
-    o = ObjectWithFunction(
-        fun1=square,
-        fun2=lambda x: -(x * x),
-    )
+    o_lambda = ObjectWithFunction(lambda x: x * x)
 
-    path = os.path.join(tmpdir, 'foo.yaml')
-    o.to_yaml(path, include_version=False)
-    o2 = audobject.from_yaml(path)
+    path = os.path.join(tmpdir, 'lambda.yaml')
+    o_lambda.to_yaml(path, include_version=False)
+    o_lambda_2 = audobject.from_yaml(path)
 
-    assert o(10) == o2(10) == 0
-    assert o.to_yaml_s(include_version=False) == \
-           o2.to_yaml_s(include_version=False)
+    assert o_lambda(10) == o_lambda_2(10) == 10 * 10
+    assert o_lambda.to_yaml_s(include_version=False) == \
+           o_lambda_2.to_yaml_s(include_version=False)
+
+    # function with default and keyword-only arguments
+
+    def func(a, b=0, *, c=0):
+        return a + b + c
+
+    o_func = ObjectWithFunction(func)
+
+    path = os.path.join(tmpdir, 'func.yaml')
+    o_func.to_yaml(path, include_version=False)
+    o_func_2 = audobject.from_yaml(path)
+
+    assert func(10) == o_func(10) == o_func_2(10)
+    assert func(10, 20) == o_func(10, 20) == o_func_2(10, 20)
+    assert func(10, 20, c=30) == o_func(10, 20, c=30) == o_func_2(10, 20, c=30)
+    assert o_func.to_yaml_s(include_version=False) == \
+           o_func_2.to_yaml_s(include_version=False)
+
+    with pytest.raises(TypeError):
+        # c is a keyword-only argument
+        o_func_2(10, 20, 30)
