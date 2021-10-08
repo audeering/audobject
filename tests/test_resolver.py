@@ -3,7 +3,6 @@ import shutil
 import typing
 
 import audeer
-import pytest
 
 import audobject
 
@@ -79,10 +78,10 @@ def test_function(tmpdir):
     assert o_lambda.to_yaml_s(include_version=False) == \
            o_lambda_2.to_yaml_s(include_version=False)
 
-    # function with default and keyword-only arguments
+    # function with single positional argument
 
-    def func(a, b=0, *, c=0):
-        return a + b + c
+    def func(a):
+        return a + 1
 
     o_func = ObjectWithFunction(func)
 
@@ -91,9 +90,29 @@ def test_function(tmpdir):
     o_func_2 = audobject.from_yaml(path)
 
     assert func(10) == o_func(10) == o_func_2(10)
-    assert func(10, 20) == o_func(10, 20) == o_func_2(10, 20)
-    assert func(10, 20, c=30) == o_func(10, 20, c=30) == o_func_2(10, 20, c=30)
+    assert func(10) == o_func(10) == o_func_2(10)
+    assert func(10) == o_func(10) == o_func_2(10)
     assert o_func.to_yaml_s(include_version=False) == \
            o_func_2.to_yaml_s(include_version=False)
     assert func.__defaults__ == o_func_2.func.__defaults__
     assert func.__kwdefaults__ == o_func_2.func.__kwdefaults__
+
+    # function with defaults and keyword-only argument
+
+    def func_ex(a, b=0, *, c=0):
+        return a + b + c
+
+    o_func_ex = ObjectWithFunction(func_ex)
+
+    path = os.path.join(tmpdir, 'func-ex.yaml')
+    o_func_ex.to_yaml(path, include_version=False)
+    o_func_ex_2 = audobject.from_yaml(path)
+
+    assert func_ex(10) == o_func_ex(10) == o_func_ex_2(10)
+    assert func_ex(10, 20) == o_func_ex(10, 20) == o_func_ex_2(10, 20)
+    assert func_ex(10, 20, c=30) == o_func_ex(10, 20, c=30) == \
+           o_func_ex_2(10, 20, c=30)
+    assert o_func_ex.to_yaml_s(include_version=False) == \
+           o_func_ex_2.to_yaml_s(include_version=False)
+    assert func_ex.__defaults__ == o_func_ex_2.func.__defaults__
+    assert func_ex.__kwdefaults__ == o_func_ex_2.func.__kwdefaults__
