@@ -183,6 +183,22 @@ class Function(Base):
         """
         func = None
 
+        # We must dynamically create the function
+        # from the original source code we stored in YAML.
+        # For a regular function we can do this
+        # by calling ``exec()`` with a local namespace directory.
+        # This will create the function in the namespace
+        # from where we can return it.
+        # This preserve defaults and keyword-only arguments.
+        # For lambda expression this is not possible,
+        # as we would end up with an empty namespace
+        # (a lambda has no name!).
+        # Therefore we first compile the code
+        # and then use ``types.FunctionType()``
+        # to create the function object.
+        # This does not preserve defaults and keyword-only arguments,
+        # but fortunately this is not relevant for lambda expressions.
+
         if value.startswith('lambda'):
             code = compile(value, '<string>', 'exec')
             for var in code.co_consts:
