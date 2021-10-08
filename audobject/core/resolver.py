@@ -181,14 +181,40 @@ class Function(Base):
             function object
 
         """
-        code = compile(value, '<string>', 'exec')
-        for var in code.co_consts:
-            if isinstance(var, types.CodeType):
-                func = types.FunctionType(var, globals())
-                # we cannot inspect the source code of
-                # dynamically defined functions so we attach it
-                func.__source__ = value
-                return func
+        func = None
+
+        # We must dynamically create the function
+        # from the original source code we stored in YAML.
+        # For a regular function we can do this
+        # by calling ``exec()`` with a local namespace directory.
+        # This will create the function in the namespace
+        # from where we can return it.
+        # This preserve defaults and keyword-only arguments.
+        # For lambda expression this is not possible,
+        # as we would end up with an empty namespace
+        # (a lambda has no name!).
+        # Therefore we first compile the code
+        # and then use ``types.FunctionType()``
+        # to create the function object.
+        # This does not preserve defaults and keyword-only arguments,
+        # but fortunately this is not relevant for lambda expressions.
+
+        if value.startswith('lambda'):
+            code = compile(value, '<string>', 'exec')
+            for var in code.co_consts:
+                if isinstance(var, types.CodeType):
+                    func = types.FunctionType(var, globals())
+        else:
+            namespace = {}
+            exec(value, globals(), namespace)
+            func_name = next(iter(namespace))
+            func = namespace[func_name]
+
+        # we cannot inspect the source code of
+        # dynamically defined functions so we attach it
+        func.__source__ = value
+
+        return func
 
     def encode(self, value: typing.Callable) -> str:
         r"""Encode (lambda) function.
