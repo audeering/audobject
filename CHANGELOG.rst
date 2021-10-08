@@ -7,6 +7,24 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.6.0 (2021-10-08)
+--------------------------
+
+* Added: subpackage ``resolver``
+* Added:
+  ``resolver.FilePath``,
+  ``resolver.Function``,
+  ``resolver.Tuple``,
+  ``resolver.Type``
+* Deprecated:
+  ``FilePathResolver``,
+  ``FunctionResolver``,
+  ``TupleResolver``,
+  ``TypeResolver``
+* Fixed: preserve default arguments in serialized functions
+* Fixed: attach source to dynamically created functions
+
+
 Version 0.5.1 (2021-10-04)
 --------------------------
 
