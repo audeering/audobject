@@ -439,9 +439,20 @@ From which we can re-instantiate the object.
 Value resolver
 --------------
 
-As long as the type of the arguments is one of
-``(None, Object, str, int, float, bool, list, dict, datetime.datetime)``,
+As long as the type of an arguments is one of:
+
+* ``bool``
+* ``datetime.datetime``
+* ``dict``
+* ``float``
+* ``int``
+* ``list``
+* ``None``
+* ``Object``
+* ``str``
+
 it is ensured that we get a clean YAML file.
+
 Other types may be encoded using the ``!!python/object`` tag
 and clutter the YAML syntax.
 
@@ -503,7 +514,7 @@ encoded and decoded.
 
 .. jupyter-execute::
 
-    class DeltaResolver(audobject.ValueResolver):
+    class DeltaResolver(audobject.resolver.Base):
 
         def decode(self, value: dict) -> timedelta:
             return timedelta(
@@ -566,7 +577,7 @@ we want to make sure that:
 2. the path is correctly expanded when we re-instantiate the object
 
 This can be achieved using
-:class:`audobject.FilePathResolver`.
+:class:`audobject.resolver.FilePath`.
 
 .. jupyter-execute::
 
@@ -574,7 +585,7 @@ This can be achieved using
 
         @audobject.init_decorator(
             resolvers={
-                'path': audobject.FilePathResolver,  # ensure portability
+                'path': audobject.resolver.FilePath,  # ensure portability
             }
         )
         def __init__(
@@ -651,7 +662,7 @@ Serialize functions
 
 To serialize functions,
 a special resolver
-:class:`audobject.FunctionResolver`
+:class:`audobject.resolver.Function`
 can be used.
 It encodes the source code of the function
 and dynamically creates the function during decoding.
@@ -667,7 +678,7 @@ The following class takes as arguments a function with two parameters.
 
         @audobject.init_decorator(
             resolvers={
-                'func': audobject.FunctionResolver,
+                'func': audobject.resolver.Function,
             }
         )
         def __init__(

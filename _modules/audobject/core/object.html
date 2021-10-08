@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.5.1
+                v0.6.0
               </div>
             
           
@@ -102,6 +102,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resolver.html">audobject.resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
 </ul>
@@ -184,10 +185,7 @@
 
 <span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">define</span>
 <span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">audobject.core.resolver</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">DefaultValueType</span><span class="p">,</span>
-    <span class="n">ValueResolver</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">resolver</span>
 
 
 <div class="viewcode-block" id="Object"><a class="viewcode-back" href="../../../api.html#audobject.Object">[docs]</a><span class="k">class</span> <span class="nc">Object</span><span class="p">:</span>
@@ -376,7 +374,7 @@
         <span class="k">return</span> <span class="n">from_yaml_s</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">resolvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ValueResolver</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">resolvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">]:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return resolvers.</span>
 
 <span class="sd">        Returns:</span>
@@ -393,7 +391,7 @@
             <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
             <span class="n">flatten</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">root</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DefaultValueType</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">resolver</span><span class="o">.</span><span class="n">DefaultValueType</span><span class="p">]:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
 
 <span class="sd">        Includes items from :meth:`audobject.Object.arguments`.</span>
@@ -550,7 +548,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_flatten</span><span class="p">(</span>
-        <span class="n">d</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DefaultValueType</span><span class="p">],</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">resolver</span><span class="o">.</span><span class="n">DefaultValueType</span><span class="p">],</span>
     <span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Flattens a dictionary.&quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">dict_in</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">dict_out</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -583,7 +581,7 @@
             <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
             <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
             <span class="n">root</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DefaultValueType</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">resolver</span><span class="o">.</span><span class="n">DefaultValueType</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolvers</span><span class="p">:</span>
             <span class="c1"># let resolver know if we write to a stream</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resolvers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span>
@@ -616,7 +614,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

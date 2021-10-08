@@ -19,6 +19,7 @@
 
     api
     define
+    resolver
     testing
     genindex
 

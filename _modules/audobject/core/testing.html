@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.5.1
+                v0.6.0
               </div>
             
           
@@ -102,6 +102,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resolver.html">audobject.resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
 </ul>
@@ -178,9 +179,7 @@
 <span class="kn">from</span> <span class="nn">audobject.core.object</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Object</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">audobject.core.resolver</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">TupleResolver</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">import</span> <span class="nn">audobject.core.resolver</span> <span class="k">as</span> <span class="nn">resolver</span>
 
 
 <div class="viewcode-block" id="TestObject"><a class="viewcode-back" href="../../../testing.html#audobject.testing.TestObject">[docs]</a><span class="k">class</span> <span class="nc">TestObject</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
@@ -207,7 +206,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@init_decorator</span><span class="p">(</span>
         <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span>
-            <span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">TupleResolver</span><span class="p">,</span>
+            <span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">resolver</span><span class="o">.</span><span class="n">Tuple</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -236,7 +235,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
