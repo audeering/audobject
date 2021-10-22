@@ -235,12 +235,13 @@ class ArgumentWithNameRoot(audobject.Object):
         self.root = root
 
 
-def test_override_attributes():
+def test_override_attributes(tmpdir):
 
     o = audobject.testing.TestObject(
         name='name',
     )
     assert o.name == 'name'
+
     o2 = audobject.from_yaml_s(
         o.to_yaml_s(),
         name='override',
@@ -252,12 +253,22 @@ def test_override_attributes():
 
     o3 = ArgumentWithNameRoot()
     assert o3.root is None
+
     o4 = audobject.from_yaml_s(
         o3.to_yaml_s(include_version=False),
         root='./root',
     )
     assert isinstance(o4, ArgumentWithNameRoot)
     assert o4.root == './root'
+
+    path = os.path.join(tmpdir, 'object.yaml')
+    o3.to_yaml(path)
+    o5 = audobject.from_yaml(
+        path,
+        root='./root',
+    )
+    assert isinstance(o5, ArgumentWithNameRoot)
+    assert o5.root == './root'
 
 
 def test_no_resolver():
