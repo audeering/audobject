@@ -738,7 +738,7 @@ that derives from
 
 .. jupyter-execute::
 
-    class CallableObject(audobject.Object):
+    class MyCallableObject(audobject.Object):
 
         def __init__(
             self,
@@ -750,7 +750,7 @@ that derives from
             return (a + b) * self.n
 
 
-    a_callable_object = CallableObject(2)
+    a_callable_object = MyCallableObject(2)
     o5 = MyObjectWithFunction(a_callable_object)
     o5(4, 5)
 
