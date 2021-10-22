@@ -732,10 +732,9 @@ It also works for lambda expressions.
     o4(2, 3)
 
 Instead of a function,
-it is also possible to pass
-callable objects if it derives from
-:class:`audobject.Object`,
-e.g.:
+we can also pass pass a callable object
+that derives from
+:class:`audobject.Object`.
 
 .. jupyter-execute::
 
