@@ -23,7 +23,7 @@ def get_object(
         installed_version: str,
         params: dict,
         root: typing.Optional[str],
-        **kwargs,
+        kwargs: typing.Dict[str, typing.Any],
 ) -> typing.Any:
     r"""Create object from arguments."""
     signature = inspect.signature(cls.__init__)

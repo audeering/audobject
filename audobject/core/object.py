@@ -169,10 +169,11 @@ class Object:
     def from_dict(
             d: typing.Dict[str, typing.Any],
             root: str = None,
-            **kwargs,
+            *,
+            kwargs: typing.Union[str, typing.Any] = None,
     ) -> 'Object':  # pragma: no cover
         from audobject.core.api import from_dict
-        return from_dict(d, root, **kwargs)
+        return from_dict(d, root, kwargs=kwargs)
 
     @staticmethod
     @audeer.deprecated(

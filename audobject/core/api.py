@@ -10,7 +10,8 @@ import audobject.core.utils as utils
 def from_dict(
         d: typing.Dict[str, typing.Any],
         root: str = None,
-        **kwargs,
+        *,
+        kwargs: typing.Dict[str, typing.Any] = None,
 ) -> 'Object':
     r"""Create object from dictionary.
 
@@ -31,15 +32,16 @@ def from_dict(
     name = next(iter(d))
     cls, version, installed_version = utils.get_class(name)
     params = {}
+    kwargs = kwargs or {}
     for key, value in d[name].items():
-        params[key] = _decode_value(value, **kwargs)
+        params[key] = _decode_value(value, kwargs)
     return utils.get_object(
         cls,
         version,
         installed_version,
         params,
         root,
-        **kwargs,
+        kwargs,
     )
 
 
@@ -64,7 +66,7 @@ def from_yaml(
     return from_dict(
         yaml.load(path_or_stream, yaml.Loader),
         root=os.path.dirname(path_or_stream.name),
-        **kwargs,
+        kwargs=kwargs,
     )
 
 
@@ -85,27 +87,27 @@ def from_yaml_s(
     """
     return from_dict(
         yaml.load(yaml_string, yaml.Loader),
-        **kwargs,
+        kwargs=kwargs,
     )
 
 
 def _decode_value(
         value_to_decode: typing.Any,
-        **kwargs,
+        kwargs: typing.Dict[str, typing.Any],
 ) -> typing.Any:
     r"""Decode value."""
     if value_to_decode:  # not empty
         if isinstance(value_to_decode, list):
             return [
-                _decode_value(v, **kwargs) for v in value_to_decode
+                _decode_value(v, kwargs) for v in value_to_decode
             ]
         elif isinstance(value_to_decode, dict):
             name = next(iter(value_to_decode))
             if isinstance(name, Object) or utils.is_class(name):
-                return from_dict(value_to_decode, **kwargs)
+                return from_dict(value_to_decode, kwargs)
             else:
                 return {
-                    k: _decode_value(v, **kwargs) for k, v in
+                    k: _decode_value(v, kwargs) for k, v in
                     value_to_decode.items()
                 }
     return value_to_decode
