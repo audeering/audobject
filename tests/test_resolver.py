@@ -3,6 +3,7 @@ import shutil
 import typing
 
 import audeer
+import pytest
 
 import audobject
 
@@ -64,6 +65,21 @@ class ObjectWithFunction(audobject.Object):
         return self.func(*args, **kwargs)
 
 
+class CallableObject(audobject.Object):
+
+    def __init__(
+            self,
+            n: int,
+    ):
+        self.n = n
+
+    def __call__(
+            self,
+            x: float,
+    ):
+        return x * self.n
+
+
 def test_function(tmpdir):
 
     # lambda
@@ -116,3 +132,32 @@ def test_function(tmpdir):
            o_func_ex_2.to_yaml_s(include_version=False)
     assert func_ex.__defaults__ == o_func_ex_2.func.__defaults__
     assert func_ex.__kwdefaults__ == o_func_ex_2.func.__kwdefaults__
+
+    # callable object
+
+    o_callable = CallableObject(2)
+    o_func_object = ObjectWithFunction(o_callable)
+
+    path = os.path.join(tmpdir, 'callable-object.yaml')
+    o_func_object.to_yaml(path, include_version=False)
+    o_func_object_2 = audobject.from_yaml(path)
+
+    assert o_callable(10) == o_func_object(10) == o_func_object_2(10)
+
+    # callable object, but not serializable
+
+    class CallableObjectBad:  # not serializable
+        def __call__(self):
+            pass
+
+    o_callable_bad = CallableObjectBad()
+    o_func_object_bad = ObjectWithFunction(o_callable_bad)
+    with pytest.raises(
+        ValueError,
+        match=(
+            "Cannot decode object "
+            "if it does not derive from "
+            "'audobject.Object'."
+        )
+    ):
+        o_func_object_bad.to_yaml_s(include_version=False)

@@ -731,7 +731,47 @@ It also works for lambda expressions.
     o4 = audobject.from_yaml_s(o3_yaml)
     o4(2, 3)
 
-.. note:: Since the described mechanism
+Instead of a function,
+it is also possible to pass
+callable objects if it derives from
+:class:`audobject.Object`,
+e.g.:
+
+.. jupyter-execute::
+
+    class CallableObject(audobject.Object):
+
+        def __init__(
+            self,
+            n: int,
+        ):
+            self.n = n
+
+        def __call__(self, a: int, b: int):
+            return (a + b) * self.n
+
+
+    a_callable_object = CallableObject(2)
+    o5 = MyObjectWithFunction(a_callable_object)
+    o5(4, 5)
+
+In that case,
+the YAML representation is store
+instead of the function code.
+
+.. jupyter-execute::
+
+    o5_yaml = o5.to_yaml_s()
+    print(o5_yaml)
+
+And we can still restore the original object.
+
+.. jupyter-execute::
+
+    o6 = audobject.from_yaml_s(o5_yaml)
+    o6(4, 5)
+
+.. warning:: Since the described mechanism
     offers a way to execute arbitrary Python code,
     you should never load objects from a source you do not trust!
 
