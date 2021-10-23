@@ -97,7 +97,9 @@ arguments when we instantiate an object.
 
     o4 = audobject.from_yaml_s(
         o_yaml,
-        string='I was set to a different value!'
+        override_args={
+            'string': 'I was set to a different value!'
+        }
     )
     print(o4)
 
@@ -225,7 +227,11 @@ If we set ``verbose=True``, debug message are printed.
 
 .. jupyter-execute::
 
-    o = MyObjectWithHiddenArgument('hello object!', num_repeat=3, verbose=True)
+    o = MyObjectWithHiddenArgument(
+        'hello object!',
+        num_repeat=3,
+        verbose=True,
+    )
     print(o)
 
 But since ``verbose`` is a hidden argument,
@@ -245,11 +251,17 @@ and we won't see debug messages.
     o2 = audobject.from_yaml_s(o_yaml)
     print(o2)
 
-However, we can set ``verbose=True`` when we load the object.
+However, we can still set ``verbose``
+to ``True`` when we load the object.
 
 .. jupyter-execute::
 
-    o3 = audobject.from_yaml_s(o_yaml, verbose=True)
+    o3 = audobject.from_yaml_s(
+        o_yaml,
+        override_args={
+            'verbose': True,
+        }
+    )
     print(o3)
 
 Note that hidden arguments are not taken into account for the UID.
