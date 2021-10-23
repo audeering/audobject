@@ -208,8 +208,10 @@ def test_hidden_attributes(tmpdir):
 
     o2 = audobject.from_yaml_s(
         o.to_yaml_s(include_version=False),
-        hidden_child='hidden_child',
-        hidden_parent='hidden_parent',
+        override_args={
+            'hidden_child': 'hidden_child',
+            'hidden_parent': 'hidden_parent'
+        },
     )
     assert isinstance(o2, ChildWithHiddenArguments)
     assert o2.hidden_child == 'hidden_child'
@@ -218,8 +220,10 @@ def test_hidden_attributes(tmpdir):
     o.to_yaml(path, include_version=False)
     o2 = audobject.from_yaml(
         path,
-        hidden_child='hidden_child',
-        hidden_parent='hidden_parent',
+        override_args={
+            'hidden_child': 'hidden_child',
+            'hidden_parent': 'hidden_parent',
+        }
     )
     assert isinstance(o2, ChildWithHiddenArguments)
     assert o2.hidden_child == 'hidden_child'
@@ -242,9 +246,20 @@ def test_override_attributes(tmpdir):
     )
     assert o.name == 'name'
 
+    o1 = audobject.from_dict(
+        o.to_dict(include_version=False),
+        override_args={
+            'name': 'override',
+        }
+    )
+    assert isinstance(o1, audobject.testing.TestObject)
+    assert o1.name == 'override'
+
     o2 = audobject.from_yaml_s(
-        o.to_yaml_s(),
-        name='override',
+        o.to_yaml_s(include_version=False),
+        override_args={
+            'name': 'override',
+        }
     )
     assert isinstance(o2, audobject.testing.TestObject)
     assert o2.name == 'override'
@@ -256,19 +271,79 @@ def test_override_attributes(tmpdir):
 
     o4 = audobject.from_yaml_s(
         o3.to_yaml_s(include_version=False),
-        root='./root',
+        override_args={
+            'root': 'override',
+        }
     )
     assert isinstance(o4, ArgumentWithNameRoot)
-    assert o4.root == './root'
+    assert o4.root == 'override'
 
     path = os.path.join(tmpdir, 'object.yaml')
-    o3.to_yaml(path)
+    o3.to_yaml(path, include_version=False)
     o5 = audobject.from_yaml(
         path,
-        root='./root',
+        override_args={
+            'root': 'override',
+        }
     )
     assert isinstance(o5, ArgumentWithNameRoot)
-    assert o5.root == './root'
+    assert o5.root == 'override'
+
+    o6 = audobject.from_dict(
+        o3.to_dict(include_version=False),
+        override_args={
+            'root': 'override',
+        }
+    )
+    assert isinstance(o6, ArgumentWithNameRoot)
+    assert o6.root == 'override'
+
+
+def test_override_attributes_deprecated(tmpdir):
+
+    o = audobject.testing.TestObject(
+        name='name',
+    )
+    assert o.name == 'name'
+
+    with pytest.warns(UserWarning):
+        o1 = audobject.from_dict(
+            o.to_dict(include_version=False),
+            name='override',
+        )
+    assert isinstance(o1, audobject.testing.TestObject)
+    assert o1.name == 'override'
+
+    with pytest.warns(UserWarning):
+        o2 = audobject.from_yaml_s(
+            o.to_yaml_s(include_version=False),
+            name='override',
+        )
+    assert isinstance(o2, audobject.testing.TestObject)
+    assert o2.name == 'override'
+
+    # override argument named root
+
+    o3 = ArgumentWithNameRoot()
+    assert o3.root is None
+
+    with pytest.warns(UserWarning):
+        o4 = audobject.from_yaml_s(
+            o3.to_yaml_s(include_version=False),
+            root='override',
+        )
+    assert isinstance(o4, ArgumentWithNameRoot)
+    assert o4.root == 'override'
+
+    path = os.path.join(tmpdir, 'object.yaml')
+    o3.to_yaml(path, include_version=False)
+    with pytest.warns(UserWarning):
+        o5 = audobject.from_yaml(
+            path,
+            root='override',
+        )
+    assert isinstance(o5, ArgumentWithNameRoot)
+    assert o5.root == 'override'
 
 
 def test_no_resolver():
