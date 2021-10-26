@@ -58,7 +58,7 @@
 
           <a href="../../../index.html">
           
-            <img src="../../../_static/images/audeering.svg" class="logo" alt="audEERING"/>
+            <img src="../../../_static/images/audeering.png" class="logo" alt="audEERING"/>
           
           
             <span> audobject</span>
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.6.0
+                v0.6.1
               </div>
             
           
@@ -133,40 +133,14 @@
         
         <div class="rst-content">
         
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>audobject.core.api</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -175,6 +149,7 @@
   <h1>Source code for audobject.core.api</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">oyaml</span> <span class="k">as</span> <span class="nn">yaml</span>
 
@@ -182,105 +157,151 @@
 <span class="kn">import</span> <span class="nn">audobject.core.utils</span> <span class="k">as</span> <span class="nn">utils</span>
 
 
+<span class="n">kwargs_deprecation_warning</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;The use of **kwargs is deprecated &quot;</span>
+    <span class="s2">&quot;and will be removed with version 1.0.0. &quot;</span>
+    <span class="s2">&quot;Use &#39;override_args&#39; instead.&quot;</span>
+<span class="p">)</span>
+
+
 <div class="viewcode-block" id="from_dict"><a class="viewcode-back" href="../../../api.html#audobject.from_dict">[docs]</a><span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span>
         <span class="n">d</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span>
         <span class="n">root</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">override_args</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from dictionary.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        d: dictionary with arguments</span>
+<span class="sd">        d: dictionary representing the object</span>
 <span class="sd">        root: if dictionary was read from a file, set to source directory</span>
-<span class="sd">        kwargs: additional keyword arguments to override the values in the</span>
-<span class="sd">            dictionary and default values of hidden arguments</span>
+<span class="sd">        override_args: override arguments in ``d`` or</span>
+<span class="sd">            default values of hidden arguments</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        object</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        RuntimeError: if a mandatory argument of the object</span>
-<span class="sd">            is missing in the dictionary</span>
+<span class="sd">            is missing in the dictionary ``d``</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">override_args</span> <span class="o">=</span> <span class="n">override_args</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">kwargs_deprecation_warning</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">override_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
     <span class="n">name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
     <span class="bp">cls</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">installed_version</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_class</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_decode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_decode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">override_args</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">version</span><span class="p">,</span>
         <span class="n">installed_version</span><span class="p">,</span>
         <span class="n">params</span><span class="p">,</span>
         <span class="n">root</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="n">override_args</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="from_yaml"><a class="viewcode-back" href="../../../api.html#audobject.from_yaml">[docs]</a><span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span>
         <span class="n">path_or_stream</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">IO</span><span class="p">],</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">override_args</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from YAML file.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path_or_stream: file path or stream</span>
-<span class="sd">        kwargs: additional keyword arguments to override the values in the</span>
-<span class="sd">            YAML file and default values of hidden arguments</span>
+<span class="sd">        override_args: override arguments in the YAML file or</span>
+<span class="sd">            default values of hidden arguments</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        object</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">override_args</span> <span class="o">=</span> <span class="n">override_args</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">kwargs_deprecation_warning</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">override_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">from_yaml</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">from_yaml</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
         <span class="n">root</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path_or_stream</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="from_yaml_s"><a class="viewcode-back" href="../../../api.html#audobject.from_yaml_s">[docs]</a><span class="k">def</span> <span class="nf">from_yaml_s</span><span class="p">(</span>
         <span class="n">yaml_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">override_args</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create object from YAML string.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        yaml_string: YAML string</span>
-<span class="sd">        kwargs: additional keyword arguments to override the values in the</span>
-<span class="sd">            YAML string and default values of hidden arguments</span>
+<span class="sd">        override_args: override arguments in the YAML string or</span>
+<span class="sd">            default values of hidden arguments</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        object</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">override_args</span> <span class="o">=</span> <span class="n">override_args</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">kwargs_deprecation_warning</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">override_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
     <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_decode_value</span><span class="p">(</span>
         <span class="n">value_to_decode</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="n">override_args</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decode value.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">value_to_decode</span><span class="p">:</span>  <span class="c1"># not empty</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[</span>
-                <span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_to_decode</span>
+                <span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">override_args</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_to_decode</span>
             <span class="p">]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">))</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">Object</span><span class="p">)</span> <span class="ow">or</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_class</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span><span class="n">value_to_decode</span><span class="p">,</span> <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="p">{</span>
-                    <span class="n">k</span><span class="p">:</span> <span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span>
+                    <span class="n">k</span><span class="p">:</span> <span class="n">_decode_value</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">override_args</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span>
                     <span class="n">value_to_decode</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
                 <span class="p">}</span>
     <span class="k">return</span> <span class="n">value_to_decode</span>
@@ -299,7 +320,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/26 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
