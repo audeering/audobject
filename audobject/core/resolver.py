@@ -116,9 +116,9 @@ class FilePath(Base):
         >>> resolver._object_root_ = '/some/root'  # usually set by object
         >>> value = '/some/where/else'
         >>> encoded_value = resolver.encode(value)
-        >>> encoded_value
+        >>> encoded_value  # doctest: +SKIP
         '../where/else'
-        >>> resolver.decode(encoded_value)
+        >>> resolver.decode(encoded_value)  # doctest: +SKIP
         '/some/where/else'
 
     """
