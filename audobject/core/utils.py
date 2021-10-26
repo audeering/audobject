@@ -23,7 +23,7 @@ def get_object(
         installed_version: str,
         params: dict,
         root: typing.Optional[str],
-        **kwargs,
+        override_args: typing.Dict[str, typing.Any],
 ) -> typing.Any:
     r"""Create object from arguments."""
     signature = inspect.signature(cls.__init__)
@@ -90,7 +90,7 @@ def get_object(
             }
 
     # select supported params from kwargs
-    for key, value in kwargs.items():
+    for key, value in override_args.items():
         if key in supported_params:
             params[key] = value
 
