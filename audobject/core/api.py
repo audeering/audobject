@@ -25,7 +25,7 @@ def from_dict(
     r"""Create object from dictionary.
 
     Args:
-        d: dictionary with arguments
+        d: dictionary representing the object
         root: if dictionary was read from a file, set to source directory
         override_args: override arguments in ``d`` or
             default values of hidden arguments
