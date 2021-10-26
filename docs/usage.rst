@@ -732,7 +732,7 @@ It also works for lambda expressions.
     o4(2, 3)
 
 Instead of a function,
-we can also pass pass a callable object
+we can also pass a callable object
 that derives from
 :class:`audobject.Object`.
 
