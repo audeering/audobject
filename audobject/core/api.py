@@ -35,7 +35,7 @@ def from_dict(
 
     Raises:
         RuntimeError: if a mandatory argument of the object
-            is missing in the dictionary
+            is missing in the dictionary ``d``
 
     """
     override_args = override_args or {}
