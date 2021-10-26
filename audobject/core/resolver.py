@@ -8,6 +8,7 @@ import typing
 import warnings
 
 import audeer
+
 import audobject.core.define as define
 
 
@@ -216,7 +217,10 @@ class Function(Base):
 
         return func
 
-    def encode(self, value: typing.Callable) -> str:
+    def encode(
+            self,
+            value: typing.Callable,
+    ) -> typing.Union[str, object]:
         r"""Encode (lambda) function.
 
         Args:
@@ -226,7 +230,18 @@ class Function(Base):
             source code
 
         """
-        return self.get_source(value)
+        from audobject.core.object import Object
+
+        if isinstance(value, types.FunctionType):
+            return self.get_source(value)
+        elif isinstance(value, Object):
+            return value
+        else:
+            raise ValueError(
+                "Cannot decode object "
+                "if it does not derive from "
+                "'audobject.Object'."
+            )
 
     def encode_type(self) -> type:
         r"""Returns encoded type.
