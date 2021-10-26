@@ -7,6 +7,20 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.6.1 (2021-10-26)
+--------------------------
+
+* Added: argument ``override_args`` to
+  ``from_dict()``,
+  ``from_yaml()``,
+  ``from_yaml_s()``
+* Changed: ``resolver.Function`` supports callable objects of type ``Object``
+* Deprecated: ``**kwargs`` from
+  ``from_dict()``,
+  ``from_yaml()``,
+  ``from_yaml_s()``
+
+
 Version 0.6.0 (2021-10-08)
 --------------------------
 
