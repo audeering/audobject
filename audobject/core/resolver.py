@@ -111,6 +111,16 @@ class FilePath(Base):
     when object is serialized to a file
     and expands it again during reading.
 
+    Example:
+        >>> resolver = FilePath()
+        >>> resolver._object_root_ = '/some/root'  # usually set by object
+        >>> value = '/some/where/else'
+        >>> encoded_value = resolver.encode(value)
+        >>> encoded_value  # doctest: +SKIP
+        '../where/else'
+        >>> resolver.decode(encoded_value)  # doctest: +SKIP
+        '/some/where/else'
+
     """
 
     def decode(self, value: str) -> str:
@@ -169,6 +179,19 @@ class Function(Base):
 
     Encodes source code of function and
     dynamically evaluates it when the value is decoded again.
+
+    Example:
+        >>> resolver = Function()
+        >>> def func(x):
+        ...     return x * 2
+        >>> func(5)
+        10
+        >>> encoded_value = resolver.encode(func)
+        >>> encoded_value
+        'def func(x):\n    return x * 2\n'
+        >>> decoded_value = resolver.decode(encoded_value)
+        >>> decoded_value(5)
+        10
 
     """
 
@@ -348,7 +371,23 @@ class Function(Base):
 
 
 class Tuple(Base):
-    r"""Tuple resolver."""
+    r"""Tuple resolver.
+
+    Encodes tuple as a list.
+
+    Example:
+        >>> resolver = Tuple()
+        >>> value = (1, 'a')
+        >>> value
+        (1, 'a')
+        >>> encoded_value = resolver.encode(value)
+        >>> encoded_value
+        [1, 'a']
+        >>> decoded_value = resolver.decode(encoded_value)
+        >>> decoded_value
+        (1, 'a')
+
+    """
 
     def decode(self, value: list) -> tuple:
         r"""Decodes ``list`` as ``tuple``.
@@ -385,7 +424,23 @@ class Tuple(Base):
 
 
 class Type(Base):
-    r"""Type resolver."""
+    r"""Type resolver.
+
+    Encodes type as a string.
+
+    Example:
+        >>> resolver = Type()
+        >>> value = str
+        >>> value
+        <class 'str'>
+        >>> encoded_value = resolver.encode(value)
+        >>> encoded_value
+        'str'
+        >>> decoded_value = resolver.decode(encoded_value)
+        >>> decoded_value
+        <class 'str'>
+
+    """
 
     def decode(self, value: str) -> type:
         r"""Decodes ``str`` as ``type``.
