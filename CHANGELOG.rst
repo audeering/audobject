@@ -7,6 +7,15 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.6.2 (2022-01-04)
+--------------------------
+
+* Added: Python 3.9 support
+* Added: docstring examples to resolver classes
+* Changed: update documentation on borrowed arguments
+* Removed: Python 3.6 support
+
+
 Version 0.6.1 (2021-10-26)
 --------------------------
 
