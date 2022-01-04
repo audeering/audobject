@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.6.1
+                v0.6.2
               </div>
             
           
@@ -260,6 +260,16 @@
 <span class="sd">    when object is serialized to a file</span>
 <span class="sd">    and expands it again during reading.</span>
 
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; resolver = FilePath()</span>
+<span class="sd">        &gt;&gt;&gt; resolver._object_root_ = &#39;/some/root&#39;  # usually set by object</span>
+<span class="sd">        &gt;&gt;&gt; value = &#39;/some/where/else&#39;</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value = resolver.encode(value)</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value  # doctest: +SKIP</span>
+<span class="sd">        &#39;../where/else&#39;</span>
+<span class="sd">        &gt;&gt;&gt; resolver.decode(encoded_value)  # doctest: +SKIP</span>
+<span class="sd">        &#39;/some/where/else&#39;</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="FilePath.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.FilePath.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -318,6 +328,19 @@
 
 <span class="sd">    Encodes source code of function and</span>
 <span class="sd">    dynamically evaluates it when the value is decoded again.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; resolver = Function()</span>
+<span class="sd">        &gt;&gt;&gt; def func(x):</span>
+<span class="sd">        ...     return x * 2</span>
+<span class="sd">        &gt;&gt;&gt; func(5)</span>
+<span class="sd">        10</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value = resolver.encode(func)</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value</span>
+<span class="sd">        &#39;def func(x):\n    return x * 2\n&#39;</span>
+<span class="sd">        &gt;&gt;&gt; decoded_value = resolver.decode(encoded_value)</span>
+<span class="sd">        &gt;&gt;&gt; decoded_value(5)</span>
+<span class="sd">        10</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -497,7 +520,23 @@
 
 
 <div class="viewcode-block" id="Tuple"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Tuple">[docs]</a><span class="k">class</span> <span class="nc">Tuple</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Tuple resolver.&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Tuple resolver.</span>
+
+<span class="sd">    Encodes tuple as a list.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; resolver = Tuple()</span>
+<span class="sd">        &gt;&gt;&gt; value = (1, &#39;a&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; value</span>
+<span class="sd">        (1, &#39;a&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value = resolver.encode(value)</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value</span>
+<span class="sd">        [1, &#39;a&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; decoded_value = resolver.decode(encoded_value)</span>
+<span class="sd">        &gt;&gt;&gt; decoded_value</span>
+<span class="sd">        (1, &#39;a&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Tuple.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Tuple.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decodes ``list`` as ``tuple``.</span>
@@ -534,7 +573,23 @@
 
 
 <div class="viewcode-block" id="Type"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Type">[docs]</a><span class="k">class</span> <span class="nc">Type</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Type resolver.&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Type resolver.</span>
+
+<span class="sd">    Encodes type as a string.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; resolver = Type()</span>
+<span class="sd">        &gt;&gt;&gt; value = str</span>
+<span class="sd">        &gt;&gt;&gt; value</span>
+<span class="sd">        &lt;class &#39;str&#39;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value = resolver.encode(value)</span>
+<span class="sd">        &gt;&gt;&gt; encoded_value</span>
+<span class="sd">        &#39;str&#39;</span>
+<span class="sd">        &gt;&gt;&gt; decoded_value = resolver.decode(encoded_value)</span>
+<span class="sd">        &gt;&gt;&gt; decoded_value</span>
+<span class="sd">        &lt;class &#39;str&#39;&gt;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Type.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Type.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decodes ``str`` as ``type``.</span>
@@ -650,7 +705,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/26 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -658,7 +713,7 @@
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2021 audEERING GmbH
+      &copy; 2020-2022 audEERING GmbH
     </p>
   </div> 
 

@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.6.1
+                v0.6.2
               </div>
             
           
@@ -170,11 +170,15 @@
 <span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decorator for ``__init__`` function of :class:`audobject.Object`.</span>
 
-<span class="sd">    If your class expects an argument ``x`` which is passed on as an argument</span>
-<span class="sd">    to a class ``C`` or to a dictionary with key ``x`` and stored under</span>
-<span class="sd">    ``self.c``, you can borrow the argument from ``c`` by setting ``borrow[</span>
-<span class="sd">    &#39;x&#39;] = &#39;c&#39;``. This will store ``x`` in the YAML representation, even so</span>
-<span class="sd">    your class does have an actual corresponding attribute ``self.x``.</span>
+<span class="sd">    If your class expects an argument ``a``</span>
+<span class="sd">    which is passed on as an argument to a class ``C``</span>
+<span class="sd">    or to a dictionary with key ``a``,</span>
+<span class="sd">    and stored under ``self.b``,</span>
+<span class="sd">    you can borrow the argument from ``b``</span>
+<span class="sd">    by setting ``borrow = {&#39;a&#39;: &#39;b&#39;}``.</span>
+<span class="sd">    This will store ``a`` in the YAML representation,</span>
+<span class="sd">    even though your class actually does not</span>
+<span class="sd">    have a corresponding attribute ``self.a``.</span>
 
 <span class="sd">    Arguments listed in ``hidden`` are not serialized to YAML.</span>
 <span class="sd">    Note that objects you borrow attributes from, are also treated as</span>
@@ -275,7 +279,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/26 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -283,7 +287,7 @@
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2021 audEERING GmbH
+      &copy; 2020-2022 audEERING GmbH
     </p>
   </div> 
 

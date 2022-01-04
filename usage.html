@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.6.1
+                v0.6.2
               </div>
             
           
@@ -444,7 +444,7 @@ from YAML, we’ll get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2142</span><span class="o">/</span><span class="mf">2990185952.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1884</span><span class="o">/</span><span class="mf">2990185952.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
@@ -624,7 +624,9 @@ b3579494-fb4f-35f3-62be-1ceedd745e38
 <h2>Borrowed arguments<a class="headerlink" href="#borrowed-arguments" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to borrow arguments from an instance attribute.
 For instance, here we borrow the attributes <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code>
-from <code class="docutils literal notranslate"><span class="pre">self.point</span></code> and a dictionary <code class="docutils literal notranslate"><span class="pre">self.d</span></code>.</p>
+from <code class="docutils literal notranslate"><span class="pre">self.point</span></code> and a dictionary <code class="docutils literal notranslate"><span class="pre">self.d</span></code>.
+Using borrowed arguments it becomes possible
+to add properties with the name of an argument.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
@@ -656,6 +658,9 @@ from <code class="docutils literal notranslate"><span class="pre">self.point</sp
         <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">}</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># property sharing the name of an argument</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
 
 <span class="n">t</span> <span class="o">=</span> <span class="n">ObjectWithBorrowedArguments</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">())</span>
@@ -667,13 +672,13 @@ from <code class="docutils literal notranslate"><span class="pre">self.point</sp
   x: 0
   y: 1
   z: 2
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that attributes we borrow from are automatically
-treated as hidden arguments.</p>
 </div>
 <div class="section" id="object-with-kwargs">
 <h2>Object with kwargs<a class="headerlink" href="#object-with-kwargs" title="Permalink to this headline">¶</a></h2>
@@ -801,7 +806,9 @@ of ignored arguments.</p>
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
   string: I have kwargs
   num_repeat: 1
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1414,7 +1421,7 @@ as input a string, a list and a dictionary.</p>
 looks pretty nested.
 This is not always handy,
 e.g. if we try to store the object to a
-<a class="reference external" href="https://audeering.github.io/audfactory/api-audfactory.html#audfactory.Lookup" title="(in audfactory vv1.0.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
+<a class="reference external" href="https://audeering.github.io/audfactory/api-audfactory.html#audfactory.Lookup" title="(in audfactory vv1.0.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
 this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.</p>
@@ -1470,7 +1477,9 @@ with a different package version?</p>
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObject==1.0.0:
   string: I am a 1.0.0!
   num_repeat: 2
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1558,7 +1567,7 @@ for the new argument.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2142</span><span class="o">/</span><span class="mf">3047746122.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1884</span><span class="o">/</span><span class="mf">3047746122.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/api.py</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, override_args, **kwargs)</span>
@@ -1927,7 +1936,7 @@ we will get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_2142</span><span class="o">/</span><span class="mf">1473800148.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1884</span><span class="o">/</span><span class="mf">1473800148.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
 
 <span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
@@ -2027,7 +2036,7 @@ num_repeat  2      1        None                   the number of times we want t
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>usage: ipykernel_launcher.py [-h] [--string {bar,Bar,BAR}]
                              [--num_repeat NUM_REPEAT] [--delimiter DELIMITER]
 
-options:
+optional arguments:
   -h, --help            show this help message and exit
   --string {bar,Bar,BAR}
                         the string we want to repeat
@@ -2125,7 +2134,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2021/10/26 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -2133,7 +2142,7 @@ delimiter   ;      ,        None                   defines the delimiter        
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2021 audEERING GmbH
+      &copy; 2020-2022 audEERING GmbH
     </p>
   </div> 
 
