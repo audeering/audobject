@@ -10,6 +10,24 @@ from audobject.core.config import config
 from audobject.core import define
 
 
+def get_class(
+        key: str,
+        auto_install: bool,
+) -> (type, str, str):
+    r"""Load class."""
+    if key.startswith(define.OBJECT_TAG):
+        key = key[len(define.OBJECT_TAG):]
+    package_name, module_name, class_name, version = split_key(key)
+    module = get_module(
+        package_name,
+        module_name,
+        version,
+        auto_install,
+    )
+    installed_version = get_version(module_name)
+    return getattr(module, class_name), version, installed_version
+
+
 def get_module(
         package_name: str,
         module_name: str,
@@ -35,24 +53,6 @@ def get_module(
             raise ex
 
     return module
-
-
-def get_class(
-        key: str,
-        auto_install: bool,
-) -> (type, str, str):
-    r"""Load class."""
-    if key.startswith(define.OBJECT_TAG):
-        key = key[len(define.OBJECT_TAG):]
-    package_name, module_name, class_name, version = split_key(key)
-    module = get_module(
-        package_name,
-        module_name,
-        version,
-        auto_install,
-    )
-    installed_version = get_version(module_name)
-    return getattr(module, class_name), version, installed_version
 
 
 def get_object(
