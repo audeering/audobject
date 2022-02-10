@@ -32,6 +32,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get -y install libsndfile1 sox
+      if: matrix.os == 'ubuntu-20.04'
 
     - name: Install dependencies
       run: |
