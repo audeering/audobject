@@ -19,6 +19,7 @@ def from_dict(
         d: typing.Dict[str, typing.Any],
         root: str = None,
         *,
+        auto_install: bool = False,
         override_args: typing.Dict[str, typing.Any] = None,
         **kwargs,
 ) -> 'Object':
@@ -27,6 +28,7 @@ def from_dict(
     Args:
         d: dictionary representing the object
         root: if dictionary was read from a file, set to source directory
+        auto_install: install package if it is not found
         override_args: override arguments in ``d`` or
             default values of hidden arguments
 
@@ -50,7 +52,10 @@ def from_dict(
             override_args[key] = value
 
     name = next(iter(d))
-    cls, version, installed_version = utils.get_class(name)
+    cls, version, installed_version = utils.get_class(
+        name,
+        auto_install,
+    )
     params = {}
     for key, value in d[name].items():
         params[key] = _decode_value(value, override_args)
@@ -67,6 +72,7 @@ def from_dict(
 def from_yaml(
         path_or_stream: typing.Union[str, typing.IO],
         *,
+        auto_install: bool = False,
         override_args: typing.Dict[str, typing.Any] = None,
         **kwargs,
 ) -> 'Object':
@@ -74,6 +80,7 @@ def from_yaml(
 
     Args:
         path_or_stream: file path or stream
+        auto_install: install package if it is not found
         override_args: override arguments in the YAML file or
             default values of hidden arguments
 
@@ -97,6 +104,7 @@ def from_yaml(
             return from_yaml(fp, override_args=override_args)
     return from_dict(
         yaml.load(path_or_stream, yaml.Loader),
+        auto_install=auto_install,
         root=os.path.dirname(path_or_stream.name),
         override_args=override_args,
     )
@@ -105,6 +113,7 @@ def from_yaml(
 def from_yaml_s(
         yaml_string: str,
         *,
+        auto_install: bool = False,
         override_args: typing.Dict[str, typing.Any] = None,
         **kwargs,
 ) -> 'Object':
@@ -112,6 +121,7 @@ def from_yaml_s(
 
     Args:
         yaml_string: YAML string
+        auto_install: install package if it is not found
         override_args: override arguments in the YAML string or
             default values of hidden arguments
 
@@ -132,6 +142,7 @@ def from_yaml_s(
 
     return from_dict(
         yaml.load(yaml_string, yaml.Loader),
+        auto_install=auto_install,
         override_args=override_args,
     )
 

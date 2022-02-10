@@ -1,5 +1,8 @@
 import importlib
 import inspect
+import subprocess
+import sys
+import types
 import typing
 import warnings
 
@@ -7,13 +10,48 @@ from audobject.core.config import config
 from audobject.core import define
 
 
-def get_class(key: str) -> (type, str, str):
-    r"""Load class module."""
+def get_module(
+        package_name: str,
+        module_name: str,
+        version: typing.Optional[str],
+        auto_install: bool,
+) -> types.ModuleType:
+    r"""Load module."""
+    try:
+        module = importlib.import_module(module_name)
+    except ModuleNotFoundError as ex:
+        if auto_install:
+            install_package(
+                package_name,
+                version,
+            )
+            return get_module(
+                package_name,
+                module_name,
+                version,
+                False,
+            )
+        else:
+            raise ex
+
+    return module
+
+
+def get_class(
+        key: str,
+        auto_install: bool,
+) -> (type, str, str):
+    r"""Load class."""
     if key.startswith(define.OBJECT_TAG):
         key = key[len(define.OBJECT_TAG):]
-    module_name, class_name, version = split_key(key)
+    package_name, module_name, class_name, version = split_key(key)
+    module = get_module(
+        package_name,
+        module_name,
+        version,
+        auto_install,
+    )
     installed_version = get_version(module_name)
-    module = importlib.import_module(module_name)
     return getattr(module, class_name), version, installed_version
 
 
@@ -119,6 +157,29 @@ def get_version(module_name: str) -> typing.Optional[str]:
         return None
 
 
+def install_package(
+        package_name: str,
+        version: typing.Optional[str],
+):
+    r"""Install package via pip."""
+    if version is not None:
+        package_name = f'{package_name}=={version}'
+    subprocess.check_call(
+        [
+            sys.executable,
+            '-m',
+            'pip',
+            'install',
+            package_name,
+        ]
+    )
+    # This function should be called if any modules
+    # are created/installed while your program is running
+    # to guarantee all finders will notice the new module’s existence.
+    # see https://docs.python.org/3/library/importlib.html
+    importlib.invalidate_caches()
+
+
 def is_class(value: typing.Any):
     r"""Check if value is a class."""
     if isinstance(value, str):
@@ -131,12 +192,13 @@ def is_class(value: typing.Any):
     return False
 
 
-def split_key(key: str) -> [str, str, typing.Optional[str]]:
-    r"""Split value key in module, class and version."""
+def split_key(key: str) -> [str, str, str, typing.Optional[str]]:
+    r"""Split value key in package, module, class and version."""
     version = None
     if define.VERSION_TAG in key:
         key, version = key.split(define.VERSION_TAG)
     tokens = key.split('.')
     module_name = '.'.join(tokens[:-1])
     class_name = tokens[-1]
-    return module_name, class_name, version
+    package_name = module_name.split('.')[0]
+    return package_name, module_name, class_name, version
