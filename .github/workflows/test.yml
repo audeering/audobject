@@ -28,6 +28,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Setup Ubuntu
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install libsndfile1 sox
+
     - name: Install dependencies
       run: |
         python -V
