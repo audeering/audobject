@@ -6,36 +6,25 @@ import pytest
 import audobject
 
 
-yaml_with_version = '''
-$opensmile.core.smile.Smile==2.4.1:
-  feature_set: ComParE_2016
-  feature_level: Functionals
-  options: {}
-  sampling_rate: null
-  channels:
-  - 0
-  mixdown: false
-  resample: false
+PACKAGE = 'audbackend'
+
+yaml_with_version = f'''
+${PACKAGE}.core.filesystem.FileSystem==0.3.12:
+  host: ~/host
+  repository: repo
 '''
 
-
-yaml_without_version = '''
-$opensmile.core.smile.Smile:
-  feature_set: ComParE_2016
-  feature_level: Functionals
-  options: {}
-  sampling_rate: null
-  channels:
-  - 0
-  mixdown: false
-  resample: false
+yaml_without_version = f'''
+{PACKAGE}.core.filesystem.FileSystem:
+  host: ~/host
+  repository: repo
 '''
 
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
     yield
-    # uninstall opensmile package...
+    # uninstall audbackend
     subprocess.check_call(
         [
             sys.executable,
@@ -43,13 +32,13 @@ def run_around_tests():
             'pip',
             'uninstall',
             '--yes',
-            'opensmile',
+            PACKAGE,
         ]
     )
-    # ...and remove from module cache
+    # remove from module cache
     remove = []
     for module in sys.modules:
-        if module.startswith('opensmile'):
+        if module.startswith(PACKAGE):
             remove.append(module)
     for module in remove:
         sys.modules.pop(module)
