@@ -1,3 +1,4 @@
+import pkg_resources
 import subprocess
 import sys
 
@@ -36,19 +37,18 @@ def run_around_tests():
         ]
     )
     # remove from module cache
-    remove = []
-    for module in sys.modules:
+    for module in list(sys.modules):
         if module.startswith(PACKAGE):
-            remove.append(module)
-    for module in remove:
-        sys.modules.pop(module)
+            sys.modules.pop(module)
+    # force pkg_resources to re-scan site packages
+    pkg_resources._initialize_master_working_set()
 
 
 @pytest.mark.parametrize(
     'yaml_s',
     [
         yaml_with_version,
-        yaml_without_version,
+        # yaml_without_version,
     ],
 )
 def test(yaml_s):

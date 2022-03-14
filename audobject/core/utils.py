@@ -6,6 +6,8 @@ import types
 import typing
 import warnings
 
+import audeer
+
 from audobject.core.config import config
 from audobject.core import define
 
@@ -39,9 +41,9 @@ def get_module(
         module = importlib.import_module(module_name)
     except ModuleNotFoundError as ex:
         if auto_install:
-            install_package(
+            audeer.install_package(
                 package_name,
-                version,
+                version=version,
             )
             return get_module(
                 package_name,
@@ -155,29 +157,6 @@ def get_version(module_name: str) -> typing.Optional[str]:
         return module.__version__
     else:
         return None
-
-
-def install_package(
-        package_name: str,
-        version: typing.Optional[str],
-):
-    r"""Install package via pip."""
-    if version is not None:
-        package_name = f'{package_name}=={version}'
-    subprocess.check_call(
-        [
-            sys.executable,
-            '-m',
-            'pip',
-            'install',
-            package_name,
-        ]
-    )
-    # This function should be called if any modules
-    # are created/installed while your program is running
-    # to guarantee all finders will notice the new module’s existence.
-    # see https://docs.python.org/3/library/importlib.html
-    importlib.invalidate_caches()
 
 
 def is_class(value: typing.Any):
