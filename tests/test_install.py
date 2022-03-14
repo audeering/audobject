@@ -48,7 +48,7 @@ def run_around_tests():
     'yaml_s',
     [
         yaml_with_version,
-        # yaml_without_version,
+        yaml_without_version,
     ],
 )
 def test(yaml_s):
