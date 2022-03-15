@@ -81,7 +81,7 @@ def from_yaml(
 
     Args:
         path_or_stream: file path or stream
-        auto_install: install missing packages
+        auto_install: install missing packages needed to create the object
             (requires that package and module name match)
         override_args: override arguments in the YAML file or
             default values of hidden arguments
