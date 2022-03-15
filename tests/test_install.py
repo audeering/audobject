@@ -57,6 +57,12 @@ def test(yaml_s):
             yaml_s,
             auto_install=False,
         )
+    # install missing packages
+    audobject.from_yaml_s(
+        yaml_s,
+        auto_install=True,
+    )
+    # also works if all packages are installed
     audobject.from_yaml_s(
         yaml_s,
         auto_install=True,
