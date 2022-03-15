@@ -2,6 +2,7 @@ import datetime
 
 
 OBJECT_TAG = '$'
+PACKAGE_TAG = ':'
 VERSION_TAG = '=='
 DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
 CUSTOM_VALUE_RESOLVERS = '_object_resolvers_'
