@@ -176,11 +176,12 @@ def split_key(key: str) -> [str, str, str, typing.Optional[str]]:
     version = None
     if define.VERSION_TAG in key:
         key, version = key.split(define.VERSION_TAG)
+    package_name = None
+    if define.PACKAGE_TAG in key:
+        package_name, key = key.split(define.PACKAGE_TAG)
     tokens = key.split('.')
     module_name = '.'.join(tokens[:-1])
     class_name = tokens[-1]
-    if define.PACKAGE_TAG in module_name:
-        package_name = module_name.split(define.PACKAGE_TAG)[0]
-    else:
-        package_name = module_name.split('.')[0]
+    if package_name is None:
+        package_name = tokens[0]
     return package_name, module_name, class_name, version
