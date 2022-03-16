@@ -16,9 +16,10 @@ from audobject.core import define
 
 def create_class_key(cls: type, include_version: bool) -> str:
     r"""Create class key."""
+
     key = define.OBJECT_TAG
 
-    # store package name if it differs from module name
+    # add package name (if different from module name)
     module_name = cls.__module__.split('.')[0]
     package_names = packages_distributions()
     if module_name in package_names:
@@ -29,7 +30,7 @@ def create_class_key(cls: type, include_version: bool) -> str:
     # add module and class name
     key += f'{cls.__module__}.{cls.__name__}'
 
-    # add version
+    # add version (if requested)
     if include_version:
         version = get_version(cls.__module__)
         if version is not None:
@@ -204,16 +205,26 @@ def is_class(value: typing.Any):
 
 
 def split_class_key(key: str) -> [str, str, str, typing.Optional[str]]:
-    r"""Split class key in package, module, class and version."""
+    r"""Split class key into package, module, class and version."""
+
     version = None
+
+    # split off version (if available)
     if define.VERSION_TAG in key:
         key, version = key.split(define.VERSION_TAG)
+
+    # split off package (if available)
     package_name = None
     if define.PACKAGE_TAG in key:
         package_name, key = key.split(define.PACKAGE_TAG)
+
+    # split off module and class name
     tokens = key.split('.')
     module_name = '.'.join(tokens[:-1])
     class_name = tokens[-1]
+
+    # if package name not given, set to module name
     if package_name is None:
         package_name = tokens[0]
+
     return package_name, module_name, class_name, version

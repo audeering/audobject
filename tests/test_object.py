@@ -1,12 +1,12 @@
 import os
 
-import audeer
-import yaml
 import pytest
+import yaml
 
+import audeer
 import audobject
-import audobject.testing
 import audobject.core.utils as utils
+import audobject.testing
 
 
 @pytest.mark.parametrize(
