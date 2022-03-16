@@ -19,7 +19,7 @@ def create_class_key(cls: type, include_version: bool) -> str:
     key = define.OBJECT_TAG
 
     # store package name if it differs from module name
-    module_name = cls.__class__.__module__.split('.')[0]
+    module_name = cls.__module__.split('.')[0]
     package_names = packages_distributions()
     if module_name in package_names:
         package_name = package_names[module_name][0]
@@ -27,17 +27,17 @@ def create_class_key(cls: type, include_version: bool) -> str:
             key += f'{package_name}{define.PACKAGE_TAG}'
 
     # add module and class name
-    key += f'{cls.__class__.__module__}.{cls.__class__.__name__}'
+    key += f'{cls.__module__}.{cls.__name__}'
 
     # add version
     if include_version:
-        version = get_version(cls.__class__.__module__)
+        version = get_version(cls.__module__)
         if version is not None:
             key += f'{define.VERSION_TAG}{version}'
         else:
             warnings.warn(
                 f"Could not determine a version for "
-                f"module '{cls.__class__.__module__}'.",
+                f"module '{cls.__module__}'.",
                 RuntimeWarning,
             )
 

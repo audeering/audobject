@@ -1,9 +1,12 @@
 import os
 
+import audeer
+import yaml
 import pytest
 
 import audobject
 import audobject.testing
+import audobject.core.utils as utils
 
 
 @pytest.mark.parametrize(
@@ -87,6 +90,35 @@ def test_borrowed():
     assert o2.point.x == x
     assert o2.point.y == y
     assert o.d['z'] == z
+
+
+@pytest.mark.parametrize(
+    'cls, include_version, expected',
+    [
+        (
+            audeer.LooseVersion,
+            False,
+            '$audeer.core.version.LooseVersion',
+        ),
+        (
+            audeer.LooseVersion,
+            True,
+            f'$audeer.core.version.LooseVersion=={audeer.__version__}',
+        ),
+        (
+            yaml.Loader,
+            False,
+            '$PyYAML:yaml.loader.Loader',
+        ),
+        (
+            yaml.Loader,
+            True,
+            f'$PyYAML:yaml.loader.Loader=={yaml.__version__}',
+        ),
+    ]
+)
+def test_create_class_key(cls, include_version, expected):
+    assert utils.create_class_key(cls, include_version) == expected
 
 
 @pytest.mark.parametrize(

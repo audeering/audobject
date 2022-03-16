@@ -242,7 +242,7 @@ class Object:
             {'name': 'test', 'point.0': 1, 'point.1': 1}
 
         """  # noqa: E501
-        name = utils.create_class_key(self, include_version)
+        name = utils.create_class_key(self.__class__, include_version)
 
         d = {
             key: self._encode_variable(
