@@ -124,7 +124,7 @@ def test_borrowed():
 def test_class_key(cls, package, include_version, expected):
     key = utils.create_class_key(cls, include_version)
     assert key == expected
-    p, m, c, v = utils.split_class_key(key[1:])
+    p, m, c, v = utils.split_class_key(key)
     if include_version:
         assert expected.endswith(f'{m}.{c}=={v}')
     else:

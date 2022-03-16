@@ -15,8 +15,19 @@ from audobject.core import define
 
 
 def create_class_key(cls: type, include_version: bool) -> str:
-    r"""Create class key."""
+    r"""Create class key.
 
+    Convert class into a string that encodes
+    package, module, class name and possibly version.
+    Package name is ommited if it matches the module.
+
+    Examples:
+
+    - $audeer.core.version.LooseVersion
+    - $audeer.core.version.LooseVersion==1.18.0
+    - $PyYAML:yaml.loader.Loader
+
+    """
     key = define.OBJECT_TAG
 
     # add package name (if different from module name)
@@ -50,8 +61,6 @@ def get_class(
         auto_install: bool,
 ) -> (type, str, str):
     r"""Load class."""
-    if key.startswith(define.OBJECT_TAG):
-        key = key[len(define.OBJECT_TAG):]
     package_name, module_name, class_name, version = split_class_key(key)
     module = get_module(
         package_name,
@@ -205,9 +214,21 @@ def is_class(value: typing.Any):
 
 
 def split_class_key(key: str) -> [str, str, str, typing.Optional[str]]:
-    r"""Split class key into package, module, class and version."""
+    r"""Split class key into package, module, class and version.
 
+    Expects a key in the format output by create_class_key().
+    If package is not encoded,
+    the module name is returned.
+    If version is not encoded,
+    None is returned.
+    Leading $ can be omitted.
+
+    """
     version = None
+
+    # possibly remove leading $
+    if key.startswith(define.OBJECT_TAG):
+        key = key[len(define.OBJECT_TAG):]
 
     # split off version (if available)
     if define.VERSION_TAG in key:
