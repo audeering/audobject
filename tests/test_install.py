@@ -16,7 +16,13 @@ ${PACKAGE}.core.filesystem.FileSystem==0.3.12:
 '''
 
 yaml_without_version = f'''
-{PACKAGE}.core.filesystem.FileSystem:
+${PACKAGE}.core.filesystem.FileSystem:
+  host: ~/host
+  repository: repo
+'''
+
+yaml_with_package = f'''
+${PACKAGE}:{PACKAGE}.core.filesystem.FileSystem:
   host: ~/host
   repository: repo
 '''
@@ -49,6 +55,7 @@ def run_around_tests():
     [
         yaml_with_version,
         yaml_without_version,
+        yaml_with_package,
     ],
 )
 def test(yaml_s):

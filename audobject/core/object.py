@@ -4,7 +4,6 @@ import os
 import typing
 import warnings
 
-from importlib_metadata import packages_distributions
 import oyaml as yaml
 
 import audeer
@@ -243,28 +242,7 @@ class Object:
             {'name': 'test', 'point.0': 1, 'point.1': 1}
 
         """  # noqa: E501
-        name = define.OBJECT_TAG
-
-        # store package name if it differs from module name
-        module_name = self.__class__.__module__.split('.')[0]
-        package_names = packages_distributions()
-        if module_name in package_names:
-            package_name = package_names[module_name][0]
-            if package_name != module_name:
-                name += f'{package_name}{define.PACKAGE_TAG}'
-
-        name += f'{self.__class__.__module__}.{self.__class__.__name__}'
-
-        if include_version:
-            version = utils.get_version(self.__class__.__module__)
-            if version is not None:
-                name += f'{define.VERSION_TAG}{version}'
-            else:
-                warnings.warn(
-                    f"Could not determine a version for "
-                    f"module '{self.__class__.__module__}'.",
-                    RuntimeWarning,
-                )
+        name = utils.create_class_key(self, include_version)
 
         d = {
             key: self._encode_variable(

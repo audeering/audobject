@@ -6,10 +6,42 @@ import types
 import typing
 import warnings
 
+from importlib_metadata import packages_distributions
+
 import audeer
 
 from audobject.core.config import config
 from audobject.core import define
+
+
+def create_class_key(cls: type, include_version: bool) -> str:
+    r"""Create class key."""
+    key = define.OBJECT_TAG
+
+    # store package name if it differs from module name
+    module_name = cls.__class__.__module__.split('.')[0]
+    package_names = packages_distributions()
+    if module_name in package_names:
+        package_name = package_names[module_name][0]
+        if package_name != module_name:
+            key += f'{package_name}{define.PACKAGE_TAG}'
+
+    # add module and class name
+    key += f'{cls.__class__.__module__}.{cls.__class__.__name__}'
+
+    # add version
+    if include_version:
+        version = get_version(cls.__class__.__module__)
+        if version is not None:
+            key += f'{define.VERSION_TAG}{version}'
+        else:
+            warnings.warn(
+                f"Could not determine a version for "
+                f"module '{cls.__class__.__module__}'.",
+                RuntimeWarning,
+            )
+
+    return key
 
 
 def get_class(
@@ -19,7 +51,7 @@ def get_class(
     r"""Load class."""
     if key.startswith(define.OBJECT_TAG):
         key = key[len(define.OBJECT_TAG):]
-    package_name, module_name, class_name, version = split_key(key)
+    package_name, module_name, class_name, version = split_class_key(key)
     module = get_module(
         package_name,
         module_name,
@@ -171,8 +203,8 @@ def is_class(value: typing.Any):
     return False
 
 
-def split_key(key: str) -> [str, str, str, typing.Optional[str]]:
-    r"""Split value key in package, module, class and version."""
+def split_class_key(key: str) -> [str, str, str, typing.Optional[str]]:
+    r"""Split class key in package, module, class and version."""
     version = None
     if define.VERSION_TAG in key:
         key, version = key.split(define.VERSION_TAG)
