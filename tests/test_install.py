@@ -7,58 +7,58 @@ import pytest
 import audobject
 
 
-PACKAGE = 'audbackend'
-
-yaml_with_version = f'''
-${PACKAGE}.core.filesystem.FileSystem==0.3.12:
-  host: ~/host
-  repository: repo
-'''
-
-yaml_without_version = f'''
-${PACKAGE}.core.filesystem.FileSystem:
-  host: ~/host
-  repository: repo
-'''
-
-yaml_with_package = f'''
-${PACKAGE}:{PACKAGE}.core.filesystem.FileSystem:
-  host: ~/host
-  repository: repo
-'''
-
-
-@pytest.fixture(autouse=True)
-def run_around_tests():
-    yield
-    # uninstall audbackend
+def uninstall(
+    package: str,
+    module: str,
+):
+    # uninstall package and dependencies
     subprocess.check_call(
         [
-            sys.executable,
-            '-m',
-            'pip',
-            'uninstall',
+            'pip-autoremove',
             '--yes',
-            PACKAGE,
+            package,
         ]
     )
-    # remove from module cache
-    for module in list(sys.modules):
-        if module.startswith(PACKAGE):
-            sys.modules.pop(module)
+    # remove module
+    for m in list(sys.modules):
+        if m.startswith(package):
+            sys.modules.pop(m)
     # force pkg_resources to re-scan site packages
     pkg_resources._initialize_master_working_set()
 
 
 @pytest.mark.parametrize(
-    'yaml_s',
+    'yaml_s, package, module',
     [
-        yaml_with_version,
-        yaml_without_version,
-        yaml_with_package,
+        (  # package and module do not match
+            '''
+            $dohq-artifactory:artifactory.ArtifactoryPath:
+              token: token
+            ''',
+            'dohq-artifactory',
+            'artifactory',
+        ),
+        (  # package and module match
+            '''
+            $audbackend.core.filesystem.FileSystem:
+              host: ~/host
+              repository: repo
+            ''',
+            'audbackend',
+            'audbackend',
+        ),
+        (  # with package version
+            '''
+            $audbackend.core.filesystem.FileSystem==0.3.12:
+              host: ~/host
+              repository: repo
+            ''',
+            'audbackend',
+            'audbackend',
+        ),
     ],
 )
-def test(yaml_s):
+def test(yaml_s, package, module):
     with pytest.raises(ModuleNotFoundError):
         audobject.from_yaml_s(
             yaml_s,
@@ -69,8 +69,10 @@ def test(yaml_s):
         yaml_s,
         auto_install=True,
     )
-    # also works if all packages are installed
+    # still works when packages are installed
     audobject.from_yaml_s(
         yaml_s,
         auto_install=True,
     )
+    # uninstall package
+    uninstall(package, module)
