@@ -93,32 +93,44 @@ def test_borrowed():
 
 
 @pytest.mark.parametrize(
-    'cls, include_version, expected',
+    'cls, package, include_version, expected',
     [
         (
             audeer.LooseVersion,
+            'audeer',
             False,
             '$audeer.core.version.LooseVersion',
         ),
         (
             audeer.LooseVersion,
+            'audeer',
             True,
             f'$audeer.core.version.LooseVersion=={audeer.__version__}',
         ),
         (
             yaml.Loader,
+            'PyYAML',
             False,
             '$PyYAML:yaml.loader.Loader',
         ),
         (
             yaml.Loader,
+            'PyYAML',
             True,
             f'$PyYAML:yaml.loader.Loader=={yaml.__version__}',
         ),
     ]
 )
-def test_create_class_key(cls, include_version, expected):
-    assert utils.create_class_key(cls, include_version) == expected
+def test_class_key(cls, package, include_version, expected):
+    key = utils.create_class_key(cls, include_version)
+    assert key == expected
+    p, m, c, v = utils.split_class_key(key[1:])
+    if include_version:
+        assert expected.endswith(f'{m}.{c}=={v}')
+    else:
+        assert v is None
+        assert expected.endswith(f'{m}.{c}')
+    assert p == package
 
 
 @pytest.mark.parametrize(
