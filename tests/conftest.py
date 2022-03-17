@@ -1,4 +1,7 @@
+import pkg_resources
 import pytest
+import subprocess
+import sys
 
 import audobject
 
@@ -33,3 +36,33 @@ pytest.PARAMETERS = audobject.Parameters(
         default_value=False,
     ),
 )
+
+
+def uninstall(
+    package: str,
+    module: str,
+):
+    # uninstall package
+    subprocess.check_call(
+        [
+            sys.executable,
+            '-m',
+            'pip',
+            'uninstall',
+            '--yes',
+            package,
+        ]
+    )
+    # remove module
+    for m in list(sys.modules):
+        if m.startswith(package):
+            sys.modules.pop(m)
+    # force pkg_resources to re-scan site packages
+    pkg_resources._initialize_master_working_set()
+
+
+@pytest.fixture(scope='session', autouse=True)
+def cleanup():
+    yield
+    # uninstall package temporarily installed by test_install.py
+    uninstall('dohq-artifactory', 'artifactory')
