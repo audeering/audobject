@@ -242,20 +242,7 @@ class Object:
             {'name': 'test', 'point.0': 1, 'point.1': 1}
 
         """  # noqa: E501
-        name = f'{define.OBJECT_TAG}' \
-               f'{self.__class__.__module__}.' \
-               f'{self.__class__.__name__}'
-
-        if include_version:
-            version = utils.get_version(self.__class__.__module__)
-            if version is not None:
-                name += f'{define.VERSION_TAG}{version}'
-            else:
-                warnings.warn(
-                    f"Could not determine a version for "
-                    f"module '{self.__class__.__module__}'.",
-                    RuntimeWarning,
-                )
+        name = utils.create_class_key(self.__class__, include_version)
 
         d = {
             key: self._encode_variable(
