@@ -3,6 +3,12 @@ audobject.define
 
 .. automodule:: audobject.define
 
+PackageMismatchWarnLevel
+------------------------
+
+.. autoclass:: PackageMismatchWarnLevel
+    :members:
+    :undoc-members:
 
 SignatureMismatchWarnLevel
 --------------------------
