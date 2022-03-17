@@ -11,10 +11,13 @@ def uninstall(
     package: str,
     module: str,
 ):
-    # uninstall package and dependencies
+    # uninstall package
     subprocess.check_call(
         [
-            'pip-autoremove',
+            sys.executable,
+            '-m',
+            'pip',
+            'uninstall',
             '--yes',
             package,
         ]
