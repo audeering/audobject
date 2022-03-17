@@ -10,8 +10,8 @@ from importlib_metadata import packages_distributions
 
 import audeer
 
-from audobject.core.config import config
 from audobject.core import define
+from audobject.core.config import config
 
 
 def create_class_key(cls: type, include_version: bool) -> str:
