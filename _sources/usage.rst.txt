@@ -858,6 +858,32 @@ And convert it to YAML.
     o_yaml = o.to_yaml_s()
     print(o_yaml)
 
+Loading it with a newer version of the package
+works without problems.
+
+.. jupyter-execute::
+
+    __version__ = '1.1.0'
+
+    o2 = audobject.from_yaml_s(o_yaml)
+    print(o2)
+
+But if we load it with an older version,
+a warning will be shown.
+We can force it to show no warning at all,
+or always show a warning
+when the package version does not match
+by adjusting
+:attr:`audobject.config.PACKAGE_MISMATCH_WARN_LEVEL`.
+
+.. jupyter-execute::
+    :stderr:
+
+    __version__ = '0.9.0'
+
+    o3 = audobject.from_yaml_s(o_yaml)
+    print(o3)
+
 Now we pretend that we update the package to ``2.0.0``.
 It includes a new version of ``MyObject``,
 with a slightly changed ``__str__`` function.
@@ -887,8 +913,8 @@ the strings are now separated by comma.
 
 .. jupyter-execute::
 
-    o2 = audobject.from_yaml_s(o_yaml)
-    print(o2)
+    o3 = audobject.from_yaml_s(o_yaml)
+    print(o3)
 
 In the next release, we decide to introduce an argument
 that let the user set a custom delimiter.
@@ -953,23 +979,23 @@ It works, because it now has a default value for the missing argument.
 
 .. jupyter-execute::
 
-    o3 = audobject.from_yaml_s(o_yaml)
-    print(o3)
+    o4 = audobject.from_yaml_s(o_yaml)
+    print(o4)
 
 Finally, we will do it the other way round.
 Create an object with version ``2.1.1``.
 
 .. jupyter-execute::
 
-    o4 = MyObject('I am a 2.1.1!', num_repeat=2)
-    print(o4)
+    o5 = MyObject('I am a 2.1.1!', num_repeat=2)
+    print(o5)
 
 Convert it to YAML.
 
 .. jupyter-execute::
 
-    o4_yaml = o4.to_yaml_s()
-    print(o4_yaml)
+    o5_yaml = o5.to_yaml_s()
+    print(o5_yaml)
 
 And load it with ``1.0.0``.
 
@@ -992,8 +1018,8 @@ And load it with ``1.0.0``.
         def __str__(self) -> str:
             return ' '.join([self.string] * self.num_repeat)
 
-    o5 = audobject.from_yaml_s(o4_yaml)
-    print(o5)
+    o6 = audobject.from_yaml_s(o5_yaml)
+    print(o6)
 
 In fact, it works, too.
 However, a warning is given that an argument was ignored.

@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                v0.6.2
+                v0.7.0
               </div>
             
           
@@ -111,6 +111,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-0-7-0-2022-03-18">Version 0.7.0 (2022-03-18)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-6-2-2022-01-04">Version 0.6.2 (2022-01-04)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-6-1-2021-10-26">Version 0.6.1 (2021-10-26)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-0-6-0-2021-10-08">Version 0.6.0 (2021-10-08)</a></li>
@@ -180,6 +181,22 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<div class="section" id="version-0-7-0-2022-03-18">
+<h2>Version 0.7.0 (2022-03-18)<a class="headerlink" href="#version-0-7-0-2022-03-18" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Added: argument <code class="docutils literal notranslate"><span class="pre">auto_install</span></code> to
+<code class="docutils literal notranslate"><span class="pre">audobject.from_dict()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">audobject.from_yaml()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">audobject.from_yaml_s()</span></code></p></li>
+<li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.define.PackageMismatchWarnLevel</span></code></p></li>
+<li><p>Added: <code class="docutils literal notranslate"><span class="pre">audobject.config.PACKAGE_MISMATCH_WARN_LEVEL</span></code></p></li>
+<li><p>Changed: store package in YAML if it does not match module</p></li>
+<li><p>Changed: by default raises warning if required package
+has a newer version than the installed one</p></li>
+<li><p>Removed: deprecation warning for <code class="docutils literal notranslate"><span class="pre">ignore_vars</span></code>
+from <code class="docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></p></li>
+</ul>
+</div>
 <div class="section" id="version-0-6-2-2022-01-04">
 <h2>Version 0.6.2 (2022-01-04)<a class="headerlink" href="#version-0-6-2-2022-01-04" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -404,7 +421,7 @@ before calling <code class="docutils literal notranslate"><span class="pre">__in
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/18 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -444,7 +461,7 @@ before calling <code class="docutils literal notranslate"><span class="pre">__in
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     
 
   

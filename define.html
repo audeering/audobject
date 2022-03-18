@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.6.2
+                v0.7.0
               </div>
             
           
@@ -104,6 +104,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">audobject</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">audobject.define</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#packagemismatchwarnlevel">PackageMismatchWarnLevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#signaturemismatchwarnlevel">SignatureMismatchWarnLevel</a></li>
 </ul>
 </li>
@@ -153,6 +154,38 @@
             
   <div class="section" id="module-audobject.define">
 <span id="audobject-define"></span><h1>audobject.define<a class="headerlink" href="#module-audobject.define" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="packagemismatchwarnlevel">
+<h2>PackageMismatchWarnLevel<a class="headerlink" href="#packagemismatchwarnlevel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="audobject.define.PackageMismatchWarnLevel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">audobject.define.</span></span><span class="sig-name descname"><span class="pre">PackageMismatchWarnLevel</span></span><a class="reference internal" href="_modules/audobject/core/define.html#PackageMismatchWarnLevel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.define.PackageMismatchWarnLevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls verbosity for package mismatch.</p>
+<p>A package mismatch might occur
+if the current installed version of a package
+does not match the version an object
+was generated with.</p>
+<p>Set via <a class="reference internal" href="api.html#audobject.config" title="audobject.config"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.config</span></code></a>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="audobject.define.PackageMismatchWarnLevel.SILENT">
+<span class="sig-name descname"><span class="pre">SILENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#audobject.define.PackageMismatchWarnLevel.SILENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>no warnings</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="audobject.define.PackageMismatchWarnLevel.STANDARD">
+<span class="sig-name descname"><span class="pre">STANDARD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#audobject.define.PackageMismatchWarnLevel.STANDARD" title="Permalink to this definition">¶</a></dt>
+<dd><p>only warn when installed version is older</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="audobject.define.PackageMismatchWarnLevel.VERBOSE">
+<span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#audobject.define.PackageMismatchWarnLevel.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>warn when versions do not match</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="signaturemismatchwarnlevel">
 <h2>SignatureMismatchWarnLevel<a class="headerlink" href="#signaturemismatchwarnlevel" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -209,7 +242,7 @@ it was generated with.</p>
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/18 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -249,7 +282,7 @@ it was generated with.</p>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     
 
   

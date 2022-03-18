@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.6.2
+                v0.7.0
               </div>
             
           
@@ -391,20 +391,7 @@
 <span class="sd">            {&#39;name&#39;: &#39;test&#39;, &#39;point.0&#39;: 1, &#39;point.1&#39;: 1}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">define</span><span class="o">.</span><span class="n">OBJECT_TAG</span><span class="si">}</span><span class="s1">&#39;</span> \
-               <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s1">.&#39;</span> \
-               <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&#39;</span>
-
-        <span class="k">if</span> <span class="n">include_version</span><span class="p">:</span>
-            <span class="n">version</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">define</span><span class="o">.</span><span class="n">VERSION_TAG</span><span class="si">}{</span><span class="n">version</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Could not determine a version for &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;module &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">,</span>
-                    <span class="ne">RuntimeWarning</span><span class="p">,</span>
-                <span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">create_class_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_variable</span><span class="p">(</span>
@@ -588,7 +575,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/18 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -628,7 +615,7 @@
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     
 
   

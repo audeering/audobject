@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.6.2
+                v0.7.0
               </div>
             
           
@@ -444,31 +444,56 @@ from YAML, we’ll get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1884</span><span class="o">/</span><span class="mf">2990185952.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [17],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">to_yaml_s</span><span class="nt">(self, include_version)</span>
-<span class="g g-Whitespace">    </span><span class="mi">322</span> 
-<span class="g g-Whitespace">    </span><span class="mi">323</span>         <span class="s2">&quot;&quot;&quot;  # noqa: E501</span>
-<span class="ne">--&gt; </span><span class="mi">324</span><span class="s2">         return yaml.dump(self.to_dict(include_version=include_version))</span>
-<span class="g g-Whitespace">    </span><span class="mi">325</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">326</span><span class="s2">     def _encode_variable(</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:311,</span> in <span class="ni">Object.to_yaml_s</span><span class="nt">(self, include_version)</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span>         <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">289</span>         <span class="o">*</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">290</span>         <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">291</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">292</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
+<span class="g g-Whitespace">    </span><span class="mi">293</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">294</span><span class="sd">     Args:</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">309</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">310</span><span class="sd">     &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="ne">--&gt; </span><span class="mi">311</span>     <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
-<span class="g g-Whitespace">    </span><span class="mi">265</span><span class="s2">                 root,</span>
-<span class="g g-Whitespace">    </span><span class="mi">266</span><span class="s2">             )</span>
-<span class="nn">--&gt; 267             for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">268</span><span class="s2">         }</span>
-<span class="g g-Whitespace">    </span><span class="mi">269</span><span class="s2"> </span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:254,</span> in <span class="ni">Object.to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span> <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span><span class="sd"> Includes items from :meth:`audobject.Object.arguments`.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">243</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span> <span class="n">name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">create_class_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_variable</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span>         <span class="n">key</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="n">value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">251</span>         <span class="n">include_version</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">252</span>         <span class="n">root</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">253</span>     <span class="p">)</span>
+<span class="nn">--&gt; 254     for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span> <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">flatten</span> <span class="k">else</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/object.py</span> in <span class="ni">arguments</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">     </span><span class="mi">72</span><span class="s2">                 missing.append(name)</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span><span class="s2">         if len(missing) &gt; 0:</span>
-<span class="ne">---&gt; </span><span class="mi">74</span><span class="s2">             raise RuntimeError(</span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="s2">                 &#39;Arguments &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span><span class="s2">                 f&#39;</span><span class="si">{missing}</span><span class="s2"> &#39;</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:74,</span> in <span class="ni">Object.arguments</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>         <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">74</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>         <span class="s1">&#39;Arguments &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1"> &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span>         <span class="s1">&#39;of &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1"> &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>         <span class="s1">&#39;not assigned to attributes of same name.&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span> <span class="c1"># check borrowed attributes</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 
 <span class="ne">RuntimeError</span>: Arguments [&#39;string&#39;, &#39;num_repeat&#39;] of &lt;class &#39;__main__.MyBadObject&#39;&gt; not assigned to attributes of same name.
 </pre></div>
@@ -672,9 +697,7 @@ to add properties with the name of an argument.</p>
   x: 0
   y: 1
   z: 2
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+
 </pre></div>
 </div>
 </div>
@@ -806,9 +829,7 @@ of ignored arguments.</p>
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
   string: I have kwargs
   num_repeat: 1
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+
 </pre></div>
 </div>
 </div>
@@ -967,7 +988,7 @@ we’ll see a warning.</p>
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:367: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:354: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
   warnings.warn(
 </pre>
 </div>
@@ -1477,10 +1498,52 @@ with a different package version?</p>
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObject==1.0.0:
   string: I am a 1.0.0!
   num_repeat: 2
+
 </pre></div>
 </div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+</div>
+</div>
+<p>Loading it with a newer version of the package
+works without problems.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.1.0&#39;</span>
+
+<span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 1.0.0! I am a 1.0.0!
+</pre></div>
+</div>
+</div>
+</div>
+<p>But if we load it with an older version,
+a warning will be shown.
+We can force it to show no warning at all,
+or always show a warning
+when the package version does not match
+by adjusting
+<a class="reference internal" href="api.html#audobject.config.PACKAGE_MISMATCH_WARN_LEVEL" title="audobject.config.PACKAGE_MISMATCH_WARN_LEVEL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">audobject.config.PACKAGE_MISMATCH_WARN_LEVEL</span></code></a>.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.9.0&#39;</span>
+
+<span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I am a 1.0.0! I am a 1.0.0!
+</pre></div>
+</div>
+<div class="stderr docutils container">
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:88: RuntimeWarning: Instantiating __main__.MyObject from version '1.0.0' when using version '0.9.0'.
+  warnings.warn(
+</pre>
 </div>
 </div>
 </div>
@@ -1516,8 +1579,8 @@ However, when we print the object
 the strings are now separated by comma.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1567,29 +1630,47 @@ for the new argument.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1884</span><span class="o">/</span><span class="mf">3047746122.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [66],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/api.py</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, override_args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span>             <span class="n">override_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-<span class="g g-Whitespace">    </span><span class="mi">132</span> 
-<span class="ne">--&gt; </span><span class="mi">133</span>     <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">134</span>         <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">135</span>         <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">,</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/api.py:146,</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, auto_install, override_args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span>         <span class="n">override_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+<span class="ne">--&gt; </span><span class="mi">146</span> <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">147</span>     <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="n">auto_install</span><span class="o">=</span><span class="n">auto_install</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="p">)</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/api.py</span> in <span class="ni">from_dict</span><span class="nt">(d, root, override_args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span>     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>         <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_decode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">override_args</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">57</span>     <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span>         <span class="bp">cls</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">59</span>         <span class="n">version</span><span class="p">,</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/api.py:63,</span> in <span class="ni">from_dict</span><span class="nt">(d, root, auto_install, override_args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>     <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_decode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">override_args</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">63</span> <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="bp">cls</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="n">version</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span>     <span class="n">installed_version</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="n">params</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="n">root</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>     <span class="n">override_args</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span> <span class="p">)</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/utils.py</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, override_args)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span>     <span class="n">missing_required_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">required_params</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_required_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">45</span>         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>             <span class="sa">f</span><span class="s2">&quot;Missing mandatory arguments &quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span>             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">missing_required_params</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/utils.py:150,</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, override_args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="n">missing_required_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">required_params</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_required_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">150</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="sa">f</span><span class="s2">&quot;Missing mandatory arguments &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">missing_required_params</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">153</span>         <span class="sa">f</span><span class="s2">&quot;while instantiating </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2"> from &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&#39; when using &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">installed_version</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">156</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span> <span class="c1"># check for missing optional arguments</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span> <span class="n">optional_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>
+<span class="nn">    160     p.name for p</span> in <span class="ni">signature.parameters.values</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span>     <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span> <span class="o">!=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span>         <span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>     <span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span> <span class="p">])</span>
 
 <span class="ne">RuntimeError</span>: Missing mandatory arguments [&#39;delimiter&#39;] while instantiating &lt;class &#39;__main__.MyObject&#39;&gt; from version &#39;1.0.0&#39; when using version &#39;2.1.0&#39;.
 </pre></div>
@@ -1628,8 +1709,8 @@ where we initialize the new argument with a default value.</p>
 It works, because it now has a default value for the missing argument.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1643,8 +1724,8 @@ It works, because it now has a default value for the missing argument.</p>
 Create an object with version <code class="docutils literal notranslate"><span class="pre">2.1.1</span></code>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 2.1.1!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o4</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o5</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 2.1.1!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1657,8 +1738,8 @@ Create an object with version <code class="docutils literal notranslate"><span c
 <p>Convert it to YAML.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4_yaml</span> <span class="o">=</span> <span class="n">o4</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o4_yaml</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o5_yaml</span> <span class="o">=</span> <span class="n">o5</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o5_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1691,8 +1772,8 @@ Create an object with version <code class="docutils literal notranslate"><span c
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
 
-<span class="n">o5</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o4_yaml</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o5</span><span class="p">)</span>
+<span class="n">o6</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o5_yaml</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1701,7 +1782,9 @@ Create an object with version <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:79: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:88: RuntimeWarning: Instantiating __main__.MyObject from version '2.1.1' when using version '1.0.0'.
+  warnings.warn(
+/home/runner/work/audobject/audobject/audobject/core/utils.py:184: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
   warnings.warn(
 </pre>
 </div>
@@ -1936,29 +2019,35 @@ we will get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1884</span><span class="o">/</span><span class="mf">1473800148.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [81],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">303</span>     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span>         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-<span class="ne">--&gt; </span><span class="mi">305</span>         <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">306</span> 
-<span class="g g-Whitespace">    </span><span class="mi">307</span>     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:305,</span> in <span class="ni">Parameters.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">303</span> <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span>     <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">305</span>     <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">set_value</span><span class="nt">(self, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span> 
-<span class="g g-Whitespace">    </span><span class="mi">129</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">130</span><span class="s2">         self._check_value(value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span><span class="s2">         self.value = value</span>
-<span class="g g-Whitespace">    </span><span class="mi">132</span><span class="s2"> </span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:130,</span> in <span class="ni">Parameter.set_value</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets a new value.</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="sd">     Applies additional checks, e.g. if value is of the expected type.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">130</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span>     <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-<span class="nn">~/work/audobject/audobject/audobject/core/parameter.py</span> in <span class="ni">_check_value</span><span class="nt">(self, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">139</span><span class="s2">             )</span>
-<span class="g g-Whitespace">    </span><span class="mi">140</span><span class="s2">         if self.choices is not None and value not in self.choices:</span>
-<span class="ne">--&gt; </span><span class="mi">141</span><span class="s2">             raise ValueError(</span>
-<span class="g g-Whitespace">    </span><span class="mi">142</span><span class="s2">                 f&quot;Invalid value &#39;</span><span class="si">{value}</span><span class="s2">&#39;, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span><span class="s2">                 f&quot;expected one of </span><span class="si">{self.choices}</span><span class="s2">.&quot;</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:141,</span> in <span class="ni">Parameter._check_value</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span>         <span class="sa">f</span><span class="s2">&quot;Invalid type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="sa">f</span><span class="s2">&quot;expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value_type</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">141</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>         <span class="sa">f</span><span class="s2">&quot;Invalid value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span>         <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span>     <span class="p">)</span>
 
 <span class="ne">ValueError</span>: Invalid value &#39;par&#39;, expected one of [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;].
 </pre></div>
@@ -2134,7 +2223,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/18 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -2174,7 +2263,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     
 
   

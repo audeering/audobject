@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.6.2
+                v0.7.0
               </div>
             
           
@@ -151,12 +151,32 @@
 
 
 <span class="n">OBJECT_TAG</span> <span class="o">=</span> <span class="s1">&#39;$&#39;</span>
+<span class="n">PACKAGE_TAG</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span>
 <span class="n">VERSION_TAG</span> <span class="o">=</span> <span class="s1">&#39;==&#39;</span>
 <span class="n">DEFAULT_VALUE_TYPES</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span>
 <span class="n">CUSTOM_VALUE_RESOLVERS</span> <span class="o">=</span> <span class="s1">&#39;_object_resolvers_&#39;</span>
 <span class="n">BORROWED_ATTRIBUTES</span> <span class="o">=</span> <span class="s1">&#39;_object_borrowed_&#39;</span>
 <span class="n">HIDDEN_ATTRIBUTES</span> <span class="o">=</span> <span class="s1">&#39;_object_hidden_&#39;</span>
 <span class="n">ROOT_ATTRIBUTE</span> <span class="o">=</span> <span class="s1">&#39;_object_root_&#39;</span>
+
+
+<div class="viewcode-block" id="PackageMismatchWarnLevel"><a class="viewcode-back" href="../../../define.html#audobject.define.PackageMismatchWarnLevel">[docs]</a><span class="k">class</span> <span class="nc">PackageMismatchWarnLevel</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Controls verbosity for package mismatch.</span>
+
+<span class="sd">    A package mismatch might occur</span>
+<span class="sd">    if the current installed version of a package</span>
+<span class="sd">    does not match the version an object</span>
+<span class="sd">    was generated with.</span>
+
+<span class="sd">    Set via :class:`audobject.config`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">SILENT</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;no warnings&quot;&quot;&quot;</span>
+    <span class="n">STANDARD</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;only warn when installed version is older&quot;&quot;&quot;</span>
+    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;warn when versions do not match&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="SignatureMismatchWarnLevel"><a class="viewcode-back" href="../../../define.html#audobject.define.SignatureMismatchWarnLevel">[docs]</a><span class="k">class</span> <span class="nc">SignatureMismatchWarnLevel</span><span class="p">:</span>
@@ -190,7 +210,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/01/04 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/18 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -230,7 +250,7 @@
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     
 
   
