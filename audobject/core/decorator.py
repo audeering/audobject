@@ -8,11 +8,6 @@ from audobject.core import define
 from audobject.core import resolver
 
 
-@audeer.deprecated_keyword_argument(
-    deprecated_argument='ignore_vars',
-    removal_version='0.5.0',
-    new_argument='hide',
-)
 def init_decorator(
         *,
         borrow: typing.Dict[str, str] = None,
