@@ -27,15 +27,17 @@ from conftest import uninstall
             'audbackend',
             'audbackend',
         ),
-        (  # with package version
-            '''
-            $audbackend.core.filesystem.FileSystem==0.3.12:
-              host: ~/host
-              repository: repo
+        (  # with package version and as nested object
+            '''$audobject.core.testing.TestObject:
+              name: test
+              backend:
+                $audbackend.core.filesystem.FileSystem==0.3.12:
+                  host: ~/host
+                  repository: repo
             ''',
             'audbackend',
             'audbackend',
-        ),
+        )
     ],
 )
 def test(tmpdir, yaml_s, package, module):
