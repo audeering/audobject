@@ -21,7 +21,6 @@ def from_dict(
         d: dictionary representing the object
         root: if dictionary was read from a file, set to source directory
         auto_install: install missing packages needed to create the object
-            (requires that package and module name match)
         override_args: override arguments in ``d`` or
             default values of hidden arguments
 
@@ -64,7 +63,6 @@ def from_yaml(
     Args:
         path_or_stream: file path or stream
         auto_install: install missing packages needed to create the object
-            (requires that package and module name match)
         override_args: override arguments in the YAML file or
             default values of hidden arguments
 
@@ -96,7 +94,6 @@ def from_yaml_s(
     Args:
         yaml_string: YAML string
         auto_install: install missing packages needed to create the object
-            (requires that package and module name match)
         override_args: override arguments in the YAML string or
             default values of hidden arguments
 
