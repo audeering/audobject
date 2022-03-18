@@ -19,6 +19,8 @@ Version 0.7.0 (2022-03-18)
 * Changed: store package in YAML if it does not match module
 * Changed: by default raises warning if required package
   has a newer version than the installed one
+* Removed: deprecation warning for ``ignore_vars``
+  from ``audobject.init_decorator()``
 
 
 Version 0.6.2 (2022-01-04)
