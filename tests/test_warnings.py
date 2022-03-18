@@ -87,17 +87,23 @@ audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL = \
 
 # Package mismatch
 
-warnings.simplefilter('error')
+SMALLER_VERSION = '0.0.0'
+INSTALLED_VERSION = audobject.__version__
+GREATER_VERSION = '999.9.9'
 
-smaller_version = '0.0.0'
-installed_version = audobject.__version__
-greater_version = '999.9.9'
 
-for level in [
-    audobject.define.PackageMismatchWarnLevel.SILENT,
-    audobject.define.PackageMismatchWarnLevel.VERBOSE,
-    audobject.define.PackageMismatchWarnLevel.STANDARD,
-]:
+@pytest.mark.parametrize(
+    'level',
+    [
+        audobject.define.PackageMismatchWarnLevel.SILENT,
+        audobject.define.PackageMismatchWarnLevel.VERBOSE,
+        audobject.define.PackageMismatchWarnLevel.STANDARD,
+    ],
+)
+def test_package_mismatch_no_version(level):
+
+    warnings.simplefilter('error')
+
     # no version given -> never warn
     yaml_s = '''
     $audobject.core.testing.TestObject:
@@ -109,56 +115,68 @@ for level in [
     with warnings.catch_warnings():
         audobject.from_yaml_s(yaml_s)
 
-for level, version, expected in [
-    # silent -> never warn
-    (
-        audobject.define.PackageMismatchWarnLevel.SILENT,
-        smaller_version,
-        False,
-    ),
-    (
-        audobject.define.PackageMismatchWarnLevel.SILENT,
-        installed_version,
-        False,
-    ),
-    (
-        audobject.define.PackageMismatchWarnLevel.SILENT,
-        greater_version,
-        False,
-    ),
-    # standard -> warn if installed version is smaller
-    (
-        audobject.define.PackageMismatchWarnLevel.STANDARD,
-        smaller_version,
-        False,
-    ),
-    (
-        audobject.define.PackageMismatchWarnLevel.STANDARD,
-        installed_version,
-        False,
-    ),
-    (
-        audobject.define.PackageMismatchWarnLevel.STANDARD,
-        greater_version,
-        True,
-    ),
-    # verbose -> warn unless versions match
-    (
-        audobject.define.PackageMismatchWarnLevel.VERBOSE,
-        smaller_version,
-        True,
-    ),
-    (
-        audobject.define.PackageMismatchWarnLevel.VERBOSE,
-        installed_version,
-        False,
-    ),
-    (
-        audobject.define.PackageMismatchWarnLevel.VERBOSE,
-        greater_version,
-        True,
-    ),
-]:
+    audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = \
+        audobject.define.PackageMismatchWarnLevel.STANDARD
+
+    warnings.simplefilter('default')
+
+
+@pytest.mark.parametrize(
+    'level, version, expected',
+    [
+        # silent -> never warn
+        (
+            audobject.define.PackageMismatchWarnLevel.SILENT,
+            SMALLER_VERSION,
+            False,
+        ),
+        (
+            audobject.define.PackageMismatchWarnLevel.SILENT,
+            INSTALLED_VERSION,
+            False,
+        ),
+        (
+            audobject.define.PackageMismatchWarnLevel.SILENT,
+            GREATER_VERSION,
+            False,
+        ),
+        # standard -> warn if installed version is smaller
+        (
+            audobject.define.PackageMismatchWarnLevel.STANDARD,
+            SMALLER_VERSION,
+            False,
+        ),
+        (
+            audobject.define.PackageMismatchWarnLevel.STANDARD,
+            INSTALLED_VERSION,
+            False,
+        ),
+        (
+            audobject.define.PackageMismatchWarnLevel.STANDARD,
+            GREATER_VERSION,
+            True,
+        ),
+        # verbose -> warn unless versions match
+        (
+            audobject.define.PackageMismatchWarnLevel.VERBOSE,
+            SMALLER_VERSION,
+            True,
+        ),
+        (
+            audobject.define.PackageMismatchWarnLevel.VERBOSE,
+            INSTALLED_VERSION,
+            False,
+        ),
+        (
+            audobject.define.PackageMismatchWarnLevel.VERBOSE,
+            GREATER_VERSION,
+            True,
+        ),
+    ],
+)
+def test_package_mismatch_with_version(level, version, expected):
+
+    warnings.simplefilter('error')
 
     yaml_s = f'''
     $audobject.core.testing.TestObject=={version}:
@@ -174,7 +192,7 @@ for level, version, expected in [
         with warnings.catch_warnings():
             audobject.from_yaml_s(yaml_s)
 
-audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = \
-    audobject.define.PackageMismatchWarnLevel.STANDARD
+    audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = \
+        audobject.define.PackageMismatchWarnLevel.STANDARD
 
-warnings.simplefilter('default')
+    warnings.simplefilter('default')
