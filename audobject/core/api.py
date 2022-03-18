@@ -8,20 +8,12 @@ from audobject.core.object import Object
 import audobject.core.utils as utils
 
 
-kwargs_deprecation_warning = (
-    "The use of **kwargs is deprecated "
-    "and will be removed with version 1.0.0. "
-    "Use 'override_args' instead."
-)
-
-
 def from_dict(
         d: typing.Dict[str, typing.Any],
         root: str = None,
         *,
         auto_install: bool = False,
         override_args: typing.Dict[str, typing.Any] = None,
-        **kwargs,
 ) -> 'Object':
     r"""Create object from dictionary.
 
@@ -42,15 +34,6 @@ def from_dict(
 
     """
     override_args = override_args or {}
-
-    if kwargs:
-        warnings.warn(
-            kwargs_deprecation_warning,
-            category=UserWarning,
-            stacklevel=2,
-        )
-        for key, value in kwargs.items():
-            override_args[key] = value
 
     name = next(iter(d))
     cls, version, installed_version = utils.get_class(
@@ -75,7 +58,6 @@ def from_yaml(
         *,
         auto_install: bool = False,
         override_args: typing.Dict[str, typing.Any] = None,
-        **kwargs,
 ) -> 'Object':
     r"""Create object from YAML file.
 
@@ -91,15 +73,6 @@ def from_yaml(
 
     """
     override_args = override_args or {}
-
-    if kwargs:
-        warnings.warn(
-            kwargs_deprecation_warning,
-            category=UserWarning,
-            stacklevel=2,
-        )
-        for key, value in kwargs.items():
-            override_args[key] = value
 
     if isinstance(path_or_stream, str):
         with open(path_or_stream, 'r') as fp:
@@ -117,7 +90,6 @@ def from_yaml_s(
         *,
         auto_install: bool = False,
         override_args: typing.Dict[str, typing.Any] = None,
-        **kwargs,
 ) -> 'Object':
     r"""Create object from YAML string.
 
@@ -133,15 +105,6 @@ def from_yaml_s(
 
     """
     override_args = override_args or {}
-
-    if kwargs:
-        warnings.warn(
-            kwargs_deprecation_warning,
-            category=UserWarning,
-            stacklevel=2,
-        )
-        for key, value in kwargs.items():
-            override_args[key] = value
 
     return from_dict(
         yaml.load(yaml_string, yaml.Loader),
