@@ -12,26 +12,26 @@ from conftest import uninstall
     [
         (  # package and module do not match
             '''
-$dohq-artifactory:artifactory.ArtifactoryPath:
-  token: token
+            $dohq-artifactory:artifactory.ArtifactoryPath:
+              token: token
             ''',
             'dohq-artifactory',
             'artifactory',
         ),
         (  # package and module match
             '''
-$audbackend.core.filesystem.FileSystem:
-  host: ~/host
-  repository: repo
+            $audbackend.core.filesystem.FileSystem:
+              host: ~/host
+              repository: repo
             ''',
             'audbackend',
             'audbackend',
         ),
         (  # with package version
             '''
-$audbackend.core.filesystem.FileSystem==0.3.12:
-  host: ~/host
-  repository: repo
+            $audbackend.core.filesystem.FileSystem==0.3.12:
+              host: ~/host
+              repository: repo
             ''',
             'audbackend',
             'audbackend',
