@@ -513,14 +513,6 @@ class ValueResolver:  # pragma: no cover
 
 @audeer.deprecated(
     removal_version='1.0.0',
-    alternative='resolver.FilePath',
-)
-class FilePathResolver(FilePath):  # pragma: no cover
-    pass
-
-
-@audeer.deprecated(
-    removal_version='1.0.0',
     alternative='resolver.Function',
 )
 class FunctionResolver(Function):  # pragma: no cover
