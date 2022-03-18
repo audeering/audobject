@@ -76,7 +76,11 @@ def from_yaml(
 
     if isinstance(path_or_stream, str):
         with open(path_or_stream, 'r') as fp:
-            return from_yaml(fp, override_args=override_args)
+            return from_yaml(
+                fp,
+                override_args=override_args,
+                auto_install=auto_install,
+            )
     return from_dict(
         yaml.load(path_or_stream, yaml.Loader),
         auto_install=auto_install,

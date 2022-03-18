@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 import audobject
@@ -36,21 +38,26 @@ from conftest import uninstall
         ),
     ],
 )
-def test(yaml_s, package, module):
+def test(tmpdir, yaml_s, package, module):
+
+    path = os.path.join(tmpdir, 'tmp.yaml')
+    with open(path, 'w') as fp:
+        fp.write(yaml_s)
+
     # fails because of missing packages
     with pytest.raises(ModuleNotFoundError):
-        audobject.from_yaml_s(
-            yaml_s,
+        audobject.from_yaml(
+            path,
             auto_install=False,
         )
     # install missing packages
-    audobject.from_yaml_s(
-        yaml_s,
+    audobject.from_yaml(
+        path,
         auto_install=True,
     )
     # still works when packages are installed
-    audobject.from_yaml_s(
-        yaml_s,
+    audobject.from_yaml(
+        path,
         auto_install=True,
     )
     # uninstall package
