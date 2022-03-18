@@ -478,39 +478,6 @@ class Type(Base):
 
 # deprecated classes
 
-
-# @audeer.deprecated(
-#     removal_version='1.0.0',
-#     alternative='resolver.Base',
-# )
-# ->
-# TypeError: function() argument 1 must be code, not str
-# ->
-# as a workaround we raise the deprecation warning in __init__
-class ValueResolver:  # pragma: no cover
-
-    def __init__(self):
-        message = (
-            'ValueResolver is deprecated and will be removed '
-            'with version 1.0.0. Use resolver.Base instead.'
-        )
-        warnings.warn(message, category=UserWarning, stacklevel=2)
-        self.__dict__[define.ROOT_ATTRIBUTE] = None
-
-    @property
-    def root(self) -> typing.Optional[str]:
-        return self.__dict__[define.ROOT_ATTRIBUTE]
-
-    def decode(self, value: DefaultValueType) -> typing.Any:
-        raise NotImplementedError
-
-    def encode(self, value: typing.Any) -> DefaultValueType:
-        raise NotImplementedError
-
-    def encode_type(self) -> type:
-        raise NotImplementedError
-
-
 @audeer.deprecated(
     removal_version='1.0.0',
     alternative='resolver.Function',

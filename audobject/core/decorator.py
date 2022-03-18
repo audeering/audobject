@@ -30,9 +30,9 @@ def init_decorator(
     Note that objects you borrow attributes from, are also treated as
     hidden arguments.
 
-    If a dictionary of :class:`audobject.ValueResolver` is passed,
+    If a dictionary of :class:`audobject.resolver.Base` is passed,
     matching attributes will be encoded / decoded
-    using the according :class:`audobject.ValueResolver`.
+    using the according :class:`audobject.resolver.Base`.
 
     Args:
         borrow: borrowed attributes
