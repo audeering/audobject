@@ -7,6 +7,20 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.0 (2022-03-18)
+--------------------------
+
+* Added: argument ``auto_install`` to
+  ``audobject.from_dict()``,
+  ``audobject.from_yaml()``,
+  ``audobject.from_yaml_s()``
+* Added: ``audobject.define.PackageMismatchWarnLevel``
+* Added: ``audobject.config.PACKAGE_MISMATCH_WARN_LEVEL``
+* Changed: store package in YAML if it does not match module
+* Changed: by default raises warning if required package
+  has a newer version than the installed one
+
+
 Version 0.6.2 (2022-01-04)
 --------------------------
 
