@@ -870,7 +870,10 @@ works without problems.
 
 But if we load it with an older version,
 a warning will be shown.
-When a warning should be shown can be controlled with
+We can force it to show no warning at all,
+or always show a warning
+when the package version does not match
+by adjusting
 :attr:`audobject.config.PACKAGE_MISMATCH_WARN_LEVEL`.
 
 .. jupyter-execute::
