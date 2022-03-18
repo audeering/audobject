@@ -1,5 +1,6 @@
 import importlib
 import inspect
+import operator
 import subprocess
 import sys
 import types
@@ -69,6 +70,28 @@ def get_class(
         auto_install,
     )
     installed_version = get_version(module_name)
+
+    # possibly raise warning if installed package does not match version
+    level = config.PACKAGE_MISMATCH_WARN_LEVEL
+    if version is not None and level != define.PackageMismatchWarnLevel.SILENT:
+        if installed_version is not None:
+            if level == define.PackageMismatchWarnLevel.STANDARD:
+                # only warn if installed package is older
+                op = operator.ge
+            else:
+                # warn if package do not match
+                op = operator.eq
+            if not op(
+                    audeer.LooseVersion(installed_version),
+                    audeer.LooseVersion(version),
+            ):
+                warnings.warn(
+                    f"Instantiating {module_name}.{class_name} from "
+                    f"version '{version}' when using "
+                    f"version '{installed_version}'.",
+                    RuntimeWarning,
+                )
+
     return getattr(module, class_name), version, installed_version
 
 
