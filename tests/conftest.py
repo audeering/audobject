@@ -55,7 +55,7 @@ def uninstall(
     )
     # remove module
     for m in list(sys.modules):
-        if m.startswith(package):
+        if m.startswith(module):
             sys.modules.pop(m)
     # force pkg_resources to re-scan site packages
     pkg_resources._initialize_master_working_set()
@@ -65,4 +65,5 @@ def uninstall(
 def cleanup():
     yield
     # uninstall package temporarily installed by test_install.py
+    uninstall('audbackend', 'audbackend')
     uninstall('dohq-artifactory', 'artifactory')

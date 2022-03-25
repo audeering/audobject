@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 import audobject
@@ -25,18 +27,21 @@ from conftest import uninstall
             'audbackend',
             'audbackend',
         ),
-        (  # with package version
-            '''
-            $audbackend.core.filesystem.FileSystem==0.3.12:
-              host: ~/host
-              repository: repo
+        (  # with package version and as nested object
+            '''$audobject.core.testing.TestObject:
+              name: test
+              backend:
+                $audbackend.core.filesystem.FileSystem==0.3.12:
+                  host: ~/host
+                  repository: repo
             ''',
             'audbackend',
             'audbackend',
-        ),
+        )
     ],
 )
-def test(yaml_s, package, module):
+def test(tmpdir, yaml_s, package, module):
+
     # fails because of missing packages
     with pytest.raises(ModuleNotFoundError):
         audobject.from_yaml_s(
@@ -51,6 +56,30 @@ def test(yaml_s, package, module):
     # still works when packages are installed
     audobject.from_yaml_s(
         yaml_s,
+        auto_install=True,
+    )
+    # uninstall package
+    uninstall(package, module)
+
+    # repeat, but this time test from file
+    path = os.path.join(tmpdir, 'tmp.yaml')
+    with open(path, 'w') as fp:
+        fp.write(yaml_s)
+
+    # fails because of missing packages
+    with pytest.raises(ModuleNotFoundError):
+        audobject.from_yaml(
+            path,
+            auto_install=False,
+        )
+    # install missing packages
+    audobject.from_yaml(
+        path,
+        auto_install=True,
+    )
+    # still works when packages are installed
+    audobject.from_yaml(
+        path,
         auto_install=True,
     )
     # uninstall package

@@ -41,7 +41,11 @@ def from_dict(
     )
     params = {}
     for key, value in d[name].items():
-        params[key] = _decode_value(value, override_args)
+        params[key] = _decode_value(
+            value,
+            auto_install,
+            override_args,
+        )
     return utils.get_object(
         cls,
         version,
@@ -74,7 +78,11 @@ def from_yaml(
 
     if isinstance(path_or_stream, str):
         with open(path_or_stream, 'r') as fp:
-            return from_yaml(fp, override_args=override_args)
+            return from_yaml(
+                fp,
+                override_args=override_args,
+                auto_install=auto_install,
+            )
     return from_dict(
         yaml.load(path_or_stream, yaml.Loader),
         auto_install=auto_install,
@@ -112,21 +120,33 @@ def from_yaml_s(
 
 def _decode_value(
         value_to_decode: typing.Any,
+        auto_install: bool,
         override_args: typing.Dict[str, typing.Any],
 ) -> typing.Any:
     r"""Decode value."""
     if value_to_decode:  # not empty
         if isinstance(value_to_decode, list):
             return [
-                _decode_value(v, override_args) for v in value_to_decode
+                _decode_value(
+                    v,
+                    auto_install,
+                    override_args,
+                ) for v in value_to_decode
             ]
         elif isinstance(value_to_decode, dict):
             name = next(iter(value_to_decode))
             if isinstance(name, Object) or utils.is_class(name):
-                return from_dict(value_to_decode, override_args=override_args)
+                return from_dict(
+                    value_to_decode,
+                    auto_install=auto_install,
+                    override_args=override_args,
+                )
             else:
                 return {
-                    k: _decode_value(v, override_args) for k, v in
-                    value_to_decode.items()
+                    k: _decode_value(
+                        v,
+                        auto_install,
+                        override_args,
+                    ) for k, v in value_to_decode.items()
                 }
     return value_to_decode
