@@ -24,6 +24,7 @@ from audobject.core.resolver import (
     FunctionResolver,
     TupleResolver,
     TypeResolver,
+    ValueResolver,
 )
 
 
