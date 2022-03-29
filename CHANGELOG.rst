@@ -7,6 +7,13 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.1 (2022-03-29)
+--------------------------
+
+* Fixed: apply ``auto_install`` in ``audobject.from_yaml()``
+* Fixed: support ``auto_install`` with nested objects
+
+
 Version 0.7.0 (2022-03-18)
 --------------------------
 
