@@ -20,9 +20,11 @@ from audobject.core.object import (
     Object,
 )
 from audobject.core.resolver import (
+    FilePathResolver,
     FunctionResolver,
     TupleResolver,
     TypeResolver,
+    ValueResolver,
 )
 
 
