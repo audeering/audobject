@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.7.0
+                v0.7.1
               </div>
             
           
@@ -1633,26 +1633,30 @@ for the new argument.</p>
 <span class="nn">Input In [66],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/api.py:146,</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, auto_install, override_args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span>         <span class="n">override_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-<span class="ne">--&gt; </span><span class="mi">146</span> <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">147</span>     <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="n">auto_install</span><span class="o">=</span><span class="n">auto_install</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="p">)</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/api.py:151,</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, auto_install, override_args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>         <span class="n">override_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+<span class="ne">--&gt; </span><span class="mi">151</span> <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>     <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">153</span>     <span class="n">auto_install</span><span class="o">=</span><span class="n">auto_install</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span>     <span class="n">override_args</span><span class="o">=</span><span class="n">override_args</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span> <span class="p">)</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/api.py:63,</span> in <span class="ni">from_dict</span><span class="nt">(d, root, auto_install, override_args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">61</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span>     <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_decode_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">override_args</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">63</span> <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="bp">cls</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="n">version</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">66</span>     <span class="n">installed_version</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="n">params</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="n">root</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">69</span>     <span class="n">override_args</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">70</span> <span class="p">)</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/api.py:66,</span> in <span class="ni">from_dict</span><span class="nt">(d, root, auto_install, override_args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>     <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_decode_value</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>         <span class="n">value</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>         <span class="n">auto_install</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>         <span class="n">override_args</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">66</span> <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="bp">cls</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="n">version</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>     <span class="n">installed_version</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>     <span class="n">params</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span>     <span class="n">root</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="n">override_args</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="p">)</span>
 
 <span class="nn">File ~/work/audobject/audobject/audobject/core/utils.py:150,</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, override_args)</span>
 <span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="n">missing_required_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">required_params</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
@@ -2223,7 +2227,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/18 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/29 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
