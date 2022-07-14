@@ -404,7 +404,10 @@ class Object:
         return hash(self.id)
 
     def __eq__(self, other: 'Object') -> bool:
-        return self.id == other.id
+        if isinstance(other, type(self)):
+            return self.id == other.id
+        else:
+            return False
 
     def __repr__(self) -> str:
         return str(self.to_dict(include_version=False))
