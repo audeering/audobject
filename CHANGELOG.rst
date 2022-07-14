@@ -7,6 +7,14 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.2 (2022-07-14)
+--------------------------
+
+* Fixed: support comparison with arbitrary objects
+  in ``audibject.Object.__eq__``,
+  which is needed with ``signature``
+
+
 Version 0.7.1 (2022-03-29)
 --------------------------
 
