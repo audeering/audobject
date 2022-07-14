@@ -31,6 +31,9 @@ def test(tmpdir, obj):
     obj.to_yaml(path)
     t2 = audobject.from_yaml(path)
     assert obj == t2
+    # comparison to other objects,
+    # see https://github.com/audeering/audinterface/issues/68
+    assert not obj == type
     assert repr(obj) == repr(t2)
     assert str(obj) == str(t2)
     assert obj.to_yaml_s() == t2.to_yaml_s()
