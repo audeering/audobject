@@ -407,6 +407,9 @@ class Object:
         if isinstance(other, type(self)):
             return self.id == other.id
         else:
+            # it might happen that we need to compare
+            # to other non-supported types, compare
+            # https://github.com/audeering/audinterface/issues/68
             return False
 
     def __repr__(self) -> str:
