@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.7.1
+                v0.7.2
               </div>
             
           
@@ -165,7 +165,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
 <p>The aim of <a class="reference internal" href="api.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a> is to provide
 a base class, namely <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>,
 which allows it to convert an object to a YAML string
@@ -175,11 +175,11 @@ and re-instantiate the object from it.</p>
 </div>
 </div>
 <div class="section" id="object-class">
-<h2>Object class<a class="headerlink" href="#object-class" title="Permalink to this headline">¶</a></h2>
+<h2>Object class<a class="headerlink" href="#object-class" title="Permalink to this heading">¶</a></h2>
 <p>Let’s create a class that derives from <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">audobject</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">audobject</span>
 
 
 <span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>  <span class="c1"># pretend we have a package version</span>
@@ -206,7 +206,7 @@ and re-instantiate the object from it.</p>
 <p>Now we instantiate an object and print it.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;hello object!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;hello object!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -224,7 +224,7 @@ we get some additional functionality.</p>
 with the arguments the object was initialized with.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">.</span><span class="n">arguments</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">.</span><span class="n">arguments</span>
 </pre></div>
 </div>
 </div>
@@ -238,7 +238,7 @@ with the arguments the object was initialized with.</p>
 object name and package version.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_dict</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o_dict</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_dict</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -252,7 +252,7 @@ object name and package version.</p>
 <p>And we can re-instantiate the object from it.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">o_dict</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">o_dict</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -266,7 +266,7 @@ object name and package version.</p>
 <p>We can also convert it to YAML.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -283,7 +283,7 @@ object name and package version.</p>
 <p>And create the object from YAML.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -298,7 +298,7 @@ object name and package version.</p>
 arguments when we instantiate an object.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span>
     <span class="n">o_yaml</span><span class="p">,</span>
     <span class="n">override_args</span><span class="o">=</span><span class="p">{</span>
         <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="s1">&#39;I was set to a different value!&#39;</span>
@@ -317,7 +317,7 @@ arguments when we instantiate an object.</p>
 <p>Or save an object to disk and re-instantiate it from there.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;my.yaml&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;my.yaml&#39;</span>
 <span class="n">o</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="n">o5</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o5</span><span class="p">)</span>
@@ -332,11 +332,11 @@ arguments when we instantiate an object.</p>
 </div>
 </div>
 <div class="section" id="object-id">
-<h2>Object ID<a class="headerlink" href="#object-id" title="Permalink to this headline">¶</a></h2>
+<h2>Object ID<a class="headerlink" href="#object-id" title="Permalink to this heading">¶</a></h2>
 <p>Every object has an ID.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -350,7 +350,7 @@ arguments when we instantiate an object.</p>
 <p>Objects with exact same arguments share the same ID.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">o2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -364,7 +364,7 @@ arguments when we instantiate an object.</p>
 <p>When an object is serialized the ID does not change.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">o</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -378,7 +378,7 @@ arguments when we instantiate an object.</p>
 <p>Objects with different arguments get different IDs.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">o4</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -391,14 +391,14 @@ arguments when we instantiate an object.</p>
 </div>
 </div>
 <div class="section" id="malformed-objects">
-<h2>Malformed objects<a class="headerlink" href="#malformed-objects" title="Permalink to this headline">¶</a></h2>
+<h2>Malformed objects<a class="headerlink" href="#malformed-objects" title="Permalink to this heading">¶</a></h2>
 <p>In the constructor of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code> we have assigned
 every argument to an attribute with the same name.
 This ensures that we can re-instantiate the object from YAML.
 Let’s create a class where we don’t follow this rule.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyBadObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyBadObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -420,7 +420,7 @@ Let’s create a class where we don’t follow this rule.</p>
 <p>At a first glance, everything works as expected.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bad</span> <span class="o">=</span> <span class="n">MyBadObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bad</span> <span class="o">=</span> <span class="n">MyBadObject</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">bad</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -435,7 +435,7 @@ Let’s create a class where we don’t follow this rule.</p>
 from YAML, we’ll get an error.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bad_yaml</span> <span class="o">=</span> <span class="n">bad</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
 </pre></div>
@@ -506,7 +506,7 @@ If we hide an argument, we don’t have to set
 it to an attribute of the same name.</p>
 </div>
 <div class="section" id="hidden-arguments">
-<h2>Hidden arguments<a class="headerlink" href="#hidden-arguments" title="Permalink to this headline">¶</a></h2>
+<h2>Hidden arguments<a class="headerlink" href="#hidden-arguments" title="Permalink to this heading">¶</a></h2>
 <p>Hidden arguments are arguments that are not serialized.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -516,7 +516,7 @@ it to an attribute of the same name.</p>
 with the <a class="reference internal" href="api.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a> decorator.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithHiddenArgument</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithHiddenArgument</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
         <span class="n">hide</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">],</span>
@@ -545,7 +545,7 @@ with the <a class="reference internal" href="api.html#audobject.init_decorator" 
 <p>If we set <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>, debug message are printed.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithHiddenArgument</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithHiddenArgument</span><span class="p">(</span>
     <span class="s1">&#39;hello object!&#39;</span><span class="p">,</span>
     <span class="n">num_repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -565,7 +565,7 @@ hello object! hello object! hello object!
 it is not stored to YAML.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -584,7 +584,7 @@ it is not stored to YAML.</p>
 and we won’t see debug messages.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -599,7 +599,7 @@ and we won’t see debug messages.</p>
 to <code class="docutils literal notranslate"><span class="pre">True</span></code> when we load the object.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span>
     <span class="n">o_yaml</span><span class="p">,</span>
     <span class="n">override_args</span><span class="o">=</span><span class="p">{</span>
         <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -619,7 +619,7 @@ hello object! hello object! hello object!
 <p>Note that hidden arguments are not taken into account for the UID.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -634,7 +634,7 @@ b3579494-fb4f-35f3-62be-1ceedd745e38
 <p>It is possible to get a list of hidden arguments.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span><span class="o">.</span><span class="n">hidden_arguments</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span><span class="o">.</span><span class="n">hidden_arguments</span>
 </pre></div>
 </div>
 </div>
@@ -646,7 +646,7 @@ b3579494-fb4f-35f3-62be-1ceedd745e38
 </div>
 </div>
 <div class="section" id="borrowed-arguments">
-<h2>Borrowed arguments<a class="headerlink" href="#borrowed-arguments" title="Permalink to this headline">¶</a></h2>
+<h2>Borrowed arguments<a class="headerlink" href="#borrowed-arguments" title="Permalink to this heading">¶</a></h2>
 <p>It is possible to borrow arguments from an instance attribute.
 For instance, here we borrow the attributes <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code>
 from <code class="docutils literal notranslate"><span class="pre">self.point</span></code> and a dictionary <code class="docutils literal notranslate"><span class="pre">self.d</span></code>.
@@ -654,7 +654,7 @@ Using borrowed arguments it becomes possible
 to add properties with the name of an argument.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -704,14 +704,14 @@ to add properties with the name of an argument.</p>
 </div>
 </div>
 <div class="section" id="object-with-kwargs">
-<h2>Object with kwargs<a class="headerlink" href="#object-with-kwargs" title="Permalink to this headline">¶</a></h2>
+<h2>Object with kwargs<a class="headerlink" href="#object-with-kwargs" title="Permalink to this heading">¶</a></h2>
 <p>Usually, the attributes that are serialized to YAML
 are automatically derived from the arguments of the
 <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function.
 For instance, we can add an attribute <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithOther</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithOther</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -731,7 +731,7 @@ For instance, we can add an attribute <code class="docutils literal notranslate"
 it is not serialized.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithOther</span><span class="p">(</span><span class="s1">&#39;I have another attribute&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithOther</span><span class="p">(</span><span class="s1">&#39;I have another attribute&#39;</span><span class="p">)</span>
 <span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
@@ -751,7 +751,7 @@ any attribute could be an argument
 and hence all attributes are serialized.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -765,7 +765,7 @@ and hence all attributes are serialized.</p>
 <p>And <code class="docutils literal notranslate"><span class="pre">other</span></code> shows up in the YAML string.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
 <span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
@@ -785,7 +785,7 @@ and hence all attributes are serialized.</p>
 of ignored arguments.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
 
     <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
         <span class="n">hide</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;other&#39;</span><span class="p">],</span>
@@ -813,7 +813,7 @@ of ignored arguments.</p>
 (i.e. prepend ‘_’ to the name).</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -836,13 +836,13 @@ of ignored arguments.</p>
 </div>
 </div>
 <div class="section" id="object-as-argument">
-<h2>Object as argument<a class="headerlink" href="#object-as-argument" title="Permalink to this headline">¶</a></h2>
+<h2>Object as argument<a class="headerlink" href="#object-as-argument" title="Permalink to this heading">¶</a></h2>
 <p>It is possible to have arguments of
 type <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.
 For instance, we can define the following class.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySuperObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySuperObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -861,7 +861,7 @@ For instance, we can define the following class.</p>
 <p>And initialize it with an instance of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;eat me!&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;eat me!&#39;</span><span class="p">)</span>
 <span class="n">w</span> <span class="o">=</span> <span class="n">MySuperObject</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
@@ -876,7 +876,7 @@ For instance, we can define the following class.</p>
 <p>This translates to the following YAML string.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w_yaml</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w_yaml</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">w_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -895,7 +895,7 @@ For instance, we can define the following class.</p>
 <p>From which we can re-instantiate the object.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">w_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">w_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">w2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -908,7 +908,7 @@ For instance, we can define the following class.</p>
 </div>
 </div>
 <div class="section" id="value-resolver">
-<h2>Value resolver<a class="headerlink" href="#value-resolver" title="Permalink to this headline">¶</a></h2>
+<h2>Value resolver<a class="headerlink" href="#value-resolver" title="Permalink to this heading">¶</a></h2>
 <p>As long as the type of an arguments is one of:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></li>
@@ -927,7 +927,7 @@ and clutter the YAML syntax.</p>
 <p>To illustrate this, let’s use an instance of <a class="reference external" href="https://docs.python.org/3/library/datetime.html#timedelta-objects">timedelta</a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 
 
 <span class="k">class</span> <span class="nc">MyDeltaObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
@@ -949,7 +949,7 @@ and clutter the YAML syntax.</p>
 <p>As before, we can create an instance and print it.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span>
     <span class="n">days</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
     <span class="n">seconds</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
     <span class="n">microseconds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
@@ -973,7 +973,7 @@ and clutter the YAML syntax.</p>
 we’ll see a warning.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d_yaml</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d_yaml</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">d_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1007,7 +1007,7 @@ that defines how a <a class="reference external" href="https://docs.python.org/3
 encoded and decoded.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DeltaResolver</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DeltaResolver</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">timedelta</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span>
@@ -1037,7 +1037,7 @@ encoded and decoded.</p>
 decorator of the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyResolvedDeltaObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyResolvedDeltaObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
         <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="n">DeltaResolver</span><span class="p">},</span>
@@ -1060,7 +1060,7 @@ decorator of the <code class="docutils literal notranslate"><span class="pre">__
 and the <code class="docutils literal notranslate"><span class="pre">!!python/object</span></code> tag has disappeared.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">MyResolvedDeltaObject</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">MyResolvedDeltaObject</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
 <span class="n">d_yaml</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">d_yaml</span><span class="p">)</span>
 </pre></div>
@@ -1079,7 +1079,7 @@ and the <code class="docutils literal notranslate"><span class="pre">!!python/ob
 </div>
 </div>
 <div class="section" id="resolve-file-paths">
-<h2>Resolve file paths<a class="headerlink" href="#resolve-file-paths" title="Permalink to this headline">¶</a></h2>
+<h2>Resolve file paths<a class="headerlink" href="#resolve-file-paths" title="Permalink to this heading">¶</a></h2>
 <p>Portability is a core feature of
 <a class="reference internal" href="api.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a>.
 Assume we have an object
@@ -1094,7 +1094,7 @@ we want to make sure that:</p>
 <a class="reference internal" href="resolver.html#audobject.resolver.FilePath" title="audobject.resolver.FilePath"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.resolver.FilePath</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithFile</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithFile</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
         <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span>
@@ -1120,7 +1120,7 @@ we want to make sure that:</p>
 <p>Here, we create a file and pass it to the object.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">audeer</span>
 
 <span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span>
@@ -1148,7 +1148,7 @@ stored relative to the directory
 of the YAML file.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yaml</span>
 
 
 <span class="n">yaml_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;object.yaml&#39;</span><span class="p">)</span>  <span class="c1"># root/yaml/object.yaml</span>
@@ -1170,7 +1170,7 @@ of the YAML file.</p>
 the path gets expanded again.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span>
 <span class="n">o2</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1187,7 +1187,7 @@ Note that we have to move all referenced files as well,
 as their relative location to the YAML file must not change.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shutil</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shutil</span>
 
 <span class="n">new_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;where&#39;</span><span class="p">,</span> <span class="s1">&#39;else&#39;</span><span class="p">)</span>
 <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">new_root</span><span class="p">)</span>
@@ -1207,7 +1207,7 @@ as their relative location to the YAML file must not change.</p>
 </div>
 </div>
 <div class="section" id="serialize-functions">
-<h2>Serialize functions<a class="headerlink" href="#serialize-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Serialize functions<a class="headerlink" href="#serialize-functions" title="Permalink to this heading">¶</a></h2>
 <p>To serialize functions,
 a special resolver
 <a class="reference internal" href="resolver.html#audobject.resolver.Function" title="audobject.resolver.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.resolver.Function</span></code></a>
@@ -1217,7 +1217,7 @@ and dynamically creates the function during decoding.</p>
 <p>The following class takes as arguments a function with two parameters.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">typing</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">typing</span>
 
 
 <span class="k">class</span> <span class="nc">MyObjectWithFunction</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
@@ -1244,7 +1244,7 @@ and dynamically creates the function during decoding.</p>
 <p>Here, we initialize an object with a function that sums up the two parameters.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 
 
@@ -1263,7 +1263,7 @@ and dynamically creates the function during decoding.</p>
 the definition of our function is stored in plain text.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1280,7 +1280,7 @@ the definition of our function is stored in plain text.</p>
 when the object is recreated.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 <span class="n">o2</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1294,7 +1294,7 @@ when the object is recreated.</p>
 <p>It also works for lambda expressions.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">MyObjectWithFunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">MyObjectWithFunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
 
 <span class="n">o3_yaml</span> <span class="o">=</span> <span class="n">o3</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o3_yaml</span><span class="p">)</span>
@@ -1311,7 +1311,7 @@ when the object is recreated.</p>
 </div>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o3_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o3_yaml</span><span class="p">)</span>
 <span class="n">o4</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1328,7 +1328,7 @@ that derives from
 <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCallableObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCallableObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1357,7 +1357,7 @@ the YAML representation is store
 instead of the function code.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o5_yaml</span> <span class="o">=</span> <span class="n">o5</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o5_yaml</span> <span class="o">=</span> <span class="n">o5</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o5_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1375,7 +1375,7 @@ instead of the function code.</p>
 <p>And we can still restore the original object.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o6</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o5_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o6</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o5_yaml</span><span class="p">)</span>
 <span class="n">o6</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1394,12 +1394,12 @@ you should never load objects from a source you do not trust!</p>
 </div>
 </div>
 <div class="section" id="flat-dictionary">
-<h2>Flat dictionary<a class="headerlink" href="#flat-dictionary" title="Permalink to this headline">¶</a></h2>
+<h2>Flat dictionary<a class="headerlink" href="#flat-dictionary" title="Permalink to this heading">¶</a></h2>
 <p>Let’s create a class that takes
 as input a string, a list and a dictionary.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyListDictObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyListDictObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -1419,7 +1419,7 @@ as input a string, a list and a dictionary.</p>
 <p>And initialize an object.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyListDictObject</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyListDictObject</span><span class="p">(</span>
     <span class="n">a_str</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>
     <span class="n">a_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">o</span><span class="p">],</span>
     <span class="n">a_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;pi&#39;</span><span class="p">:</span> <span class="mf">3.1416</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mf">2.71828</span><span class="p">},</span>
@@ -1448,7 +1448,7 @@ Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1467,7 +1467,7 @@ get a flatten version of the dictionary.</p>
 to re-instantiate an object from a flattened dictionary.</p>
 </div>
 <div class="section" id="versioning">
-<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
+<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this heading">¶</a></h2>
 <p>When an object is converted to YAML
 the package version is stored.
 But what happens if we later load the object
@@ -1475,7 +1475,7 @@ with a different package version?</p>
 <p>Let’s create another instance of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 1.0.0!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 1.0.0!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1489,7 +1489,7 @@ with a different package version?</p>
 <p>And convert it to YAML.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1507,7 +1507,7 @@ with a different package version?</p>
 works without problems.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.1.0&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.1.0&#39;</span>
 
 <span class="n">o2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o2</span><span class="p">)</span>
@@ -1529,7 +1529,7 @@ by adjusting
 <a class="reference internal" href="api.html#audobject.config.PACKAGE_MISMATCH_WARN_LEVEL" title="audobject.config.PACKAGE_MISMATCH_WARN_LEVEL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">audobject.config.PACKAGE_MISMATCH_WARN_LEVEL</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.9.0&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.9.0&#39;</span>
 
 <span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
@@ -1552,7 +1552,7 @@ It includes a new version of <code class="docutils literal notranslate"><span cl
 with a slightly changed <code class="docutils literal notranslate"><span class="pre">__str__</span></code> function.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.0.0&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.0.0&#39;</span>
 
 <span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
@@ -1579,7 +1579,7 @@ However, when we print the object
 the strings are now separated by comma.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1594,7 +1594,7 @@ the strings are now separated by comma.</p>
 that let the user set a custom delimiter.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.0&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.0&#39;</span>
 
 <span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
@@ -1623,7 +1623,7 @@ because we are missing a value
 for the new argument.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1686,7 +1686,7 @@ we decide to release a bug fix,
 where we initialize the new argument with a default value.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.1&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.1&#39;</span>
 
 <span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
@@ -1713,7 +1713,7 @@ where we initialize the new argument with a default value.</p>
 It works, because it now has a default value for the missing argument.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o4</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1728,7 +1728,7 @@ It works, because it now has a default value for the missing argument.</p>
 Create an object with version <code class="docutils literal notranslate"><span class="pre">2.1.1</span></code>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o5</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 2.1.1!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o5</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;I am a 2.1.1!&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1742,7 +1742,7 @@ Create an object with version <code class="docutils literal notranslate"><span c
 <p>Convert it to YAML.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">o5_yaml</span> <span class="o">=</span> <span class="n">o5</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o5_yaml</span> <span class="o">=</span> <span class="n">o5</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o5_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1760,7 +1760,7 @@ Create an object with version <code class="docutils literal notranslate"><span c
 <p>And load it with <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
 
 <span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
@@ -1798,12 +1798,12 @@ Create an object with version <code class="docutils literal notranslate"><span c
 However, a warning is given that an argument was ignored.</p>
 </div>
 <div class="section" id="dictionary">
-<h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h2>
+<h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference internal" href="api.html#audobject.Dictionary" title="audobject.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Dictionary</span></code></a> implements a
 <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a> that can used like a dictionary.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span>
     <span class="n">string</span><span class="o">=</span><span class="s1">&#39;I am a dictionary!&#39;</span><span class="p">,</span>
     <span class="n">pi</span><span class="o">=</span><span class="mf">3.14159265359</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1824,7 +1824,7 @@ However, a warning is given that an argument was ignored.</p>
 values of the dictionary.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Still a dictionary!&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Still a dictionary!&#39;</span>
 <span class="n">d</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </pre></div>
@@ -1843,7 +1843,7 @@ values of the dictionary.</p>
 <p>And update from another dictionary.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span>
     <span class="n">string</span><span class="o">=</span><span class="s1">&#39;I will be a dictionary forever!&#39;</span><span class="p">,</span>
     <span class="nb">object</span><span class="o">=</span><span class="n">MyObject</span><span class="p">(</span><span class="s1">&#39;Hey, I am an object.&#39;</span><span class="p">),</span>
 <span class="p">)</span>
@@ -1869,7 +1869,7 @@ values of the dictionary.</p>
 <p>And we can read/write the dictionary from/to a file.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;dict.yaml&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;dict.yaml&#39;</span>
 <span class="n">d</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="n">d3</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">d3</span><span class="p">)</span>
@@ -1892,7 +1892,7 @@ values of the dictionary.</p>
 </div>
 </div>
 <div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <p>You have probably used <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a> before.
 It is a package to write user-friendly command-line interfaces
 that allows the user to define what arguments are required,
@@ -1909,7 +1909,7 @@ And it can be bound a parameter to a specific versions.</p>
 A parameter that holds a string.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
     <span class="n">value_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s1">&#39;the string we want to repeat&#39;</span><span class="p">,</span>
     <span class="n">value</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
@@ -1938,7 +1938,7 @@ A parameter that holds a string.</p>
 <p>And a parameter that defines how many times we want to repeat the string.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">repeat</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">repeat</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
     <span class="n">value_type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s1">&#39;the number of times we want to repeat&#39;</span><span class="p">,</span>
     <span class="n">default_value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1963,7 +1963,7 @@ A parameter that holds a string.</p>
 <p>Now we combine the two parameters into a list.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameters</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameters</span><span class="p">(</span>
     <span class="n">string</span><span class="o">=</span><span class="n">string</span><span class="p">,</span>
     <span class="n">num_repeat</span><span class="o">=</span><span class="n">repeat</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1984,7 +1984,7 @@ num_repeat  1      1        None                   the number of times we want t
 we get a dictionary of parameter names and values.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1997,7 +1997,7 @@ we get a dictionary of parameter names and values.</p>
 <p>We can access the values of the parameters using <code class="docutils literal notranslate"><span class="pre">.</span></code> notation.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;BAR&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;BAR&#39;</span>
 <span class="n">params</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </pre></div>
@@ -2016,7 +2016,7 @@ num_repeat  2      1        None                   the number of times we want t
 we will get an error.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -2062,7 +2062,7 @@ we will get an error.</p>
 to a parameter.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delim</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delim</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
     <span class="n">value_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s1">&#39;defines the delimiter&#39;</span><span class="p">,</span>
     <span class="n">default_value</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span>
@@ -2086,7 +2086,7 @@ delimiter   ,      ,        None                   defines the delimiter        
 <p>We can check if a parameter is available for a specific version.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;1.0.0&#39;</span> <span class="ow">in</span> <span class="n">delim</span><span class="p">,</span> <span class="s1">&#39;2.4.0&#39;</span> <span class="ow">in</span> <span class="n">delim</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;1.0.0&#39;</span> <span class="ow">in</span> <span class="n">delim</span><span class="p">,</span> <span class="s1">&#39;2.4.0&#39;</span> <span class="ow">in</span> <span class="n">delim</span>
 </pre></div>
 </div>
 </div>
@@ -2099,7 +2099,7 @@ delimiter   ,      ,        None                   defines the delimiter        
 <p>We can also filter a list of parameters by version.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params_v3</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">filter_by_version</span><span class="p">(</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params_v3</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">filter_by_version</span><span class="p">(</span><span class="s1">&#39;3.0.0&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">params_v3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2116,7 +2116,7 @@ num_repeat  2      1        None                   the number of times we want t
 <p>Or add them to a command line interface.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
 
 
 <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
@@ -2145,7 +2145,7 @@ optional arguments:
 <p>Or update the values from a command line interface.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span>
     <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;--string=Bar&#39;</span><span class="p">,</span> <span class="s1">&#39;--delimiter=;&#39;</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="n">params</span><span class="o">.</span><span class="n">from_command_line</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
@@ -2167,7 +2167,7 @@ delimiter   ;      ,        None                   defines the delimiter        
 that keeps track of the parameters.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">to_path</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">to_path</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2180,7 +2180,7 @@ that keeps track of the parameters.</p>
 <p>Last but not least, we can read/write the parameters from/to a file.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;params.yaml&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;params.yaml&#39;</span>
 <span class="n">params</span><span class="o">.</span><span class="n">to_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="n">params2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">params2</span><span class="p">)</span>
@@ -2227,7 +2227,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/03/29 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/07/14 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -2262,6 +2262,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/thebelab-helper.js"></script>
         <script src="_static/clipboard.min.js"></script>
