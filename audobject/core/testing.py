@@ -41,6 +41,8 @@ class TestObject(Object):
             point: (int, int) = (0, 0),
             **kwargs,
     ):
+        super().__init__(**kwargs)
+
         self.name = name
         self.point = point
         for key, value in kwargs.items():

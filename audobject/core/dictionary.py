@@ -1,5 +1,6 @@
 import typing
 
+from audobject.core import define
 from audobject.core.object import Object
 
 
@@ -38,16 +39,17 @@ class Dictionary(Object):
             self,
             **kwargs,
     ):
+        super().__init__(**kwargs)
         for key, value in kwargs.items():
             self[key] = value
 
     def keys(self) -> typing.KeysView[str]:
         r"""Return the keys."""
-        return self.__dict__.keys()
+        return self._dict_wo_special_attributes.keys()
 
     def items(self) -> typing.ItemsView[str, typing.Any]:
         r"""Return items view."""
-        return self.__dict__.items()
+        return self._dict_wo_special_attributes.items()
 
     def update(
             self,
@@ -64,16 +66,32 @@ class Dictionary(Object):
 
     def values(self) -> typing.ValuesView[typing.Any]:
         r"""Return values."""
-        return self.__dict__.values()
+        return self._dict_wo_special_attributes.values()
+
+    @property
+    def _dict_wo_special_attributes(self):
+        r"""Return self.__dict__ without special attributes"""
+        d = {}
+        for key, value in self.__dict__.items():
+            if key not in [
+                define.BORROWED_ATTRIBUTES,
+                define.CUSTOM_VALUE_RESOLVERS,
+                define.HIDDEN_ATTRIBUTES,
+                define.KEYWORD_ARGUMENTS,
+            ]:
+                d[key] = value
+        return d
 
     def __contains__(self, key):
-        return key in self.__dict__
+        return key in self._dict_wo_special_attributes
 
     def __getitem__(self, name: str) -> typing.Any:
-        return self.__dict__[name]
+        return self._dict_wo_special_attributes[name]
 
     def __len__(self):
-        return len(self.__dict__)
+        return len(self._dict_wo_special_attributes)
 
     def __setitem__(self, key: str, value: typing.Any):
+        if key not in self.__dict__[define.KEYWORD_ARGUMENTS]:
+            self.__dict__[define.KEYWORD_ARGUMENTS].append(key)
         self.__dict__[key] = value
