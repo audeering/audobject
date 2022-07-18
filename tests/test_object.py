@@ -516,3 +516,36 @@ def test_bad_object():
     with pytest.raises(RuntimeError):
         with pytest.warns(RuntimeWarning):
             BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute
+
+
+class MyObjectWithKwargs(audobject.Object):
+
+    def __init__(
+            self,
+            arg: str,
+            **kwargs,
+    ):
+        super().__init__(**kwargs)
+
+        self.arg = arg
+        self.no_arg = 'no arg'
+        for key, value in kwargs.items():
+            self.__dict__[key] = value
+
+
+def test_kwargs_object():
+
+    o = MyObjectWithKwargs(
+        'arg',
+        foo='foo',
+        bar='bar',
+    )
+    
+    assert 'arg' in o.arguments
+    assert 'foo' in o.arguments
+    assert 'bar' in o.arguments
+    assert 'no_arg' not in o.arguments
+    
+    o2 = audobject.from_yaml_s(o.to_yaml_s())
+    
+    assert o == o2
