@@ -540,12 +540,12 @@ def test_kwargs_object():
         foo='foo',
         bar='bar',
     )
-    
+
     assert 'arg' in o.arguments
     assert 'foo' in o.arguments
     assert 'bar' in o.arguments
     assert 'no_arg' not in o.arguments
-    
+
     o2 = audobject.from_yaml_s(o.to_yaml_s())
-    
+
     assert o == o2
