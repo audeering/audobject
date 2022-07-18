@@ -520,6 +520,15 @@ def test_bad_object():
 
 class MyObjectWithKwargs(audobject.Object):
 
+    @audobject.init_decorator(
+        borrow={
+            'borrow_arg': 'dict',
+        },
+        hide=['hide_arg', 'unassign_arg'],
+        resolvers={
+            'resolve_arg': audobject.resolver.Tuple,
+        }
+    )
     def __init__(
             self,
             arg: str,
@@ -528,24 +537,35 @@ class MyObjectWithKwargs(audobject.Object):
         super().__init__(**kwargs)
 
         self.arg = arg
-        self.no_arg = 'no arg'
-        for key, value in kwargs.items():
-            self.__dict__[key] = value
+        self.kwarg = kwargs['kwarg']
+        self.dict = {
+            'borrow_arg': kwargs['borrow_arg']
+        }
+        self.no_arg = None
+        self.hide_arg = kwargs['hide_arg'] if 'hide_arg' in kwargs else None
+        self.resolve_arg = kwargs['resolve_arg']
 
 
 def test_kwargs_object():
 
     o = MyObjectWithKwargs(
         'arg',
-        foo='foo',
-        bar='bar',
+        borrow_arg='borrow',
+        hide_arg='hide',
+        kwarg='kwarg',
+        resolve_arg=('foo', 'bar'),
+        unassign_arg='unassign',
     )
 
-    assert 'arg' in o.arguments
-    assert 'foo' in o.arguments
-    assert 'bar' in o.arguments
+    assert 'borrow_arg' in o.arguments
+    assert 'hide_arg' not in o.arguments
+    assert 'kwarg' in o.arguments
     assert 'no_arg' not in o.arguments
+    assert 'resolve_arg' in o.arguments
 
-    o2 = audobject.from_yaml_s(o.to_yaml_s())
+    assert o.hide_arg is not None
+
+    o2 = audobject.from_yaml_s(o.to_yaml_s(include_version=False))
 
     assert o == o2
+    assert o2.hide_arg is None
