@@ -529,6 +529,10 @@ class MyObjectWithKwargs(audobject.Object):
             'resolve_arg': audobject.resolver.Tuple,
         }
     )
+    @audeer.deprecated_keyword_argument(
+        deprecated_argument='deprecate_arg',
+        removal_version='999.9.9',
+    )
     def __init__(
             self,
             arg: str,
@@ -550,16 +554,19 @@ class MyObjectWithKwargs(audobject.Object):
 
 def test_kwargs_object():
 
-    o = MyObjectWithKwargs(
-        'arg',
-        borrow_arg='borrow',
-        hide_arg='hide',
-        kwarg='kwarg',
-        resolve_arg=('foo', 'bar'),
-        unassign_arg='unassign',
-    )
+    with pytest.warns(UserWarning, match='deprecate'):
+        o = MyObjectWithKwargs(
+            'arg',
+            borrow_arg='borrow',
+            deprecate_arg='deprecate',
+            hide_arg='hide',
+            kwarg='kwarg',
+            resolve_arg=('foo', 'bar'),
+            unassign_arg='unassign',
+        )
 
     assert 'borrow_arg' in o.arguments
+    assert 'deprecate_arg' not in o.arguments
     assert 'hide_arg' not in o.arguments
     assert 'kwarg' in o.arguments
     assert 'no_arg' not in o.arguments
@@ -571,32 +578,3 @@ def test_kwargs_object():
 
     assert o == o2
     assert o2.hide_arg is None
-
-
-class MyObjectWithDeprecatedKwargs(audobject.Object):
-
-    @audeer.deprecated_keyword_argument(
-        deprecated_argument='deprecate_arg',
-        removal_version='999.9.9',
-    )
-    def __init__(
-            self,
-            arg: str,
-            *,
-            kwarg: str,
-            **kwargs,
-    ):
-        self.arg = arg
-        self.kwarg = kwarg
-
-
-def test_deprecated_kwargs_object():
-
-    with pytest.warns(UserWarning):
-        o = MyObjectWithDeprecatedKwargs(
-            'arg',
-            kwarg='kwarg',
-            deprecate_arg='deprecate',
-        )
-
-    assert 'deprecate_arg' not in o.arguments
