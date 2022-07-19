@@ -7,6 +7,14 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.3 (2022-07-19)
+-------------------------
+
+* Fixed: if ``__init__()`` accepts `` kwargs``
+  do not store all attributes,
+  but only those included in `` kwargs``
+
+
 Version 0.7.2 (2022-07-14)
 --------------------------
 
