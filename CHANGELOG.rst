@@ -8,11 +8,15 @@ and this project adheres to `Semantic Versioning`_.
 
 
 Version 0.7.3 (2022-07-19)
--------------------------
+--------------------------
 
-* Fixed: if ``__init__()`` accepts `` kwargs``
-  do not store all attributes,
-  but only those included in `` kwargs``
+* Fixed: if ``__init__()`` accepts ``kwargs``
+  no longer all attributes will be serialized,
+  but only the ones included in ``kwargs``
+  (in addition to the other arguments).
+  This requires that
+  ``super.__init__(**kwargs)``
+  is called in the constructor
 
 
 Version 0.7.2 (2022-07-14)
