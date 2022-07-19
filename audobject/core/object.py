@@ -52,7 +52,7 @@ class Object:
         """  # noqa: E501
         signature = inspect.signature(self.__init__)
 
-        # regular arguments from __init__
+        # non-keyword arguments from __init__
         names = [p.name for p in signature.parameters.values()
                  if not p.name == 'kwargs']
 
