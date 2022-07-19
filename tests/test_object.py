@@ -516,3 +516,65 @@ def test_bad_object():
     with pytest.raises(RuntimeError):
         with pytest.warns(RuntimeWarning):
             BadObject(0, 1).to_yaml_s()  # cannot borrow missing attribute
+
+
+class MyObjectWithKwargs(audobject.Object):
+
+    @audobject.init_decorator(
+        borrow={
+            'borrow_arg': 'dict',
+        },
+        hide=['hide_arg', 'unassign_arg'],
+        resolvers={
+            'resolve_arg': audobject.resolver.Tuple,
+        }
+    )
+    @audeer.deprecated_keyword_argument(
+        deprecated_argument='deprecate_arg',
+        removal_version='999.9.9',
+    )
+    def __init__(
+            self,
+            arg: str,
+            *,
+            kwarg: str,
+            **kwargs,
+    ):
+        super().__init__(**kwargs)
+
+        self.arg = arg
+        self.kwarg = kwarg
+        self.dict = {
+            'borrow_arg': kwargs['borrow_arg']
+        }
+        self.no_arg = None
+        self.hide_arg = kwargs['hide_arg'] if 'hide_arg' in kwargs else None
+        self.resolve_arg = kwargs['resolve_arg']
+
+
+def test_kwargs_object():
+
+    with pytest.warns(UserWarning, match='deprecate'):
+        o = MyObjectWithKwargs(
+            'arg',
+            borrow_arg='borrow',
+            deprecate_arg='deprecate',
+            hide_arg='hide',
+            kwarg='kwarg',
+            resolve_arg=('foo', 'bar'),
+            unassign_arg='unassign',
+        )
+
+    assert 'borrow_arg' in o.arguments
+    assert 'deprecate_arg' not in o.arguments
+    assert 'hide_arg' not in o.arguments
+    assert 'kwarg' in o.arguments
+    assert 'no_arg' not in o.arguments
+    assert 'resolve_arg' in o.arguments
+
+    assert o.hide_arg is not None
+
+    o2 = audobject.from_yaml_s(o.to_yaml_s(include_version=False))
+
+    assert o == o2
+    assert o2.hide_arg is None

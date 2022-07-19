@@ -1,14 +1,15 @@
 import datetime
 
 
+BORROWED_ATTRIBUTES = '_object_borrowed_'
+CUSTOM_VALUE_RESOLVERS = '_object_resolvers_'
+DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
+HIDDEN_ATTRIBUTES = '_object_hidden_'
+KEYWORD_ARGUMENTS = '_object_kwargs_'
 OBJECT_TAG = '$'
 PACKAGE_TAG = ':'
-VERSION_TAG = '=='
-DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
-CUSTOM_VALUE_RESOLVERS = '_object_resolvers_'
-BORROWED_ATTRIBUTES = '_object_borrowed_'
-HIDDEN_ATTRIBUTES = '_object_hidden_'
 ROOT_ATTRIBUTE = '_object_root_'
+VERSION_TAG = '=='
 
 
 class PackageMismatchWarnLevel:

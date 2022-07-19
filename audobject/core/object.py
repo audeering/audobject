@@ -26,6 +26,12 @@ class Object:
           bar: hello object!
 
     """
+    def __init__(
+            self,
+            **kwargs,
+    ):
+        self.__dict__[define.KEYWORD_ARGUMENTS] = list(kwargs)
+
     @property
     def arguments(self) -> typing.Dict[str, typing.Any]:
         r"""Returns arguments that are serialized.
@@ -46,12 +52,13 @@ class Object:
         """  # noqa: E501
         signature = inspect.signature(self.__init__)
 
-        # if 'kwargs' are allowed, check all members
-        # otherwise only arguments from __init__
-        if 'kwargs' in signature.parameters:
-            names = self.__dict__
-        else:
-            names = [p.name for p in signature.parameters.values()]
+        # non-keyword arguments from __init__
+        names = [p.name for p in signature.parameters.values()
+                 if not p.name == 'kwargs']
+
+        # additional keyword arguments
+        if define.KEYWORD_ARGUMENTS in self.__dict__:
+            names.extend(self.__dict__[define.KEYWORD_ARGUMENTS])
 
         # remove hidden and borrowed attributes
         borrowed = self.borrowed_arguments

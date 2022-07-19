@@ -321,90 +321,45 @@ to add properties with the name of an argument.
         def z(self):  # property sharing the name of an argument
             return self.d['z']
 
-    t = ObjectWithBorrowedArguments(0, 1, 2)
-    print(t.to_yaml_s())
+    o = ObjectWithBorrowedArguments(0, 1, 2)
+    print(o.to_yaml_s())
 
 Object with kwargs
 ------------------
 
-Usually, the attributes that are serialized to YAML
-are automatically derived from the arguments of the
-``__init__`` function.
-For instance, we can add an attribute ``other``.
+If the ``__init__`` function accepts ``**kwargs``,
+we have to pass them to the base class.
+This is necessary,
+since we cannot figure out
+the names of additional keyword arguments
+from the signature of the function.
 
 .. jupyter-execute::
 
-    class MyObjectWithOther(MyObject):
+    class MyObjectWithKwargs(audobject.Object):
 
         def __init__(
                 self,
                 string: str,
-                *,
-                num_repeat: int = 1,
+                **kwargs,
         ):
-            super().__init__(string, num_repeat=num_repeat)
-            self.other = 'not an argument'
+            super().__init__(**kwargs)  # inform base class about keyword arguments
 
+            self.string = string
+            self.num_repeat = kwargs['num_repeat'] if 'num_repeat' in kwargs else 1
 
-But since it is not an argument of the constructor,
-it is not serialized.
+        def __str__(self) -> str:
+            return ' '.join([self.string] * self.num_repeat)
 
-.. jupyter-execute::
+    o = MyObjectWithKwargs('I have kwargs', num_repeat=3)
+    print(o)
 
-    o = MyObjectWithOther('I have another attribute')
-    o_yaml = o.to_yaml_s()
-    print(o_yaml)
-
-However, if the ``__init__`` function accepts ``**kwargs``,
-any attribute could be an argument
-and hence all attributes are serialized.
+When we serialize the object,
+we see that keyword argument
+``num_repeat`` will be included.
 
 .. jupyter-execute::
 
-    class MyObjectWithKwargs(MyObject):
-
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.other = 'not an argument'
-
-And ``other`` shows up in the YAML string.
-
-.. jupyter-execute::
-
-    o = MyObjectWithKwargs('I have kwargs')
-    o_yaml = o.to_yaml_s()
-    print(o_yaml)
-
-To avoid this, we can add ``other`` to the list
-of ignored arguments.
-
-.. jupyter-execute::
-
-    class MyObjectWithKwargs(MyObject):
-
-        @audobject.init_decorator(
-            hide=['other'],
-        )
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.other = 'not an argument'
-
-    o = MyObjectWithKwargs('I have kwargs')
-    o_yaml = o.to_yaml_s()
-    print(o_yaml)
-
-Or we make it a private attribute
-(i.e. prepend '_' to the name).
-
-.. jupyter-execute::
-
-    class MyObjectWithKwargs(MyObject):
-
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self._other = 'not an argument'
-
-    o = MyObjectWithKwargs('I have kwargs')
     o_yaml = o.to_yaml_s()
     print(o_yaml)
 
