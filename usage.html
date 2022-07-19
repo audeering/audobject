@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v0.7.2
+                v0.7.3
               </div>
             
           
@@ -449,51 +449,51 @@ from YAML, we’ll get an error.</p>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:311,</span> in <span class="ni">Object.to_yaml_s</span><span class="nt">(self, include_version)</span>
-<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span>         <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span>         <span class="o">*</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span>         <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">291</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">292</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
-<span class="g g-Whitespace">    </span><span class="mi">293</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">294</span><span class="sd">     Args:</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:318,</span> in <span class="ni">Object.to_yaml_s</span><span class="nt">(self, include_version)</span>
+<span class="g g-Whitespace">    </span><span class="mi">294</span> <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span>         <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">296</span>         <span class="o">*</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">297</span>         <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
+<span class="g g-Whitespace">    </span><span class="mi">300</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">301</span><span class="sd">     Args:</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span><span class="sd">     &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
-<span class="ne">--&gt; </span><span class="mi">311</span>     <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">316</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span><span class="sd">     &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="ne">--&gt; </span><span class="mi">318</span>     <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:254,</span> in <span class="ni">Object.to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
-<span class="g g-Whitespace">    </span><span class="mi">220</span> <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">222</span><span class="sd"> Includes items from :meth:`audobject.Object.arguments`.</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:261,</span> in <span class="ni">Object.to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span> <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span><span class="sd"> Includes items from :meth:`audobject.Object.arguments`.</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">243</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">244</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
-<span class="g g-Whitespace">    </span><span class="mi">245</span> <span class="n">name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">create_class_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_variable</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">249</span>         <span class="n">key</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="n">value</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">251</span>         <span class="n">include_version</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">252</span>         <span class="n">root</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">253</span>     <span class="p">)</span>
-<span class="nn">--&gt; 254     for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">255</span> <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">flatten</span> <span class="k">else</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">251</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="g g-Whitespace">    </span><span class="mi">252</span> <span class="n">name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">create_class_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">254</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span>     <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_variable</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span>         <span class="n">key</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span>         <span class="n">value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span>         <span class="n">include_version</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>         <span class="n">root</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>     <span class="p">)</span>
+<span class="nn">--&gt; 261     for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span> <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">flatten</span> <span class="k">else</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:74,</span> in <span class="ni">Object.arguments</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">     </span><span class="mi">72</span>         <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">74</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span>         <span class="s1">&#39;Arguments &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1"> &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span>         <span class="s1">&#39;of &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">78</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1"> &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span>         <span class="s1">&#39;not assigned to attributes of same name.&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span>     <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span> <span class="c1"># check borrowed attributes</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:81,</span> in <span class="ni">Object.arguments</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>         <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">81</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>         <span class="s1">&#39;Arguments &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1"> &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>         <span class="s1">&#39;of &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1"> &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>         <span class="s1">&#39;not assigned to attributes of same name.&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="c1"># check borrowed attributes</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 
 <span class="ne">RuntimeError</span>: Arguments [&#39;string&#39;, &#39;num_repeat&#39;] of &lt;class &#39;__main__.MyBadObject&#39;&gt; not assigned to attributes of same name.
 </pre></div>
@@ -626,7 +626,9 @@ hello object! hello object! hello object!
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b3579494-fb4f-35f3-62be-1ceedd745e38
-b3579494-fb4f-35f3-62be-1ceedd745e38
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b3579494-fb4f-35f3-62be-1ceedd745e38
 </pre></div>
 </div>
 </div>
@@ -687,8 +689,8 @@ to add properties with the name of an argument.</p>
     <span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># property sharing the name of an argument</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="n">ObjectWithBorrowedArguments</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">())</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">ObjectWithBorrowedArguments</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -705,68 +707,46 @@ to add properties with the name of an argument.</p>
 </div>
 <div class="section" id="object-with-kwargs">
 <h2>Object with kwargs<a class="headerlink" href="#object-with-kwargs" title="Permalink to this heading">¶</a></h2>
-<p>Usually, the attributes that are serialized to YAML
-are automatically derived from the arguments of the
-<code class="docutils literal notranslate"><span class="pre">__init__</span></code> function.
-For instance, we can add an attribute <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function accepts <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>,
+we have to pass them to the base class.
+This is necessary,
+since we cannot figure out
+the names of additional keyword arguments
+from the signature of the function.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithOther</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="o">*</span><span class="p">,</span>
-            <span class="n">num_repeat</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="n">num_repeat</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-</div>
-</div>
-<p>But since it is not an argument of the constructor,
-it is not serialized.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithOther</span><span class="p">(</span><span class="s1">&#39;I have another attribute&#39;</span><span class="p">)</span>
-<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithOther==1.0.0:
-  string: I have another attribute
-  num_repeat: 1
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># inform base class about keyword arguments</span>
 
-</pre></div>
-</div>
-</div>
-</div>
-<p>However, if the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function accepts <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>,
-any attribute could be an argument
-and hence all attributes are serialized.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;num_repeat&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;num_repeat&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="mi">1</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">string</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_repeat</span><span class="p">)</span>
+
+<span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">,</span> <span class="n">num_repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>I have kwargs I have kwargs I have kwargs
+</pre></div>
 </div>
 </div>
-<p>And <code class="docutils literal notranslate"><span class="pre">other</span></code> shows up in the YAML string.</p>
+</div>
+<p>When we serialize the object,
+we see that keyword argument
+<code class="docutils literal notranslate"><span class="pre">num_repeat</span></code> will be included.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
-<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -774,61 +754,7 @@ and hence all attributes are serialized.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
   string: I have kwargs
-  num_repeat: 1
-  other: not an argument
-
-</pre></div>
-</div>
-</div>
-</div>
-<p>To avoid this, we can add <code class="docutils literal notranslate"><span class="pre">other</span></code> to the list
-of ignored arguments.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
-
-    <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
-        <span class="n">hide</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;other&#39;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
-
-<span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
-<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
-  string: I have kwargs
-  num_repeat: 1
-
-</pre></div>
-</div>
-</div>
-</div>
-<p>Or we make it a private attribute
-(i.e. prepend ‘_’ to the name).</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithKwargs</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_other</span> <span class="o">=</span> <span class="s1">&#39;not an argument&#39;</span>
-
-<span class="n">o</span> <span class="o">=</span> <span class="n">MyObjectWithKwargs</span><span class="p">(</span><span class="s1">&#39;I have kwargs&#39;</span><span class="p">)</span>
-<span class="n">o_yaml</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithKwargs==1.0.0:
-  string: I have kwargs
-  num_repeat: 1
+  num_repeat: 3
 
 </pre></div>
 </div>
@@ -967,6 +893,9 @@ and clutter the YAML syntax.</p>
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>64 days, 8:05:56.000010
 </pre></div>
 </div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </div>
 <p>But if we convert it to YAML,
@@ -988,7 +917,7 @@ we’ll see a warning.</p>
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:354: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:361: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
   warnings.warn(
 </pre>
 </div>
@@ -1304,7 +1233,9 @@ when the object is recreated.</p>
 <div class="cell_output docutils container">
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>$__main__.MyObjectWithFunction==1.0.0:
   func: &#39;lambda a, b: a * b&#39;
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1630,7 +1561,7 @@ for the new argument.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="nn">Input In [66],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [62],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">o_yaml</span><span class="p">)</span>
 
 <span class="nn">File ~/work/audobject/audobject/audobject/core/api.py:151,</span> in <span class="ni">from_yaml_s</span><span class="nt">(yaml_string, auto_install, override_args, **kwargs)</span>
@@ -2023,7 +1954,7 @@ we will get an error.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [81],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [77],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
 
 <span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:305,</span> in <span class="ni">Parameters.__setattr__</span><span class="nt">(self, name, value)</span>
@@ -2227,7 +2158,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/07/14 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/07/19 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
