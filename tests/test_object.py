@@ -532,6 +532,8 @@ class MyObjectWithKwargs(audobject.Object):
     def __init__(
             self,
             arg: str,
+            *,
+            kwarg: str,
             **kwargs,
     ):
         super().__init__(**kwargs)
