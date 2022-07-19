@@ -539,7 +539,7 @@ class MyObjectWithKwargs(audobject.Object):
         super().__init__(**kwargs)
 
         self.arg = arg
-        self.kwarg = kwargs['kwarg']
+        self.kwarg = kwarg
         self.dict = {
             'borrow_arg': kwargs['borrow_arg']
         }
