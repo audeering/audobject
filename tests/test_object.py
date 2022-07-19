@@ -571,3 +571,32 @@ def test_kwargs_object():
 
     assert o == o2
     assert o2.hide_arg is None
+
+
+class MyObjectWithDeprecatedKwargs(audobject.Object):
+
+    @audeer.deprecated_keyword_argument(
+        deprecated_argument='deprecate_arg',
+        removal_version='999.9.9',
+    )
+    def __init__(
+            self,
+            arg: str,
+            *,
+            kwarg: str,
+            **kwargs,
+    ):
+        self.arg = arg
+        self.kwarg = kwarg
+
+
+def test_deprecated_kwargs_object():
+
+    with pytest.warns(UserWarning):
+        o = MyObjectWithDeprecatedKwargs(
+            'arg',
+            kwarg='kwarg',
+            deprecate_arg='deprecate',
+        )
+
+    assert 'deprecate_arg' not in o.arguments
