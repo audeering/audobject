@@ -73,12 +73,7 @@ class Dictionary(Object):
         r"""Return self.__dict__ without special attributes"""
         d = {}
         for key, value in self.__dict__.items():
-            if key not in [
-                define.BORROWED_ATTRIBUTES,
-                define.CUSTOM_VALUE_RESOLVERS,
-                define.HIDDEN_ATTRIBUTES,
-                define.KEYWORD_ARGUMENTS,
-            ]:
+            if key != define.KEYWORD_ARGUMENTS:
                 d[key] = value
         return d
 
