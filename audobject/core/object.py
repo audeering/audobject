@@ -150,6 +150,9 @@ class Object:
 
         The ID of an object ID is created from its non-hidden arguments.
 
+        Returns:
+            object identifier
+
         Example:
             >>> class Foo(Object):
             ...    def __init__(self, bar: str):
@@ -167,6 +170,16 @@ class Object:
         """
         string = self.to_yaml_s(include_version=False)
         return audeer.uid(from_string=string)
+
+    @property
+    def is_loaded(self) -> bool:
+        r"""Check if object was loaded from YAML.
+
+        Returns:
+            ``True`` if object was loaded from YAML, otherwise ``False``
+
+        """
+        return define.OBJECT_LOADED in self.__dict__
 
     @staticmethod
     @audeer.deprecated(
