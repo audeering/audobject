@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.7.4
+                v0.7.5
               </div>
             
           
@@ -215,7 +215,7 @@
             <span class="n">override_args</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="nb">object</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
+    <span class="nb">object</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">version</span><span class="p">,</span>
         <span class="n">installed_version</span><span class="p">,</span>
@@ -227,6 +227,22 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">Object</span><span class="p">):</span>
         <span class="c1"># create attribute to signal that object was loaded</span>
         <span class="nb">object</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">OBJECT_LOADED</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># If function has init decorator, add stream to parameters.</span>
+    <span class="c1"># The additional parameter will be popped by the decorator</span>
+    <span class="c1"># before the object is created.</span>
+    <span class="c1"># If the class does not have a decorator</span>
+    <span class="c1"># a TypeError will be raised since we call</span>
+    <span class="c1"># the class with an unexpected argument.</span>
+    <span class="c1"># Unfortunately, there is no straight-forward way</span>
+    <span class="c1"># to check if a method of a class has a decorator</span>
+    <span class="c1"># so we have to use a try-except block</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">params</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="nb">object</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">)</span>
+        <span class="nb">object</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">object</span></div>
 
