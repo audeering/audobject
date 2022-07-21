@@ -51,9 +51,9 @@ def test(tmpdir, obj):
     set().add(obj)
 
     # check if object was loaded
-    assert not obj.is_loaded
-    assert obj_from_yaml_s.is_loaded
-    assert obj_from_yaml.is_loaded
+    assert not obj.is_loaded_from_dict
+    assert obj_from_yaml_s.is_loaded_from_dict
+    assert obj_from_yaml.is_loaded_from_dict
 
 
 class Point:

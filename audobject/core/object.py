@@ -172,11 +172,17 @@ class Object:
         return audeer.uid(from_string=string)
 
     @property
-    def is_loaded(self) -> bool:
-        r"""Check if object was loaded from YAML.
+    def is_loaded_from_dict(self) -> bool:
+        r"""Check if object was loaded from a dictionary.
+
+        Returns ``True``
+        if object was initialized
+        from a dictionary,
+        e.g. after loading it from a YAML file.
 
         Returns:
-            ``True`` if object was loaded from YAML, otherwise ``False``
+            ``True`` if object was loaded from a dictionary,
+                otherwise ``False``
 
         """
         return define.OBJECT_LOADED in self.__dict__
