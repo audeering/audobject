@@ -4,6 +4,7 @@ import warnings
 
 import oyaml as yaml
 
+from audobject.core import define
 from audobject.core.object import Object
 import audobject.core.utils as utils
 
@@ -56,6 +57,7 @@ def from_dict(
         name,
         auto_install,
     )
+
     params = {}
     for key, value in d[name].items():
         params[key] = _decode_value(
@@ -63,7 +65,8 @@ def from_dict(
             auto_install,
             override_args,
         )
-    return utils.get_object(
+
+    object = utils.get_object(
         cls,
         version,
         installed_version,
@@ -71,6 +74,12 @@ def from_dict(
         root,
         override_args,
     )
+
+    if isinstance(object, Object):
+        # create attribute to signal that object was loaded
+        object.__dict__[define.OBJECT_LOADED] = None
+
+    return object
 
 
 def from_yaml(

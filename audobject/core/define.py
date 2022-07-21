@@ -7,6 +7,7 @@ DEFAULT_VALUE_TYPES = (str, int, float, bool, datetime.datetime)
 HIDDEN_ATTRIBUTES = '_object_hidden_'
 KEYWORD_ARGUMENTS = '_object_kwargs_'
 OBJECT_TAG = '$'
+OBJECT_LOADED = '_object_loaded_'
 PACKAGE_TAG = ':'
 ROOT_ATTRIBUTE = '_object_root_'
 VERSION_TAG = '=='

@@ -26,23 +26,34 @@ import audobject.testing
 )
 def test(tmpdir, obj):
 
-    assert obj == audobject.from_yaml_s(obj.to_yaml_s())
+    # load from YAML string
+    obj_from_yaml_s = audobject.from_yaml_s(obj.to_yaml_s())
+    assert obj == obj_from_yaml_s
+
+    # load from YAML file
     path = os.path.join(tmpdir, 'test.yaml')
     obj.to_yaml(path)
-    t2 = audobject.from_yaml(path)
-    assert obj == t2
+    obj_from_yaml = audobject.from_yaml(path)
+    assert obj == obj_from_yaml
+
     # comparison to other objects,
     # see https://github.com/audeering/audinterface/issues/68
     assert not obj == type
-    assert repr(obj) == repr(t2)
-    assert str(obj) == str(t2)
-    assert obj.to_yaml_s() == t2.to_yaml_s()
+    assert repr(obj) == repr(obj_from_yaml)
+    assert str(obj) == str(obj_from_yaml)
+    assert obj.to_yaml_s() == obj_from_yaml.to_yaml_s()
     for key, value in obj.__dict__.items():
         if not key.strip('_'):
-            assert t2.__dict__[key] == value
+            assert obj_from_yaml.__dict__[key] == value
+
     # test hashable collection
     assert hash(obj) == hash(obj.id)
     set().add(obj)
+
+    # check if object was loaded
+    assert not obj.is_loaded_from_dict
+    assert obj_from_yaml_s.is_loaded_from_dict
+    assert obj_from_yaml.is_loaded_from_dict
 
 
 class Point:
