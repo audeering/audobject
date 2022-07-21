@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                v0.7.3
+                v0.7.4
               </div>
             
           
@@ -153,6 +153,7 @@
 
 <span class="kn">import</span> <span class="nn">oyaml</span> <span class="k">as</span> <span class="nn">yaml</span>
 
+<span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">define</span>
 <span class="kn">from</span> <span class="nn">audobject.core.object</span> <span class="kn">import</span> <span class="n">Object</span>
 <span class="kn">import</span> <span class="nn">audobject.core.utils</span> <span class="k">as</span> <span class="nn">utils</span>
 
@@ -205,6 +206,7 @@
         <span class="n">name</span><span class="p">,</span>
         <span class="n">auto_install</span><span class="p">,</span>
     <span class="p">)</span>
+
     <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_decode_value</span><span class="p">(</span>
@@ -212,14 +214,21 @@
             <span class="n">auto_install</span><span class="p">,</span>
             <span class="n">override_args</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
+
+    <span class="nb">object</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">version</span><span class="p">,</span>
         <span class="n">installed_version</span><span class="p">,</span>
         <span class="n">params</span><span class="p">,</span>
         <span class="n">root</span><span class="p">,</span>
         <span class="n">override_args</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">Object</span><span class="p">):</span>
+        <span class="c1"># create attribute to signal that object was loaded</span>
+        <span class="nb">object</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">OBJECT_LOADED</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="nb">object</span></div>
 
 
 <div class="viewcode-block" id="from_yaml"><a class="viewcode-back" href="../../../api.html#audobject.from_yaml">[docs]</a><span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span>
@@ -351,7 +360,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/07/19 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/07/21 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
