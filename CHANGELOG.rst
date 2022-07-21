@@ -7,6 +7,15 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.5 (2022-07-21)
+--------------------------
+
+* Fixed:
+  ``audobject.Object.is_loaded_from_dict``
+  returns correct value in
+  ``__init__()``
+
+
 Version 0.7.4 (2022-07-21)
 --------------------------
 
