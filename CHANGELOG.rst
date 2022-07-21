@@ -7,6 +7,12 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.4 (2022-07-21)
+--------------------------
+
+* Added: ``audobject.Object.is_loaded_from_dict``
+
+
 Version 0.7.3 (2022-07-19)
 --------------------------
 
