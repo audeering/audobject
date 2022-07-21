@@ -66,7 +66,7 @@ def from_dict(
             override_args,
         )
 
-    object = utils.get_object(
+    object, params = utils.get_object(
         cls,
         version,
         installed_version,
@@ -78,6 +78,14 @@ def from_dict(
     if isinstance(object, Object):
         # create attribute to signal that object was loaded
         object.__dict__[define.OBJECT_LOADED] = None
+
+    # call __init__()
+    try:
+        params[define.ROOT_ATTRIBUTE] = root
+        object.__init__(**params)
+    except TypeError:
+        params.pop(define.ROOT_ATTRIBUTE)
+        object.__init__(**params)
 
     return object
 

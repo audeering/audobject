@@ -56,6 +56,24 @@ def test(tmpdir, obj):
     assert obj_from_yaml.is_loaded_from_dict
 
 
+class ObjectTestIsLoadedFromDict(audobject.Object):
+    def __init__(
+            self,
+            loaded: bool,
+    ):
+        assert loaded == self.is_loaded_from_dict
+        self.loaded = loaded
+
+
+def test_is_loaded_from_dict():
+
+    obj = ObjectTestIsLoadedFromDict(False)
+    audobject.from_dict(
+        obj.to_dict(include_version=False),
+        override_args={'loaded': True},
+    )
+
+
 class Point:
     def __init__(
             self,

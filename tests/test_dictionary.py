@@ -16,7 +16,7 @@ def test_dictionary():
     assert list(kwargs.keys()) == list(d.keys())
     assert list(kwargs.values()) == list(d.values())
 
-    d_from_yaml_s = d.from_yaml_s(d.to_yaml_s())
+    d_from_yaml_s = audobject.from_yaml_s(d.to_yaml_s())
 
     assert audobject.core.define.OBJECT_LOADED in d_from_yaml_s.__dict__
     assert audobject.core.define.OBJECT_LOADED not in d_from_yaml_s.arguments
