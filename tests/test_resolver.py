@@ -8,6 +8,30 @@ import pytest
 import audobject
 
 
+
+class ObjectWithArgAndKwarg(audobject.Object):
+    
+    @audobject.init_decorator(
+        resolvers={
+            'arg': audobject.resolver.Tuple,
+            'kwarg': audobject.resolver.Tuple,
+        }
+    )
+    def __init__(
+            self,
+            arg: typing.Any,
+            kwarg: typing.Any,
+    ):
+        self.arg = arg
+        self.kwarg = kwarg
+
+
+def test_arg_and_kwargs():
+    o = ObjectWithArgAndKwarg([], kwarg=[])
+    assert isinstance(o.arg, tuple)
+    assert isinstance(o.kwarg, tuple)
+
+
 class ObjectWithFile(audobject.Object):
 
     @audobject.init_decorator(
