@@ -8,9 +8,8 @@ import pytest
 import audobject
 
 
-
 class ObjectWithArgAndKwarg(audobject.Object):
-    
+
     @audobject.init_decorator(
         resolvers={
             'arg': audobject.resolver.Tuple,
@@ -20,6 +19,7 @@ class ObjectWithArgAndKwarg(audobject.Object):
     def __init__(
             self,
             arg: typing.Any,
+            *,
             kwarg: typing.Any,
     ):
         self.arg = arg

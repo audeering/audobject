@@ -53,6 +53,14 @@ def init_decorator(
                 if not hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
                     setattr(self, define.CUSTOM_VALUE_RESOLVERS, {})
 
+                # convert positional to keyword arguments
+                parameters = list(inspect.signature(func).parameters)
+                if 'self' in parameters:
+                    parameters.remove('self')
+                for arg, name in zip(args, parameters):
+                    kwargs[name] = arg
+                args = tuple()
+
                 for name, resolve in resolvers.items():
                     resolver_obj = resolve()
                     # let resolver know if we read from a stream
@@ -62,7 +70,8 @@ def init_decorator(
                     self.__dict__[define.CUSTOM_VALUE_RESOLVERS][name] = \
                         resolver_obj
                     if name in kwargs and isinstance(
-                            kwargs[name], resolver_obj.encode_type()
+                            kwargs[name],
+                            resolver_obj.encode_type(),
                     ):
                         kwargs[name] = resolver_obj.decode(kwargs[name])
 
