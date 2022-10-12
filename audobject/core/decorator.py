@@ -48,6 +48,14 @@ def init_decorator(
         @functools.wraps(func)
         def wrapper(self, *args, **kwargs):
 
+            # convert positional to keyword arguments
+            parameters = list(inspect.signature(func).parameters)
+            if 'self' in parameters:
+                parameters.remove('self')
+            for arg, name in zip(args, parameters):
+                kwargs[name] = arg
+            args = tuple()
+
             if resolvers is not None:
 
                 if not hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
@@ -62,7 +70,8 @@ def init_decorator(
                     self.__dict__[define.CUSTOM_VALUE_RESOLVERS][name] = \
                         resolver_obj
                     if name in kwargs and isinstance(
-                            kwargs[name], resolver_obj.encode_type()
+                            kwargs[name],
+                            resolver_obj.encode_type(),
                     ):
                         kwargs[name] = resolver_obj.decode(kwargs[name])
 
