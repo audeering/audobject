@@ -420,7 +420,7 @@ class Object:
             value: typing.Any,
             root: typing.Optional[str],
     ) -> resolver.DefaultValueType:
-        if name in self.resolvers:
+        if value is not None and name in self.resolvers:
             # let resolver know if we write to a stream
             self.resolvers[name].__dict__[define.ROOT_ATTRIBUTE] = root
             value = self.resolvers[name].encode(value)
