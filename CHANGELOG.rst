@@ -7,6 +7,13 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.6 (2022-12-08)
+--------------------------
+
+* Fixed: do not resolve arguments set to ``None``
+* Fixed: resolve non-keyword arguments
+
+
 Version 0.7.5 (2022-07-21)
 --------------------------
 
