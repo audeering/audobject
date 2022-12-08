@@ -185,3 +185,37 @@ def test_function(tmpdir):
         )
     ):
         o_func_object_bad.to_yaml_s(include_version=False)
+
+
+class ObjectWithTuple(audobject.Object):
+
+    @audobject.init_decorator(
+        resolvers={
+            'arg': audobject.resolver.Tuple,
+        }
+    )
+    def __init__(
+            self,
+            arg: typing.Tuple = None,
+    ):
+        super().__init__()
+        self.arg = arg
+
+
+@pytest.mark.parametrize(
+    'arg',
+    [
+        None,
+        tuple(),
+        (1, 2, 3),
+    ]
+)
+def test_tuple_or_none(tmpdir, arg):
+
+    o = ObjectWithTuple(arg)
+    path = os.path.join(tmpdir, 'tuple-or-none.yaml')
+    o.to_yaml(path, include_version=False)
+    o_2 = audobject.from_yaml(path)
+
+    assert o.arg == arg
+    assert o_2.arg == arg
