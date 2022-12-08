@@ -25,12 +25,8 @@
     
 
   
-
-  
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
@@ -71,7 +67,7 @@
             
             
               <div class="version">
-                v0.7.5
+                v0.7.6
               </div>
             
           
@@ -104,8 +100,24 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">audobject</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">audobject.define</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#packagemismatchwarnlevel">PackageMismatchWarnLevel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#signaturemismatchwarnlevel">SignatureMismatchWarnLevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#packagemismatchwarnlevel">PackageMismatchWarnLevel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#audobject.define.PackageMismatchWarnLevel"><code class="docutils literal notranslate"><span class="pre">PackageMismatchWarnLevel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#audobject.define.PackageMismatchWarnLevel.SILENT"><code class="docutils literal notranslate"><span class="pre">PackageMismatchWarnLevel.SILENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audobject.define.PackageMismatchWarnLevel.STANDARD"><code class="docutils literal notranslate"><span class="pre">PackageMismatchWarnLevel.STANDARD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audobject.define.PackageMismatchWarnLevel.VERBOSE"><code class="docutils literal notranslate"><span class="pre">PackageMismatchWarnLevel.VERBOSE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#signaturemismatchwarnlevel">SignatureMismatchWarnLevel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#audobject.define.SignatureMismatchWarnLevel"><code class="docutils literal notranslate"><span class="pre">SignatureMismatchWarnLevel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#audobject.define.SignatureMismatchWarnLevel.SILENT"><code class="docutils literal notranslate"><span class="pre">SignatureMismatchWarnLevel.SILENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audobject.define.SignatureMismatchWarnLevel.STANDARD"><code class="docutils literal notranslate"><span class="pre">SignatureMismatchWarnLevel.STANDARD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audobject.define.SignatureMismatchWarnLevel.VERBOSE"><code class="docutils literal notranslate"><span class="pre">SignatureMismatchWarnLevel.VERBOSE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="resolver.html">audobject.resolver</a></li>
@@ -242,7 +254,7 @@ it was generated with.</p>
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/07/21 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -279,11 +291,12 @@ it was generated with.</p>
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/thebelab-helper.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
     
 
   
