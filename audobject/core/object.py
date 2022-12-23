@@ -16,7 +16,7 @@ from audobject.core import resolver
 class Object:
     r"""Base class for objects that can be serialized to YAML.
 
-    Example:
+    Examples:
         >>> class Foo(Object):
         ...    def __init__(self, bar: str):
         ...        self.bar = bar
@@ -43,7 +43,7 @@ class Object:
             RuntimeError: if arguments are found that are not assigned to
                 attributes of the same name
 
-        Example:
+        Examples:
             >>> import audobject.testing
             >>> o = audobject.testing.TestObject('test', point=(1, 1))
             >>> o.arguments
@@ -153,7 +153,7 @@ class Object:
         Returns:
             object identifier
 
-        Example:
+        Examples:
             >>> class Foo(Object):
             ...    def __init__(self, bar: str):
             ...        self.bar = bar
@@ -259,7 +259,7 @@ class Object:
         Returns:
             dictionary that represent the object
 
-        Example:
+        Examples:
             >>> import audobject.testing
             >>> o = audobject.testing.TestObject('test', point=(1, 1))
             >>> o.to_dict(include_version=False)
@@ -323,7 +323,7 @@ class Object:
         Returns:
             YAML string
 
-        Example:
+        Examples:
             >>> import audobject.testing
             >>> o = audobject.testing.TestObject('test', point=(1, 1))
             >>> print(o.to_yaml_s(include_version=False))

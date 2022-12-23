@@ -16,7 +16,7 @@ class TestObject(Object):
         date: date, if ``None`` initialized with current date
         **kwargs: additional variables
 
-    Example:
+    Examples:
 
     >>> from datetime import datetime
     >>> foo = TestObject('test', pi=3.1416)

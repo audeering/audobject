@@ -3,9 +3,8 @@ audobject.testing
 
 .. automodule:: audobject.testing
 
-TestObject
-----------
+.. autosummary::
+    :toctree:
+    :nosignatures:
 
-.. autoclass:: TestObject
-    :members:
-
+    TestObject
