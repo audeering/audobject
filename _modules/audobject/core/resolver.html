@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>audobject.core.resolver &mdash; audobject Documentation</title>
+  <title>audobject.core.resolver &mdash; Documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                v0.7.6
+                v0.7.7
               </div>
             
           
@@ -96,10 +96,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../resolver.html">audobject.resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.html">audobject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.resolver.html">audobject.resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -169,7 +169,7 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="Base"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Base">[docs]</a><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+<div class="viewcode-block" id="Base"><a class="viewcode-back" href="../../../api/audobject.resolver.Base.html#audobject.resolver.Base">[docs]</a><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Abstract resolver class.</span>
 
 <span class="sd">    Implement for arguments that are not one of:</span>
@@ -201,7 +201,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Base.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Base.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DefaultValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="Base.decode"><a class="viewcode-back" href="../../../api/audobject.resolver.Base.html#audobject.resolver.Base.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DefaultValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decode value.</span>
 
 <span class="sd">        Takes the encoded value and converts it back to its original type.</span>
@@ -215,7 +215,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span></div>
 
-<div class="viewcode-block" id="Base.encode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Base.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DefaultValueType</span><span class="p">:</span>
+<div class="viewcode-block" id="Base.encode"><a class="viewcode-back" href="../../../api/audobject.resolver.Base.html#audobject.resolver.Base.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DefaultValueType</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Encode value.</span>
 
 <span class="sd">        The type of the returned value must be one of:</span>
@@ -239,7 +239,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span></div>
 
-<div class="viewcode-block" id="Base.encode_type"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Base.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<div class="viewcode-block" id="Base.encode_type"><a class="viewcode-back" href="../../../api/audobject.resolver.Base.html#audobject.resolver.Base.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return encoded type.</span>
 
 <span class="sd">        Returns:</span>
@@ -249,14 +249,14 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>  <span class="c1"># pragma: no cover</span></div></div>
 
 
-<div class="viewcode-block" id="FilePath"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.FilePath">[docs]</a><span class="k">class</span> <span class="nc">FilePath</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="FilePath"><a class="viewcode-back" href="../../../api/audobject.resolver.FilePath.html#audobject.resolver.FilePath">[docs]</a><span class="k">class</span> <span class="nc">FilePath</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;File path resolver.</span>
 
 <span class="sd">    Turns file path to a relative path</span>
 <span class="sd">    when object is serialized to a file</span>
 <span class="sd">    and expands it again during reading.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; resolver = FilePath()</span>
 <span class="sd">        &gt;&gt;&gt; resolver._object_root_ = &#39;/some/root&#39;  # usually set by object</span>
 <span class="sd">        &gt;&gt;&gt; value = &#39;/some/where/else&#39;</span>
@@ -268,7 +268,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="FilePath.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.FilePath.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="FilePath.decode"><a class="viewcode-back" href="../../../api/audobject.resolver.FilePath.html#audobject.resolver.FilePath.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decode file path.</span>
 
 <span class="sd">        If object is read from a file,</span>
@@ -289,7 +289,7 @@
             <span class="n">value</span> <span class="o">=</span> <span class="n">audeer</span><span class="o">.</span><span class="n">safe_path</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="FilePath.encode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.FilePath.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="FilePath.encode"><a class="viewcode-back" href="../../../api/audobject.resolver.FilePath.html#audobject.resolver.FilePath.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Encode file path.</span>
 
 <span class="sd">        If object is written to a file,</span>
@@ -309,7 +309,7 @@
             <span class="n">value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="FilePath.encode_type"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.FilePath.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<div class="viewcode-block" id="FilePath.encode_type"><a class="viewcode-back" href="../../../api/audobject.resolver.FilePath.html#audobject.resolver.FilePath.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return encoded type.</span>
 
 <span class="sd">        Returns:</span>
@@ -319,13 +319,13 @@
         <span class="k">return</span> <span class="nb">str</span></div></div>
 
 
-<div class="viewcode-block" id="Function"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Function">[docs]</a><span class="k">class</span> <span class="nc">Function</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="Function"><a class="viewcode-back" href="../../../api/audobject.resolver.Function.html#audobject.resolver.Function">[docs]</a><span class="k">class</span> <span class="nc">Function</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Function resolver.</span>
 
 <span class="sd">    Encodes source code of function and</span>
 <span class="sd">    dynamically evaluates it when the value is decoded again.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; resolver = Function()</span>
 <span class="sd">        &gt;&gt;&gt; def func(x):</span>
 <span class="sd">        ...     return x * 2</span>
@@ -340,7 +340,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Function.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Function.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">:</span>
+<div class="viewcode-block" id="Function.decode"><a class="viewcode-back" href="../../../api/audobject.resolver.Function.html#audobject.resolver.Function.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decode (lambda) function.</span>
 
 <span class="sd">        Args:</span>
@@ -385,7 +385,7 @@
 
         <span class="k">return</span> <span class="n">func</span></div>
 
-<div class="viewcode-block" id="Function.encode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Function.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span>
+<div class="viewcode-block" id="Function.encode"><a class="viewcode-back" href="../../../api/audobject.resolver.Function.html#audobject.resolver.Function.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]:</span>
@@ -411,7 +411,7 @@
                 <span class="s2">&quot;&#39;audobject.Object&#39;.&quot;</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Function.encode_type"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Function.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<div class="viewcode-block" id="Function.encode_type"><a class="viewcode-back" href="../../../api/audobject.resolver.Function.html#audobject.resolver.Function.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns encoded type.</span>
 
 <span class="sd">        Returns:</span>
@@ -420,7 +420,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span></div>
 
-<div class="viewcode-block" id="Function.get_source"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Function.get_source">[docs]</a>    <span class="k">def</span> <span class="nf">get_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Function.get_source"><a class="viewcode-back" href="../../../api/audobject.resolver.Function.html#audobject.resolver.Function.get_source">[docs]</a>    <span class="k">def</span> <span class="nf">get_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Obtain source code of (lambda) function.</span>
 
 <span class="sd">        Retrieving the source of a lambda function can become tricky,</span>
@@ -515,12 +515,12 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="Tuple"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Tuple">[docs]</a><span class="k">class</span> <span class="nc">Tuple</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="Tuple"><a class="viewcode-back" href="../../../api/audobject.resolver.Tuple.html#audobject.resolver.Tuple">[docs]</a><span class="k">class</span> <span class="nc">Tuple</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Tuple resolver.</span>
 
 <span class="sd">    Encodes tuple as a list.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; resolver = Tuple()</span>
 <span class="sd">        &gt;&gt;&gt; value = (1, &#39;a&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; value</span>
@@ -534,7 +534,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Tuple.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Tuple.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<div class="viewcode-block" id="Tuple.decode"><a class="viewcode-back" href="../../../api/audobject.resolver.Tuple.html#audobject.resolver.Tuple.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decodes ``list`` as ``tuple``.</span>
 
 <span class="sd">        Args:</span>
@@ -546,7 +546,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Tuple.encode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Tuple.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<div class="viewcode-block" id="Tuple.encode"><a class="viewcode-back" href="../../../api/audobject.resolver.Tuple.html#audobject.resolver.Tuple.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Encodes ``tuple`` as ``list``.</span>
 
 <span class="sd">        Args:</span>
@@ -558,7 +558,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Tuple.encode_type"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Tuple.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<div class="viewcode-block" id="Tuple.encode_type"><a class="viewcode-back" href="../../../api/audobject.resolver.Tuple.html#audobject.resolver.Tuple.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return encoded type.</span>
 
 <span class="sd">        Returns:</span>
@@ -568,12 +568,12 @@
         <span class="k">return</span> <span class="nb">list</span></div></div>
 
 
-<div class="viewcode-block" id="Type"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Type">[docs]</a><span class="k">class</span> <span class="nc">Type</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="Type"><a class="viewcode-back" href="../../../api/audobject.resolver.Type.html#audobject.resolver.Type">[docs]</a><span class="k">class</span> <span class="nc">Type</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Type resolver.</span>
 
 <span class="sd">    Encodes type as a string.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; resolver = Type()</span>
 <span class="sd">        &gt;&gt;&gt; value = str</span>
 <span class="sd">        &gt;&gt;&gt; value</span>
@@ -587,7 +587,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Type.decode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Type.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<div class="viewcode-block" id="Type.decode"><a class="viewcode-back" href="../../../api/audobject.resolver.Type.html#audobject.resolver.Type.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decodes ``str`` as ``type``.</span>
 
 <span class="sd">        Args:</span>
@@ -599,7 +599,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Type.encode"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Type.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Type.encode"><a class="viewcode-back" href="../../../api/audobject.resolver.Type.html#audobject.resolver.Type.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Encodes ``type`` as ``str``.</span>
 
 <span class="sd">        Args:</span>
@@ -611,7 +611,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;&lt;class &#39;&quot;</span><span class="p">):</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;&#39;&gt;&quot;</span><span class="p">)]</span></div>
 
-<div class="viewcode-block" id="Type.encode_type"><a class="viewcode-back" href="../../../resolver.html#audobject.resolver.Type.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<div class="viewcode-block" id="Type.encode_type"><a class="viewcode-back" href="../../../api/audobject.resolver.Type.html#audobject.resolver.Type.encode_type">[docs]</a>    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return encoded type.</span>
 
 <span class="sd">        Returns:</span>
@@ -701,7 +701,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/23 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

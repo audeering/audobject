@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>audobject.core.object &mdash; audobject Documentation</title>
+  <title>audobject.core.object &mdash; Documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                v0.7.6
+                v0.7.7
               </div>
             
           
@@ -96,10 +96,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../resolver.html">audobject.resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.html">audobject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.resolver.html">audobject.resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -158,10 +158,10 @@
 <span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">resolver</span>
 
 
-<div class="viewcode-block" id="Object"><a class="viewcode-back" href="../../../api.html#audobject.Object">[docs]</a><span class="k">class</span> <span class="nc">Object</span><span class="p">:</span>
+<div class="viewcode-block" id="Object"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object">[docs]</a><span class="k">class</span> <span class="nc">Object</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Base class for objects that can be serialized to YAML.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; class Foo(Object):</span>
 <span class="sd">        ...    def __init__(self, bar: str):</span>
 <span class="sd">        ...        self.bar = bar</span>
@@ -188,7 +188,7 @@
 <span class="sd">            RuntimeError: if arguments are found that are not assigned to</span>
 <span class="sd">                attributes of the same name</span>
 
-<span class="sd">        Example:</span>
+<span class="sd">        Examples:</span>
 <span class="sd">            &gt;&gt;&gt; import audobject.testing</span>
 <span class="sd">            &gt;&gt;&gt; o = audobject.testing.TestObject(&#39;test&#39;, point=(1, 1))</span>
 <span class="sd">            &gt;&gt;&gt; o.arguments</span>
@@ -298,7 +298,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            object identifier</span>
 
-<span class="sd">        Example:</span>
+<span class="sd">        Examples:</span>
 <span class="sd">            &gt;&gt;&gt; class Foo(Object):</span>
 <span class="sd">            ...    def __init__(self, bar: str):</span>
 <span class="sd">            ...        self.bar = bar</span>
@@ -332,7 +332,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">define</span><span class="o">.</span><span class="n">OBJECT_LOADED</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Object.from_dict"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object.from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="nd">@audeer</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
         <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
         <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;audobject.from_dict&#39;</span><span class="p">,</span>
@@ -343,9 +343,9 @@
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
         <span class="kn">from</span> <span class="nn">audobject.core.api</span> <span class="kn">import</span> <span class="n">from_dict</span>
-        <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Object.from_yaml"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object.from_yaml">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="nd">@audeer</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
         <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
         <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;audobject.from_yaml&#39;</span><span class="p">,</span>
@@ -355,9 +355,9 @@
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
         <span class="kn">from</span> <span class="nn">audobject.core.api</span> <span class="kn">import</span> <span class="n">from_yaml</span>
-        <span class="k">return</span> <span class="n">from_yaml</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">from_yaml</span><span class="p">(</span><span class="n">path_or_stream</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Object.from_yaml_s"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object.from_yaml_s">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="nd">@audeer</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span>
         <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
         <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;audobject.from_yaml_s&#39;</span><span class="p">,</span>
@@ -367,7 +367,7 @@
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Object&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
         <span class="kn">from</span> <span class="nn">audobject.core.api</span> <span class="kn">import</span> <span class="n">from_yaml_s</span>
-        <span class="k">return</span> <span class="n">from_yaml_s</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">from_yaml_s</span><span class="p">(</span><span class="n">yaml_string</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">resolvers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">]:</span>
@@ -381,7 +381,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="Object.to_dict"><a class="viewcode-back" href="../../../api.html#audobject.Object.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span>
+<div class="viewcode-block" id="Object.to_dict"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
             <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -404,7 +404,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            dictionary that represent the object</span>
 
-<span class="sd">        Example:</span>
+<span class="sd">        Examples:</span>
 <span class="sd">            &gt;&gt;&gt; import audobject.testing</span>
 <span class="sd">            &gt;&gt;&gt; o = audobject.testing.TestObject(&#39;test&#39;, point=(1, 1))</span>
 <span class="sd">            &gt;&gt;&gt; o.to_dict(include_version=False)</span>
@@ -427,7 +427,7 @@
 
         <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">flatten</span> <span class="k">else</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="Object.to_yaml"><a class="viewcode-back" href="../../../api.html#audobject.Object.to_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">to_yaml</span><span class="p">(</span>
+<div class="viewcode-block" id="Object.to_yaml"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object.to_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">to_yaml</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">path_or_stream</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">IO</span><span class="p">],</span>
             <span class="o">*</span><span class="p">,</span>
@@ -455,7 +455,7 @@
                 <span class="n">path_or_stream</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Object.to_yaml_s"><a class="viewcode-back" href="../../../api.html#audobject.Object.to_yaml_s">[docs]</a>    <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
+<div class="viewcode-block" id="Object.to_yaml_s"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object.to_yaml_s">[docs]</a>    <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
             <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -468,7 +468,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            YAML string</span>
 
-<span class="sd">        Example:</span>
+<span class="sd">        Examples:</span>
 <span class="sd">            &gt;&gt;&gt; import audobject.testing</span>
 <span class="sd">            &gt;&gt;&gt; o = audobject.testing.TestObject(&#39;test&#39;, point=(1, 1))</span>
 <span class="sd">            &gt;&gt;&gt; print(o.to_yaml_s(include_version=False))</span>
@@ -603,7 +603,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/23 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

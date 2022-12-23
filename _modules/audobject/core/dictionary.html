@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>audobject.core.dictionary &mdash; audobject Documentation</title>
+  <title>audobject.core.dictionary &mdash; Documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                v0.7.6
+                v0.7.7
               </div>
             
           
@@ -96,10 +96,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../resolver.html">audobject.resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.html">audobject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.resolver.html">audobject.resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -149,13 +149,13 @@
 <span class="kn">from</span> <span class="nn">audobject.core.object</span> <span class="kn">import</span> <span class="n">Object</span>
 
 
-<div class="viewcode-block" id="Dictionary"><a class="viewcode-back" href="../../../api.html#audobject.Dictionary">[docs]</a><span class="k">class</span> <span class="nc">Dictionary</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<div class="viewcode-block" id="Dictionary"><a class="viewcode-back" href="../../../api/audobject.Dictionary.html#audobject.Dictionary">[docs]</a><span class="k">class</span> <span class="nc">Dictionary</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Dictionary that can be serialized to YAML.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        **kwargs: items</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; # create dictionary</span>
 <span class="sd">        &gt;&gt;&gt; d = Dictionary(foo=&#39;foo&#39;, bar=&#39;bar&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; # set item</span>
@@ -188,15 +188,15 @@
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="Dictionary.keys"><a class="viewcode-back" href="../../../api.html#audobject.Dictionary.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">KeysView</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="Dictionary.keys"><a class="viewcode-back" href="../../../api/audobject.Dictionary.html#audobject.Dictionary.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">KeysView</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the keys.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict_wo_special_attributes</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Dictionary.items"><a class="viewcode-back" href="../../../api.html#audobject.Dictionary.items">[docs]</a>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">ItemsView</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="Dictionary.items"><a class="viewcode-back" href="../../../api/audobject.Dictionary.html#audobject.Dictionary.items">[docs]</a>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">ItemsView</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return items view.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict_wo_special_attributes</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Dictionary.update"><a class="viewcode-back" href="../../../api.html#audobject.Dictionary.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
+<div class="viewcode-block" id="Dictionary.update"><a class="viewcode-back" href="../../../api/audobject.Dictionary.html#audobject.Dictionary.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Dictionary&#39;</span><span class="p">,</span>
     <span class="p">):</span>
@@ -209,7 +209,7 @@
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="Dictionary.values"><a class="viewcode-back" href="../../../api.html#audobject.Dictionary.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">ValuesView</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="Dictionary.values"><a class="viewcode-back" href="../../../api/audobject.Dictionary.html#audobject.Dictionary.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">ValuesView</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return values.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict_wo_special_attributes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
 
@@ -253,7 +253,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/23 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

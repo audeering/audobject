@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; audobject Documentation</title>
+  <title>Usage &mdash; Documentation</title>
   
 
   
@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="audobject" href="api.html" />
+    <link rel="next" title="audobject" href="api/audobject.html" />
     <link rel="prev" title="Installation" href="install.html" />
     
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                v0.7.6
+                v0.7.7
               </div>
             
           
@@ -114,10 +114,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">audobject</a></li>
-<li class="toctree-l1"><a class="reference internal" href="define.html">audobject.define</a></li>
-<li class="toctree-l1"><a class="reference internal" href="resolver.html">audobject.resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/audobject.html">audobject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/audobject.define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/audobject.resolver.html">audobject.resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/audobject.testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -162,8 +162,8 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
-<p>The aim of <a class="reference internal" href="api.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a> is to provide
-a base class, namely <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>,
+<p>The aim of <a class="reference internal" href="api/audobject.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a> is to provide
+a base class, namely <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>,
 which allows it to convert an object to a YAML string
 and re-instantiate the object from it.</p>
 <div class="jupyter_cell docutils container">
@@ -172,7 +172,7 @@ and re-instantiate the object from it.</p>
 </div>
 <div class="section" id="object-class">
 <h2>Object class<a class="headerlink" href="#object-class" title="Permalink to this heading">¶</a></h2>
-<p>Let’s create a class that derives from <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
+<p>Let’s create a class that derives from <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">audobject</span>
@@ -214,7 +214,7 @@ and re-instantiate the object from it.</p>
 </div>
 </div>
 <p>As expected we see that <code class="docutils literal notranslate"><span class="pre">string</span></code> is repeated <code class="docutils literal notranslate"><span class="pre">num_repeat</span></code> times.
-But since we derived from <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>
+But since we derived from <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>
 we get some additional functionality.</p>
 <p>For instance, we can get a dictionary
 with the arguments the object was initialized with.</p>
@@ -509,7 +509,7 @@ it to an attribute of the same name.</p>
 <p>Only arguments with a default value can be hidden.</p>
 </div>
 <p>Let’s introduce a new argument <code class="docutils literal notranslate"><span class="pre">verbose</span></code> and hide it
-with the <a class="reference internal" href="api.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a> decorator.</p>
+with the <a class="reference internal" href="api/audobject.init_decorator.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a> decorator.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithHiddenArgument</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
@@ -760,7 +760,7 @@ we see that keyword argument
 <div class="section" id="object-as-argument">
 <h2>Object as argument<a class="headerlink" href="#object-as-argument" title="Permalink to this heading">¶</a></h2>
 <p>It is possible to have arguments of
-type <a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.
+type <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.
 For instance, we can define the following class.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
@@ -955,7 +955,7 @@ encoded and decoded.</p>
 </div>
 <p>To apply our custom resolver to the
 <code class="docutils literal notranslate"><span class="pre">delta</span></code> argument, we pass it to the
-<a class="reference internal" href="api.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a>
+<a class="reference internal" href="api/audobject.init_decorator.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a>
 decorator of the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
@@ -1003,7 +1003,7 @@ and the <code class="docutils literal notranslate"><span class="pre">!!python/ob
 <div class="section" id="resolve-file-paths">
 <h2>Resolve file paths<a class="headerlink" href="#resolve-file-paths" title="Permalink to this heading">¶</a></h2>
 <p>Portability is a core feature of
-<a class="reference internal" href="api.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a>.
+<a class="reference internal" href="api/audobject.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a>.
 Assume we have an object
 that takes as argument the path to a file.
 When we serialize the object
@@ -1013,7 +1013,7 @@ we want to make sure that:</p>
 <li><p>the path is correctly expanded when we re-instantiate the object</p></li>
 </ol>
 <p>This can be achieved using
-<a class="reference internal" href="resolver.html#audobject.resolver.FilePath" title="audobject.resolver.FilePath"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.resolver.FilePath</span></code></a>.</p>
+<a class="reference internal" href="api/audobject.resolver.FilePath.html#audobject.resolver.FilePath" title="audobject.resolver.FilePath"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.resolver.FilePath</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObjectWithFile</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
@@ -1132,7 +1132,7 @@ as their relative location to the YAML file must not change.</p>
 <h2>Serialize functions<a class="headerlink" href="#serialize-functions" title="Permalink to this heading">¶</a></h2>
 <p>To serialize functions,
 a special resolver
-<a class="reference internal" href="resolver.html#audobject.resolver.Function" title="audobject.resolver.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.resolver.Function</span></code></a>
+<a class="reference internal" href="api/audobject.resolver.Function.html#audobject.resolver.Function" title="audobject.resolver.Function"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.resolver.Function</span></code></a>
 can be used.
 It encodes the source code of the function
 and dynamically creates the function during decoding.</p>
@@ -1247,7 +1247,7 @@ when the object is recreated.</p>
 <p>Instead of a function,
 we can also pass a callable object
 that derives from
-<a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
+<a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCallableObject</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
@@ -1448,7 +1448,7 @@ We can force it to show no warning at all,
 or always show a warning
 when the package version does not match
 by adjusting
-<a class="reference internal" href="api.html#audobject.config.PACKAGE_MISMATCH_WARN_LEVEL" title="audobject.config.PACKAGE_MISMATCH_WARN_LEVEL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">audobject.config.PACKAGE_MISMATCH_WARN_LEVEL</span></code></a>.</p>
+<a class="reference internal" href="api/audobject.config.html#audobject.config.PACKAGE_MISMATCH_WARN_LEVEL" title="audobject.config.PACKAGE_MISMATCH_WARN_LEVEL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">audobject.config.PACKAGE_MISMATCH_WARN_LEVEL</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;0.9.0&#39;</span>
@@ -1724,8 +1724,8 @@ However, a warning is given that an argument was ignored.</p>
 </div>
 <div class="section" id="dictionary">
 <h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="api.html#audobject.Dictionary" title="audobject.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Dictionary</span></code></a> implements a
-<a class="reference internal" href="api.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a> that can used like a dictionary.</p>
+<p><a class="reference internal" href="api/audobject.Dictionary.html#audobject.Dictionary" title="audobject.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Dictionary</span></code></a> implements a
+<a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a> that can used like a dictionary.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span>
@@ -1822,11 +1822,11 @@ values of the dictionary.</p>
 It is a package to write user-friendly command-line interfaces
 that allows the user to define what arguments are required,
 what are the expected types, default values, etc.</p>
-<p>The idea behind <a class="reference internal" href="api.html#audobject.Parameters" title="audobject.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameters</span></code></a> is similar
+<p>The idea behind <a class="reference internal" href="api/audobject.Parameters.html#audobject.Parameters" title="audobject.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameters</span></code></a> is similar
 (in fact, we will see that i even has an interface to <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>).
-<a class="reference internal" href="api.html#audobject.Parameters" title="audobject.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameters</span></code></a> is basically a collection of
+<a class="reference internal" href="api/audobject.Parameters.html#audobject.Parameters" title="audobject.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameters</span></code></a> is basically a collection of
 named values that control the behaviour of an object.
-Each value is wrapped in a <a class="reference internal" href="api.html#audobject.Parameter" title="audobject.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameter</span></code></a>
+Each value is wrapped in a <a class="reference internal" href="api/audobject.Parameter.html#audobject.Parameter" title="audobject.Parameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Parameter</span></code></a>
 object and has a specific type and default value,
 possibly one of a set of choices.
 And it can be bound a parameter to a specific versions.</p>
@@ -2137,7 +2137,7 @@ delimiter   ;      ,        None                   defines the delimiter        
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api.html" class="btn btn-neutral float-right" title="audobject" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api/audobject.html" class="btn btn-neutral float-right" title="audobject" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -2152,7 +2152,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/23 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

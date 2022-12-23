@@ -1,0 +1,84 @@
+﻿Parameter
+=========
+
+.. currentmodule:: audobject
+
+.. autoclass:: Parameter
+
+
+arguments
+---------
+.. autoattribute:: Parameter.arguments
+    
+borrowed\_arguments
+-------------------
+.. autoattribute:: Parameter.borrowed_arguments
+    
+choices
+-------
+.. autoattribute:: Parameter.choices
+    
+default\_value
+--------------
+.. autoattribute:: Parameter.default_value
+    
+description
+-----------
+.. autoattribute:: Parameter.description
+    
+from\_dict\(\)
+--------------
+.. automethod:: Parameter.from_dict
+    
+from\_yaml\(\)
+--------------
+.. automethod:: Parameter.from_yaml
+    
+from\_yaml\_s\(\)
+-----------------
+.. automethod:: Parameter.from_yaml_s
+    
+hidden\_arguments
+-----------------
+.. autoattribute:: Parameter.hidden_arguments
+    
+id
+--
+.. autoattribute:: Parameter.id
+    
+is\_loaded\_from\_dict
+----------------------
+.. autoattribute:: Parameter.is_loaded_from_dict
+    
+resolvers
+---------
+.. autoattribute:: Parameter.resolvers
+    
+set\_value\(\)
+--------------
+.. automethod:: Parameter.set_value
+    
+to\_dict\(\)
+------------
+.. automethod:: Parameter.to_dict
+    
+to\_yaml\(\)
+------------
+.. automethod:: Parameter.to_yaml
+    
+to\_yaml\_s\(\)
+---------------
+.. automethod:: Parameter.to_yaml_s
+    
+value
+-----
+.. autoattribute:: Parameter.value
+    
+value\_type
+-----------
+.. autoattribute:: Parameter.value_type
+    
+version
+-------
+.. autoattribute:: Parameter.version
+    

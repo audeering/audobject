@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>audobject.core.parameter &mdash; audobject Documentation</title>
+  <title>audobject.core.parameter &mdash; Documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                v0.7.6
+                v0.7.7
               </div>
             
           
@@ -96,10 +96,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">audobject</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../define.html">audobject.define</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../resolver.html">audobject.resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">audobject.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.html">audobject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.define.html">audobject.define</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.resolver.html">audobject.resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/audobject.testing.html">audobject.testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
@@ -161,7 +161,7 @@
 <span class="kn">import</span> <span class="nn">audobject.core.resolver</span> <span class="k">as</span> <span class="nn">resolver</span>
 
 
-<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../api.html#audobject.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single parameter.</span>
 
 <span class="sd">    A parameter steers the behaviour of a an object (e.g. tuning a model).</span>
@@ -184,7 +184,7 @@
 <span class="sd">        TypeError: if value has an invalid type</span>
 <span class="sd">        ValueError: if value is not in choices</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; foo = Parameter(</span>
 <span class="sd">        ...     value_type=str,</span>
 <span class="sd">        ...     description=&#39;some parameter&#39;,</span>
@@ -259,7 +259,7 @@
 
         <span class="k">return</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">r</span>
 
-<div class="viewcode-block" id="Parameter.set_value"><a class="viewcode-back" href="../../../api.html#audobject.Parameter.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter.set_value"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets a new value.</span>
 
 <span class="sd">        Applies additional checks, e.g. if value is of the expected type.</span>
@@ -289,13 +289,13 @@
             <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Parameters"><a class="viewcode-back" href="../../../api.html#audobject.Parameters">[docs]</a><span class="k">class</span> <span class="nc">Parameters</span><span class="p">(</span><span class="n">Dictionary</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameters"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters">[docs]</a><span class="k">class</span> <span class="nc">Parameters</span><span class="p">(</span><span class="n">Dictionary</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;List of parameters.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        **kwargs: :class:`audobject.Parameter` objects</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; # create parameter</span>
 <span class="sd">        &gt;&gt;&gt; foo = Parameter(</span>
 <span class="sd">        ...     value_type=str,</span>
@@ -330,7 +330,7 @@
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Parameters.filter_by_version"><a class="viewcode-back" href="../../../api.html#audobject.Parameters.filter_by_version">[docs]</a>    <span class="k">def</span> <span class="nf">filter_by_version</span><span class="p">(</span>
+<div class="viewcode-block" id="Parameters.filter_by_version"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.filter_by_version">[docs]</a>    <span class="k">def</span> <span class="nf">filter_by_version</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Parameters&#39;</span><span class="p">:</span>
@@ -352,7 +352,7 @@
                 <span class="n">params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">param</span>
         <span class="k">return</span> <span class="n">params</span></div>
 
-<div class="viewcode-block" id="Parameters.from_command_line"><a class="viewcode-back" href="../../../api.html#audobject.Parameters.from_command_line">[docs]</a>    <span class="k">def</span> <span class="nf">from_command_line</span><span class="p">(</span>
+<div class="viewcode-block" id="Parameters.from_command_line"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.from_command_line">[docs]</a>    <span class="k">def</span> <span class="nf">from_command_line</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Parameters&#39;</span><span class="p">:</span>
@@ -367,7 +367,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Parameters.to_command_line"><a class="viewcode-back" href="../../../api.html#audobject.Parameters.to_command_line">[docs]</a>    <span class="k">def</span> <span class="nf">to_command_line</span><span class="p">(</span>
+<div class="viewcode-block" id="Parameters.to_command_line"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.to_command_line">[docs]</a>    <span class="k">def</span> <span class="nf">to_command_line</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">,</span>
     <span class="p">):</span>
@@ -401,7 +401,7 @@
                     <span class="n">help</span><span class="o">=</span><span class="n">help</span><span class="p">,</span>
                 <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Parameters.to_path"><a class="viewcode-back" href="../../../api.html#audobject.Parameters.to_path">[docs]</a>    <span class="k">def</span> <span class="nf">to_path</span><span class="p">(</span>
+<div class="viewcode-block" id="Parameters.to_path"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.to_path">[docs]</a>    <span class="k">def</span> <span class="nf">to_path</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
             <span class="n">delimiter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span>
@@ -434,10 +434,10 @@
         <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">[</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
         <span class="k">return</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameters.__call__"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">name</span><span class="p">:</span> <span class="n">param</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-        <span class="p">}</span>
+        <span class="p">}</span></div>
 
     <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;__dict__&#39;</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
@@ -499,7 +499,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/08 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/23 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

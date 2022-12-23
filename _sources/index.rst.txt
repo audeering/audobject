@@ -17,10 +17,10 @@
     :caption: API Documentation
     :hidden:
 
-    api
-    define
-    resolver
-    testing
+    api/audobject
+    api/audobject.define
+    api/audobject.resolver
+    api/audobject.testing
     genindex
 
 .. toctree::
