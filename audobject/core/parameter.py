@@ -39,7 +39,7 @@ class Parameter(Object):
         TypeError: if value has an invalid type
         ValueError: if value is not in choices
 
-    Example:
+    Examples:
         >>> foo = Parameter(
         ...     value_type=str,
         ...     description='some parameter',
@@ -150,7 +150,7 @@ class Parameters(Dictionary):
     Args:
         **kwargs: :class:`audobject.Parameter` objects
 
-    Example:
+    Examples:
         >>> # create parameter
         >>> foo = Parameter(
         ...     value_type=str,

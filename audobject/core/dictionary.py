@@ -10,7 +10,7 @@ class Dictionary(Object):
     Args:
         **kwargs: items
 
-    Example:
+    Examples:
         >>> # create dictionary
         >>> d = Dictionary(foo='foo', bar='bar')
         >>> # set item

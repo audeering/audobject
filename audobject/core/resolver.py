@@ -111,7 +111,7 @@ class FilePath(Base):
     when object is serialized to a file
     and expands it again during reading.
 
-    Example:
+    Examples:
         >>> resolver = FilePath()
         >>> resolver._object_root_ = '/some/root'  # usually set by object
         >>> value = '/some/where/else'
@@ -180,7 +180,7 @@ class Function(Base):
     Encodes source code of function and
     dynamically evaluates it when the value is decoded again.
 
-    Example:
+    Examples:
         >>> resolver = Function()
         >>> def func(x):
         ...     return x * 2
@@ -375,7 +375,7 @@ class Tuple(Base):
 
     Encodes tuple as a list.
 
-    Example:
+    Examples:
         >>> resolver = Tuple()
         >>> value = (1, 'a')
         >>> value
@@ -428,7 +428,7 @@ class Type(Base):
 
     Encodes type as a string.
 
-    Example:
+    Examples:
         >>> resolver = Type()
         >>> value = str
         >>> value
