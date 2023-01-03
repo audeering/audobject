@@ -1,7 +1,6 @@
 import pytest
 import warnings
 
-import audeer
 import audobject
 
 

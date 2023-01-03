@@ -2,8 +2,6 @@ import functools
 import inspect
 import typing
 
-import audeer
-
 from audobject.core import define
 from audobject.core import resolver
 
