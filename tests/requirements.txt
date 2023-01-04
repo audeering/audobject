@@ -1,7 +1,5 @@
 parse
-pre-commit
 pytest<7.0.0
-pytest-flake8
 pytest-doctestplus
 pytest-console-scripts
 pytest-cov
