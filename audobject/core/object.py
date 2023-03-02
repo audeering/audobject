@@ -245,7 +245,7 @@ class Object:
     ) -> typing.Dict[str, resolver.DefaultValueType]:
         r"""Converts object to a dictionary.
 
-        Includes items from :meth:`audobject.Object.arguments`.
+        Includes items from :attr:`audobject.Object.arguments`.
         If an argument has a resolver, its value is encoded.
         Usually, the object can be re-instantiated using
         :meth:`audobject.Object.from_dict`.
