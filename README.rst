@@ -17,7 +17,7 @@ Have a look at the installation_ and usage_ instructions.
 .. |tests| image:: https://github.com/audeering/audobject/workflows/Test/badge.svg
     :target: https://github.com/audeering/audobject/actions?query=workflow%3ATest
     :alt: Test status
-.. |coverage| image:: https://codecov.io/gh/audeering/audobject/branch/master/graph/badge.svg?token=7S4Y766FC7
+.. |coverage| image:: https://codecov.io/gh/audeering/audobject/branch/main/graph/badge.svg?token=7S4Y766FC7
     :target: https://codecov.io/gh/audeering/audobject/
     :alt: code coverage
 .. |docs| image:: https://img.shields.io/pypi/v/audobject?label=docs
