@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Usage &mdash; Documentation</title>
@@ -25,8 +26,12 @@
     
 
   
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
@@ -56,7 +61,7 @@
 
           <a href="index.html">
           
-            <img src="_static/images/audeering.png" class="logo" alt="audEERING"/>
+            <img src="_static/images/audeering.svg" class="logo" alt="audEERING"/>
           
           
             <span> audobject</span>
@@ -67,7 +72,7 @@
             
             
               <div class="version">
-                v0.7.7
+                v0.7.8
               </div>
             
           
@@ -147,20 +152,50 @@
         
         <div class="rst-content">
         
-          <div role="navigation" aria-label="Page navigation">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
       <li>Usage</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/audeering/audobject/" class="fa fa-github"> GitHub</a>
+        
+            
+            
+              <a href="https://github.com/audeering/audobject/blob/v0.7.8/docs/usage.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="usage">
+  <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
 <p>The aim of <a class="reference internal" href="api/audobject.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a> is to provide
 a base class, namely <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>,
@@ -170,7 +205,7 @@ and re-instantiate the object from it.</p>
 <div class="cell_output docutils container">
 </div>
 </div>
-<div class="section" id="object-class">
+<section id="object-class">
 <h2>Object class<a class="headerlink" href="#object-class" title="Permalink to this heading">¶</a></h2>
 <p>Let’s create a class that derives from <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.</p>
 <div class="jupyter_cell jupyter_container docutils container">
@@ -326,8 +361,8 @@ arguments when we instantiate an object.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="object-id">
+</section>
+<section id="object-id">
 <h2>Object ID<a class="headerlink" href="#object-id" title="Permalink to this heading">¶</a></h2>
 <p>Every object has an ID.</p>
 <div class="jupyter_cell jupyter_container docutils container">
@@ -385,8 +420,8 @@ arguments when we instantiate an object.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="malformed-objects">
+</section>
+<section id="malformed-objects">
 <h2>Malformed objects<a class="headerlink" href="#malformed-objects" title="Permalink to this heading">¶</a></h2>
 <p>In the constructor of <code class="docutils literal notranslate"><span class="pre">MyObject</span></code> we have assigned
 every argument to an attribute with the same name.
@@ -451,7 +486,7 @@ from YAML, we’ll get an error.</p>
 <span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="o">*</span><span class="p">,</span>
 <span class="g g-Whitespace">    </span><span class="mi">316</span>         <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">318</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
 <span class="g g-Whitespace">    </span><span class="mi">319</span><span class="sd"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">320</span><span class="sd">     Args:</span>
 <span class="sd">   (...)</span>
@@ -460,9 +495,9 @@ from YAML, we’ll get an error.</p>
 <span class="ne">--&gt; </span><span class="mi">337</span>     <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span>
 
 <span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:280,</span> in <span class="ni">Object.to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
-<span class="g g-Whitespace">    </span><span class="mi">246</span> <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span><span class="w"> </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
 <span class="g g-Whitespace">    </span><span class="mi">247</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span><span class="sd"> Includes items from :meth:`audobject.Object.arguments`.</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span><span class="sd"> Includes items from :attr:`audobject.Object.arguments`.</span>
 <span class="sd">   (...)</span>
 <span class="g g-Whitespace">    </span><span class="mi">269</span><span class="sd"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">270</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
@@ -500,8 +535,8 @@ from YAML, we’ll get an error.</p>
 that it’s possible to hide arguments.
 If we hide an argument, we don’t have to set
 it to an attribute of the same name.</p>
-</div>
-<div class="section" id="hidden-arguments">
+</section>
+<section id="hidden-arguments">
 <h2>Hidden arguments<a class="headerlink" href="#hidden-arguments" title="Permalink to this heading">¶</a></h2>
 <p>Hidden arguments are arguments that are not serialized.</p>
 <div class="admonition note">
@@ -642,8 +677,8 @@ hello object! hello object! hello object!
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="borrowed-arguments">
+</section>
+<section id="borrowed-arguments">
 <h2>Borrowed arguments<a class="headerlink" href="#borrowed-arguments" title="Permalink to this heading">¶</a></h2>
 <p>It is possible to borrow arguments from an instance attribute.
 For instance, here we borrow the attributes <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code>
@@ -700,8 +735,8 @@ to add properties with the name of an argument.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="object-with-kwargs">
+</section>
+<section id="object-with-kwargs">
 <h2>Object with kwargs<a class="headerlink" href="#object-with-kwargs" title="Permalink to this heading">¶</a></h2>
 <p>If the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function accepts <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>,
 we have to pass them to the base class.
@@ -756,8 +791,8 @@ we see that keyword argument
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="object-as-argument">
+</section>
+<section id="object-as-argument">
 <h2>Object as argument<a class="headerlink" href="#object-as-argument" title="Permalink to this heading">¶</a></h2>
 <p>It is possible to have arguments of
 type <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a>.
@@ -828,8 +863,8 @@ For instance, we can define the following class.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="value-resolver">
+</section>
+<section id="value-resolver">
 <h2>Value resolver<a class="headerlink" href="#value-resolver" title="Permalink to this heading">¶</a></h2>
 <p>As long as the type of an arguments is one of:</p>
 <ul class="simple">
@@ -999,8 +1034,8 @@ and the <code class="docutils literal notranslate"><span class="pre">!!python/ob
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="resolve-file-paths">
+</section>
+<section id="resolve-file-paths">
 <h2>Resolve file paths<a class="headerlink" href="#resolve-file-paths" title="Permalink to this heading">¶</a></h2>
 <p>Portability is a core feature of
 <a class="reference internal" href="api/audobject.html#module-audobject" title="audobject"><code class="xref py py-mod docutils literal notranslate"><span class="pre">audobject</span></code></a>.
@@ -1127,8 +1162,8 @@ as their relative location to the YAML file must not change.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="serialize-functions">
+</section>
+<section id="serialize-functions">
 <h2>Serialize functions<a class="headerlink" href="#serialize-functions" title="Permalink to this heading">¶</a></h2>
 <p>To serialize functions,
 a special resolver
@@ -1314,8 +1349,8 @@ instead of the function code.</p>
 offers a way to execute arbitrary Python code,
 you should never load objects from a source you do not trust!</p>
 </div>
-</div>
-<div class="section" id="flat-dictionary">
+</section>
+<section id="flat-dictionary">
 <h2>Flat dictionary<a class="headerlink" href="#flat-dictionary" title="Permalink to this heading">¶</a></h2>
 <p>Let’s create a class that takes
 as input a string, a list and a dictionary.</p>
@@ -1364,7 +1399,7 @@ as input a string, a list and a dictionary.</p>
 looks pretty nested.
 This is not always handy,
 e.g. if we try to store the object to a
-<a class="reference external" href="https://audeering.github.io/audfactory/api-audfactory.html#audfactory.Lookup" title="(in audfactory vv1.0.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
+<a class="reference external" href="https://audeering.github.io/audfactory/api/audfactory.Lookup.html#audfactory.Lookup" title="(in audfactory vv1.0.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
 this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.</p>
@@ -1387,8 +1422,8 @@ get a flatten version of the dictionary.</p>
 </div>
 <p>However, it’s important to note that it’s not possible
 to re-instantiate an object from a flattened dictionary.</p>
-</div>
-<div class="section" id="versioning">
+</section>
+<section id="versioning">
 <h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this heading">¶</a></h2>
 <p>When an object is converted to YAML
 the package version is stored.
@@ -1463,7 +1498,7 @@ by adjusting
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:88: RuntimeWarning: Instantiating __main__.MyObject from version '1.0.0' when using version '0.9.0'.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:86: RuntimeWarning: Instantiating __main__.MyObject from version '1.0.0' when using version '0.9.0'.
   warnings.warn(
 </pre>
 </div>
@@ -1583,23 +1618,23 @@ for the new argument.</p>
 <span class="g g-Whitespace">     </span><span class="mi">79</span>     <span class="c1"># create attribute to signal that object was loaded</span>
 <span class="g g-Whitespace">     </span><span class="mi">80</span>     <span class="nb">object</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">OBJECT_LOADED</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/utils.py:151,</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, override_args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="n">missing_required_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">required_params</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_required_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">151</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">152</span>         <span class="sa">f</span><span class="s2">&quot;Missing mandatory arguments &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">153</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">missing_required_params</span><span class="si">}</span><span class="s2"> &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="sa">f</span><span class="s2">&quot;while instantiating </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2"> from &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">155</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&#39; when using &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">156</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">installed_version</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">157</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">159</span> <span class="c1"># check for missing optional arguments</span>
-<span class="g g-Whitespace">    </span><span class="mi">160</span> <span class="n">optional_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>
-<span class="nn">    161     p.name for p</span> in <span class="ni">signature.parameters.values</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">162</span>     <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span> <span class="o">!=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">163</span>         <span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">165</span> <span class="p">])</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/utils.py:149,</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, override_args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">147</span> <span class="n">missing_required_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">required_params</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_required_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">149</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span>         <span class="sa">f</span><span class="s2">&quot;Missing mandatory arguments &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">missing_required_params</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>         <span class="sa">f</span><span class="s2">&quot;while instantiating </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2"> from &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">153</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&#39; when using &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">installed_version</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span> <span class="c1"># check for missing optional arguments</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span> <span class="n">optional_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>
+<span class="nn">    159     p.name for p</span> in <span class="ni">signature.parameters.values</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span>     <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span> <span class="o">!=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span>         <span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span>     <span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span> <span class="p">])</span>
 
 <span class="ne">RuntimeError</span>: Missing mandatory arguments [&#39;delimiter&#39;] while instantiating &lt;class &#39;__main__.MyObject&#39;&gt; from version &#39;1.0.0&#39; when using version &#39;2.1.0&#39;.
 </pre></div>
@@ -1711,9 +1746,9 @@ Create an object with version <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:88: RuntimeWarning: Instantiating __main__.MyObject from version '2.1.1' when using version '1.0.0'.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:86: RuntimeWarning: Instantiating __main__.MyObject from version '2.1.1' when using version '1.0.0'.
   warnings.warn(
-/home/runner/work/audobject/audobject/audobject/core/utils.py:185: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
+/home/runner/work/audobject/audobject/audobject/core/utils.py:183: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
   warnings.warn(
 </pre>
 </div>
@@ -1721,8 +1756,8 @@ Create an object with version <code class="docutils literal notranslate"><span c
 </div>
 <p>In fact, it works, too.
 However, a warning is given that an argument was ignored.</p>
-</div>
-<div class="section" id="dictionary">
+</section>
+<section id="dictionary">
 <h2>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference internal" href="api/audobject.Dictionary.html#audobject.Dictionary" title="audobject.Dictionary"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Dictionary</span></code></a> implements a
 <a class="reference internal" href="api/audobject.Object.html#audobject.Object" title="audobject.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.Object</span></code></a> that can used like a dictionary.</p>
@@ -1815,8 +1850,8 @@ values of the dictionary.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="parameters">
+</section>
+<section id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
 <p>You have probably used <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a> before.
 It is a package to write user-friendly command-line interfaces
@@ -1958,7 +1993,7 @@ we will get an error.</p>
 
 <span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:130,</span> in <span class="ni">Parameter.set_value</span><span class="nt">(self, value)</span>
 <span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets a new value.</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets a new value.</span>
 <span class="g g-Whitespace">    </span><span class="mi">119</span><span class="sd"> </span>
 <span class="g g-Whitespace">    </span><span class="mi">120</span><span class="sd">     Applies additional checks, e.g. if value is of the expected type.</span>
 <span class="sd">   (...)</span>
@@ -2126,8 +2161,8 @@ delimiter   ;      ,        None                   defines the delimiter        
 <div class="cell_output docutils container">
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -2152,7 +2187,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/23 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/03/03 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -2160,7 +2195,7 @@ delimiter   ;      ,        None                   defines the delimiter        
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2022 audEERING GmbH
+      &copy; 2020-2023 audEERING GmbH
     </p>
   </div> 
 
@@ -2185,9 +2220,6 @@ delimiter   ;      ,        None                   defines the delimiter        
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/thebelab-helper.js"></script>

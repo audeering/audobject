@@ -5,7 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>FilePath &mdash; Documentation</title>
@@ -25,8 +26,12 @@
     
 
   
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/audeering.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../_static/thebelab.css" type="text/css" />
@@ -56,7 +61,7 @@
 
           <a href="../index.html">
           
-            <img src="../_static/images/audeering.png" class="logo" alt="audEERING"/>
+            <img src="../_static/images/audeering.svg" class="logo" alt="audEERING"/>
           
           
             <span> audobject</span>
@@ -67,7 +72,7 @@
             
             
               <div class="version">
-                v0.7.7
+                v0.7.8
               </div>
             
           
@@ -144,21 +149,52 @@
         
         <div class="rst-content">
         
-          <div role="navigation" aria-label="Page navigation">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="audobject.resolver.html">audobject.resolver</a> &raquo;</li>
+        
       <li>FilePath</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/audeering/audobject/" class="fa fa-github"> GitHub</a>
+        
+            
+            
+              <a href="https://github.com/audeering/audobject/blob/v0.7.8/docs/api/audobject.resolver.FilePath.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="filepath">
+  <section id="filepath">
 <h1>FilePath<a class="headerlink" href="#filepath" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="audobject.resolver.FilePath">
@@ -180,7 +216,7 @@ and expands it again during reading.</p>
 </div>
 </dd></dl>
 
-<div class="section" id="decode">
+<section id="decode">
 <h2>decode()<a class="headerlink" href="#decode" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.resolver.FilePath.decode">
@@ -191,20 +227,20 @@ this will convert a relative file path
 to an absolute path by expanding it
 with the source directory.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – relative file path</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>expanded file path</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="encode">
+</section>
+<section id="encode">
 <h2>encode()<a class="headerlink" href="#encode" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.resolver.FilePath.encode">
@@ -215,37 +251,37 @@ this will convert a file path
 to a path that is relative to the
 target directory.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – original file path</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>relative file path</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="encode-type">
+</section>
+<section id="encode-type">
 <h2>encode_type()<a class="headerlink" href="#encode-type" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.resolver.FilePath.encode_type">
 <span class="sig-prename descclassname"><span class="pre">FilePath.</span></span><span class="sig-name descname"><span class="pre">encode_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/audobject/core/resolver.html#FilePath.encode_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.resolver.FilePath.encode_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return encoded type.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>encoded type</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="root">
+</section>
+<section id="root">
 <h2>root<a class="headerlink" href="#root" title="Permalink to this heading">¶</a></h2>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="audobject.resolver.FilePath.root">
@@ -254,17 +290,14 @@ target directory.</p>
 <p>Returns root folder when object is serialized to or from a file,
 otherwise <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>root directory</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>root directory</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -289,7 +322,7 @@ otherwise <code class="docutils literal notranslate"><span class="pre">None</spa
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2022/12/23 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/03/03 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -297,7 +330,7 @@ otherwise <code class="docutils literal notranslate"><span class="pre">None</spa
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2022 audEERING GmbH
+      &copy; 2020-2023 audEERING GmbH
     </p>
   </div> 
 
@@ -322,9 +355,6 @@ otherwise <code class="docutils literal notranslate"><span class="pre">None</spa
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/thebelab-helper.js"></script>
