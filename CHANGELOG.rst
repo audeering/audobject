@@ -7,6 +7,13 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.8 (2023-03-01)
+--------------------------
+
+* Fixed: correct reference to ``audobject.Object.arguments``
+  inside the ``to_dict()`` method in the documentation
+
+
 Version 0.7.7 (2022-12-23)
 --------------------------
 
