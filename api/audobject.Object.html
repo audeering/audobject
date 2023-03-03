@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Object &mdash; Documentation</title>
@@ -26,12 +25,8 @@
     
 
   
-
-  
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/audeering.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/audeering.css" type="text/css" />
   <link rel="stylesheet" href="../_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="../_static/thebelab.css" type="text/css" />
@@ -61,7 +56,7 @@
 
           <a href="../index.html">
           
-            <img src="../_static/images/audeering.svg" class="logo" alt="audEERING"/>
+            <img src="../_static/images/audeering.png" class="logo" alt="audEERING"/>
           
           
             <span> audobject</span>
@@ -72,7 +67,7 @@
             
             
               <div class="version">
-                v0.7.8
+                v0.7.9
               </div>
             
           
@@ -161,52 +156,21 @@
         
         <div class="rst-content">
         
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="audobject.html">audobject</a> &raquo;</li>
-        
       <li>Object</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
-            
-              <a href="https://github.com/audeering/audobject/blob/v0.7.8/docs/api/audobject.Object.rst" class="fa fa-github"> Edit on GitHub</a>
-            
-          
-        
+              <a href="https://github.com/audeering/audobject/" class="fa fa-github"> GitHub</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="object">
+  <div class="section" id="object">
 <h1>Object<a class="headerlink" href="#object" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="audobject.Object">
@@ -224,17 +188,17 @@
 </div>
 </dd></dl>
 
-<section id="arguments">
+<div class="section" id="arguments">
 <h2>arguments<a class="headerlink" href="#arguments" title="Permalink to this heading">¶</a></h2>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="audobject.Object.arguments">
 <span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">arguments</span></span><a class="headerlink" href="#audobject.Object.arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns arguments that are serialized.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Dictionary of arguments and their values.</p>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dt class="field-even">Raises</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.11)"><strong>RuntimeError</strong></a> – if arguments are found that are not assigned to
     attributes of the same name</p>
 </dd>
@@ -248,75 +212,75 @@
 </div>
 </dd></dl>
 
-</section>
-<section id="borrowed-arguments">
+</div>
+<div class="section" id="borrowed-arguments">
 <h2>borrowed_arguments<a class="headerlink" href="#borrowed-arguments" title="Permalink to this heading">¶</a></h2>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="audobject.Object.borrowed_arguments">
 <span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">borrowed_arguments</span></span><a class="headerlink" href="#audobject.Object.borrowed_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns borrowed arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Dictionary with borrowed arguments.</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="from-dict">
+</div>
+<div class="section" id="from-dict">
 <h2>from_dict()<a class="headerlink" href="#from-dict" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.Object.from_dict">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/audobject/core/object.html#Object.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="from-yaml">
+</div>
+<div class="section" id="from-yaml">
 <h2>from_yaml()<a class="headerlink" href="#from-yaml" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.Object.from_yaml">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/audobject/core/object.html#Object.from_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="from-yaml-s">
+</div>
+<div class="section" id="from-yaml-s">
 <h2>from_yaml_s()<a class="headerlink" href="#from-yaml-s" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.Object.from_yaml_s">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">from_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/audobject/core/object.html#Object.from_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.from_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#audobject.Object" title="audobject.core.object.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="hidden-arguments">
+</div>
+<div class="section" id="hidden-arguments">
 <h2>hidden_arguments<a class="headerlink" href="#hidden-arguments" title="Permalink to this heading">¶</a></h2>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="audobject.Object.hidden_arguments">
 <span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">hidden_arguments</span></span><a class="headerlink" href="#audobject.Object.hidden_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns hidden arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>List with names of hidden arguments.</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="id">
+</div>
+<div class="section" id="id">
 <h2>id<a class="headerlink" href="#id" title="Permalink to this heading">¶</a></h2>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="audobject.Object.id">
@@ -324,7 +288,7 @@
 <dd><p>Object identifier.</p>
 <p>The ID of an object ID is created from its non-hidden arguments.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>object identifier</p>
 </dd>
 </dl>
@@ -345,8 +309,8 @@
 </div>
 </dd></dl>
 
-</section>
-<section id="is-loaded-from-dict">
+</div>
+<div class="section" id="is-loaded-from-dict">
 <h2>is_loaded_from_dict<a class="headerlink" href="#is-loaded-from-dict" title="Permalink to this heading">¶</a></h2>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="audobject.Object.is_loaded_from_dict">
@@ -357,7 +321,7 @@ if object was initialized
 from a dictionary,
 e.g. after loading it from a YAML file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">True</span></code> if object was loaded from a dictionary,</dt><dd><p>otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
@@ -367,22 +331,22 @@ e.g. after loading it from a YAML file.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="resolvers">
+</div>
+<div class="section" id="resolvers">
 <h2>resolvers<a class="headerlink" href="#resolvers" title="Permalink to this heading">¶</a></h2>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="audobject.Object.resolvers">
 <span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">resolvers</span></span><a class="headerlink" href="#audobject.Object.resolvers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return resolvers.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Dictionary with resolvers.</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="to-dict">
+</div>
+<div class="section" id="to-dict">
 <h2>to_dict()<a class="headerlink" href="#to-dict" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.Object.to_dict">
@@ -394,17 +358,17 @@ Usually, the object can be re-instantiated using
 <a class="reference internal" href="#audobject.Object.from_dict" title="audobject.Object.from_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">audobject.Object.from_dict()</span></code></a>.
 However, if <code class="docutils literal notranslate"><span class="pre">flatten=True</span></code>, this is not possible.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
 <li><p><strong>flatten</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – flatten the dictionary</p></li>
 <li><p><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – if file is written to disk, set to target directory</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>dictionary that represent the object</p>
 </dd>
 </dl>
@@ -419,15 +383,15 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </div>
 </dd></dl>
 
-</section>
-<section id="to-yaml">
+</div>
+<div class="section" id="to-yaml">
 <h2>to_yaml()<a class="headerlink" href="#to-yaml" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.Object.to_yaml">
 <span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">to_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_stream</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/audobject/core/object.html#Object.to_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save object to YAML file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_or_stream</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.IO" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IO</span></code></a>]) – file path or stream</p></li>
 <li><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p></li>
@@ -436,21 +400,21 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </dl>
 </dd></dl>
 
-</section>
-<section id="to-yaml-s">
+</div>
+<div class="section" id="to-yaml-s">
 <h2>to_yaml_s()<a class="headerlink" href="#to-yaml-s" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
 <dt class="sig sig-object py" id="audobject.Object.to_yaml_s">
 <span class="sig-prename descclassname"><span class="pre">Object.</span></span><span class="sig-name descname"><span class="pre">to_yaml_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/audobject/core/object.html#Object.to_yaml_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#audobject.Object.to_yaml_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert object to YAML string.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>include_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – add version to class name</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>YAML string</p>
 </dd>
 </dl>
@@ -467,8 +431,8 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
 </div>
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
@@ -526,6 +490,9 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/thebelab-helper.js"></script>
