@@ -13,15 +13,15 @@ class TestObject(Object):
         **kwargs: additional variables
 
     Examples:
-    >>> from datetime import datetime
-    >>> foo = TestObject('test', pi=3.1416)
-    >>> print(foo)
-    $audobject.core.testing.TestObject:
-      name: test
-      point:
-      - 0
-      - 0
-      pi: 3.1416
+        >>> from datetime import datetime
+        >>> foo = TestObject('test', pi=3.1416)
+        >>> print(foo)
+        $audobject.core.testing.TestObject:
+          name: test
+          point:
+          - 0
+          - 0
+          pi: 3.1416
 
     """
     @init_decorator(
