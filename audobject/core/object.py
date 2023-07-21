@@ -7,10 +7,9 @@ import warnings
 import oyaml as yaml
 
 import audeer
-
 from audobject.core import define
-from audobject.core import utils
 from audobject.core import resolver
+from audobject.core import utils
 
 
 class Object:
@@ -192,7 +191,7 @@ class Object:
         removal_version='1.0.0',
         alternative='audobject.from_dict',
     )
-    def from_dict(
+    def from_dict(  # noqa: D102
             d: typing.Dict[str, typing.Any],
             root: str = None,
             **kwargs,
@@ -205,7 +204,7 @@ class Object:
         removal_version='1.0.0',
         alternative='audobject.from_yaml',
     )
-    def from_yaml(
+    def from_yaml(  # noqa: D102
             path_or_stream: typing.Union[str, typing.IO],
             **kwargs,
     ) -> 'Object':  # pragma: no cover
@@ -217,7 +216,7 @@ class Object:
         removal_version='1.0.0',
         alternative='audobject.from_yaml_s',
     )
-    def from_yaml_s(
+    def from_yaml_s(  # noqa: D102
             yaml_string: str,
             **kwargs,
     ) -> 'Object':  # pragma: no cover
@@ -343,8 +342,13 @@ class Object:
             include_version: bool,
             root: typing.Optional[str],
     ):
-        r"""Encode a value by first looking for a custom resolver,
-        otherwise switch to default encoder."""
+        r"""Encode value.
+
+        Encode a value
+        by first looking for a custom resolver,
+        otherwise switch to default encoder.
+
+        """
         value = self._resolve_value(name, value, root)
         return Object._encode_value(value, include_version)
 
@@ -427,9 +431,11 @@ class Object:
         return value
 
     def __hash__(self) -> int:
+        r"""Hash based on object ID."""
         return hash(self.id)
 
     def __eq__(self, other: 'Object') -> bool:
+        r"""Check if two objects are equal."""
         if isinstance(other, type(self)):
             return self.id == other.id
         else:
@@ -438,8 +444,8 @@ class Object:
             # https://github.com/audeering/audinterface/issues/68
             return False
 
-    def __repr__(self) -> str:
+    def __repr__(self) -> str:  # noqa: D105
         return str(self.to_dict(include_version=False))
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # noqa: D105
         return self.to_yaml_s(include_version=False)

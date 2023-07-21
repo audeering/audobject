@@ -5,7 +5,6 @@ class config:
     r"""Get/set configuration values for the :mod:`audobject` module.
 
     Examples:
-
         >>> config.PACKAGE_MISMATCH_WARN_LEVEL
         1
         >>> config.PACKAGE_MISMATCH_WARN_LEVEL = 0

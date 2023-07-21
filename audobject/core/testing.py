@@ -1,9 +1,5 @@
-from audobject.core.decorator import (
-    init_decorator,
-)
-from audobject.core.object import (
-    Object,
-)
+from audobject.core.decorator import init_decorator
+from audobject.core.object import Object
 import audobject.core.resolver as resolver
 
 
@@ -17,7 +13,6 @@ class TestObject(Object):
         **kwargs: additional variables
 
     Examples:
-
     >>> from datetime import datetime
     >>> foo = TestObject('test', pi=3.1416)
     >>> print(foo)

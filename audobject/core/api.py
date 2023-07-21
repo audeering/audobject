@@ -16,7 +16,7 @@ kwargs_deprecation_warning = (
 )
 
 
-def from_dict(
+def from_dict(  # noqa: D417
         d: typing.Dict[str, typing.Any],
         root: str = None,
         *,
@@ -98,7 +98,7 @@ def from_dict(
     return object
 
 
-def from_yaml(
+def from_yaml(  # noqa: D417
         path_or_stream: typing.Union[str, typing.IO],
         *,
         auto_install: bool = False,
@@ -143,7 +143,7 @@ def from_yaml(
     )
 
 
-def from_yaml_s(
+def from_yaml_s(  # noqa: D417
         yaml_string: str,
         *,
         auto_install: bool = False,

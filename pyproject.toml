@@ -28,7 +28,7 @@ classifiers = [
 ]
 dependencies = [
     'audeer >=1.18.0',
-    'importlib-metadata >=4.8.0; python_version <3.10',
+    'importlib-metadata >=4.8.0; python_version < "3.10"',
     'oyaml',
 ]
 # Get version dynamically from git
@@ -98,6 +98,10 @@ cache-dir = '.cache/ruff'
 [tool.ruff.per-file-ignores]
 '__init__.py' = [
     'F401',  # * imported but unused
+]
+'tests/*' = [
+    'D101',  # Missing docstring in public class
+    'D102',  # Missing docstring in public method
 ]
 
 

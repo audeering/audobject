@@ -8,7 +8,6 @@ import warnings
 from importlib_metadata import packages_distributions
 
 import audeer
-
 from audobject.core import define
 from audobject.core.config import config
 
@@ -21,7 +20,6 @@ def create_class_key(cls: type, include_version: bool) -> str:
     Package name is omitted if it matches the module.
 
     Examples:
-
     - $audeer.core.version.LooseVersion
     - $audeer.core.version.LooseVersion==1.18.0
     - $PyYAML:yaml.loader.Loader
@@ -128,8 +126,7 @@ def get_object(
         root: typing.Optional[str],
         override_args: typing.Dict[str, typing.Any],
 ) -> (typing.Any, dict):
-    r"""Create object from arguments without calling `__init__()`"""
-
+    r"""Create object from arguments without calling `__init__()`."""
     signature = inspect.signature(cls.__init__)
     supports_kwargs = 'kwargs' in signature.parameters
     supported_params = set([

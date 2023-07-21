@@ -2,9 +2,9 @@ import os
 import shutil
 import typing
 
-import audeer
 import pytest
 
+import audeer
 import audobject
 
 

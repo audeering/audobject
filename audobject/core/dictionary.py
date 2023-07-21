@@ -70,7 +70,7 @@ class Dictionary(Object):
 
     @property
     def _dict_wo_special_attributes(self):
-        r"""Return self.__dict__ without special attributes"""
+        r"""Return self.__dict__ without special attributes."""
         d = {}
         for key, value in self.__dict__.items():
             if key not in [
@@ -81,15 +81,19 @@ class Dictionary(Object):
         return d
 
     def __contains__(self, key):
+        r"""Check if key is in dictionary."""
         return key in self._dict_wo_special_attributes
 
     def __getitem__(self, name: str) -> typing.Any:
+        r"""Return value at key from dictionary."""
         return self._dict_wo_special_attributes[name]
 
     def __len__(self):
+        r"""Number of keys in dictionary."""
         return len(self._dict_wo_special_attributes)
 
     def __setitem__(self, key: str, value: typing.Any):
+        r"""Set value at key in dictionary."""
         if key not in self.__dict__[define.KEYWORD_ARGUMENTS]:
             self.__dict__[define.KEYWORD_ARGUMENTS].append(key)
         self.__dict__[key] = value

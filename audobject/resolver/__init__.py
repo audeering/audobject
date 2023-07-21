@@ -72,10 +72,8 @@ To write a custom resolver derive from
             return dict
 
 """
-from audobject.core.resolver import (
-    Base,
-    Function,
-    FilePath,
-    Tuple,
-    Type,
-)
+from audobject.core.resolver import Base
+from audobject.core.resolver import FilePath
+from audobject.core.resolver import Function
+from audobject.core.resolver import Tuple
+from audobject.core.resolver import Type

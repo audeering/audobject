@@ -1,10 +1,9 @@
 import os
 
+from conftest import uninstall
 import pytest
 
 import audobject
-
-from conftest import uninstall
 
 
 @pytest.mark.parametrize(
