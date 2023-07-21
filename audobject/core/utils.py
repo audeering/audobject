@@ -18,7 +18,7 @@ def create_class_key(cls: type, include_version: bool) -> str:
 
     Convert class into a string that encodes
     package, module, class name and possibly version.
-    Package name is ommited if it matches the module.
+    Package name is omitted if it matches the module.
 
     Examples:
 
@@ -128,7 +128,7 @@ def get_object(
         root: typing.Optional[str],
         override_args: typing.Dict[str, typing.Any],
 ) -> (typing.Any, dict):
-    r"""Create object from arguments wihtout calling `__init__()`"""
+    r"""Create object from arguments without calling `__init__()`"""
 
     signature = inspect.signature(cls.__init__)
     supports_kwargs = 'kwargs' in signature.parameters
