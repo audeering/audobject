@@ -1,18 +1,13 @@
 import argparse
 import os
-import pkg_resources
 import typing
 
-from audobject.core.decorator import (
-    init_decorator,
-)
+import pkg_resources
+
+from audobject.core.decorator import init_decorator
 import audobject.core.define as define
-from audobject.core.dictionary import (
-    Dictionary,
-)
-from audobject.core.object import (
-    Object,
-)
+from audobject.core.dictionary import Dictionary
+from audobject.core.object import Object
 import audobject.core.resolver as resolver
 
 
@@ -105,7 +100,7 @@ class Parameter(Object):
             self.set_value(default_value)
 
     def __contains__(self, version: typing.Optional[str]) -> bool:
-
+        r"""Check if parameter is in parameter object."""
         if version is None or self.version is None:
             return True
 
@@ -290,21 +285,22 @@ class Parameters(Dictionary):
         return delimiter.join(parts)
 
     def __call__(self):
+        r"""Return parameters as dictionary."""
         return {
             name: param.value for name, param in self.items()
         }
 
-    def __getattribute__(self, name) -> typing.Any:
+    def __getattribute__(self, name) -> typing.Any:  # noqa: D105
         if not name == '__dict__' and name in self.__dict__:
             p = self.__dict__[name]
             return p.value
         return object.__getattribute__(self, name)
 
-    def __setattr__(self, name: str, value: typing.Any):
+    def __setattr__(self, name: str, value: typing.Any):  # noqa: D105
         p = self.__dict__[name]
         p.set_value(value)
 
-    def __str__(self):  # pragma: no cover
+    def __str__(self):  # pragma: no cover  # noqa: D105
         table = [
             [
                 'Name', 'Value', 'Default', 'Choices',

@@ -8,7 +8,6 @@ import typing
 import warnings
 
 import audeer
-
 import audobject.core.define as define
 
 
@@ -306,6 +305,7 @@ class Function(Base):
             lambda_func: typing.Callable,
     ):  # pragma: no cover
         """Return the source of a (short) lambda function.
+
         If it's impossible to obtain, returns None.
 
         Original code:
@@ -487,7 +487,7 @@ class Type(Base):
 # TypeError: function() argument 1 must be code, not str
 # ->
 # as a workaround we raise the deprecation warning in __init__
-class ValueResolver:  # pragma: no cover
+class ValueResolver:  # pragma: no cover  # noqa: D101
 
     def __init__(self):
         message = (
@@ -498,16 +498,16 @@ class ValueResolver:  # pragma: no cover
         self.__dict__[define.ROOT_ATTRIBUTE] = None
 
     @property
-    def root(self) -> typing.Optional[str]:
+    def root(self) -> typing.Optional[str]:  # noqa: D102
         return self.__dict__[define.ROOT_ATTRIBUTE]
 
-    def decode(self, value: DefaultValueType) -> typing.Any:
+    def decode(self, value: DefaultValueType) -> typing.Any:  # noqa: D102
         raise NotImplementedError
 
-    def encode(self, value: typing.Any) -> DefaultValueType:
+    def encode(self, value: typing.Any) -> DefaultValueType:  # noqa: D102
         raise NotImplementedError
 
-    def encode_type(self) -> type:
+    def encode_type(self) -> type:  # noqa: D102
         raise NotImplementedError
 
 
@@ -515,7 +515,7 @@ class ValueResolver:  # pragma: no cover
     removal_version='1.0.0',
     alternative='resolver.FilePath',
 )
-class FilePathResolver(FilePath):  # pragma: no cover
+class FilePathResolver(FilePath):  # pragma: no cover  # noqa: D101
     pass
 
 
@@ -523,7 +523,7 @@ class FilePathResolver(FilePath):  # pragma: no cover
     removal_version='1.0.0',
     alternative='resolver.Function',
 )
-class FunctionResolver(Function):  # pragma: no cover
+class FunctionResolver(Function):  # pragma: no cover  # noqa: D101
     pass
 
 
@@ -531,7 +531,7 @@ class FunctionResolver(Function):  # pragma: no cover
     removal_version='1.0.0',
     alternative='resolver.Tuple',
 )
-class TupleResolver(Tuple):  # pragma: no cover
+class TupleResolver(Tuple):  # pragma: no cover  # noqa: D101
     pass
 
 
@@ -539,5 +539,5 @@ class TupleResolver(Tuple):  # pragma: no cover
     removal_version='1.0.0',
     alternative='resolver.Type',
 )
-class TypeResolver(Type):  # pragma: no cover
+class TypeResolver(Type):  # pragma: no cover  # noqa: D101
     pass

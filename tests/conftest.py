@@ -1,7 +1,8 @@
-import pkg_resources
-import pytest
 import subprocess
 import sys
+
+import pkg_resources
+import pytest
 
 import audobject
 

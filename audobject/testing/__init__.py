@@ -1,3 +1,1 @@
-from audobject.core.testing import (
-    TestObject,
-)
+from audobject.core.testing import TestObject

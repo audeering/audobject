@@ -1,5 +1,6 @@
-import pytest
 import warnings
+
+import pytest
 
 import audobject
 

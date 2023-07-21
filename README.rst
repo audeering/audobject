@@ -24,7 +24,7 @@ Have a look at the installation_ and usage_ instructions.
     :target: https://audeering.github.io/audobject/
     :alt: audobject's documentation
 .. |license| image:: https://img.shields.io/badge/license-MIT-green.svg
-    :target: https://github.com/audeering/audfactory/blob/master/LICENSE
+    :target: https://github.com/audeering/audfactory/blob/main/LICENSE
     :alt: audfactory's MIT license
 .. |python-versions| image:: https://img.shields.io/pypi/pyversions/audobject.svg
     :target: https://pypi.org/project/audobject/
