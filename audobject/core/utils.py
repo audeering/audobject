@@ -1,4 +1,5 @@
 import importlib
+from importlib.metadata import packages_distributions
 import inspect
 import operator
 import types
@@ -29,7 +30,7 @@ def create_class_key(cls: type, include_version: bool) -> str:
 
     # add package name (if different from module name)
     module_name = cls.__module__.split('.')[0]
-    package_names = importlib.metadata.packages_distributions()
+    package_names = packages_distributions()
     if module_name in package_names:
         package_name = package_names[module_name][0]
         if package_name != module_name:
