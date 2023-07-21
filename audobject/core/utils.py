@@ -5,8 +5,6 @@ import types
 import typing
 import warnings
 
-from importlib_metadata import packages_distributions
-
 import audeer
 
 from audobject.core import define
@@ -31,7 +29,7 @@ def create_class_key(cls: type, include_version: bool) -> str:
 
     # add package name (if different from module name)
     module_name = cls.__module__.split('.')[0]
-    package_names = packages_distributions()
+    package_names = importlib.metadata.packages_distributions()
     if module_name in package_names:
         package_name = package_names[module_name][0]
         if package_name != module_name:
