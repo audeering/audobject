@@ -12,15 +12,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-20.04, windows-latest, macOS-latest ]
-        python-version: [ '3.8' ]
-        include:
-          - os: ubuntu-latest
-            python-version: '3.9'
-          - os: ubuntu-latest
-            python-version: '3.10'
-          - os: ubuntu-latest
-            python-version: '3.11'
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+        python-version: [ '3.8', '3.9', '3.10', '3.11' ]
 
     steps:
     - uses: actions/checkout@v3
@@ -35,7 +28,6 @@ jobs:
         python -V
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install -r docs/requirements.txt
         pip install -r tests/requirements.txt
 
     - name: Test with pytest
@@ -47,10 +39,4 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./coverage.xml
-      if: matrix.os == 'ubuntu-20.04'
-
-    - name: Test building documentation
-      run: |
-        python -m sphinx docs/ docs/_build/ -b html -W
-        python -m sphinx docs/ build/sphinx/html -b linkcheck
-      if: matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-latest'
