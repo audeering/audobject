@@ -29,7 +29,7 @@ classifiers = [
 dependencies = [
     'audeer >=1.18.0',
     # The following can be replaced by "importlib.metadata" with Python 3.10
-    'importlib-metadata >=4.8.0',
+    'importlib-metadata >=6.8.0',
     'oyaml',
 ]
 # Get version dynamically from git
