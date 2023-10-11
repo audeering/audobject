@@ -3,6 +3,7 @@ import os
 import pytest
 import yaml
 
+import audb
 import audeer
 import audobject
 import audobject.core.utils as utils
@@ -605,3 +606,8 @@ def test_kwargs_object():
 
     assert o == o2
     assert o2.hide_arg is None
+
+
+def test_audb_flavor():
+    flavor = audb.Flavor(sampling_rate=16000)
+    flavor.path('test', '1.0.0')
