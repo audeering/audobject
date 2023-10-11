@@ -622,7 +622,10 @@ class Flavor(audobject.Object):
 
 
 def test_audb_flavor():
+    name = 'test'
+    version = '1.0.0'
+    expected_flavor = '21158cc1'
+    expected_path = os.path.join(name, version, expected_flavor)
     flavor = Flavor(rate=16000)
-    expected_path = 'test/1.0.0/21158cc1'
-    path = flavor.path('test', '1.0.0')
+    path = flavor.path(name, version)
     assert path == expected_path
