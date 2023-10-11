@@ -3,7 +3,6 @@ import os
 import pytest
 import yaml
 
-import audb
 import audeer
 import audobject
 import audobject.core.utils as utils
@@ -608,6 +607,22 @@ def test_kwargs_object():
     assert o2.hide_arg is None
 
 
+class Flavor(audobject.Object):
+    r"""Class mimicking audb.Flavor."""
+
+    def __init__(self, rate):
+        self.rate = rate
+
+    def path(self, name, version):
+        return os.path.join(name, version, self.short_id)
+
+    @property
+    def short_id(self):
+        return self.id[-8:]
+
+
 def test_audb_flavor():
-    flavor = audb.Flavor(sampling_rate=16000)
-    flavor.path('test', '1.0.0')
+    flavor = Flavor(rate=16000)
+    expected_path = 'test/1.0.0/21158cc1'
+    path = flavor.path('test', '1.0.0')
+    assert path == expected_path
