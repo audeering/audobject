@@ -30,7 +30,7 @@ import audobject
             '''$audobject.core.testing.TestObject:
               name: test
               backend:
-                $audbackend.core.filesystem.FileSystem==0.3.12:
+                $audbackend.core.filesystem.FileSystem==1.0.1:
                   host: ~/host
                   repository: repo
             ''',
