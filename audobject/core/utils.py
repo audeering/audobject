@@ -12,6 +12,10 @@ from audobject.core import define
 from audobject.core.config import config
 
 
+# Cache result of packages_distributions()
+PACKAGES_DISTRIBUTIONS = {}
+
+
 def create_class_key(cls: type, include_version: bool) -> str:
     r"""Create class key.
 
@@ -25,13 +29,15 @@ def create_class_key(cls: type, include_version: bool) -> str:
     - $PyYAML:yaml.loader.Loader
 
     """
+    global PACKAGES_DISTRIBUTIONS
     key = define.OBJECT_TAG
 
     # add package name (if different from module name)
     module_name = cls.__module__.split('.')[0]
-    package_names = packages_distributions()
-    if module_name in package_names:
-        package_name = package_names[module_name][0]
+    if module_name not in PACKAGES_DISTRIBUTIONS:
+        PACKAGES_DISTRIBUTIONS = packages_distributions()
+    if module_name in PACKAGES_DISTRIBUTIONS:
+        package_name = PACKAGES_DISTRIBUTIONS[module_name][0]
         if package_name != module_name:
             key += f'{package_name}{define.PACKAGE_TAG}'
 
