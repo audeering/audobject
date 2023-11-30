@@ -7,6 +7,21 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.10 (2023-11-30)
+---------------------------
+
+* Added: support for Python 3.11
+* Fixed: speed up package name lookup in ``audobject.Object.to_dict()``,
+  which makes repeated object serialization
+  up to 100x faster
+* Fixed: avoid deprecation warning
+  by replacing
+  ``pkg_resources``
+  internally with
+  ``importlib.metadata``
+* Removed: support for Python 3.7
+
+
 Version 0.7.9 (2023-03-01)
 --------------------------
 
