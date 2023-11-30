@@ -1,7 +1,7 @@
 audeer
 ipykernel
 jupyter-sphinx
-sphinx
+sphinx ==5.3.0
 sphinx-audeering-theme >=1.2.1
 sphinx-autodoc-typehints
 sphinx-copybutton
