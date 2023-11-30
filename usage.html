@@ -66,10 +66,6 @@
           
             
             
-              <div class="version">
-                v0.7.9
-              </div>
-            
           
 
           
@@ -445,51 +441,51 @@ from YAML, we’ll get an error.</p>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">bad2</span> <span class="o">=</span> <span class="n">audobject</span><span class="o">.</span><span class="n">from_yaml_s</span><span class="p">(</span><span class="n">bad_yaml</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">bad2</span><span class="p">)</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:337,</span> in <span class="ni">Object.to_yaml_s</span><span class="nt">(self, include_version)</span>
-<span class="g g-Whitespace">    </span><span class="mi">313</span> <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">314</span>         <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="o">*</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">316</span>         <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">318</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
-<span class="g g-Whitespace">    </span><span class="mi">319</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">320</span><span class="sd">     Args:</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:336,</span> in <span class="ni">Object.to_yaml_s</span><span class="nt">(self, include_version)</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span> <span class="k">def</span> <span class="nf">to_yaml_s</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">314</span>         <span class="o">*</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="n">include_version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">316</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Convert object to YAML string.</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span><span class="sd">     Args:</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">335</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">336</span><span class="sd">     &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
-<span class="ne">--&gt; </span><span class="mi">337</span>     <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">334</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">335</span><span class="sd">     &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="ne">--&gt; </span><span class="mi">336</span>     <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="n">include_version</span><span class="p">))</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:280,</span> in <span class="ni">Object.to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
-<span class="g g-Whitespace">    </span><span class="mi">246</span><span class="w"> </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span><span class="sd"> Includes items from :attr:`audobject.Object.arguments`.</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:279,</span> in <span class="ni">Object.to_dict</span><span class="nt">(self, include_version, flatten, root)</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span><span class="w"> </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converts object to a dictionary.</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span><span class="sd"> Includes items from :attr:`audobject.Object.arguments`.</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">269</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">270</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
-<span class="g g-Whitespace">    </span><span class="mi">271</span> <span class="n">name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">create_class_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">273</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">274</span>     <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_variable</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">275</span>         <span class="n">key</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">value</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span>         <span class="n">include_version</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span>         <span class="n">root</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span>     <span class="p">)</span>
-<span class="nn">--&gt; 280     for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span> <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span> <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">flatten</span> <span class="k">else</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span><span class="sd"> &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span> <span class="n">name</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">create_class_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">include_version</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span>     <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_variable</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">274</span>         <span class="n">key</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">275</span>         <span class="n">value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">include_version</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">277</span>         <span class="n">root</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="p">)</span>
+<span class="nn">--&gt; 279     for key, value</span> in <span class="ni">self.arguments.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span> <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">282</span> <span class="k">return</span> <span class="n">Object</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="n">flatten</span> <span class="k">else</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:81,</span> in <span class="ni">Object.arguments</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span>         <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">81</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">82</span>         <span class="s1">&#39;Arguments &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">83</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1"> &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">84</span>         <span class="s1">&#39;of &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1"> &#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>         <span class="s1">&#39;not assigned to attributes of same name.&#39;</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="c1"># check borrowed attributes</span>
-<span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/object.py:80,</span> in <span class="ni">Object.arguments</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span>         <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">80</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>         <span class="s1">&#39;Arguments &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1"> &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>         <span class="s1">&#39;of &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1"> &#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>         <span class="s1">&#39;not assigned to attributes of same name.&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> <span class="c1"># check borrowed attributes</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">borrowed</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 
 <span class="ne">RuntimeError</span>: Arguments [&#39;string&#39;, &#39;num_repeat&#39;] of &lt;class &#39;__main__.MyBadObject&#39;&gt; not assigned to attributes of same name.
 </pre></div>
@@ -622,9 +618,7 @@ hello object! hello object! hello object!
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b3579494-fb4f-35f3-62be-1ceedd745e38
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b3579494-fb4f-35f3-62be-1ceedd745e38
+b3579494-fb4f-35f3-62be-1ceedd745e38
 </pre></div>
 </div>
 </div>
@@ -910,7 +904,7 @@ we’ll see a warning.</p>
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:380: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/object.py:384: RuntimeWarning: No default encoding exists for type '&lt;class 'datetime.timedelta'&gt;'. Consider to register a custom resolver.
   warnings.warn(
 </pre>
 </div>
@@ -994,7 +988,9 @@ and the <code class="docutils literal notranslate"><span class="pre">!!python/ob
     days: 64
     seconds: 29156
     microseconds: 10
-
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1364,7 +1360,7 @@ as input a string, a list and a dictionary.</p>
 looks pretty nested.
 This is not always handy,
 e.g. if we try to store the object to a
-<a class="reference external" href="https://audeering.github.io/audfactory/api/audfactory.Lookup.html#audfactory.Lookup" title="(in audfactory vv1.0.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
+<a class="reference external" href="https://audeering.github.io/audfactory/api/audfactory.Lookup.html#audfactory.Lookup" title="(in audfactory vv1.0.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">audfactory.Lookup</span></code></a> table,
 this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.</p>
@@ -1463,7 +1459,7 @@ by adjusting
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:86: RuntimeWarning: Instantiating __main__.MyObject from version '1.0.0' when using version '0.9.0'.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:90: RuntimeWarning: Instantiating __main__.MyObject from version '1.0.0' when using version '0.9.0'.
   warnings.warn(
 </pre>
 </div>
@@ -1583,23 +1579,23 @@ for the new argument.</p>
 <span class="g g-Whitespace">     </span><span class="mi">79</span>     <span class="c1"># create attribute to signal that object was loaded</span>
 <span class="g g-Whitespace">     </span><span class="mi">80</span>     <span class="nb">object</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">OBJECT_LOADED</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/utils.py:149,</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, override_args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">147</span> <span class="n">missing_required_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">required_params</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_required_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">149</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span>         <span class="sa">f</span><span class="s2">&quot;Missing mandatory arguments &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">missing_required_params</span><span class="si">}</span><span class="s2"> &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">152</span>         <span class="sa">f</span><span class="s2">&quot;while instantiating </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2"> from &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">153</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&#39; when using &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">installed_version</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">155</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">157</span> <span class="c1"># check for missing optional arguments</span>
-<span class="g g-Whitespace">    </span><span class="mi">158</span> <span class="n">optional_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>
-<span class="nn">    159     p.name for p</span> in <span class="ni">signature.parameters.values</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">160</span>     <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span> <span class="o">!=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">161</span>         <span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">162</span>     <span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">163</span> <span class="p">])</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/utils.py:152,</span> in <span class="ni">get_object</span><span class="nt">(cls, version, installed_version, params, root, override_args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="n">missing_required_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">required_params</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_required_params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">152</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">153</span>         <span class="sa">f</span><span class="s2">&quot;Missing mandatory arguments &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">missing_required_params</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>         <span class="sa">f</span><span class="s2">&quot;while instantiating </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2"> from &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">156</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&#39; when using &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span>         <span class="sa">f</span><span class="s2">&quot;version &#39;</span><span class="si">{</span><span class="n">installed_version</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span> <span class="c1"># check for missing optional arguments</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span> <span class="n">optional_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>
+<span class="nn">    162     p.name for p</span> in <span class="ni">signature.parameters.values</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>     <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span> <span class="o">!=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>         <span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>     <span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="p">])</span>
 
 <span class="ne">RuntimeError</span>: Missing mandatory arguments [&#39;delimiter&#39;] while instantiating &lt;class &#39;__main__.MyObject&#39;&gt; from version &#39;1.0.0&#39; when using version &#39;2.1.0&#39;.
 </pre></div>
@@ -1711,9 +1707,9 @@ Create an object with version <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:86: RuntimeWarning: Instantiating __main__.MyObject from version '2.1.1' when using version '1.0.0'.
+<pre class="stderr literal-block">/home/runner/work/audobject/audobject/audobject/core/utils.py:90: RuntimeWarning: Instantiating __main__.MyObject from version '2.1.1' when using version '1.0.0'.
   warnings.warn(
-/home/runner/work/audobject/audobject/audobject/core/utils.py:183: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
+/home/runner/work/audobject/audobject/audobject/core/utils.py:186: RuntimeWarning: Ignoring arguments ['delimiter'] while instantiating &lt;class '__main__.MyObject'&gt; from version '2.1.1' when using version '1.0.0'.
   warnings.warn(
 </pre>
 </div>
@@ -1951,32 +1947,32 @@ we will get an error.</p>
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">77</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">params</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;par&#39;</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:305,</span> in <span class="ni">Parameters.__setattr__</span><span class="nt">(self, name, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">303</span> <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span>     <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-<span class="ne">--&gt; </span><span class="mi">305</span>     <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:301,</span> in <span class="ni">Parameters.__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span> <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>  <span class="c1"># noqa: D105</span>
+<span class="g g-Whitespace">    </span><span class="mi">300</span>     <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">301</span>     <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:130,</span> in <span class="ni">Parameter.set_value</span><span class="nt">(self, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets a new value.</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="sd">     Applies additional checks, e.g. if value is of the expected type.</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:125,</span> in <span class="ni">Parameter.set_value</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets a new value.</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span><span class="sd">     Applies additional checks, e.g. if value is of the expected type.</span>
 <span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">128</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">129</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">130</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span>     <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">125</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>     <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:141,</span> in <span class="ni">Parameter._check_value</span><span class="nt">(self, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">137</span>         <span class="sa">f</span><span class="s2">&quot;Invalid type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="sa">f</span><span class="s2">&quot;expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value_type</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="nn">File ~/work/audobject/audobject/audobject/core/parameter.py:136,</span> in <span class="ni">Parameter._check_value</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span>         <span class="sa">f</span><span class="s2">&quot;Invalid type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>         <span class="sa">f</span><span class="s2">&quot;expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value_type</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">136</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span>         <span class="sa">f</span><span class="s2">&quot;Invalid value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="si">}</span><span class="s2">.&quot;</span>
 <span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">140</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">141</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">142</span>         <span class="sa">f</span><span class="s2">&quot;Invalid value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span>         <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="si">}</span><span class="s2">.&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span>     <span class="p">)</span>
 
 <span class="ne">ValueError</span>: Invalid value &#39;par&#39;, expected one of [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;].
 </pre></div>
@@ -2152,7 +2148,7 @@ delimiter   ;      ,        None                   defines the delimiter        
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/03/03 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/11/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

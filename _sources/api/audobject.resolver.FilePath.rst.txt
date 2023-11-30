@@ -6,6 +6,10 @@
 .. autoclass:: FilePath
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: FilePath.__hash__
+    
 decode\(\)
 ----------
 .. automethod:: FilePath.decode

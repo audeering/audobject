@@ -6,6 +6,10 @@
 .. autoclass:: config
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: config.__hash__
+    
 PACKAGE\_MISMATCH\_WARN\_LEVEL
 ------------------------------
 .. autoattribute:: config.PACKAGE_MISMATCH_WARN_LEVEL

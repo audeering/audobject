@@ -6,6 +6,10 @@
 .. autoclass:: Object
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: Object.__hash__
+    
 arguments
 ---------
 .. autoattribute:: Object.arguments

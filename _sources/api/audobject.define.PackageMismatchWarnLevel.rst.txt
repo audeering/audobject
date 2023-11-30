@@ -6,6 +6,10 @@
 .. autoclass:: PackageMismatchWarnLevel
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: PackageMismatchWarnLevel.__hash__
+    
 SILENT
 ------
 .. autoattribute:: PackageMismatchWarnLevel.SILENT

@@ -6,6 +6,10 @@
 .. autoclass:: SignatureMismatchWarnLevel
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: SignatureMismatchWarnLevel.__hash__
+    
 SILENT
 ------
 .. autoattribute:: SignatureMismatchWarnLevel.SILENT

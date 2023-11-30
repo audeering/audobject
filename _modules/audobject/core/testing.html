@@ -64,10 +64,6 @@
           
             
             
-              <div class="version">
-                v0.7.9
-              </div>
-            
           
 
           
@@ -143,12 +139,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for audobject.core.testing</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">audobject.core.decorator</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">init_decorator</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">audobject.core.object</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Object</span><span class="p">,</span>
-<span class="p">)</span>
+<span></span><span class="kn">from</span> <span class="nn">audobject.core.decorator</span> <span class="kn">import</span> <span class="n">init_decorator</span>
+<span class="kn">from</span> <span class="nn">audobject.core.object</span> <span class="kn">import</span> <span class="n">Object</span>
 <span class="kn">import</span> <span class="nn">audobject.core.resolver</span> <span class="k">as</span> <span class="nn">resolver</span>
 
 
@@ -162,16 +154,15 @@
 <span class="sd">        **kwargs: additional variables</span>
 
 <span class="sd">    Examples:</span>
-
-<span class="sd">    &gt;&gt;&gt; from datetime import datetime</span>
-<span class="sd">    &gt;&gt;&gt; foo = TestObject(&#39;test&#39;, pi=3.1416)</span>
-<span class="sd">    &gt;&gt;&gt; print(foo)</span>
-<span class="sd">    $audobject.core.testing.TestObject:</span>
-<span class="sd">      name: test</span>
-<span class="sd">      point:</span>
-<span class="sd">      - 0</span>
-<span class="sd">      - 0</span>
-<span class="sd">      pi: 3.1416</span>
+<span class="sd">        &gt;&gt;&gt; from datetime import datetime</span>
+<span class="sd">        &gt;&gt;&gt; foo = TestObject(&#39;test&#39;, pi=3.1416)</span>
+<span class="sd">        &gt;&gt;&gt; print(foo)</span>
+<span class="sd">        $audobject.core.testing.TestObject:</span>
+<span class="sd">          name: test</span>
+<span class="sd">          point:</span>
+<span class="sd">          - 0</span>
+<span class="sd">          - 0</span>
+<span class="sd">          pi: 3.1416</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@init_decorator</span><span class="p">(</span>
@@ -207,7 +198,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/03/03 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/11/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

@@ -6,6 +6,10 @@
 .. autoclass:: TestObject
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: TestObject.__hash__
+    
 arguments
 ---------
 .. autoattribute:: TestObject.arguments

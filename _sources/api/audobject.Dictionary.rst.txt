@@ -6,6 +6,26 @@
 .. autoclass:: Dictionary
 
 
+\_\_contains\_\_\(\)
+--------------------
+.. automethod:: Dictionary.__contains__
+    
+\_\_getitem\_\_\(\)
+-------------------
+.. automethod:: Dictionary.__getitem__
+    
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: Dictionary.__hash__
+    
+\_\_len\_\_\(\)
+---------------
+.. automethod:: Dictionary.__len__
+    
+\_\_setitem\_\_\(\)
+-------------------
+.. automethod:: Dictionary.__setitem__
+    
 arguments
 ---------
 .. autoattribute:: Dictionary.arguments

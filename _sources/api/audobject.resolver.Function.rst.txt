@@ -6,6 +6,10 @@
 .. autoclass:: Function
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: Function.__hash__
+    
 decode\(\)
 ----------
 .. automethod:: Function.decode

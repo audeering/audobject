@@ -6,6 +6,14 @@
 .. autoclass:: Parameter
 
 
+\_\_contains\_\_\(\)
+--------------------
+.. automethod:: Parameter.__contains__
+    
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: Parameter.__hash__
+    
 arguments
 ---------
 .. autoattribute:: Parameter.arguments

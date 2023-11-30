@@ -10,6 +10,26 @@
 ----------------
 .. automethod:: Parameters.__call__
     
+\_\_contains\_\_\(\)
+--------------------
+.. automethod:: Parameters.__contains__
+    
+\_\_getitem\_\_\(\)
+-------------------
+.. automethod:: Parameters.__getitem__
+    
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: Parameters.__hash__
+    
+\_\_len\_\_\(\)
+---------------
+.. automethod:: Parameters.__len__
+    
+\_\_setitem\_\_\(\)
+-------------------
+.. automethod:: Parameters.__setitem__
+    
 arguments
 ---------
 .. autoattribute:: Parameters.arguments

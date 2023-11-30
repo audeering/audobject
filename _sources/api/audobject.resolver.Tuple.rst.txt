@@ -6,6 +6,10 @@
 .. autoclass:: Tuple
 
 
+\_\_hash\_\_\(\)
+----------------
+.. automethod:: Tuple.__hash__
+    
 decode\(\)
 ----------
 .. automethod:: Tuple.decode

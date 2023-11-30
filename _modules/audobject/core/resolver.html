@@ -64,10 +64,6 @@
           
             
             
-              <div class="version">
-                v0.7.9
-              </div>
-            
           
 
           
@@ -153,7 +149,6 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">audeer</span>
-
 <span class="kn">import</span> <span class="nn">audobject.core.define</span> <span class="k">as</span> <span class="nn">define</span>
 
 
@@ -451,6 +446,7 @@
             <span class="n">lambda_func</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">,</span>
     <span class="p">):</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the source of a (short) lambda function.</span>
+
 <span class="sd">        If it&#39;s impossible to obtain, returns None.</span>
 
 <span class="sd">        Original code:</span>
@@ -632,7 +628,7 @@
 <span class="c1"># TypeError: function() argument 1 must be code, not str</span>
 <span class="c1"># -&gt;</span>
 <span class="c1"># as a workaround we raise the deprecation warning in __init__</span>
-<span class="k">class</span> <span class="nc">ValueResolver</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">class</span> <span class="nc">ValueResolver</span><span class="p">:</span>  <span class="c1"># pragma: no cover  # noqa: D101</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
@@ -643,16 +639,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>  <span class="c1"># noqa: D102</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DefaultValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">DefaultValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DefaultValueType</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DefaultValueType</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 
@@ -660,7 +656,7 @@
     <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
     <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;resolver.FilePath&#39;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">class</span> <span class="nc">FilePathResolver</span><span class="p">(</span><span class="n">FilePath</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">class</span> <span class="nc">FilePathResolver</span><span class="p">(</span><span class="n">FilePath</span><span class="p">):</span>  <span class="c1"># pragma: no cover  # noqa: D101</span>
     <span class="k">pass</span>
 
 
@@ -668,7 +664,7 @@
     <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
     <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;resolver.Function&#39;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">class</span> <span class="nc">FunctionResolver</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">class</span> <span class="nc">FunctionResolver</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>  <span class="c1"># pragma: no cover  # noqa: D101</span>
     <span class="k">pass</span>
 
 
@@ -676,7 +672,7 @@
     <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
     <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;resolver.Tuple&#39;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">class</span> <span class="nc">TupleResolver</span><span class="p">(</span><span class="n">Tuple</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">class</span> <span class="nc">TupleResolver</span><span class="p">(</span><span class="n">Tuple</span><span class="p">):</span>  <span class="c1"># pragma: no cover  # noqa: D101</span>
     <span class="k">pass</span>
 
 
@@ -684,7 +680,7 @@
     <span class="n">removal_version</span><span class="o">=</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
     <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;resolver.Type&#39;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">class</span> <span class="nc">TypeResolver</span><span class="p">(</span><span class="n">Type</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">class</span> <span class="nc">TypeResolver</span><span class="p">(</span><span class="n">Type</span><span class="p">):</span>  <span class="c1"># pragma: no cover  # noqa: D101</span>
     <span class="k">pass</span>
 </pre></div>
 
@@ -701,7 +697,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/03/03 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/11/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
