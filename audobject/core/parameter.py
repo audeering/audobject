@@ -2,7 +2,8 @@ import argparse
 import os
 import typing
 
-import pkg_resources
+import packaging.specifiers
+import packaging.version
 
 from audobject.core.decorator import init_decorator
 import audobject.core.define as define
@@ -104,8 +105,8 @@ class Parameter(Object):
         if version is None or self.version is None:
             return True
 
-        v = pkg_resources.parse_version(version)
-        r = pkg_resources.Requirement.parse('param' + self.version)
+        v = packaging.version.parse(version)
+        r = packaging.specifiers.SpecifierSet(self.version)
 
         return v in r
 
