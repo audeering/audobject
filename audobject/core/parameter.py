@@ -105,10 +105,10 @@ class Parameter(Object):
         if version is None or self.version is None:
             return True
 
-        v = packaging.version.parse(version)
-        r = packaging.specifiers.SpecifierSet(self.version)
+        version = packaging.version.parse(version)
+        version_range = packaging.specifiers.SpecifierSet(self.version)
 
-        return v in r
+        return version in version_range
 
     def set_value(self, value: typing.Any):
         r"""Sets a new value.
