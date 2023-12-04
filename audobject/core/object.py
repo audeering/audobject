@@ -235,6 +235,36 @@ class Object:
             return self.__dict__[define.CUSTOM_VALUE_RESOLVERS]
         return {}
 
+    @property
+    def short_id(self) -> str:
+        r"""Short object identifier.
+
+        The short ID consists of eight characters
+        and is created from its non-hidden arguments.
+
+        Returns:
+            short object identifier
+
+        Examples:
+            >>> class Foo(Object):
+            ...    def __init__(self, bar: str):
+            ...        self.bar = bar
+            >>> foo1 = Foo('I am unique!')
+            >>> print(foo1.id)
+            893df240-babe-d796-cdf1-c436171b7a96
+            >>> print(foo1.short_id)
+            171b7a96
+            >>> foo2 = Foo('I am different!')
+            >>> print(foo2.short_id)
+            6e2d2190
+            >>> foo3 = Foo('I am unique!')
+            >>> print(foo1.short_id == foo3.short_id)
+            True
+
+        """
+        string = self.to_yaml_s(include_version=False)
+        return audeer.uid(from_string=string, short=True)
+
     def to_dict(
             self,
             *,
