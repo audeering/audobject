@@ -185,9 +185,9 @@ class Function(Base):
     that are not defined or imported
     inside the function.
     For instance,
-    in this example
-    function ``plus_1()`` requires
-    that ``_plus_1()`` is locally defined:
+    the following example will raise an error
+    since ``plus_1()`` relies on ``_plus_1()``,
+    which is defined outside the function:
 
     .. code-block:: python
 
