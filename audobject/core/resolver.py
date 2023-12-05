@@ -199,6 +199,9 @@ class Function(Base):
 
         resolver = Function()
         encoded_value = resolver.encode(plus_1)
+        del _plus_1
+        decoded_value = resolver.decode(encoded_value)
+        decoded_value(1)
 
     Examples:
         >>> resolver = Function()
