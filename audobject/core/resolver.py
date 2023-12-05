@@ -181,9 +181,9 @@ class Function(Base):
 
     Note that a decoded function
     might raise a :class:`NameError`,
-    if it relies on other objects,
-    that are locally defined,
-    or imported outside of the function.
+    if it relies on objects or functions
+    that are not defined or imported
+    inside the function.
     For instance,
     in this example
     function ``plus_1()`` requires
