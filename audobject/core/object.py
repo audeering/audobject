@@ -157,13 +157,13 @@ class Object:
             ...    def __init__(self, bar: str):
             ...        self.bar = bar
             >>> foo1 = Foo('I am unique!')
-            >>> print(foo1.id)
-            893df240-babe-d796-cdf1-c436171b7a96
+            >>> foo1.id
+            '893df240-babe-d796-cdf1-c436171b7a96'
             >>> foo2 = Foo('I am different!')
-            >>> print(foo2.id)
-            9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190
+            >>> foo2.id
+            '9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190'
             >>> foo3 = Foo('I am unique!')
-            >>> print(foo1.id == foo3.id)
+            >>> foo1.id == foo3.id
             True
 
         """
@@ -234,6 +234,36 @@ class Object:
         if hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
             return self.__dict__[define.CUSTOM_VALUE_RESOLVERS]
         return {}
+
+    @property
+    def short_id(self) -> str:
+        r"""Short object identifier.
+
+        The short ID consists of eight characters
+        and is created from its non-hidden arguments.
+
+        Returns:
+            short object identifier
+
+        Examples:
+            >>> class Foo(Object):
+            ...    def __init__(self, bar: str):
+            ...        self.bar = bar
+            >>> foo1 = Foo('I am unique!')
+            >>> foo1.id
+            '893df240-babe-d796-cdf1-c436171b7a96'
+            >>> foo1.short_id
+            '171b7a96'
+            >>> foo2 = Foo('I am different!')
+            >>> foo2.short_id
+            '6e2d2190'
+            >>> foo3 = Foo('I am unique!')
+            >>> foo1.short_id == foo3.short_id
+            True
+
+        """
+        string = self.to_yaml_s(include_version=False)
+        return audeer.uid(from_string=string, short=True)
 
     def to_dict(
             self,

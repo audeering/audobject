@@ -55,6 +55,11 @@ def test(tmpdir, obj):
     assert obj_from_yaml_s.is_loaded_from_dict
     assert obj_from_yaml.is_loaded_from_dict
 
+    # IDs
+    string = obj.to_yaml_s(include_version=False)
+    assert obj.id == audeer.uid(from_string=string, short=False)
+    assert obj.short_id == audeer.uid(from_string=string, short=True)
+
 
 class ObjectTestIsLoadedFromDict(audobject.Object):
     def __init__(self):
