@@ -179,6 +179,30 @@ class Function(Base):
     Encodes source code of function and
     dynamically evaluates it when the value is decoded again.
 
+    Note that a decoded function
+    might raise a :class:`NameError`,
+    if it relies on objects or functions
+    that are not defined or imported
+    inside the function.
+    For instance,
+    the following example will raise an error
+    since ``plus_1()`` relies on ``_plus_1()``,
+    which is defined outside the function:
+
+    .. code-block:: python
+
+        def _plus_1(x):
+            return x + 1
+
+        def plus_1(x):
+            return _plus_1(x)  # calls local function -> not serializable
+
+        resolver = Function()
+        encoded_value = resolver.encode(plus_1)
+        del _plus_1
+        decoded_value = resolver.decode(encoded_value)
+        decoded_value(1)
+
     Examples:
         >>> resolver = Function()
         >>> def func(x):
