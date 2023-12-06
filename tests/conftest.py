@@ -38,30 +38,30 @@ pytest.PARAMETERS = audobject.Parameters(
 )
 
 
-# def uninstall(
-#     package: str,
-#     module: str,
-# ):
-#     # uninstall package
-#     subprocess.check_call(
-#         [
-#             sys.executable,
-#             '-m',
-#             'pip',
-#             'uninstall',
-#             '--yes',
-#             package,
-#         ]
-#     )
-#     # remove module
-#     for m in list(sys.modules):
-#         if m.startswith(module):
-#             sys.modules.pop(m)
-# 
+def uninstall(
+    package: str,
+    module: str,
+):
+    # uninstall package
+    subprocess.check_call(
+        [
+            sys.executable,
+            '-m',
+            'pip',
+            'uninstall',
+            '--yes',
+            package,
+        ]
+    )
+    # remove module
+    for m in list(sys.modules):
+        if m.startswith(module):
+            sys.modules.pop(m)
 
-# @pytest.fixture(scope='session', autouse=True)
-# def cleanup():
-#     yield
-#     # uninstall package temporarily installed by test_install.py
-#     uninstall('audbackend', 'audbackend')
-#     uninstall('dohq-artifactory', 'artifactory')
+
+@pytest.fixture(scope='session', autouse=True)
+def cleanup():
+    yield
+    # uninstall package temporarily installed by test_install.py
+    uninstall('audbackend', 'audbackend')
+    uninstall('dohq-artifactory', 'artifactory')
