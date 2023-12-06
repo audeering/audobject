@@ -66,6 +66,10 @@ set\_value\(\)
 --------------
 .. automethod:: Parameter.set_value
     
+short\_id
+---------
+.. autoattribute:: Parameter.short_id
+    
 to\_dict\(\)
 ------------
 .. automethod:: Parameter.to_dict

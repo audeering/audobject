@@ -70,6 +70,10 @@ resolvers
 ---------
 .. autoattribute:: Dictionary.resolvers
     
+short\_id
+---------
+.. autoattribute:: Dictionary.short_id
+    
 to\_dict\(\)
 ------------
 .. automethod:: Dictionary.to_dict

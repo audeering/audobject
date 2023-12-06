@@ -114,6 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#is-loaded-from-dict">is_loaded_from_dict</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#resolvers">resolvers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#set-value">set_value()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#short-id">short_id</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#to-dict">to_dict()</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#to-yaml">to_yaml()</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#to-yaml-s">to_yaml_s()</a></li>
@@ -399,13 +400,13 @@ or a <code class="docutils literal notranslate"><span class="pre">list</span></c
 <span class="gp">... </span>   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="gp">... </span>       <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">bar</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="go">893df240-babe-d796-cdf1-c436171b7a96</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span>
+<span class="go">&#39;893df240-babe-d796-cdf1-c436171b7a96&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-<span class="go">9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span><span class="o">.</span><span class="n">id</span>
+<span class="go">&#39;9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">foo3</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">foo3</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">foo3</span><span class="o">.</span><span class="n">id</span>
 <span class="go">True</span>
 </pre></div>
 </div>
@@ -466,6 +467,39 @@ e.g. after loading it from a YAML file.</p>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+</div>
+<div class="section" id="short-id">
+<h2>short_id<a class="headerlink" href="#short-id" title="Permalink to this heading">¶</a></h2>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="audobject.Parameter.short_id">
+<span class="sig-prename descclassname"><span class="pre">Parameter.</span></span><span class="sig-name descname"><span class="pre">short_id</span></span><a class="headerlink" href="#audobject.Parameter.short_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Short object identifier.</p>
+<p>The short ID consists of eight characters
+and is created from its non-hidden arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>short object identifier</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="bp">self</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">bar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span><span class="o">.</span><span class="n">id</span>
+<span class="go">&#39;893df240-babe-d796-cdf1-c436171b7a96&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span><span class="o">.</span><span class="n">short_id</span>
+<span class="go">&#39;171b7a96&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am different!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo2</span><span class="o">.</span><span class="n">short_id</span>
+<span class="go">&#39;6e2d2190&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo3</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="s1">&#39;I am unique!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo1</span><span class="o">.</span><span class="n">short_id</span> <span class="o">==</span> <span class="n">foo3</span><span class="o">.</span><span class="n">short_id</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -607,7 +641,7 @@ However, if <code class="docutils literal notranslate"><span class="pre">flatten
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/11/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

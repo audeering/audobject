@@ -320,6 +320,30 @@
 <span class="sd">    Encodes source code of function and</span>
 <span class="sd">    dynamically evaluates it when the value is decoded again.</span>
 
+<span class="sd">    Note that a decoded function</span>
+<span class="sd">    might raise a :class:`NameError`,</span>
+<span class="sd">    if it relies on objects or functions</span>
+<span class="sd">    that are not defined or imported</span>
+<span class="sd">    inside the function.</span>
+<span class="sd">    For instance,</span>
+<span class="sd">    the following example will raise an error</span>
+<span class="sd">    since ``plus_1()`` relies on ``_plus_1()``,</span>
+<span class="sd">    which is defined outside the function:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        def _plus_1(x):</span>
+<span class="sd">            return x + 1</span>
+
+<span class="sd">        def plus_1(x):</span>
+<span class="sd">            return _plus_1(x)  # calls local function -&gt; not serializable</span>
+
+<span class="sd">        resolver = Function()</span>
+<span class="sd">        encoded_value = resolver.encode(plus_1)</span>
+<span class="sd">        del _plus_1</span>
+<span class="sd">        decoded_value = resolver.decode(encoded_value)</span>
+<span class="sd">        decoded_value(1)</span>
+
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; resolver = Function()</span>
 <span class="sd">        &gt;&gt;&gt; def func(x):</span>
@@ -697,7 +721,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/11/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

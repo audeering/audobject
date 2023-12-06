@@ -46,6 +46,10 @@ resolvers
 ---------
 .. autoattribute:: TestObject.resolvers
     
+short\_id
+---------
+.. autoattribute:: TestObject.short_id
+    
 to\_dict\(\)
 ------------
 .. automethod:: TestObject.to_dict

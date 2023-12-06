@@ -82,6 +82,10 @@ resolvers
 ---------
 .. autoattribute:: Parameters.resolvers
     
+short\_id
+---------
+.. autoattribute:: Parameters.short_id
+    
 to\_command\_line\(\)
 ---------------------
 .. automethod:: Parameters.to_command_line

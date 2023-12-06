@@ -298,13 +298,13 @@
 <span class="sd">            ...    def __init__(self, bar: str):</span>
 <span class="sd">            ...        self.bar = bar</span>
 <span class="sd">            &gt;&gt;&gt; foo1 = Foo(&#39;I am unique!&#39;)</span>
-<span class="sd">            &gt;&gt;&gt; print(foo1.id)</span>
-<span class="sd">            893df240-babe-d796-cdf1-c436171b7a96</span>
+<span class="sd">            &gt;&gt;&gt; foo1.id</span>
+<span class="sd">            &#39;893df240-babe-d796-cdf1-c436171b7a96&#39;</span>
 <span class="sd">            &gt;&gt;&gt; foo2 = Foo(&#39;I am different!&#39;)</span>
-<span class="sd">            &gt;&gt;&gt; print(foo2.id)</span>
-<span class="sd">            9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190</span>
+<span class="sd">            &gt;&gt;&gt; foo2.id</span>
+<span class="sd">            &#39;9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190&#39;</span>
 <span class="sd">            &gt;&gt;&gt; foo3 = Foo(&#39;I am unique!&#39;)</span>
-<span class="sd">            &gt;&gt;&gt; print(foo1.id == foo3.id)</span>
+<span class="sd">            &gt;&gt;&gt; foo1.id == foo3.id</span>
 <span class="sd">            True</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -375,6 +375,36 @@
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">short_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Short object identifier.</span>
+
+<span class="sd">        The short ID consists of eight characters</span>
+<span class="sd">        and is created from its non-hidden arguments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            short object identifier</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; class Foo(Object):</span>
+<span class="sd">            ...    def __init__(self, bar: str):</span>
+<span class="sd">            ...        self.bar = bar</span>
+<span class="sd">            &gt;&gt;&gt; foo1 = Foo(&#39;I am unique!&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; foo1.id</span>
+<span class="sd">            &#39;893df240-babe-d796-cdf1-c436171b7a96&#39;</span>
+<span class="sd">            &gt;&gt;&gt; foo1.short_id</span>
+<span class="sd">            &#39;171b7a96&#39;</span>
+<span class="sd">            &gt;&gt;&gt; foo2 = Foo(&#39;I am different!&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; foo2.short_id</span>
+<span class="sd">            &#39;6e2d2190&#39;</span>
+<span class="sd">            &gt;&gt;&gt; foo3 = Foo(&#39;I am unique!&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; foo1.short_id == foo3.short_id</span>
+<span class="sd">            True</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_yaml_s</span><span class="p">(</span><span class="n">include_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">audeer</span><span class="o">.</span><span class="n">uid</span><span class="p">(</span><span class="n">from_string</span><span class="o">=</span><span class="n">string</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Object.to_dict"><a class="viewcode-back" href="../../../api/audobject.Object.html#audobject.Object.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
@@ -605,7 +635,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/11/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

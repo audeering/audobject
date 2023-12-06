@@ -164,6 +164,28 @@
 <dd><p>Function resolver.</p>
 <p>Encodes source code of function and
 dynamically evaluates it when the value is decoded again.</p>
+<p>Note that a decoded function
+might raise a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NameError" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NameError</span></code></a>,
+if it relies on objects or functions
+that are not defined or imported
+inside the function.
+For instance,
+the following example will raise an error
+since <code class="docutils literal notranslate"><span class="pre">plus_1()</span></code> relies on <code class="docutils literal notranslate"><span class="pre">_plus_1()</span></code>,
+which is defined outside the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_plus_1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">plus_1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_plus_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># calls local function -&gt; not serializable</span>
+
+<span class="n">resolver</span> <span class="o">=</span> <span class="n">Function</span><span class="p">()</span>
+<span class="n">encoded_value</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">plus_1</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">_plus_1</span>
+<span class="n">decoded_value</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoded_value</span><span class="p">)</span>
+<span class="n">decoded_value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resolver</span> <span class="o">=</span> <span class="n">Function</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -310,7 +332,7 @@ otherwise <code class="docutils literal notranslate"><span class="pre">None</spa
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/11/30 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>

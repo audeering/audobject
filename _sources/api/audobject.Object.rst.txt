@@ -46,6 +46,10 @@ resolvers
 ---------
 .. autoattribute:: Object.resolvers
     
+short\_id
+---------
+.. autoattribute:: Object.short_id
+    
 to\_dict\(\)
 ------------
 .. automethod:: Object.to_dict
