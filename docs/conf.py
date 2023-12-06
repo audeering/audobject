@@ -15,6 +15,7 @@ project = config['project']['name']
 author = ', '.join(author['name'] for author in config['project']['authors'])
 copyright = f'2020-{date.today().year} audEERING GmbH'
 title = 'Documentation'
+version = audeer.git_repo_version()
 
 
 # General -----------------------------------------------------------------
