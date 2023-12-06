@@ -7,6 +7,17 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.11 (2023-12-06)
+---------------------------
+
+* Added: discussion of limits
+  of ``audobject.resolver.Function``
+  in its documentation
+* Added: ``audobject.Object.short_id``
+* Fixed: replace deprecated ``pkg_resources`` by ``packaging``
+  inside ``audobject.Parameter``
+
+
 Version 0.7.10 (2023-11-30)
 ---------------------------
 
