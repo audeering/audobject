@@ -11,11 +11,11 @@ import audobject
     [
         (  # package and module do not match
             '''
-            $praat-parselmouth:parselmouth.AmplitudeScaling:
-              value: 1
+            $dohq-artifactory:artifactory.ArtifactoryPath:
+              token: token
             ''',
-            'praat-parselmouth',
-            'parselmouth',
+            'dohq-artifactory',
+            'artifactory',
         ),
         (  # package and module match
             '''

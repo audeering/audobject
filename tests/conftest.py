@@ -64,4 +64,4 @@ def cleanup():
     yield
     # uninstall package temporarily installed by test_install.py
     uninstall('audbackend', 'audbackend')
-    uninstall('praat-parselmouth', 'parselmouth')
+    uninstall('dohq-artifactory', 'artifactory')
