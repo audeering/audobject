@@ -1,9 +1,32 @@
 import os
+import subprocess
+import sys
 
-from conftest import uninstall
+# from conftest import uninstall
 import pytest
 
 import audobject
+
+
+def uninstall(
+    package: str,
+    module: str,
+):
+    # uninstall package
+    subprocess.check_call(
+        [
+            sys.executable,
+            '-m',
+            'pip',
+            'uninstall',
+            '--yes',
+            package,
+        ]
+    )
+    # remove module
+    for m in list(sys.modules):
+        if m.startswith(module):
+            sys.modules.pop(m)
 
 
 @pytest.mark.parametrize(
