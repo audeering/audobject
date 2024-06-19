@@ -65,4 +65,4 @@ def cleanup():
     yield
     # uninstall package temporarily installed by test_install.py
     uninstall("audbackend", "audbackend")
-    uninstall("dohq-artifactory", "artifactory")
+    uninstall("scikit-learn", "sklearn")
