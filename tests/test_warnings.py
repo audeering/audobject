@@ -7,16 +7,17 @@ import audobject
 
 # Signature mismatch
 
-audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL = \
+audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL = (
     audobject.define.SignatureMismatchWarnLevel.VERBOSE
+)
 
 
 class MyObject(audobject.Object):
     def __init__(
-            self,
-            p: str,
-            *,
-            kw: int = 0,
+        self,
+        p: str,
+        *,
+        kw: int = 0,
     ):
         self.p = p
         self.kw = kw
@@ -25,18 +26,19 @@ class MyObject(audobject.Object):
 # no version
 
 with pytest.warns(RuntimeWarning):
-    o_yaml = MyObject('test').to_yaml_s()
+    o_yaml = MyObject("test").to_yaml_s()
 
 
 # an optional argument is added
 
+
 class MyObject(audobject.Object):
     def __init__(
-            self,
-            p: str,
-            new: float = 0.0,
-            *,
-            kw: int = 0,
+        self,
+        p: str,
+        new: float = 0.0,
+        *,
+        kw: int = 0,
     ):
         self.p = p
         self.kw = kw
@@ -49,11 +51,12 @@ with pytest.warns(RuntimeWarning):
 
 # an argument is removed
 
+
 class MyObject(audobject.Object):
     def __init__(
-            self,
-            *,
-            kw: int = 0,
+        self,
+        *,
+        kw: int = 0,
     ):
         self.kw = kw
 
@@ -64,13 +67,14 @@ with pytest.warns(RuntimeWarning):
 
 # a mandatory argument is added
 
+
 class MyObject(audobject.Object):
     def __init__(
-            self,
-            p: str,
-            new: float,
-            *,
-            kw: int = 0,
+        self,
+        p: str,
+        new: float,
+        *,
+        kw: int = 0,
     ):
         self.p = p
         self.kw = kw
@@ -81,19 +85,20 @@ with pytest.raises(RuntimeError):
     audobject.from_yaml_s(o_yaml)
 
 
-audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL = \
+audobject.config.SIGNATURE_MISMATCH_WARN_LEVEL = (
     audobject.define.SignatureMismatchWarnLevel.STANDARD
+)
 
 
 # Package mismatch
 
-SMALLER_VERSION = '0.0.0'
+SMALLER_VERSION = "0.0.0"
 INSTALLED_VERSION = audobject.__version__
-GREATER_VERSION = '999.9.9'
+GREATER_VERSION = "999.9.9"
 
 
 @pytest.mark.parametrize(
-    'level',
+    "level",
     [
         audobject.define.PackageMismatchWarnLevel.SILENT,
         audobject.define.PackageMismatchWarnLevel.VERBOSE,
@@ -101,28 +106,28 @@ GREATER_VERSION = '999.9.9'
     ],
 )
 def test_package_mismatch_no_version(level):
-
-    warnings.simplefilter('error')
+    warnings.simplefilter("error")
 
     # no version given -> never warn
-    yaml_s = '''
+    yaml_s = """
     $audobject.core.testing.TestObject:
       name: test
-    '''
+    """
 
     audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = level
 
     with warnings.catch_warnings():
         audobject.from_yaml_s(yaml_s)
 
-    audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = \
+    audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = (
         audobject.define.PackageMismatchWarnLevel.STANDARD
+    )
 
-    warnings.simplefilter('default')
+    warnings.simplefilter("default")
 
 
 @pytest.mark.parametrize(
-    'level, version, expected',
+    "level, version, expected",
     [
         # silent -> never warn
         (
@@ -175,13 +180,12 @@ def test_package_mismatch_no_version(level):
     ],
 )
 def test_package_mismatch_with_version(level, version, expected):
+    warnings.simplefilter("error")
 
-    warnings.simplefilter('error')
-
-    yaml_s = f'''
+    yaml_s = f"""
     $audobject.core.testing.TestObject=={version}:
       name: test
-    '''
+    """
 
     audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = level
 
@@ -192,7 +196,8 @@ def test_package_mismatch_with_version(level, version, expected):
         with warnings.catch_warnings():
             audobject.from_yaml_s(yaml_s)
 
-    audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = \
+    audobject.config.PACKAGE_MISMATCH_WARN_LEVEL = (
         audobject.define.PackageMismatchWarnLevel.STANDARD
+    )
 
-    warnings.simplefilter('default')
+    warnings.simplefilter("default")

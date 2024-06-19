@@ -7,10 +7,10 @@ from audobject.core import resolver
 
 
 def init_decorator(
-        *,
-        borrow: typing.Dict[str, str] = None,
-        hide: typing.Sequence[str] = None,
-        resolvers: typing.Dict[str, typing.Type[resolver.Base]] = None,
+    *,
+    borrow: typing.Dict[str, str] = None,
+    hide: typing.Sequence[str] = None,
+    resolvers: typing.Dict[str, typing.Type[resolver.Base]] = None,
 ):
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
 
@@ -41,21 +41,19 @@ def init_decorator(
         RuntimeError: if arguments are not assigned to attributes of same name
 
     """
-    def decorator(func):
 
+    def decorator(func):
         @functools.wraps(func)
         def wrapper(self, *args, **kwargs):
-
             # convert positional to keyword arguments
             parameters = list(inspect.signature(func).parameters)
-            if 'self' in parameters:
-                parameters.remove('self')
+            if "self" in parameters:
+                parameters.remove("self")
             for arg, name in zip(args, parameters):
                 kwargs[name] = arg
             args = tuple()
 
             if resolvers is not None:
-
                 if not hasattr(self, define.CUSTOM_VALUE_RESOLVERS):
                     setattr(self, define.CUSTOM_VALUE_RESOLVERS, {})
 
@@ -63,18 +61,17 @@ def init_decorator(
                     resolver_obj = resolve()
                     # let resolver know if we read from a stream
                     if define.ROOT_ATTRIBUTE in kwargs:
-                        resolver_obj.__dict__[define.ROOT_ATTRIBUTE] = \
-                            kwargs[define.ROOT_ATTRIBUTE]
-                    self.__dict__[define.CUSTOM_VALUE_RESOLVERS][name] = \
-                        resolver_obj
+                        resolver_obj.__dict__[define.ROOT_ATTRIBUTE] = kwargs[
+                            define.ROOT_ATTRIBUTE
+                        ]
+                    self.__dict__[define.CUSTOM_VALUE_RESOLVERS][name] = resolver_obj
                     if name in kwargs and isinstance(
-                            kwargs[name],
-                            resolver_obj.encode_type(),
+                        kwargs[name],
+                        resolver_obj.encode_type(),
                     ):
                         kwargs[name] = resolver_obj.decode(kwargs[name])
 
             if borrow is not None:
-
                 if not hasattr(self, define.BORROWED_ATTRIBUTES):
                     setattr(self, define.BORROWED_ATTRIBUTES, {})
 
@@ -82,14 +79,20 @@ def init_decorator(
                     self.__dict__[define.BORROWED_ATTRIBUTES][key] = value
 
             if hide is not None:
-
                 signature = inspect.signature(func)
-                required = set([
-                    p.name for p in signature.parameters.values()
-                    if p.default == inspect.Parameter.empty and p.name not in [
-                        'self', 'args', 'kwargs',
+                required = set(
+                    [
+                        p.name
+                        for p in signature.parameters.values()
+                        if p.default == inspect.Parameter.empty
+                        and p.name
+                        not in [
+                            "self",
+                            "args",
+                            "kwargs",
+                        ]
                     ]
-                ])
+                )
 
                 invalid = []
                 for var in hide:
@@ -97,11 +100,11 @@ def init_decorator(
                         invalid.append(var)
                 if len(invalid) > 0:
                     raise RuntimeError(
-                        f'Cannot hide arguments '
-                        f'{invalid} '
-                        f'of '
-                        f'{self.__class__} '
-                        f'as they do not have default values.'
+                        f"Cannot hide arguments "
+                        f"{invalid} "
+                        f"of "
+                        f"{self.__class__} "
+                        f"as they do not have default values."
                     )
 
                 if not hasattr(self, define.HIDDEN_ATTRIBUTES):

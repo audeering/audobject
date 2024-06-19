@@ -2,10 +2,9 @@ import audobject
 
 
 def test_dictionary():
-
     kwargs = {
-        'foo': 'foo',
-        'bar': 'bar',
+        "foo": "foo",
+        "bar": "bar",
     }
     d = audobject.Dictionary(**kwargs)
 

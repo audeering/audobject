@@ -38,25 +38,25 @@ class Parameter(Object):
     Examples:
         >>> foo = Parameter(
         ...     value_type=str,
-        ...     description='some parameter',
-        ...     default_value='bar',
-        ...     choices=['bar', 'Bar', 'BAR'],
-        ...     version='>=1.0.0,<2.0.0',
+        ...     description="some parameter",
+        ...     default_value="bar",
+        ...     choices=["bar", "Bar", "BAR"],
+        ...     version=">=1.0.0,<2.0.0",
         ... )
         >>> # check version
-        >>> '1.5.0' in foo
+        >>> "1.5.0" in foo
         True
-        >>> '2.0.0' in foo
+        >>> "2.0.0" in foo
         False
         >>> # get/set value
         >>> foo.value
         'bar'
-        >>> foo.set_value('Bar')
+        >>> foo.set_value("Bar")
         >>> foo.value
         'Bar'
         >>> # set invalid value
         >>> try:
-        ...     foo.set_value('par')
+        ...     foo.set_value("par")
         ... except ValueError as ex:
         ...     print(ex)
         Invalid value 'par', expected one of ['bar', 'Bar', 'BAR'].
@@ -65,20 +65,19 @@ class Parameter(Object):
 
     @init_decorator(
         resolvers={
-            'value_type': resolver.Type,
+            "value_type": resolver.Type,
         }
     )
     def __init__(
-            self,
-            *,
-            value_type: type = str,
-            description: str = '',
-            value: typing.Any = None,
-            default_value: typing.Any = None,
-            choices: typing.Sequence[typing.Any] = None,
-            version: str = None,
+        self,
+        *,
+        value_type: type = str,
+        description: str = "",
+        value: typing.Any = None,
+        default_value: typing.Any = None,
+        choices: typing.Sequence[typing.Any] = None,
+        version: str = None,
     ):
-
         self.value_type = value_type
         r"""Data type of parameter"""
         self.description = description
@@ -130,13 +129,11 @@ class Parameter(Object):
         r"""Check if value matches expected type."""
         if value is not None and not isinstance(value, self.value_type):
             raise TypeError(
-                f"Invalid type '{type(value)}', "
-                f"expected {self.value_type}."
+                f"Invalid type '{type(value)}', " f"expected {self.value_type}."
             )
         if self.choices is not None and value not in self.choices:
             raise ValueError(
-                f"Invalid value '{value}', "
-                f"expected one of {self.choices}."
+                f"Invalid value '{value}', " f"expected one of {self.choices}."
             )
 
 
@@ -150,21 +147,21 @@ class Parameters(Dictionary):
         >>> # create parameter
         >>> foo = Parameter(
         ...     value_type=str,
-        ...     description='foo',
+        ...     description="foo",
         ... )
         >>> # create list of parameters
         >>> params = Parameters(foo=foo)
         >>> # get / set parameter value
-        >>> params.foo = 'bar'
+        >>> params.foo = "bar"
         >>> params.foo
         'bar'
         >>> # add another parameter to list
         >>> pi = Parameter(
         ...     value_type=float,
-        ...     description='mathematical constant',
+        ...     description="mathematical constant",
         ...     value=3.14159265359,
         ... )
-        >>> params['pi'] = pi
+        >>> params["pi"] = pi
         >>> print(params)
         Name  Value          Default  Choices  Description            Version
         ----  -----          -------  -------  -----------            -------
@@ -175,16 +172,17 @@ class Parameters(Dictionary):
         {'foo': 'bar', 'pi': 3.14159265359}
 
     """  # noqa: E501
+
     def __init__(
-            self,
-            **kwargs,
+        self,
+        **kwargs,
     ):
         super().__init__(**kwargs)
 
     def filter_by_version(
-            self,
-            version: str,
-    ) -> 'Parameters':
+        self,
+        version: str,
+    ) -> "Parameters":
         r"""Filter parameters by version.
 
         Returns a subset including only those parameters that match a given
@@ -204,9 +202,9 @@ class Parameters(Dictionary):
         return params
 
     def from_command_line(
-            self,
-            args: argparse.Namespace,
-    ) -> 'Parameters':
+        self,
+        args: argparse.Namespace,
+    ) -> "Parameters":
         r"""Parse parameters from command line parser.
 
         Args:
@@ -219,8 +217,8 @@ class Parameters(Dictionary):
         return self
 
     def to_command_line(
-            self,
-            parser: argparse.ArgumentParser,
+        self,
+        parser: argparse.ArgumentParser,
     ):
         r"""Add parameters to command line parser.
 
@@ -231,21 +229,20 @@ class Parameters(Dictionary):
 
         """
         for name, param in self.items():
-
             if param.version is not None:
-                help = f'{param.description} (version: {param.version})'
+                help = f"{param.description} (version: {param.version})"
             else:
                 help = param.description
 
             if param.value_type == bool:
                 parser.add_argument(
-                    f'--{name}',
-                    action='store_true',
+                    f"--{name}",
+                    action="store_true",
                     help=help,
                 )
             else:
                 parser.add_argument(
-                    f'--{name}',
+                    f"--{name}",
                     type=param.value_type,
                     default=param.default_value,
                     choices=param.choices,
@@ -253,12 +250,12 @@ class Parameters(Dictionary):
                 )
 
     def to_path(
-            self,
-            *,
-            delimiter: str = os.path.sep,
-            include: typing.Sequence[str] = None,
-            exclude: typing.Sequence[str] = None,
-            sort: bool = False,
+        self,
+        *,
+        delimiter: str = os.path.sep,
+        include: typing.Sequence[str] = None,
+        exclude: typing.Sequence[str] = None,
+        sort: bool = False,
     ):
         r"""Creates path from parameters.
 
@@ -272,9 +269,7 @@ class Parameters(Dictionary):
         names = self.keys()
         if sort:
             names = sorted(names)
-        d = {
-            name: self[name].value for name in names
-        }
+        d = {name: self[name].value for name in names}
         exclude = set(exclude or [])
         if include is not None:
             for key in d:
@@ -282,17 +277,15 @@ class Parameters(Dictionary):
                     exclude.add(key)
         for key in exclude:
             d.pop(key)
-        parts = ['{}[{}]'.format(key, value) for key, value in d.items()]
+        parts = ["{}[{}]".format(key, value) for key, value in d.items()]
         return delimiter.join(parts)
 
     def __call__(self):
         r"""Return parameters as dictionary."""
-        return {
-            name: param.value for name, param in self.items()
-        }
+        return {name: param.value for name, param in self.items()}
 
     def __getattribute__(self, name) -> typing.Any:  # noqa: D105
-        if not name == '__dict__' and name in self.__dict__:
+        if not name == "__dict__" and name in self.__dict__:
             p = self.__dict__[name]
             return p.value
         return object.__getattribute__(self, name)
@@ -304,20 +297,32 @@ class Parameters(Dictionary):
     def __str__(self):  # pragma: no cover  # noqa: D105
         table = [
             [
-                'Name', 'Value', 'Default', 'Choices',
-                'Description', 'Version',
+                "Name",
+                "Value",
+                "Default",
+                "Choices",
+                "Description",
+                "Version",
             ],
             [
-                '----', '-----', '-------', '-------',
-                '-----------', '-------',
-            ]
+                "----",
+                "-----",
+                "-------",
+                "-------",
+                "-----------",
+                "-------",
+            ],
         ]
         for name, p in self.items():
             if name != define.ROOT_ATTRIBUTE:
                 table.append(
                     [
-                        name, p.value, p.default_value, p.choices,
-                        p.description, p.version,
+                        name,
+                        p.value,
+                        p.default_value,
+                        p.choices,
+                        p.description,
+                        p.version,
                     ]
                 )
         padding = 2
@@ -330,9 +335,7 @@ class Parameters(Dictionary):
         # Don't pad the last column
         col_width[-1] -= padding
         row = [
-            ''.join(
-                str(word).ljust(width) for word, width in zip(row, col_width)
-            )
+            "".join(str(word).ljust(width) for word, width in zip(row, col_width))
             for row in table
         ]
-        return '\n'.join(row)
+        return "\n".join(row)

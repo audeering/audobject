@@ -12,20 +12,20 @@ class Dictionary(Object):
 
     Examples:
         >>> # create dictionary
-        >>> d = Dictionary(foo='foo', bar='bar')
+        >>> d = Dictionary(foo="foo", bar="bar")
         >>> # set item
-        >>> d['foo'] = 'FOO'
+        >>> d["foo"] = "FOO"
         >>> # get item
-        >>> d['foo']
+        >>> d["foo"]
         'FOO'
         >>> # add item
-        >>> d['new'] = 1.234
+        >>> d["new"] = 1.234
         >>> print(d)
         $audobject.core.dictionary.Dictionary:
           foo: FOO
           bar: bar
           new: 1.234
-        >>> d2 = Dictionary(foo='Foo', none=None)
+        >>> d2 = Dictionary(foo="Foo", none=None)
         >>> d.update(d2)
         >>> print(d)
         $audobject.core.dictionary.Dictionary:
@@ -35,9 +35,10 @@ class Dictionary(Object):
           none: null
 
     """  # noqa: E501
+
     def __init__(
-            self,
-            **kwargs,
+        self,
+        **kwargs,
     ):
         super().__init__(**kwargs)
         for key, value in kwargs.items():
@@ -52,8 +53,8 @@ class Dictionary(Object):
         return self._dict_wo_special_attributes.items()
 
     def update(
-            self,
-            other: 'Dictionary',
+        self,
+        other: "Dictionary",
     ):
         r"""Update the dictionary with the key/value pairs from other.
 

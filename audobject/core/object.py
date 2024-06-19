@@ -17,17 +17,18 @@ class Object:
 
     Examples:
         >>> class Foo(Object):
-        ...    def __init__(self, bar: str):
-        ...        self.bar = bar
-        >>> foo = Foo('hello object!')
+        ...     def __init__(self, bar: str):
+        ...         self.bar = bar
+        >>> foo = Foo("hello object!")
         >>> print(foo)
         $audobject.core.object.Foo:
           bar: hello object!
 
     """
+
     def __init__(
-            self,
-            **kwargs,
+        self,
+        **kwargs,
     ):
         self.__dict__[define.KEYWORD_ARGUMENTS] = list(kwargs)
 
@@ -44,7 +45,7 @@ class Object:
 
         Examples:
             >>> import audobject.testing
-            >>> o = audobject.testing.TestObject('test', point=(1, 1))
+            >>> o = audobject.testing.TestObject("test", point=(1, 1))
             >>> o.arguments
             {'name': 'test', 'point': (1, 1)}
 
@@ -52,8 +53,9 @@ class Object:
         signature = inspect.signature(self.__init__)
 
         # non-keyword arguments from __init__
-        names = [p.name for p in signature.parameters.values()
-                 if not p.name == 'kwargs']
+        names = [
+            p.name for p in signature.parameters.values() if not p.name == "kwargs"
+        ]
 
         # additional keyword arguments
         if define.KEYWORD_ARGUMENTS in self.__dict__:
@@ -63,9 +65,11 @@ class Object:
         borrowed = self.borrowed_arguments
         hidden = self.hidden_arguments
         names = [
-            name for name in names if (
-                (name != 'self')
-                and (not name.startswith('_'))
+            name
+            for name in names
+            if (
+                (name != "self")
+                and (not name.startswith("_"))
                 and (name not in hidden)
                 and (name not in borrowed.values())
             )
@@ -78,11 +82,11 @@ class Object:
                 missing.append(name)
         if len(missing) > 0:
             raise RuntimeError(
-                'Arguments '
-                f'{missing} '
-                'of '
-                f'{self.__class__} '
-                'not assigned to attributes of same name.'
+                "Arguments "
+                f"{missing} "
+                "of "
+                f"{self.__class__} "
+                "not assigned to attributes of same name."
             )
 
         # check borrowed attributes
@@ -95,18 +99,11 @@ class Object:
                     can_borrow = True
             if not can_borrow:
                 raise RuntimeError(
-                    'Cannot borrow attribute '
-                    f"'{key}' "
-                    'from '
-                    f"'self.{value}'."
+                    "Cannot borrow attribute " f"'{key}' " "from " f"'self.{value}'."
                 )
 
         # pick arguments from self and borrowed attributes
-        args = {
-            name: self.__dict__[name] for name in names if (
-                (name in self.__dict__)
-            )
-        }
+        args = {name: self.__dict__[name] for name in names if (name in self.__dict__)}
         for key, value in borrowed.items():
             if hasattr(self.__dict__[value], key):
                 args[key] = self.__dict__[value].__dict__[key]
@@ -154,15 +151,15 @@ class Object:
 
         Examples:
             >>> class Foo(Object):
-            ...    def __init__(self, bar: str):
-            ...        self.bar = bar
-            >>> foo1 = Foo('I am unique!')
+            ...     def __init__(self, bar: str):
+            ...         self.bar = bar
+            >>> foo1 = Foo("I am unique!")
             >>> foo1.id
             '893df240-babe-d796-cdf1-c436171b7a96'
-            >>> foo2 = Foo('I am different!')
+            >>> foo2 = Foo("I am different!")
             >>> foo2.id
             '9303f2a5-bfc9-e5ff-0ffa-a9846e2d2190'
-            >>> foo3 = Foo('I am unique!')
+            >>> foo3 = Foo("I am unique!")
             >>> foo1.id == foo3.id
             True
 
@@ -188,39 +185,42 @@ class Object:
 
     @staticmethod
     @audeer.deprecated(
-        removal_version='1.0.0',
-        alternative='audobject.from_dict',
+        removal_version="1.0.0",
+        alternative="audobject.from_dict",
     )
     def from_dict(  # noqa: D102
-            d: typing.Dict[str, typing.Any],
-            root: str = None,
-            **kwargs,
-    ) -> 'Object':  # pragma: no cover
+        d: typing.Dict[str, typing.Any],
+        root: str = None,
+        **kwargs,
+    ) -> "Object":  # pragma: no cover
         from audobject.core.api import from_dict
+
         return from_dict(d, root, **kwargs)
 
     @staticmethod
     @audeer.deprecated(
-        removal_version='1.0.0',
-        alternative='audobject.from_yaml',
+        removal_version="1.0.0",
+        alternative="audobject.from_yaml",
     )
     def from_yaml(  # noqa: D102
-            path_or_stream: typing.Union[str, typing.IO],
-            **kwargs,
-    ) -> 'Object':  # pragma: no cover
+        path_or_stream: typing.Union[str, typing.IO],
+        **kwargs,
+    ) -> "Object":  # pragma: no cover
         from audobject.core.api import from_yaml
+
         return from_yaml(path_or_stream, **kwargs)
 
     @staticmethod
     @audeer.deprecated(
-        removal_version='1.0.0',
-        alternative='audobject.from_yaml_s',
+        removal_version="1.0.0",
+        alternative="audobject.from_yaml_s",
     )
     def from_yaml_s(  # noqa: D102
-            yaml_string: str,
-            **kwargs,
-    ) -> 'Object':  # pragma: no cover
+        yaml_string: str,
+        **kwargs,
+    ) -> "Object":  # pragma: no cover
         from audobject.core.api import from_yaml_s
+
         return from_yaml_s(yaml_string, **kwargs)
 
     @property
@@ -247,17 +247,17 @@ class Object:
 
         Examples:
             >>> class Foo(Object):
-            ...    def __init__(self, bar: str):
-            ...        self.bar = bar
-            >>> foo1 = Foo('I am unique!')
+            ...     def __init__(self, bar: str):
+            ...         self.bar = bar
+            >>> foo1 = Foo("I am unique!")
             >>> foo1.id
             '893df240-babe-d796-cdf1-c436171b7a96'
             >>> foo1.short_id
             '171b7a96'
-            >>> foo2 = Foo('I am different!')
+            >>> foo2 = Foo("I am different!")
             >>> foo2.short_id
             '6e2d2190'
-            >>> foo3 = Foo('I am unique!')
+            >>> foo3 = Foo("I am unique!")
             >>> foo1.short_id == foo3.short_id
             True
 
@@ -266,11 +266,11 @@ class Object:
         return audeer.uid(from_string=string, short=True)
 
     def to_dict(
-            self,
-            *,
-            include_version: bool = True,
-            flatten: bool = False,
-            root: str = None,
+        self,
+        *,
+        include_version: bool = True,
+        flatten: bool = False,
+        root: str = None,
     ) -> typing.Dict[str, resolver.DefaultValueType]:
         r"""Converts object to a dictionary.
 
@@ -290,7 +290,7 @@ class Object:
 
         Examples:
             >>> import audobject.testing
-            >>> o = audobject.testing.TestObject('test', point=(1, 1))
+            >>> o = audobject.testing.TestObject("test", point=(1, 1))
             >>> o.to_dict(include_version=False)
             {'$audobject.core.testing.TestObject': {'name': 'test', 'point': [1, 1]}}
             >>> o.to_dict(flatten=True)
@@ -312,10 +312,10 @@ class Object:
         return Object._flatten(d) if flatten else {name: d}
 
     def to_yaml(
-            self,
-            path_or_stream: typing.Union[str, typing.IO],
-            *,
-            include_version: bool = True,
+        self,
+        path_or_stream: typing.Union[str, typing.IO],
+        *,
+        include_version: bool = True,
     ):
         r"""Save object to YAML file.
 
@@ -328,7 +328,7 @@ class Object:
             path_or_stream = audeer.safe_path(path_or_stream)
             root = os.path.dirname(path_or_stream)
             audeer.mkdir(root)
-            with open(path_or_stream, 'w') as fp:
+            with open(path_or_stream, "w") as fp:
                 return self.to_yaml(fp, include_version=include_version)
         else:
             return yaml.dump(
@@ -340,9 +340,9 @@ class Object:
             )
 
     def to_yaml_s(
-            self,
-            *,
-            include_version: bool = True,
+        self,
+        *,
+        include_version: bool = True,
     ) -> str:
         r"""Convert object to YAML string.
 
@@ -354,7 +354,7 @@ class Object:
 
         Examples:
             >>> import audobject.testing
-            >>> o = audobject.testing.TestObject('test', point=(1, 1))
+            >>> o = audobject.testing.TestObject("test", point=(1, 1))
             >>> print(o.to_yaml_s(include_version=False))
             $audobject.core.testing.TestObject:
               name: test
@@ -366,11 +366,11 @@ class Object:
         return yaml.dump(self.to_dict(include_version=include_version))
 
     def _encode_variable(
-            self,
-            name: str,
-            value: typing.Any,
-            include_version: bool,
-            root: typing.Optional[str],
+        self,
+        name: str,
+        value: typing.Any,
+        include_version: bool,
+        root: typing.Optional[str],
     ):
         r"""Encode value.
 
@@ -384,8 +384,8 @@ class Object:
 
     @staticmethod
     def _encode_value(
-            value: typing.Any,
-            include_version: bool,
+        value: typing.Any,
+        include_version: bool,
     ):
         r"""Default value encoder."""
         if value is None:
@@ -395,21 +395,16 @@ class Object:
         elif isinstance(value, define.DEFAULT_VALUE_TYPES):
             return value
         elif isinstance(value, list):
-            return [
-                Object._encode_value(
-                    item, include_version
-                ) for item in value
-            ]
+            return [Object._encode_value(item, include_version) for item in value]
         elif isinstance(value, dict):
             return {
-                Object._encode_value(key, include_version):
-                    Object._encode_value(val, include_version)
+                Object._encode_value(key, include_version): Object._encode_value(
+                    val, include_version
+                )
                 for key, val in value.items()
             }
         elif callable(value):
-            raise RuntimeError(
-                f"Cannot encode type '{type(value)}'."
-            )
+            raise RuntimeError(f"Cannot encode type '{type(value)}'.")
         else:
             warnings.warn(
                 f"No default encoding exists for type '{type(value)}'. "
@@ -423,6 +418,7 @@ class Object:
         d: typing.Dict[str, resolver.DefaultValueType],
     ):
         r"""Flattens a dictionary."""
+
         def helper(dict_in: dict, dict_out: dict, prefix: str):
             for key, value in dict_out.items():
                 if utils.is_class(key):
@@ -431,28 +427,28 @@ class Object:
                     helper(
                         dict_in,
                         {idx: item for idx, item in enumerate(value)},
-                        f'{prefix}.{key}' if prefix else key,
+                        f"{prefix}.{key}" if prefix else key,
                     )
                 elif isinstance(value, dict):
                     helper(
                         dict_in,
                         value,
-                        f'{prefix}.{key}' if prefix else key,
+                        f"{prefix}.{key}" if prefix else key,
                     )
                 else:
                     if prefix:
-                        key = f'{prefix}.{key}'
+                        key = f"{prefix}.{key}"
                     dict_in[key] = value
 
         ret = {}
-        helper(ret, d, '')
+        helper(ret, d, "")
         return ret
 
     def _resolve_value(
-            self,
-            name: str,
-            value: typing.Any,
-            root: typing.Optional[str],
+        self,
+        name: str,
+        value: typing.Any,
+        root: typing.Optional[str],
     ) -> resolver.DefaultValueType:
         if value is not None and name in self.resolvers:
             # let resolver know if we write to a stream
@@ -464,7 +460,7 @@ class Object:
         r"""Hash based on object ID."""
         return hash(self.id)
 
-    def __eq__(self, other: 'Object') -> bool:
+    def __eq__(self, other: "Object") -> bool:
         r"""Check if two objects are equal."""
         if isinstance(other, type(self)):
             return self.id == other.id

@@ -39,6 +39,7 @@ class Base:
     * ``str``
 
     """
+
     def __init__(self):
         self.__dict__[define.ROOT_ATTRIBUTE] = None
 
@@ -112,8 +113,8 @@ class FilePath(Base):
 
     Examples:
         >>> resolver = FilePath()
-        >>> resolver._object_root_ = '/some/root'  # usually set by object
-        >>> value = '/some/where/else'
+        >>> resolver._object_root_ = "/some/root"  # usually set by object
+        >>> value = "/some/where/else"
         >>> encoded_value = resolver.encode(value)
         >>> encoded_value  # doctest: +SKIP
         '../where/else'
@@ -194,8 +195,10 @@ class Function(Base):
         def _plus_1(x):
             return x + 1
 
+
         def plus_1(x):
             return _plus_1(x)  # calls local function -> not serializable
+
 
         resolver = Function()
         encoded_value = resolver.encode(plus_1)
@@ -246,8 +249,8 @@ class Function(Base):
         # This does not preserve defaults and keyword-only arguments,
         # but fortunately this is not relevant for lambda expressions.
 
-        if value.startswith('lambda'):
-            code = compile(value, '<string>', 'exec')
+        if value.startswith("lambda"):
+            code = compile(value, "<string>", "exec")
             for var in code.co_consts:
                 if isinstance(var, types.CodeType):
                     func = types.FunctionType(var, globals())
@@ -264,8 +267,8 @@ class Function(Base):
         return func
 
     def encode(
-            self,
-            value: typing.Callable,
+        self,
+        value: typing.Callable,
     ) -> typing.Union[str, object]:
         r"""Encode (lambda) function.
 
@@ -315,7 +318,7 @@ class Function(Base):
         """
         # check if source code is attached
         # otherwise use inspect to get it
-        if hasattr(func, '__source__'):
+        if hasattr(func, "__source__"):
             return func.__source__
         else:
             if func.__name__ == "<lambda>":
@@ -326,7 +329,7 @@ class Function(Base):
 
     @staticmethod
     def _get_short_lambda_source(
-            lambda_func: typing.Callable,
+        lambda_func: typing.Callable,
     ):  # pragma: no cover
         """Return the source of a (short) lambda function.
 
@@ -350,8 +353,10 @@ class Function(Base):
         # find the AST node of a lambda definition
         # so we can locate it in the source code
         source_ast = ast.parse(source_text)
-        lambda_node = next((node for node in ast.walk(source_ast)
-                            if isinstance(node, ast.Lambda)), None)
+        lambda_node = next(
+            (node for node in ast.walk(source_ast) if isinstance(node, ast.Lambda)),
+            None,
+        )
         if lambda_node is None:  # could be a single line `def fn(x): ...`
             return None
 
@@ -362,9 +367,9 @@ class Function(Base):
         # Unfortunately, AST nodes only keep their _starting_ offsets
         # from the original source, so we have to determine the end ourselves.
         # We do that by gradually shaving extra junk from after the definition.
-        lambda_text = source_text[lambda_node.col_offset:]
-        lambda_body_text = source_text[lambda_node.body.col_offset:]
-        min_length = len('lambda:_')  # shortest possible lambda expression
+        lambda_text = source_text[lambda_node.col_offset :]
+        lambda_body_text = source_text[lambda_node.body.col_offset :]
+        min_length = len("lambda:_")  # shortest possible lambda expression
         while len(lambda_text) > min_length:
             try:
                 # What's annoying is that sometimes the junk even parses,
@@ -377,7 +382,7 @@ class Function(Base):
                 # Ideally, we'd just keep shaving until we get the same code,
                 # but that most likely won't happen because we can't replicate
                 # the exact closure environment.
-                code = compile(lambda_body_text, '<unused filename>', 'eval')
+                code = compile(lambda_body_text, "<unused filename>", "eval")
 
                 # Thus the next best thing is to assume some divergence due
                 # to e.g. LOAD_GLOBAL in original code being LOAD_FAST in
@@ -401,7 +406,7 @@ class Tuple(Base):
 
     Examples:
         >>> resolver = Tuple()
-        >>> value = (1, 'a')
+        >>> value = (1, "a")
         >>> value
         (1, 'a')
         >>> encoded_value = resolver.encode(value)
@@ -488,7 +493,7 @@ class Type(Base):
             string
 
         """
-        return str(value)[len("<class '"):-len("'>")]
+        return str(value)[len("<class '") : -len("'>")]
 
     def encode_type(self) -> type:
         r"""Return encoded type.
@@ -512,11 +517,10 @@ class Type(Base):
 # ->
 # as a workaround we raise the deprecation warning in __init__
 class ValueResolver:  # pragma: no cover  # noqa: D101
-
     def __init__(self):
         message = (
-            'ValueResolver is deprecated and will be removed '
-            'with version 1.0.0. Use resolver.Base instead.'
+            "ValueResolver is deprecated and will be removed "
+            "with version 1.0.0. Use resolver.Base instead."
         )
         warnings.warn(message, category=UserWarning, stacklevel=2)
         self.__dict__[define.ROOT_ATTRIBUTE] = None
@@ -536,32 +540,32 @@ class ValueResolver:  # pragma: no cover  # noqa: D101
 
 
 @audeer.deprecated(
-    removal_version='1.0.0',
-    alternative='resolver.FilePath',
+    removal_version="1.0.0",
+    alternative="resolver.FilePath",
 )
 class FilePathResolver(FilePath):  # pragma: no cover  # noqa: D101
     pass
 
 
 @audeer.deprecated(
-    removal_version='1.0.0',
-    alternative='resolver.Function',
+    removal_version="1.0.0",
+    alternative="resolver.Function",
 )
 class FunctionResolver(Function):  # pragma: no cover  # noqa: D101
     pass
 
 
 @audeer.deprecated(
-    removal_version='1.0.0',
-    alternative='resolver.Tuple',
+    removal_version="1.0.0",
+    alternative="resolver.Tuple",
 )
 class TupleResolver(Tuple):  # pragma: no cover  # noqa: D101
     pass
 
 
 @audeer.deprecated(
-    removal_version='1.0.0',
-    alternative='resolver.Type',
+    removal_version="1.0.0",
+    alternative="resolver.Type",
 )
 class TypeResolver(Type):  # pragma: no cover  # noqa: D101
     pass

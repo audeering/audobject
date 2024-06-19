@@ -17,13 +17,13 @@ kwargs_deprecation_warning = (
 
 
 def from_dict(  # noqa: D417
-        d: typing.Dict[str, typing.Any],
-        root: str = None,
-        *,
-        auto_install: bool = False,
-        override_args: typing.Dict[str, typing.Any] = None,
-        **kwargs,
-) -> 'Object':
+    d: typing.Dict[str, typing.Any],
+    root: str = None,
+    *,
+    auto_install: bool = False,
+    override_args: typing.Dict[str, typing.Any] = None,
+    **kwargs,
+) -> "Object":
     r"""Create object from dictionary.
 
     Args:
@@ -99,12 +99,12 @@ def from_dict(  # noqa: D417
 
 
 def from_yaml(  # noqa: D417
-        path_or_stream: typing.Union[str, typing.IO],
-        *,
-        auto_install: bool = False,
-        override_args: typing.Dict[str, typing.Any] = None,
-        **kwargs,
-) -> 'Object':
+    path_or_stream: typing.Union[str, typing.IO],
+    *,
+    auto_install: bool = False,
+    override_args: typing.Dict[str, typing.Any] = None,
+    **kwargs,
+) -> "Object":
     r"""Create object from YAML file.
 
     Args:
@@ -129,7 +129,7 @@ def from_yaml(  # noqa: D417
             override_args[key] = value
 
     if isinstance(path_or_stream, str):
-        with open(path_or_stream, 'r') as fp:
+        with open(path_or_stream, "r") as fp:
             return from_yaml(
                 fp,
                 override_args=override_args,
@@ -144,12 +144,12 @@ def from_yaml(  # noqa: D417
 
 
 def from_yaml_s(  # noqa: D417
-        yaml_string: str,
-        *,
-        auto_install: bool = False,
-        override_args: typing.Dict[str, typing.Any] = None,
-        **kwargs,
-) -> 'Object':
+    yaml_string: str,
+    *,
+    auto_install: bool = False,
+    override_args: typing.Dict[str, typing.Any] = None,
+    **kwargs,
+) -> "Object":
     r"""Create object from YAML string.
 
     Args:
@@ -181,9 +181,9 @@ def from_yaml_s(  # noqa: D417
 
 
 def _decode_value(
-        value_to_decode: typing.Any,
-        auto_install: bool,
-        override_args: typing.Dict[str, typing.Any],
+    value_to_decode: typing.Any,
+    auto_install: bool,
+    override_args: typing.Dict[str, typing.Any],
 ) -> typing.Any:
     r"""Decode value."""
     if value_to_decode:  # not empty
@@ -193,7 +193,8 @@ def _decode_value(
                     v,
                     auto_install,
                     override_args,
-                ) for v in value_to_decode
+                )
+                for v in value_to_decode
             ]
         elif isinstance(value_to_decode, dict):
             name = next(iter(value_to_decode))
@@ -209,6 +210,7 @@ def _decode_value(
                         v,
                         auto_install,
                         override_args,
-                    ) for k, v in value_to_decode.items()
+                    )
+                    for k, v in value_to_decode.items()
                 }
     return value_to_decode
