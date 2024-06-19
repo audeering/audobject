@@ -7,40 +7,39 @@ import audobject
 
 
 @pytest.mark.parametrize(
-    'yaml_s, package, module',
+    "yaml_s, package, module",
     [
         (  # package and module do not match
-            '''
+            """
             $dohq-artifactory:artifactory.ArtifactoryPath:
               token: token
-            ''',
-            'dohq-artifactory',
-            'artifactory',
+            """,
+            "dohq-artifactory",
+            "artifactory",
         ),
         (  # package and module match
-            '''
+            """
             $audbackend.core.backend.filesystem.FileSystem:
               host: ~/host
               repository: repo
-            ''',
-            'audbackend',
-            'audbackend',
+            """,
+            "audbackend",
+            "audbackend",
         ),
         (  # with package version and as nested object
-            '''$audobject.core.testing.TestObject:
+            """$audobject.core.testing.TestObject:
               name: test
               backend:
                 $audbackend.core.filesystem.FileSystem==1.0.1:
                   host: ~/host
                   repository: repo
-            ''',
-            'audbackend',
-            'audbackend',
-        )
+            """,
+            "audbackend",
+            "audbackend",
+        ),
     ],
 )
 def test(tmpdir, yaml_s, package, module):
-
     # fails because of missing packages
     with pytest.raises(ModuleNotFoundError):
         audobject.from_yaml_s(
@@ -61,8 +60,8 @@ def test(tmpdir, yaml_s, package, module):
     uninstall(package, module)
 
     # repeat, but this time test from file
-    path = os.path.join(tmpdir, 'tmp.yaml')
-    with open(path, 'w') as fp:
+    path = os.path.join(tmpdir, "tmp.yaml")
+    with open(path, "w") as fp:
         fp.write(yaml_s)
 
     # fails because of missing packages

@@ -14,7 +14,7 @@ class TestObject(Object):
 
     Examples:
         >>> from datetime import datetime
-        >>> foo = TestObject('test', pi=3.1416)
+        >>> foo = TestObject("test", pi=3.1416)
         >>> print(foo)
         $audobject.core.testing.TestObject:
           name: test
@@ -24,17 +24,18 @@ class TestObject(Object):
           pi: 3.1416
 
     """
+
     @init_decorator(
         resolvers={
-            'point': resolver.Tuple,
+            "point": resolver.Tuple,
         },
     )
     def __init__(
-            self,
-            name: str,
-            *,
-            point: (int, int) = (0, 0),
-            **kwargs,
+        self,
+        name: str,
+        *,
+        point: (int, int) = (0, 0),
+        **kwargs,
     ):
         super().__init__(**kwargs)
 

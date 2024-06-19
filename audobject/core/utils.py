@@ -33,26 +33,25 @@ def create_class_key(cls: type, include_version: bool) -> str:
     key = define.OBJECT_TAG
 
     # add package name (if different from module name)
-    module_name = cls.__module__.split('.')[0]
+    module_name = cls.__module__.split(".")[0]
     if module_name not in PACKAGES_DISTRIBUTIONS:
         PACKAGES_DISTRIBUTIONS = packages_distributions()
     if module_name in PACKAGES_DISTRIBUTIONS:
         package_name = PACKAGES_DISTRIBUTIONS[module_name][0]
         if package_name != module_name:
-            key += f'{package_name}{define.PACKAGE_TAG}'
+            key += f"{package_name}{define.PACKAGE_TAG}"
 
     # add module and class name
-    key += f'{cls.__module__}.{cls.__name__}'
+    key += f"{cls.__module__}.{cls.__name__}"
 
     # add version (if requested)
     if include_version:
         version = get_version(cls.__module__)
         if version is not None:
-            key += f'{define.VERSION_TAG}{version}'
+            key += f"{define.VERSION_TAG}{version}"
         else:
             warnings.warn(
-                f"Could not determine a version for "
-                f"module '{cls.__module__}'.",
+                f"Could not determine a version for " f"module '{cls.__module__}'.",
                 RuntimeWarning,
             )
 
@@ -60,8 +59,8 @@ def create_class_key(cls: type, include_version: bool) -> str:
 
 
 def get_class(
-        key: str,
-        auto_install: bool,
+    key: str,
+    auto_install: bool,
 ) -> (type, str, str):
     r"""Load class."""
     package_name, module_name, class_name, version = split_class_key(key)
@@ -84,8 +83,8 @@ def get_class(
                 # warn if package do not match
                 op = operator.eq
             if not op(
-                    audeer.LooseVersion(installed_version),
-                    audeer.LooseVersion(version),
+                audeer.LooseVersion(installed_version),
+                audeer.LooseVersion(version),
             ):
                 warnings.warn(
                     f"Instantiating {module_name}.{class_name} from "
@@ -98,10 +97,10 @@ def get_class(
 
 
 def get_module(
-        package_name: str,
-        module_name: str,
-        version: typing.Optional[str],
-        auto_install: bool,
+    package_name: str,
+    module_name: str,
+    version: typing.Optional[str],
+    auto_install: bool,
 ) -> types.ModuleType:
     r"""Load module."""
     try:
@@ -125,28 +124,38 @@ def get_module(
 
 
 def get_object(
-        cls: type,
-        version: str,
-        installed_version: str,
-        params: dict,
-        root: typing.Optional[str],
-        override_args: typing.Dict[str, typing.Any],
+    cls: type,
+    version: str,
+    installed_version: str,
+    params: dict,
+    root: typing.Optional[str],
+    override_args: typing.Dict[str, typing.Any],
 ) -> (typing.Any, dict):
     r"""Create object from arguments without calling `__init__()`."""
     signature = inspect.signature(cls.__init__)
-    supports_kwargs = 'kwargs' in signature.parameters
-    supported_params = set([
-        p.name for p in signature.parameters.values()
-        if p.name not in ['self', 'kwargs']
-    ])
+    supports_kwargs = "kwargs" in signature.parameters
+    supported_params = set(
+        [
+            p.name
+            for p in signature.parameters.values()
+            if p.name not in ["self", "kwargs"]
+        ]
+    )
 
     # check for missing mandatory arguments
-    required_params = set([
-        p.name for p in signature.parameters.values()
-        if p.default == inspect.Parameter.empty and p.name not in [
-            'self', 'args', 'kwargs',
+    required_params = set(
+        [
+            p.name
+            for p in signature.parameters.values()
+            if p.default == inspect.Parameter.empty
+            and p.name
+            not in [
+                "self",
+                "args",
+                "kwargs",
+            ]
         ]
-    ])
+    )
     missing_required_params = list(required_params - set(params))
     if len(missing_required_params) > 0:
         raise RuntimeError(
@@ -158,16 +167,25 @@ def get_object(
         )
 
     # check for missing optional arguments
-    optional_params = set([
-        p.name for p in signature.parameters.values()
-        if p.default != inspect.Parameter.empty and p.name not in [
-            'self', 'args', 'kwargs',
+    optional_params = set(
+        [
+            p.name
+            for p in signature.parameters.values()
+            if p.default != inspect.Parameter.empty
+            and p.name
+            not in [
+                "self",
+                "args",
+                "kwargs",
+            ]
         ]
-    ])
+    )
     missing_optional_params = list(optional_params - set(params))
     if len(missing_optional_params) > 0:
-        if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
-                define.SignatureMismatchWarnLevel.STANDARD:
+        if (
+            config.SIGNATURE_MISMATCH_WARN_LEVEL
+            > define.SignatureMismatchWarnLevel.STANDARD
+        ):
             warnings.warn(
                 f"Missing optional arguments "
                 f"{missing_optional_params} "
@@ -181,8 +199,10 @@ def get_object(
     if not supports_kwargs:
         additional_params = list(set(params) - supported_params)
         if len(additional_params):
-            if config.SIGNATURE_MISMATCH_WARN_LEVEL > \
-                    define.SignatureMismatchWarnLevel.SILENT:
+            if (
+                config.SIGNATURE_MISMATCH_WARN_LEVEL
+                > define.SignatureMismatchWarnLevel.SILENT
+            ):
                 warnings.warn(
                     f"Ignoring arguments "
                     f"{additional_params} "
@@ -192,8 +212,7 @@ def get_object(
                     RuntimeWarning,
                 )
             params = {
-                key: value for key, value in params.items()
-                if key in supported_params
+                key: value for key, value in params.items() if key in supported_params
             }
 
     # select supported params from kwargs
@@ -208,8 +227,8 @@ def get_object(
 
 
 def get_version(module_name: str) -> typing.Optional[str]:
-    module = importlib.import_module(module_name.split('.')[0])
-    if '__version__' in module.__dict__:
+    module = importlib.import_module(module_name.split(".")[0])
+    if "__version__" in module.__dict__:
         return module.__version__
     else:
         return None
@@ -221,8 +240,7 @@ def is_class(value: typing.Any):
         if value.startswith(define.OBJECT_TAG):
             return True
         # only for backward compatibility with `auglib` and `audbenchmark`
-        if value.startswith('auglib.core.') or \
-                value.startswith('audbenchmark.core.'):
+        if value.startswith("auglib.core.") or value.startswith("audbenchmark.core."):
             return True  # pragma: no cover
     return False
 
@@ -242,7 +260,7 @@ def split_class_key(key: str) -> [str, str, str, typing.Optional[str]]:
 
     # possibly remove leading $
     if key.startswith(define.OBJECT_TAG):
-        key = key[len(define.OBJECT_TAG):]
+        key = key[len(define.OBJECT_TAG) :]
 
     # split off version (if available)
     if define.VERSION_TAG in key:
@@ -254,8 +272,8 @@ def split_class_key(key: str) -> [str, str, str, typing.Optional[str]]:
         package_name, key = key.split(define.PACKAGE_TAG)
 
     # split off module and class name
-    tokens = key.split('.')
-    module_name = '.'.join(tokens[:-1])
+    tokens = key.split(".")
+    module_name = ".".join(tokens[:-1])
     class_name = tokens[-1]
 
     # if package name not given, set to module name
