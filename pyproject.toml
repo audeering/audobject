@@ -156,7 +156,6 @@ section-order = [
     'audb',
     'audbackend',
     'audeer',
-    'audfactory',
     'audformat',
     'audiofile',
     'audinterface',

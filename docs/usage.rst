@@ -778,8 +778,7 @@ And initialize an object.
 As expected, the dictionary of the object
 looks pretty nested.
 This is not always handy,
-e.g. if we try to store the object to a
-:class:`audfactory.Lookup` table,
+e.g. if we try to store the object to a lookup table,
 this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.
