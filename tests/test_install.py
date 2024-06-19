@@ -19,7 +19,7 @@ import audobject
         ),
         (  # package and module match
             '''
-            $audbackend.core.filesystem.FileSystem:
+            $audbackend.core.backend.filesystem.FileSystem:
               host: ~/host
               repository: repo
             ''',
