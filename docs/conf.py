@@ -59,7 +59,6 @@ copybutton_prompt_is_regexp = True
 # Mapping to external documentation
 intersphinx_mapping = {
     "audeer": ("https://audeering.github.io/audeer/", None),
-    "audfactory": ("https://audeering.github.io/audfactory/", None),
     "python": ("https://docs.python.org/3/", None),
 }
 
