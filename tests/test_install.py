@@ -11,11 +11,11 @@ import audobject
     [
         (  # package and module do not match
             """
-            $dohq-artifactory:artifactory.ArtifactoryPath:
-              token: token
+            $scikit-learn:sklearn.calibration.CalibratedClassifierCV:
+                estimator: None
             """,
-            "dohq-artifactory",
-            "artifactory",
+            "scikit-learn",
+            "sklearn",
         ),
         (  # package and module match
             """
