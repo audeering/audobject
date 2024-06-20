@@ -1,11 +1,10 @@
 import importlib
+from importlib.metadata import packages_distributions
 import inspect
 import operator
 import types
 import typing
 import warnings
-
-from importlib_metadata import packages_distributions
 
 import audeer
 from audobject.core import define
