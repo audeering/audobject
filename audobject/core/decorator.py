@@ -3,7 +3,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 import functools
 import inspect
-from typing import Type
 
 from audobject.core import define
 from audobject.core import resolver
@@ -13,7 +12,7 @@ def init_decorator(
     *,
     borrow: dict[str, str] | None = None,
     hide: Sequence[str] | None = None,
-    resolvers: dict[str, Type[resolver.Base]] | None = None,
+    resolvers: dict[str, type[resolver.Base]] | None = None,
 ):
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
 
