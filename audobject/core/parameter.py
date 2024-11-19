@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 from collections.abc import Sequence
 import os
-import typing
 from typing import Any
 
 import packaging.specifiers
@@ -288,13 +287,13 @@ class Parameters(Dictionary):
         r"""Return parameters as dictionary."""
         return {name: param.value for name, param in self.items()}
 
-    def __getattribute__(self, name) -> typing.Any:  # noqa: D105
+    def __getattribute__(self, name) -> Any:  # noqa: D105
         if not name == "__dict__" and name in self.__dict__:
             p = self.__dict__[name]
             return p.value
         return object.__getattribute__(self, name)
 
-    def __setattr__(self, name: str, value: typing.Any):  # noqa: D105
+    def __setattr__(self, name: str, value: Any):  # noqa: D105
         p = self.__dict__[name]
         p.set_value(value)
 

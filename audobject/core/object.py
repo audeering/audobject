@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-import collections.abc
+from collections.abc import Mapping
+from collections.abc import Sequence
 import inspect
 import io
 import os
-import typing
+from typing import Any
 import warnings
 
 import oyaml as yaml
@@ -36,7 +37,7 @@ class Object:
         self.__dict__[define.KEYWORD_ARGUMENTS] = list(kwargs)
 
     @property
-    def arguments(self) -> typing.Dict[str, typing.Any]:
+    def arguments(self) -> Mapping[str, Any]:
         r"""Returns arguments that are serialized.
 
         Returns:
@@ -98,7 +99,7 @@ class Object:
             if hasattr(self, value):
                 if hasattr(self.__dict__[value], key):
                     can_borrow = True
-                elif isinstance(self.__dict__[value], collections.abc.Mapping):
+                elif isinstance(self.__dict__[value], Mapping):
                     can_borrow = True
             if not can_borrow:
                 raise RuntimeError(
@@ -116,7 +117,7 @@ class Object:
         return args
 
     @property
-    def borrowed_arguments(self) -> typing.Dict[str, str]:
+    def borrowed_arguments(self) -> Mapping[str, str]:
         r"""Returns borrowed arguments.
 
         Returns:
@@ -130,7 +131,7 @@ class Object:
         return borrowed
 
     @property
-    def hidden_arguments(self) -> typing.List[str]:
+    def hidden_arguments(self) -> Sequence[str]:
         r"""Returns hidden arguments.
 
         Returns:
@@ -192,7 +193,7 @@ class Object:
         alternative="audobject.from_dict",
     )
     def from_dict(  # noqa: D102
-        d: typing.Dict[str, typing.Any],
+        d: Mapping[str, Any],
         root: str = None,
         **kwargs,
     ) -> "Object":  # pragma: no cover
@@ -227,7 +228,7 @@ class Object:
         return from_yaml_s(yaml_string, **kwargs)
 
     @property
-    def resolvers(self) -> typing.Dict[str, resolver.Base]:
+    def resolvers(self) -> Mapping[str, resolver.Base]:
         r"""Return resolvers.
 
         Returns:
@@ -274,7 +275,7 @@ class Object:
         include_version: bool = True,
         flatten: bool = False,
         root: str = None,
-    ) -> typing.Dict[str, resolver.DefaultValueType]:
+    ) -> Mapping[str, resolver.DefaultValueType]:
         r"""Converts object to a dictionary.
 
         Includes items from :attr:`audobject.Object.arguments`.
@@ -316,7 +317,7 @@ class Object:
 
     def to_yaml(
         self,
-        path_or_stream: typing.Union[str, typing.IO],
+        path_or_stream: str | io.IOBase,
         *,
         include_version: bool = True,
     ):
@@ -371,9 +372,9 @@ class Object:
     def _encode_variable(
         self,
         name: str,
-        value: typing.Any,
+        value: Any,
         include_version: bool,
-        root: typing.Optional[str],
+        root: str | None,
     ):
         r"""Encode value.
 
@@ -387,7 +388,7 @@ class Object:
 
     @staticmethod
     def _encode_value(
-        value: typing.Any,
+        value: Any,
         include_version: bool,
     ):
         r"""Default value encoder."""
@@ -418,7 +419,7 @@ class Object:
 
     @staticmethod
     def _flatten(
-        d: typing.Dict[str, resolver.DefaultValueType],
+        d: Mapping[str, resolver.DefaultValueType],
     ):
         r"""Flattens a dictionary."""
 
@@ -450,8 +451,8 @@ class Object:
     def _resolve_value(
         self,
         name: str,
-        value: typing.Any,
-        root: typing.Optional[str],
+        value: Any,
+        root: str | None,
     ) -> resolver.DefaultValueType:
         if value is not None and name in self.resolvers:
             # let resolver know if we write to a stream

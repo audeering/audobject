@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
+import io
 import os
-import typing
 from typing import Any
 import warnings
 
@@ -19,8 +20,8 @@ kwargs_deprecation_warning = (
 )
 
 
-def from_dict(  # noqa: D417
-    d: dict[str, Any],
+def from_dict(
+    d: Mapping[str, Any],
     root: str | None = None,
     *,
     auto_install: bool = False,
@@ -35,6 +36,7 @@ def from_dict(  # noqa: D417
         auto_install: install missing packages needed to create the object
         override_args: override arguments in ``d`` or
             default values of hidden arguments
+        kwargs: arguments to add to override
 
     Returns:
         object
@@ -101,11 +103,11 @@ def from_dict(  # noqa: D417
     return object
 
 
-def from_yaml(  # noqa: D417
-    path_or_stream: typing.Union[str, typing.IO],
+def from_yaml(
+    path_or_stream: str | io.IOBase,
     *,
     auto_install: bool = False,
-    override_args: typing.Dict[str, typing.Any] = None,
+    override_args: dict[str, Any] | None = None,
     **kwargs,
 ) -> "Object":
     r"""Create object from YAML file.
@@ -115,6 +117,7 @@ def from_yaml(  # noqa: D417
         auto_install: install missing packages needed to create the object
         override_args: override arguments in the YAML file or
             default values of hidden arguments
+        kwargs: arguments to add to override
 
     Returns:
         object
@@ -146,11 +149,11 @@ def from_yaml(  # noqa: D417
     )
 
 
-def from_yaml_s(  # noqa: D417
+def from_yaml_s(
     yaml_string: str,
     *,
     auto_install: bool = False,
-    override_args: typing.Dict[str, typing.Any] = None,
+    override_args: dict[str, Any] | None = None,
     **kwargs,
 ) -> "Object":
     r"""Create object from YAML string.
@@ -160,6 +163,7 @@ def from_yaml_s(  # noqa: D417
         auto_install: install missing packages needed to create the object
         override_args: override arguments in the YAML string or
             default values of hidden arguments
+        kwargs: arguments to add to override
 
     Returns:
         object

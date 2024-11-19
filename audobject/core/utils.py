@@ -4,7 +4,6 @@ import importlib
 import inspect
 import operator
 import types
-import typing
 from typing import Any
 import warnings
 
@@ -229,7 +228,7 @@ def get_object(
     return object, params
 
 
-def get_version(module_name: str) -> typing.Optional[str]:
+def get_version(module_name: str) -> str | None:
     module = importlib.import_module(module_name.split(".")[0])
     if "__version__" in module.__dict__:
         return module.__version__
@@ -237,7 +236,7 @@ def get_version(module_name: str) -> typing.Optional[str]:
         return None
 
 
-def is_class(value: typing.Any):
+def is_class(value: Any):
     r"""Check if value is a class."""
     if isinstance(value, str):
         if value.startswith(define.OBJECT_TAG):
@@ -248,7 +247,7 @@ def is_class(value: typing.Any):
     return False
 
 
-def split_class_key(key: str) -> [str, str, str, typing.Optional[str]]:
+def split_class_key(key: str) -> tuple[str, str, str, str | None]:
     r"""Split class key into package, module, class and version.
 
     Expects a key in the format output by create_class_key().
