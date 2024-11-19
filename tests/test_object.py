@@ -158,10 +158,10 @@ def test_class_key(cls, package, include_version, expected):
     assert key == expected
     p, m, c, v = utils.split_class_key(key)
     if include_version:
-        assert expected.endswith(f"{m}.{c}=={v}")
+        assert expected.removesuffix(f"{m}.{c}=={v}") != expected
     else:
         assert v is None
-        assert expected.endswith(f"{m}.{c}")
+        assert expected.removesuffix(f"{m}.{c}") != expected
     assert p == package
 
 

@@ -1,8 +1,11 @@
+from __future__ import annotations
+
 import importlib
 import inspect
 import operator
 import types
 import typing
+from typing import Any
 import warnings
 
 from importlib_metadata import packages_distributions
@@ -99,7 +102,7 @@ def get_class(
 def get_module(
     package_name: str,
     module_name: str,
-    version: typing.Optional[str],
+    version: str | None,
     auto_install: bool,
 ) -> types.ModuleType:
     r"""Load module."""
@@ -128,9 +131,9 @@ def get_object(
     version: str,
     installed_version: str,
     params: dict,
-    root: typing.Optional[str],
-    override_args: typing.Dict[str, typing.Any],
-) -> (typing.Any, dict):
+    root: str | None,
+    override_args: dict[str, Any],
+) -> (Any, dict):
     r"""Create object from arguments without calling `__init__()`."""
     signature = inspect.signature(cls.__init__)
     supports_kwargs = "kwargs" in signature.parameters

@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import collections.abc
 import inspect
+import io
 import os
 import typing
 import warnings
@@ -203,7 +206,7 @@ class Object:
         alternative="audobject.from_yaml",
     )
     def from_yaml(  # noqa: D102
-        path_or_stream: typing.Union[str, typing.IO],
+        path_or_stream: str | io.IOBase,
         **kwargs,
     ) -> "Object":  # pragma: no cover
         from audobject.core.api import from_yaml

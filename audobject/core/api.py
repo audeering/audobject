@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import os
 import typing
+from typing import Any
 import warnings
 
 import oyaml as yaml
@@ -17,13 +20,13 @@ kwargs_deprecation_warning = (
 
 
 def from_dict(  # noqa: D417
-    d: typing.Dict[str, typing.Any],
-    root: str = None,
+    d: dict[str, Any],
+    root: str | None = None,
     *,
     auto_install: bool = False,
-    override_args: typing.Dict[str, typing.Any] = None,
+    override_args: dict[str, Any] | None = None,
     **kwargs,
-) -> "Object":
+) -> Object:
     r"""Create object from dictionary.
 
     Args:
@@ -181,10 +184,10 @@ def from_yaml_s(  # noqa: D417
 
 
 def _decode_value(
-    value_to_decode: typing.Any,
+    value_to_decode: Any,
     auto_install: bool,
-    override_args: typing.Dict[str, typing.Any],
-) -> typing.Any:
+    override_args: dict[str, Any],
+) -> Any:
     r"""Decode value."""
     if value_to_decode:  # not empty
         if isinstance(value_to_decode, list):

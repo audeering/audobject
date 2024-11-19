@@ -1,6 +1,10 @@
+from __future__ import annotations
+
 import argparse
+from collections.abc import Sequence
 import os
 import typing
+from typing import Any
 
 import packaging.specifiers
 import packaging.version
@@ -73,9 +77,9 @@ class Parameter(Object):
         *,
         value_type: type = str,
         description: str = "",
-        value: typing.Any = None,
-        default_value: typing.Any = None,
-        choices: typing.Sequence[typing.Any] = None,
+        value: Any = None,
+        default_value: Any = None,
+        choices: Sequence[Any] = None,
         version: str = None,
     ):
         self.value_type = value_type
@@ -99,7 +103,7 @@ class Parameter(Object):
         else:
             self.set_value(default_value)
 
-    def __contains__(self, version: typing.Optional[str]) -> bool:
+    def __contains__(self, version: str | None) -> bool:
         r"""Check if parameter is in parameter object."""
         if version is None or self.version is None:
             return True
@@ -109,7 +113,7 @@ class Parameter(Object):
 
         return version in version_range
 
-    def set_value(self, value: typing.Any):
+    def set_value(self, value: Any):
         r"""Sets a new value.
 
         Applies additional checks, e.g. if value is of the expected type.
@@ -125,7 +129,7 @@ class Parameter(Object):
         self._check_value(value)
         self.value = value
 
-    def _check_value(self, value: typing.Any):
+    def _check_value(self, value: Any):
         r"""Check if value matches expected type."""
         if value is not None and not isinstance(value, self.value_type):
             raise TypeError(
@@ -253,8 +257,8 @@ class Parameters(Dictionary):
         self,
         *,
         delimiter: str = os.path.sep,
-        include: typing.Sequence[str] = None,
-        exclude: typing.Sequence[str] = None,
+        include: Sequence[str] | None = None,
+        exclude: Sequence[str] | None = None,
         sort: bool = False,
     ):
         r"""Creates path from parameters.

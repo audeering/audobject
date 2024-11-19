@@ -1,26 +1,19 @@
+from __future__ import annotations
+
 import ast
+from collections.abc import Callable
 import datetime
 import inspect
 import os
 import textwrap
 import types
-import typing
 import warnings
 
 import audeer
 import audobject.core.define as define
 
 
-DefaultValueType = typing.Union[
-    bool,
-    datetime.datetime,
-    dict,
-    float,
-    int,
-    list,
-    None,
-    str,
-]
+DefaultValueType = bool | datetime.datetime | dict | float | int | list | None | str
 
 
 class Base:
@@ -44,7 +37,7 @@ class Base:
         self.__dict__[define.ROOT_ATTRIBUTE] = None
 
     @property
-    def root(self) -> typing.Optional[str]:
+    def root(self) -> str | None:
         r"""Root folder.
 
         Returns root folder when object is serialized to or from a file,
@@ -56,7 +49,7 @@ class Base:
         """
         return self.__dict__[define.ROOT_ATTRIBUTE]
 
-    def decode(self, value: DefaultValueType) -> typing.Any:
+    def decode(self, value: DefaultValueType) -> object:
         r"""Decode value.
 
         Takes the encoded value and converts it back to its original type.
@@ -70,7 +63,7 @@ class Base:
         """
         raise NotImplementedError  # pragma: no cover
 
-    def encode(self, value: typing.Any) -> DefaultValueType:
+    def encode(self, value: object) -> DefaultValueType:
         r"""Encode value.
 
         The type of the returned value must be one of:
@@ -221,7 +214,7 @@ class Function(Base):
 
     """
 
-    def decode(self, value: str) -> typing.Callable:
+    def decode(self, value: str) -> Callable:
         r"""Decode (lambda) function.
 
         Args:
@@ -249,7 +242,7 @@ class Function(Base):
         # This does not preserve defaults and keyword-only arguments,
         # but fortunately this is not relevant for lambda expressions.
 
-        if value.startswith("lambda"):
+        if value.removeprefix("lambda") != value:
             code = compile(value, "<string>", "exec")
             for var in code.co_consts:
                 if isinstance(var, types.CodeType):
@@ -268,8 +261,8 @@ class Function(Base):
 
     def encode(
         self,
-        value: typing.Callable,
-    ) -> typing.Union[str, object]:
+        value: Callable,
+    ) -> str | object:
         r"""Encode (lambda) function.
 
         Args:
@@ -301,7 +294,7 @@ class Function(Base):
         """
         return str
 
-    def get_source(self, func: typing.Callable) -> str:
+    def get_source(self, func: Callable) -> str:
         r"""Obtain source code of (lambda) function.
 
         Retrieving the source of a lambda function can become tricky,
@@ -329,7 +322,7 @@ class Function(Base):
 
     @staticmethod
     def _get_short_lambda_source(
-        lambda_func: typing.Callable,
+        lambda_func: Callable,
     ):  # pragma: no cover
         """Return the source of a (short) lambda function.
 
@@ -526,13 +519,13 @@ class ValueResolver:  # pragma: no cover  # noqa: D101
         self.__dict__[define.ROOT_ATTRIBUTE] = None
 
     @property
-    def root(self) -> typing.Optional[str]:  # noqa: D102
+    def root(self) -> str | None:  # noqa: D102
         return self.__dict__[define.ROOT_ATTRIBUTE]
 
-    def decode(self, value: DefaultValueType) -> typing.Any:  # noqa: D102
+    def decode(self, value: DefaultValueType) -> object:  # noqa: D102
         raise NotImplementedError
 
-    def encode(self, value: typing.Any) -> DefaultValueType:  # noqa: D102
+    def encode(self, value: object) -> DefaultValueType:  # noqa: D102
         raise NotImplementedError
 
     def encode_type(self) -> type:  # noqa: D102

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
+from collections.abc import Callable
 import os
 import shutil
-import typing
 
 import pytest
 
@@ -17,9 +19,9 @@ class ObjectWithArgAndKwarg(audobject.Object):
     )
     def __init__(
         self,
-        arg: typing.Any,
+        arg: object,
         *,
-        kwarg: typing.Any,
+        kwarg: object,
     ):
         self.arg = arg
         self.kwarg = kwarg
@@ -77,7 +79,7 @@ class ObjectWithFunction(audobject.Object):
     )
     def __init__(
         self,
-        func: typing.Callable,
+        func: Callable,
     ):
         self.func = func
 
@@ -189,7 +191,7 @@ class ObjectWithTuple(audobject.Object):
     )
     def __init__(
         self,
-        arg: typing.Tuple = None,
+        arg: tuple | None = None,
     ):
         super().__init__()
         self.arg = arg
