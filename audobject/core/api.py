@@ -3,7 +3,6 @@ from __future__ import annotations
 from collections.abc import Mapping
 import io
 import os
-from typing import Any
 import warnings
 
 import oyaml as yaml
@@ -21,11 +20,11 @@ kwargs_deprecation_warning = (
 
 
 def from_dict(
-    d: Mapping[str, Any],
+    d: Mapping[str, object],
     root: str | None = None,
     *,
     auto_install: bool = False,
-    override_args: dict[str, Any] | None = None,
+    override_args: dict[str, object] | None = None,
     **kwargs,
 ) -> Object:
     r"""Create object from dictionary.
@@ -107,7 +106,7 @@ def from_yaml(
     path_or_stream: str | io.IOBase,
     *,
     auto_install: bool = False,
-    override_args: dict[str, Any] | None = None,
+    override_args: dict[str, object] | None = None,
     **kwargs,
 ) -> "Object":
     r"""Create object from YAML file.
@@ -153,7 +152,7 @@ def from_yaml_s(
     yaml_string: str,
     *,
     auto_install: bool = False,
-    override_args: dict[str, Any] | None = None,
+    override_args: dict[str, object] | None = None,
     **kwargs,
 ) -> "Object":
     r"""Create object from YAML string.
@@ -188,10 +187,10 @@ def from_yaml_s(
 
 
 def _decode_value(
-    value_to_decode: Any,
+    value_to_decode: object,
     auto_install: bool,
-    override_args: dict[str, Any],
-) -> Any:
+    override_args: dict[str, object],
+) -> object:
     r"""Decode value."""
     if value_to_decode:  # not empty
         if isinstance(value_to_decode, list):
