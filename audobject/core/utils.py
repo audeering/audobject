@@ -4,7 +4,6 @@ import importlib
 import inspect
 import operator
 import types
-from typing import Any
 import warnings
 
 from importlib_metadata import packages_distributions
@@ -131,8 +130,8 @@ def get_object(
     installed_version: str,
     params: dict,
     root: str | None,
-    override_args: dict[str, Any],
-) -> (Any, dict):
+    override_args: dict[str, object],
+) -> (object, dict):
     r"""Create object from arguments without calling `__init__()`."""
     signature = inspect.signature(cls.__init__)
     supports_kwargs = "kwargs" in signature.parameters
@@ -236,7 +235,7 @@ def get_version(module_name: str) -> str | None:
         return None
 
 
-def is_class(value: Any):
+def is_class(value: object):
     r"""Check if value is a class."""
     if isinstance(value, str):
         if value.startswith(define.OBJECT_TAG):

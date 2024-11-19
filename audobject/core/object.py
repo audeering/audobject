@@ -5,7 +5,6 @@ from collections.abc import Sequence
 import inspect
 import io
 import os
-from typing import Any
 import warnings
 
 import oyaml as yaml
@@ -37,7 +36,7 @@ class Object:
         self.__dict__[define.KEYWORD_ARGUMENTS] = list(kwargs)
 
     @property
-    def arguments(self) -> Mapping[str, Any]:
+    def arguments(self) -> Mapping[str, object]:
         r"""Returns arguments that are serialized.
 
         Returns:
@@ -193,7 +192,7 @@ class Object:
         alternative="audobject.from_dict",
     )
     def from_dict(  # noqa: D102
-        d: Mapping[str, Any],
+        d: Mapping[str, object],
         root: str = None,
         **kwargs,
     ) -> "Object":  # pragma: no cover
@@ -372,7 +371,7 @@ class Object:
     def _encode_variable(
         self,
         name: str,
-        value: Any,
+        value: object,
         include_version: bool,
         root: str | None,
     ):
@@ -388,7 +387,7 @@ class Object:
 
     @staticmethod
     def _encode_value(
-        value: Any,
+        value: object,
         include_version: bool,
     ):
         r"""Default value encoder."""
@@ -451,7 +450,7 @@ class Object:
     def _resolve_value(
         self,
         name: str,
-        value: Any,
+        value: object,
         root: str | None,
     ) -> resolver.DefaultValueType:
         if value is not None and name in self.resolvers:
