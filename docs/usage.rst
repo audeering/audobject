@@ -640,7 +640,7 @@ The following class takes as arguments a function with two parameters.
 
 .. jupyter-execute::
 
-    import typing
+    from collections.abc import Callable
 
 
     class MyObjectWithFunction(audobject.Object):
@@ -652,7 +652,7 @@ The following class takes as arguments a function with two parameters.
         )
         def __init__(
                 self,
-                func: typing.Callable[[int, int], int],
+                func: Callable[[int, int], int],
         ):
             self.func = func
 
