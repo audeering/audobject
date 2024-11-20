@@ -191,7 +191,7 @@ class ObjectWithTuple(audobject.Object):
     )
     def __init__(
         self,
-        arg: tuple | None = None,
+        arg: tuple = None,
     ):
         super().__init__()
         self.arg = arg
