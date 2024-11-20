@@ -195,7 +195,7 @@ class Object:
         d: Mapping[str, object],
         root: str = None,
         **kwargs,
-    ) -> "Object":  # pragma: no cover
+    ) -> Object:  # pragma: no cover
         from audobject.core.api import from_dict
 
         return from_dict(d, root, **kwargs)
@@ -208,7 +208,7 @@ class Object:
     def from_yaml(  # noqa: D102
         path_or_stream: str | io.IOBase,
         **kwargs,
-    ) -> "Object":  # pragma: no cover
+    ) -> Object:  # pragma: no cover
         from audobject.core.api import from_yaml
 
         return from_yaml(path_or_stream, **kwargs)
@@ -221,7 +221,7 @@ class Object:
     def from_yaml_s(  # noqa: D102
         yaml_string: str,
         **kwargs,
-    ) -> "Object":  # pragma: no cover
+    ) -> Object:  # pragma: no cover
         from audobject.core.api import from_yaml_s
 
         return from_yaml_s(yaml_string, **kwargs)

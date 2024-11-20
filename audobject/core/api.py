@@ -107,7 +107,7 @@ def from_yaml(  # noqa: D417
     auto_install: bool = False,
     override_args: dict[str, object] = None,
     **kwargs,
-) -> "Object":
+) -> Object:
     r"""Create object from YAML file.
 
     Args:
@@ -152,7 +152,7 @@ def from_yaml_s(  # noqa: D417
     auto_install: bool = False,
     override_args: dict[str, object] = None,
     **kwargs,
-) -> "Object":
+) -> Object:
     r"""Create object from YAML string.
 
     Args:
