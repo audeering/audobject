@@ -19,7 +19,7 @@ kwargs_deprecation_warning = (
 )
 
 
-def from_dict(
+def from_dict(  # noqa: D417
     d: Mapping[str, object],
     root: str = None,
     *,
@@ -35,7 +35,6 @@ def from_dict(
         auto_install: install missing packages needed to create the object
         override_args: override arguments in ``d`` or
             default values of hidden arguments
-        kwargs: arguments to add to override
 
     Returns:
         object
@@ -102,7 +101,7 @@ def from_dict(
     return object
 
 
-def from_yaml(
+def from_yaml(  # noqa: D417
     path_or_stream: str | io.IOBase,
     *,
     auto_install: bool = False,
@@ -116,7 +115,6 @@ def from_yaml(
         auto_install: install missing packages needed to create the object
         override_args: override arguments in the YAML file or
             default values of hidden arguments
-        kwargs: arguments to add to override
 
     Returns:
         object
@@ -148,7 +146,7 @@ def from_yaml(
     )
 
 
-def from_yaml_s(
+def from_yaml_s(  # noqa: D417
     yaml_string: str,
     *,
     auto_install: bool = False,
@@ -162,7 +160,6 @@ def from_yaml_s(
         auto_install: install missing packages needed to create the object
         override_args: override arguments in the YAML string or
             default values of hidden arguments
-        kwargs: arguments to add to override
 
     Returns:
         object
