@@ -255,8 +255,8 @@ class Parameters(Dictionary):
         self,
         *,
         delimiter: str = os.path.sep,
-        include: Sequence[str] | None = None,
-        exclude: Sequence[str] | None = None,
+        include: Sequence[str] = None,
+        exclude: Sequence[str] = None,
         sort: bool = False,
     ):
         r"""Creates path from parameters.
