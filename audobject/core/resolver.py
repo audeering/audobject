@@ -7,13 +7,23 @@ import inspect
 import os
 import textwrap
 import types
+import typing
 import warnings
 
 import audeer
 import audobject.core.define as define
 
 
-DefaultValueType = bool | datetime.datetime | dict | float | int | list | None | str
+DefaultValueType = typing.Union[
+    bool,
+    datetime.datetime,
+    dict,
+    float,
+    int,
+    list,
+    None,
+    str,
+]
 
 
 class Base:
