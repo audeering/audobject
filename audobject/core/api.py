@@ -21,7 +21,7 @@ kwargs_deprecation_warning = (
 
 def from_dict(
     d: Mapping[str, object],
-    root: str | None = None,
+    root: str = None,
     *,
     auto_install: bool = False,
     override_args: dict[str, object] | None = None,
@@ -106,7 +106,7 @@ def from_yaml(
     path_or_stream: str | io.IOBase,
     *,
     auto_install: bool = False,
-    override_args: dict[str, object] | None = None,
+    override_args: dict[str, object] = None,
     **kwargs,
 ) -> "Object":
     r"""Create object from YAML file.
@@ -152,7 +152,7 @@ def from_yaml_s(
     yaml_string: str,
     *,
     auto_install: bool = False,
-    override_args: dict[str, object] | None = None,
+    override_args: dict[str, object] = None,
     **kwargs,
 ) -> "Object":
     r"""Create object from YAML string.

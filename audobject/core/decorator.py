@@ -10,9 +10,9 @@ from audobject.core import resolver
 
 def init_decorator(
     *,
-    borrow: dict[str, str] | None = None,
-    hide: Sequence[str] | None = None,
-    resolvers: dict[str, type[resolver.Base]] | None = None,
+    borrow: dict[str, str] = None,
+    hide: Sequence[str] = None,
+    resolvers: dict[str, type[resolver.Base]] = None,
 ):
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
 
