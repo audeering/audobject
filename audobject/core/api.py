@@ -26,7 +26,7 @@ def from_dict(  # noqa: D417
     auto_install: bool = False,
     override_args: dict[str, object] | None = None,
     **kwargs,
-) -> Object:
+) -> "Object":
     r"""Create object from dictionary.
 
     Args:
