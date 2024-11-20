@@ -252,7 +252,7 @@ class Function(Base):
         # This does not preserve defaults and keyword-only arguments,
         # but fortunately this is not relevant for lambda expressions.
 
-        if value.removeprefix("lambda") != value:
+        if value.startswith("lambda"):
             code = compile(value, "<string>", "exec")
             for var in code.co_consts:
                 if isinstance(var, types.CodeType):
