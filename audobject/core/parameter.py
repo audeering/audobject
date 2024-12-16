@@ -234,7 +234,7 @@ class Parameters(Dictionary):
             else:
                 help = param.description
 
-            if param.value_type == bool:
+            if isinstance(param.value_type, bool):
                 parser.add_argument(
                     f"--{name}",
                     action="store_true",
