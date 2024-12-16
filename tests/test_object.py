@@ -37,7 +37,7 @@ def test(tmpdir, obj):
 
     # comparison to other objects,
     # see https://github.com/audeering/audinterface/issues/68
-    assert not obj == type
+    assert not obj == type  # noqa: E721
     assert repr(obj) == repr(obj_from_yaml)
     assert str(obj) == str(obj_from_yaml)
     assert obj.to_yaml_s() == obj_from_yaml.to_yaml_s()
