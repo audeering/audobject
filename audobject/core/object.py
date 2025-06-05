@@ -84,7 +84,7 @@ class Object:
             for name in names
             if (name not in self.__dict__) and (name not in borrowed)
         ]
-        if len(missing) > 0:
+        if missing:
             raise RuntimeError(
                 "Arguments "
                 f"{missing} "
