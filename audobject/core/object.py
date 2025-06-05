@@ -56,9 +56,7 @@ class Object:
         signature = inspect.signature(self.__init__)
 
         # non-keyword arguments from __init__
-        names = [
-            p.name for p in signature.parameters.values() if not p.name == "kwargs"
-        ]
+        names = [p.name for p in signature.parameters.values() if p.name != "kwargs"]
 
         # additional keyword arguments
         if define.KEYWORD_ARGUMENTS in self.__dict__:
@@ -79,11 +77,11 @@ class Object:
         ]
 
         # check for missing attributes
-        missing = []
-        for name in names:
-            if (name not in self.__dict__) and (name not in borrowed):
-                missing.append(name)
-        if len(missing) > 0:
+        if missing := [
+            name
+            for name in names
+            if (name not in self.__dict__) and (name not in borrowed)
+        ]:
             raise RuntimeError(
                 "Arguments "
                 f"{missing} "
