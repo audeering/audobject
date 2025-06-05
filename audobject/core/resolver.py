@@ -347,13 +347,12 @@ class Function(Base):
         source_text = os.linesep.join(source_lines).strip()
         atok = asttokens.ASTTokens(source_text, parse=True)
         # Search for the first occurring lambda node in AST tree
+        lambda_node = None
         for node in ast.walk(atok.tree):
             if isinstance(node, ast.Lambda):
                 lambda_node = node
                 break
-        if lambda_node is None:
-            return None
-        return atok.get_text(lambda_node)
+        return None if lambda_node is None else atok.get_text(lambda_node)
 
 
 class Tuple(Base):
