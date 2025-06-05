@@ -79,10 +79,11 @@ class Object:
         ]
 
         # check for missing attributes
-        missing = []
-        for name in names:
-            if (name not in self.__dict__) and (name not in borrowed):
-                missing.append(name)
+        missing = [
+            name
+            for name in names
+            if (name not in self.__dict__) and (name not in borrowed)
+        ]
         if len(missing) > 0:
             raise RuntimeError(
                 "Arguments "
