@@ -44,16 +44,7 @@ def uninstall(
     module: str,
 ):
     # uninstall package
-    subprocess.check_call(
-        [
-            sys.executable,
-            "-m",
-            "pip",
-            "uninstall",
-            "--yes",
-            package,
-        ]
-    )
+    subprocess.check_call(["uv", "pip", "uninstall", package])
     # remove module
     for m in list(sys.modules):
         if m.startswith(module):
