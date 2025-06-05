@@ -28,6 +28,7 @@ classifiers = [
     'Topic :: Scientific/Engineering',
 ]
 dependencies = [
+    'asttokens >=2.0.0',
     'audeer >=1.18.0',
     # The following can be replaced by "importlib.metadata" with Python 3.10
     'importlib-metadata >=4.8.0',

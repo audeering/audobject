@@ -113,6 +113,20 @@ def test_function(tmpdir):
         include_version=False
     )
 
+    # lambda with float cast
+    # (https://github.com/audeering/audobject/issues/115)
+
+    o_lambda_cast = ObjectWithFunction(lambda x: float(x * x))
+
+    path = os.path.join(tmpdir, "lambda.yaml")
+    o_lambda_cast.to_yaml(path, include_version=False)
+    o_lambda_cast_2 = audobject.from_yaml(path)
+
+    assert o_lambda_cast(10.0) == o_lambda_cast(10.0) == 10.0 * 10.0
+    assert o_lambda_cast.to_yaml_s(include_version=False) == o_lambda_cast_2.to_yaml_s(
+        include_version=False
+    )
+
     # function with single positional argument
 
     def func(a):
@@ -174,9 +188,7 @@ def test_function(tmpdir):
     o_func_object_bad = ObjectWithFunction(o_callable_bad)
     with pytest.raises(
         ValueError,
-        match=(
-            "Cannot decode object " "if it does not derive from " "'audobject.Object'."
-        ),
+        match=("Cannot decode object if it does not derive from 'audobject.Object'."),
     ):
         o_func_object_bad.to_yaml_s(include_version=False)
 
