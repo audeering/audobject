@@ -1,4 +1,8 @@
-import typing
+from __future__ import annotations
+
+from collections.abc import ItemsView
+from collections.abc import KeysView
+from collections.abc import ValuesView
 
 from audobject.core import define
 from audobject.core.object import Object
@@ -44,11 +48,11 @@ class Dictionary(Object):
         for key, value in kwargs.items():
             self[key] = value
 
-    def keys(self) -> typing.KeysView[str]:
+    def keys(self) -> KeysView[str]:
         r"""Return the keys."""
         return self._dict_wo_special_attributes.keys()
 
-    def items(self) -> typing.ItemsView[str, typing.Any]:
+    def items(self) -> ItemsView[str, object]:
         r"""Return items view."""
         return self._dict_wo_special_attributes.items()
 
@@ -65,7 +69,7 @@ class Dictionary(Object):
         for key, value in other.items():
             self[key] = value
 
-    def values(self) -> typing.ValuesView[typing.Any]:
+    def values(self) -> ValuesView[object]:
         r"""Return values."""
         return self._dict_wo_special_attributes.values()
 
@@ -85,7 +89,7 @@ class Dictionary(Object):
         r"""Check if key is in dictionary."""
         return key in self._dict_wo_special_attributes
 
-    def __getitem__(self, name: str) -> typing.Any:
+    def __getitem__(self, name: str) -> object:
         r"""Return value at key from dictionary."""
         return self._dict_wo_special_attributes[name]
 
@@ -93,7 +97,7 @@ class Dictionary(Object):
         r"""Number of keys in dictionary."""
         return len(self._dict_wo_special_attributes)
 
-    def __setitem__(self, key: str, value: typing.Any):
+    def __setitem__(self, key: str, value: object):
         r"""Set value at key in dictionary."""
         if key not in self.__dict__[define.KEYWORD_ARGUMENTS]:
             self.__dict__[define.KEYWORD_ARGUMENTS].append(key)

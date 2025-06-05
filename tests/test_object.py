@@ -161,7 +161,7 @@ def test_class_key(cls, package, include_version, expected):
         assert expected.endswith(f"{m}.{c}=={v}")
     else:
         assert v is None
-        assert expected.endswith(f"{m}.{c}")
+        assert expected.removesuffix(f"{m}.{c}") != expected
     assert p == package
 
 

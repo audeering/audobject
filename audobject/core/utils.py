@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 import importlib
 import inspect
 import operator
 import types
-import typing
 import warnings
 
 from importlib_metadata import packages_distributions
@@ -99,7 +100,7 @@ def get_class(
 def get_module(
     package_name: str,
     module_name: str,
-    version: typing.Optional[str],
+    version: str | None,
     auto_install: bool,
 ) -> types.ModuleType:
     r"""Load module."""
@@ -128,9 +129,9 @@ def get_object(
     version: str,
     installed_version: str,
     params: dict,
-    root: typing.Optional[str],
-    override_args: typing.Dict[str, typing.Any],
-) -> (typing.Any, dict):
+    root: str | None,
+    override_args: dict[str, object],
+) -> (object, dict):
     r"""Create object from arguments without calling `__init__()`."""
     signature = inspect.signature(cls.__init__)
     supports_kwargs = "kwargs" in signature.parameters
@@ -226,7 +227,7 @@ def get_object(
     return object, params
 
 
-def get_version(module_name: str) -> typing.Optional[str]:
+def get_version(module_name: str) -> str | None:
     module = importlib.import_module(module_name.split(".")[0])
     if "__version__" in module.__dict__:
         return module.__version__
@@ -234,7 +235,7 @@ def get_version(module_name: str) -> typing.Optional[str]:
         return None
 
 
-def is_class(value: typing.Any):
+def is_class(value: object):
     r"""Check if value is a class."""
     if isinstance(value, str):
         if value.startswith(define.OBJECT_TAG):
@@ -245,7 +246,7 @@ def is_class(value: typing.Any):
     return False
 
 
-def split_class_key(key: str) -> [str, str, str, typing.Optional[str]]:
+def split_class_key(key: str) -> tuple[str, str, str, str | None]:
     r"""Split class key into package, module, class and version.
 
     Expects a key in the format output by create_class_key().

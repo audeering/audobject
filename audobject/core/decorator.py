@@ -1,6 +1,8 @@
+from __future__ import annotations
+
+from collections.abc import Sequence
 import functools
 import inspect
-import typing
 
 from audobject.core import define
 from audobject.core import resolver
@@ -8,9 +10,9 @@ from audobject.core import resolver
 
 def init_decorator(
     *,
-    borrow: typing.Dict[str, str] = None,
-    hide: typing.Sequence[str] = None,
-    resolvers: typing.Dict[str, typing.Type[resolver.Base]] = None,
+    borrow: dict[str, str] = None,
+    hide: Sequence[str] = None,
+    resolvers: dict[str, type[resolver.Base]] = None,
 ):
     r"""Decorator for ``__init__`` function of :class:`audobject.Object`.
 
