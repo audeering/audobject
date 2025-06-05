@@ -114,6 +114,7 @@ def test_function(tmpdir):
     )
 
     # lambda with float cast
+    # (https://github.com/audeering/audobject/issues/115)
 
     o_lambda_cast = ObjectWithFunction(lambda x: float(x * x))
 
