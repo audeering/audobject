@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 import importlib
+from importlib.metadata import packages_distributions
 import inspect
 import operator
 import types
 import warnings
-
-from importlib_metadata import packages_distributions
 
 import audeer
 from audobject.core import define
