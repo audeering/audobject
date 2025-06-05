@@ -57,7 +57,7 @@ class Object:
 
         # non-keyword arguments from __init__
         names = [
-            p.name for p in signature.parameters.values() if not p.name == "kwargs"
+            p.name for p in signature.parameters.values() if p.name != "kwargs"
         ]
 
         # additional keyword arguments
