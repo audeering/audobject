@@ -44,6 +44,25 @@ repository = 'https://github.com/audeering/audobject/'
 documentation = 'https://audeering.github.io/audobject/'
 
 
+# ===== Dependency groups =================================================
+[dependency-groups]
+dev = [
+    'audeer >=2.2.2',
+    'ipykernel',
+    'jupyter-sphinx',
+    'parse',
+    'pytest<7.0.0',
+    'pytest-doctestplus',
+    'pytest-console-scripts',
+    'pytest-cov',
+    'sphinx ==5.3.0',
+    'sphinx-audeering-theme >=1.2.1',
+    'sphinx-autodoc-typehints',
+    'sphinx-copybutton',
+    'toml',
+]
+
+
 # ===== BUILD-SYSTEM ======================================================
 #
 # Requirements for building the Python package

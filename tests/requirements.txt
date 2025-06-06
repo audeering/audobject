@@ -1,5 +1,0 @@
-parse
-pytest<7.0.0
-pytest-doctestplus
-pytest-console-scripts
-pytest-cov
