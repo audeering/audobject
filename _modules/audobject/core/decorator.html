@@ -64,6 +64,10 @@
           
             
             
+              <div class="version">
+                v0.7.12
+              </div>
+            
           
 
           
@@ -139,19 +143,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for audobject.core.decorator</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">functools</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">typing</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">define</span>
-<span class="kn">from</span> <span class="nn">audobject.core</span> <span class="kn">import</span> <span class="n">resolver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">audobject.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">define</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">audobject.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolver</span>
 
 
-<div class="viewcode-block" id="init_decorator"><a class="viewcode-back" href="../../../api/audobject.init_decorator.html#audobject.init_decorator">[docs]</a><span class="k">def</span> <span class="nf">init_decorator</span><span class="p">(</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">borrow</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">hide</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">resolvers</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="init_decorator"><a class="viewcode-back" href="../../../api/audobject.init_decorator.html#audobject.init_decorator">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">init_decorator</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">borrow</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">hide</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">resolvers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Decorator for ``__init__`` function of :class:`audobject.Object`.</span>
 
@@ -182,21 +188,19 @@
 <span class="sd">        RuntimeError: if arguments are not assigned to attributes of same name</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
+        <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="c1"># convert positional to keyword arguments</span>
             <span class="n">parameters</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s1">&#39;self&#39;</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
-                <span class="n">parameters</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;self&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;self&quot;</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;self&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">arg</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg</span>
             <span class="n">args</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">resolvers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">):</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">,</span> <span class="p">{})</span>
 
@@ -204,18 +208,17 @@
                     <span class="n">resolver_obj</span> <span class="o">=</span> <span class="n">resolve</span><span class="p">()</span>
                     <span class="c1"># let resolver know if we read from a stream</span>
                     <span class="k">if</span> <span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-                        <span class="n">resolver_obj</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span> <span class="o">=</span> \
-                            <span class="n">kwargs</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> \
-                        <span class="n">resolver_obj</span>
+                        <span class="n">resolver_obj</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span>
+                            <span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span>
+                        <span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">CUSTOM_VALUE_RESOLVERS</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">resolver_obj</span>
                     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
-                            <span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
-                            <span class="n">resolver_obj</span><span class="o">.</span><span class="n">encode_type</span><span class="p">(),</span>
+                        <span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
+                        <span class="n">resolver_obj</span><span class="o">.</span><span class="n">encode_type</span><span class="p">(),</span>
                     <span class="p">):</span>
                         <span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">resolver_obj</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
 
             <span class="k">if</span> <span class="n">borrow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">BORROWED_ATTRIBUTES</span><span class="p">):</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">BORROWED_ATTRIBUTES</span><span class="p">,</span> <span class="p">{})</span>
 
@@ -223,14 +226,20 @@
                     <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">define</span><span class="o">.</span><span class="n">BORROWED_ATTRIBUTES</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
             <span class="k">if</span> <span class="n">hide</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
                 <span class="n">signature</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-                <span class="n">required</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>
-                    <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">signature</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span> <span class="o">==</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
-                        <span class="s1">&#39;self&#39;</span><span class="p">,</span> <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="s1">&#39;kwargs&#39;</span><span class="p">,</span>
+                <span class="n">required</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">name</span>
+                        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">signature</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">default</span> <span class="o">==</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span>
+                        <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span>
+                        <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+                            <span class="s2">&quot;self&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;args&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;kwargs&quot;</span><span class="p">,</span>
+                        <span class="p">]</span>
                     <span class="p">]</span>
-                <span class="p">])</span>
+                <span class="p">)</span>
 
                 <span class="n">invalid</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">hide</span><span class="p">:</span>
@@ -238,11 +247,11 @@
                         <span class="n">invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">invalid</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s1">&#39;Cannot hide arguments &#39;</span>
-                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">invalid</span><span class="si">}</span><span class="s1"> &#39;</span>
-                        <span class="sa">f</span><span class="s1">&#39;of &#39;</span>
-                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1"> &#39;</span>
-                        <span class="sa">f</span><span class="s1">&#39;as they do not have default values.&#39;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Cannot hide arguments &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">invalid</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;of &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;as they do not have default values.&quot;</span>
                     <span class="p">)</span>
 
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">define</span><span class="o">.</span><span class="n">HIDDEN_ATTRIBUTES</span><span class="p">):</span>
@@ -273,7 +282,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org">Sphinx</a> on 2025/06/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -281,7 +290,7 @@
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2023 audEERING GmbH
+      &copy; audEERING GmbH
     </p>
   </div> 
 

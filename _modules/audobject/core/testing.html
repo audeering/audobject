@@ -64,6 +64,10 @@
           
             
             
+              <div class="version">
+                v0.7.12
+              </div>
+            
           
 
           
@@ -139,12 +143,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for audobject.core.testing</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">audobject.core.decorator</span> <span class="kn">import</span> <span class="n">init_decorator</span>
-<span class="kn">from</span> <span class="nn">audobject.core.object</span> <span class="kn">import</span> <span class="n">Object</span>
-<span class="kn">import</span> <span class="nn">audobject.core.resolver</span> <span class="k">as</span> <span class="nn">resolver</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">audobject.core.decorator</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_decorator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">audobject.core.object</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">audobject.core.resolver</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">resolver</span>
 
 
-<div class="viewcode-block" id="TestObject"><a class="viewcode-back" href="../../../api/audobject.testing.TestObject.html#audobject.testing.TestObject">[docs]</a><span class="k">class</span> <span class="nc">TestObject</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<div class="viewcode-block" id="TestObject"><a class="viewcode-back" href="../../../api/audobject.testing.TestObject.html#audobject.testing.TestObject">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TestObject</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Test object.</span>
 
 <span class="sd">    Args:</span>
@@ -155,7 +159,7 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; from datetime import datetime</span>
-<span class="sd">        &gt;&gt;&gt; foo = TestObject(&#39;test&#39;, pi=3.1416)</span>
+<span class="sd">        &gt;&gt;&gt; foo = TestObject(&quot;test&quot;, pi=3.1416)</span>
 <span class="sd">        &gt;&gt;&gt; print(foo)</span>
 <span class="sd">        $audobject.core.testing.TestObject:</span>
 <span class="sd">          name: test</span>
@@ -165,17 +169,18 @@
 <span class="sd">          pi: 3.1416</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="nd">@init_decorator</span><span class="p">(</span>
         <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span>
-            <span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">resolver</span><span class="o">.</span><span class="n">Tuple</span><span class="p">,</span>
+            <span class="s2">&quot;point&quot;</span><span class="p">:</span> <span class="n">resolver</span><span class="o">.</span><span class="n">Tuple</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="o">*</span><span class="p">,</span>
-            <span class="n">point</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">point</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -198,7 +203,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org">Sphinx</a> on 2025/06/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -206,7 +211,7 @@
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2023 audEERING GmbH
+      &copy; audEERING GmbH
     </p>
   </div> 
 

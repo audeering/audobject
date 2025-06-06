@@ -13,7 +13,7 @@ and re-instantiate the object from it.
     import os
     import audeer
     _cwd_root = os.getcwd()
-    _tmp_root = audeer.mkdir(os.path.join('docs', 'tmp'))
+    _tmp_root = audeer.mkdir(os.path.join("docs", "tmp"))
     os.chdir(_tmp_root)
 
 
@@ -27,7 +27,7 @@ Let's create a class that derives from :class:`audobject.Object`.
     import audobject
 
 
-    __version__ = '1.0.0'  # pretend we have a package version
+    __version__ = "1.0.0"  # pretend we have a package version
 
     class MyObject(audobject.Object):
 
@@ -41,13 +41,13 @@ Let's create a class that derives from :class:`audobject.Object`.
             self.num_repeat = num_repeat
 
         def __str__(self) -> str:
-            return ' '.join([self.string] * self.num_repeat)
+            return " ".join([self.string] * self.num_repeat)
 
 Now we instantiate an object and print it.
 
 .. jupyter-execute::
 
-    o = MyObject('hello object!', num_repeat=2)
+    o = MyObject("hello object!", num_repeat=2)
     print(o)
 
 As expected we see that ``string`` is repeated ``num_repeat`` times.
@@ -98,7 +98,7 @@ arguments when we instantiate an object.
     o4 = audobject.from_yaml_s(
         o_yaml,
         override_args={
-            'string': 'I was set to a different value!'
+            "string": "I was set to a different value!"
         }
     )
     print(o4)
@@ -107,7 +107,7 @@ Or save an object to disk and re-instantiate it from there.
 
 .. jupyter-execute::
 
-    file = 'my.yaml'
+    file = "my.yaml"
     o.to_yaml(file)
     o5 = audobject.from_yaml(file)
     print(o5)
@@ -119,14 +119,14 @@ Every object has an ID.
 
 .. jupyter-execute::
 
-    o = MyObject('I am unique!', num_repeat=2)
+    o = MyObject("I am unique!", num_repeat=2)
     print(o.id)
 
 Objects with exact same arguments share the same ID.
 
 .. jupyter-execute::
 
-    o2 = MyObject('I am unique!', num_repeat=2)
+    o2 = MyObject("I am unique!", num_repeat=2)
     print(o.id == o2.id)
 
 When an object is serialized the ID does not change.
@@ -140,7 +140,7 @@ Objects with different arguments get different IDs.
 
 .. jupyter-execute::
 
-    o4 = MyObject('I am different!', num_repeat=2)
+    o4 = MyObject("I am different!", num_repeat=2)
     print(o.id == o4.id)
 
 Malformed objects
@@ -165,13 +165,13 @@ Let's create a class where we don't follow this rule.
             self.repeat = num_repeat
 
         def __str__(self) -> str:
-            return ' '.join([self.msg] * self.repeat)
+            return " ".join([self.msg] * self.repeat)
 
 At a first glance, everything works as expected.
 
 .. jupyter-execute::
 
-    bad = MyBadObject('test', num_repeat=2)
+    bad = MyBadObject("test", num_repeat=2)
     print(bad)
 
 But if we try to instantiate the object
@@ -205,7 +205,7 @@ with the :meth:`audobject.init_decorator` decorator.
     class MyObjectWithHiddenArgument(audobject.Object):
 
         @audobject.init_decorator(
-            hide=['verbose'],
+            hide=["verbose"],
         )
         def __init__(
                 self,
@@ -216,19 +216,19 @@ with the :meth:`audobject.init_decorator` decorator.
         ):
             self.string = string
             self.num_repeat = num_repeat
-            self.debug = verbose  # 'verbose' is hidden, so we can set it to a different name
+            self.debug = verbose  # "verbose" is hidden, so we can set it to a different name
 
         def __str__(self) -> str:
             if self.debug:
-                print('LOG: print message')
-            return ' '.join([self.string] * self.num_repeat)
+                print("LOG: print message")
+            return " ".join([self.string] * self.num_repeat)
 
 If we set ``verbose=True``, debug message are printed.
 
 .. jupyter-execute::
 
     o = MyObjectWithHiddenArgument(
-        'hello object!',
+        "hello object!",
         num_repeat=3,
         verbose=True,
     )
@@ -259,7 +259,7 @@ to ``True`` when we load the object.
     o3 = audobject.from_yaml_s(
         o_yaml,
         override_args={
-            'verbose': True,
+            "verbose": True,
         }
     )
     print(o3)
@@ -303,9 +303,9 @@ to add properties with the name of an argument.
 
         @audobject.init_decorator(
             borrow={
-                'x': 'point',
-                'y': 'point',
-                'z': 'd',
+                "x": "point",
+                "y": "point",
+                "z": "d",
             },
         )
         def __init__(
@@ -315,11 +315,11 @@ to add properties with the name of an argument.
                 z: int,
         ):
             self.point = Point(x, y)
-            self.d = {'z': z}
+            self.d = {"z": z}
 
         @property
         def z(self):  # property sharing the name of an argument
-            return self.d['z']
+            return self.d["z"]
 
     o = ObjectWithBorrowedArguments(0, 1, 2)
     print(o.to_yaml_s())
@@ -346,12 +346,12 @@ from the signature of the function.
             super().__init__(**kwargs)  # inform base class about keyword arguments
 
             self.string = string
-            self.num_repeat = kwargs['num_repeat'] if 'num_repeat' in kwargs else 1
+            self.num_repeat = kwargs["num_repeat"] if "num_repeat" in kwargs else 1
 
         def __str__(self) -> str:
-            return ' '.join([self.string] * self.num_repeat)
+            return " ".join([self.string] * self.num_repeat)
 
-    o = MyObjectWithKwargs('I have kwargs', num_repeat=3)
+    o = MyObjectWithKwargs("I have kwargs", num_repeat=3)
     print(o)
 
 When we serialize the object,
@@ -381,13 +381,13 @@ For instance, we can define the following class.
             self.obj = obj
 
         def __str__(self) -> str:
-            return f'[{str(self.obj)}]'
+            return f"[{str(self.obj)}]"
 
 And initialize it with an instance of ``MyObject``.
 
 .. jupyter-execute::
 
-    o = MyObject('eat me!')
+    o = MyObject("eat me!")
     w = MySuperObject(o)
     print(w)
 
@@ -487,16 +487,16 @@ encoded and decoded.
 
         def decode(self, value: dict) -> timedelta:
             return timedelta(
-                days=value['days'],
-                seconds=value['seconds'],
-                microseconds=value['microseconds'],
+                days=value["days"],
+                seconds=value["seconds"],
+                microseconds=value["microseconds"],
             )
 
         def encode(self, value: timedelta) -> dict:
             return {
-                'days': value.days,
-                'seconds': value.seconds,
-                'microseconds': value.microseconds,
+                "days": value.days,
+                "seconds": value.seconds,
+                "microseconds": value.microseconds,
             }
 
         def encode_type(self):
@@ -512,7 +512,7 @@ decorator of the ``__init__`` function.
     class MyResolvedDeltaObject(audobject.Object):
 
         @audobject.init_decorator(
-            resolvers={'delta': DeltaResolver},
+            resolvers={"delta": DeltaResolver},
         )
         def __init__(
                 self,
@@ -554,7 +554,7 @@ This can be achieved using
 
         @audobject.init_decorator(
             resolvers={
-                'path': audobject.resolver.FilePath,  # ensure portability
+                "path": audobject.resolver.FilePath,  # ensure portability
             }
         )
         def __init__(
@@ -565,7 +565,7 @@ This can be achieved using
 
         def read(self):  # print path and content
             print(self.path)
-            with open(self.path, 'r') as fp:
+            with open(self.path, "r") as fp:
                 print(fp.readlines())
 
 Here, we create a file and pass it to the object.
@@ -575,12 +575,12 @@ Here, we create a file and pass it to the object.
     import os
     import audeer
 
-    root = 'root'
+    root = "root"
 
-    res_path = os.path.join(root, 're', 'source.txt')  # root/re/source.txt
+    res_path = os.path.join(root, "re", "source.txt")  # root/re/source.txt
     audeer.mkdir(os.path.dirname(res_path))
-    with open(res_path, 'w') as fp:
-        fp.write('You found me!')
+    with open(res_path, "w") as fp:
+        fp.write("You found me!")
 
     o = MyObjectWithFile(res_path)
     o.read()
@@ -595,10 +595,10 @@ of the YAML file.
     import yaml
 
 
-    yaml_path = os.path.join(root, 'yaml', 'object.yaml')  # root/yaml/object.yaml
+    yaml_path = os.path.join(root, "yaml", "object.yaml")  # root/yaml/object.yaml
     o.to_yaml(yaml_path)
 
-    with open(yaml_path, 'r') as fp:
+    with open(yaml_path, "r") as fp:
         content = yaml.load(fp, Loader=yaml.Loader)
     content
 
@@ -618,10 +618,10 @@ as their relative location to the YAML file must not change.
 
     import shutil
 
-    new_root = os.path.join('some', 'where', 'else')
+    new_root = os.path.join("some", "where", "else")
     shutil.move(root, new_root)
 
-    yaml_path_new = os.path.join(new_root, 'yaml', 'object.yaml')
+    yaml_path_new = os.path.join(new_root, "yaml", "object.yaml")
     o3 = audobject.from_yaml(yaml_path_new)
     o3.read()
 
@@ -640,19 +640,19 @@ The following class takes as arguments a function with two parameters.
 
 .. jupyter-execute::
 
-    import typing
+    from collections.abc import Callable
 
 
     class MyObjectWithFunction(audobject.Object):
 
         @audobject.init_decorator(
             resolvers={
-                'func': audobject.resolver.Function,
+                "func": audobject.resolver.Function,
             }
         )
         def __init__(
                 self,
-                func: typing.Callable[[int, int], int],
+                func: Callable[[int, int], int],
         ):
             self.func = func
 
@@ -769,17 +769,16 @@ And initialize an object.
 .. jupyter-execute::
 
     o = MyListDictObject(
-        a_str='test',
-        a_list=[1, '2', o],
-        a_dict={'pi': 3.1416, 'e': 2.71828},
+        a_str="test",
+        a_list=[1, "2", o],
+        a_dict={"pi": 3.1416, "e": 2.71828},
     )
     o.to_dict()
 
 As expected, the dictionary of the object
 looks pretty nested.
 This is not always handy,
-e.g. if we try to store the object to a
-:class:`audfactory.Lookup` table,
+e.g. if we try to store the object to a lookup table,
 this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.
@@ -803,7 +802,7 @@ Let's create another instance of ``MyObject``.
 
 .. jupyter-execute::
 
-    o = MyObject('I am a 1.0.0!', num_repeat=2)
+    o = MyObject("I am a 1.0.0!", num_repeat=2)
     print(o)
 
 And convert it to YAML.
@@ -818,7 +817,7 @@ works without problems.
 
 .. jupyter-execute::
 
-    __version__ = '1.1.0'
+    __version__ = "1.1.0"
 
     o2 = audobject.from_yaml_s(o_yaml)
     print(o2)
@@ -834,7 +833,7 @@ by adjusting
 .. jupyter-execute::
     :stderr:
 
-    __version__ = '0.9.0'
+    __version__ = "0.9.0"
 
     o3 = audobject.from_yaml_s(o_yaml)
     print(o3)
@@ -845,7 +844,7 @@ with a slightly changed ``__str__`` function.
 
 .. jupyter-execute::
 
-    __version__ = '2.0.0'
+    __version__ = "2.0.0"
 
     class MyObject(audobject.Object):
 
@@ -859,7 +858,7 @@ with a slightly changed ``__str__`` function.
             self.num_repeat = num_repeat
 
         def __str__(self) -> str:
-            return ','.join([self.string] * self.num_repeat)
+            return ",".join([self.string] * self.num_repeat)
 
 Since the signature of the constructor has not changed,
 the object will be created without problems.
@@ -876,7 +875,7 @@ that let the user set a custom delimiter.
 
 .. jupyter-execute::
 
-    __version__ = '2.1.0'
+    __version__ = "2.1.0"
 
     class MyObject(audobject.Object):
 
@@ -892,7 +891,7 @@ that let the user set a custom delimiter.
             self.num_repeat = num_repeat
 
         def __str__(self) -> str:
-            return ' '.join([self.string] * self.num_repeat)
+            return " ".join([self.string] * self.num_repeat)
 
 If we now instantiate the object,
 we will get an error,
@@ -911,14 +910,14 @@ where we initialize the new argument with a default value.
 
 .. jupyter-execute::
 
-    __version__ = '2.1.1'
+    __version__ = "2.1.1"
 
     class MyObject(audobject.Object):
 
         def __init__(
                 self,
                 string: str,
-                delimiter: str = ',',
+                delimiter: str = ",",
                 *,
                 num_repeat: int = 1,
         ):
@@ -927,7 +926,7 @@ where we initialize the new argument with a default value.
             self.num_repeat = num_repeat
 
         def __str__(self) -> str:
-            return ' '.join([self.string] * self.num_repeat)
+            return " ".join([self.string] * self.num_repeat)
 
 And in fact, it successfully creates the object again.
 It works, because it now has a default value for the missing argument.
@@ -942,7 +941,7 @@ Create an object with version ``2.1.1``.
 
 .. jupyter-execute::
 
-    o5 = MyObject('I am a 2.1.1!', num_repeat=2)
+    o5 = MyObject("I am a 2.1.1!", num_repeat=2)
     print(o5)
 
 Convert it to YAML.
@@ -957,7 +956,7 @@ And load it with ``1.0.0``.
 .. jupyter-execute::
     :stderr:
 
-    __version__ = '1.0.0'
+    __version__ = "1.0.0"
 
     class MyObject(audobject.Object):
 
@@ -971,7 +970,7 @@ And load it with ``1.0.0``.
             self.num_repeat = num_repeat
 
         def __str__(self) -> str:
-            return ' '.join([self.string] * self.num_repeat)
+            return " ".join([self.string] * self.num_repeat)
 
     o6 = audobject.from_yaml_s(o5_yaml)
     print(o6)
@@ -988,7 +987,7 @@ Dictionary
 .. jupyter-execute::
 
     d = audobject.Dictionary(
-        string='I am a dictionary!',
+        string="I am a dictionary!",
         pi=3.14159265359,
     )
     print(d)
@@ -998,8 +997,8 @@ values of the dictionary.
 
 .. jupyter-execute::
 
-    d['string'] = 'Still a dictionary!'
-    d['new'] = None
+    d["string"] = "Still a dictionary!"
+    d["new"] = None
     print(d)
 
 And update from another dictionary.
@@ -1007,8 +1006,8 @@ And update from another dictionary.
 .. jupyter-execute::
 
     d2 = audobject.Dictionary(
-        string='I will be a dictionary forever!',
-        object=MyObject('Hey, I am an object.'),
+        string="I will be a dictionary forever!",
+        object=MyObject("Hey, I am an object."),
     )
     d.update(d2)
     print(d)
@@ -1017,7 +1016,7 @@ And we can read/write the dictionary from/to a file.
 
 .. jupyter-execute::
 
-    file = 'dict.yaml'
+    file = "dict.yaml"
     d.to_yaml(file)
     d3 = audobject.from_yaml(file)
     print(d3)
@@ -1046,9 +1045,9 @@ A parameter that holds a string.
 
     string = audobject.Parameter(
         value_type=str,
-        description='the string we want to repeat',
-        value='bar',
-        choices=['bar', 'Bar', 'BAR'],
+        description="the string we want to repeat",
+        value="bar",
+        choices=["bar", "Bar", "BAR"],
     )
     print(string)
 
@@ -1058,7 +1057,7 @@ And a parameter that defines how many times we want to repeat the string.
 
     repeat = audobject.Parameter(
         value_type=int,
-        description='the number of times we want to repeat',
+        description="the number of times we want to repeat",
         default_value=1,
     )
     print(repeat)
@@ -1084,7 +1083,7 @@ We can access the values of the parameters using ``.`` notation.
 
 .. jupyter-execute::
 
-    params.string = 'BAR'
+    params.string = "BAR"
     params.num_repeat = 2
     print(params)
 
@@ -1095,7 +1094,7 @@ we will get an error.
     :stderr:
     :raises:
 
-    params.string = 'par'
+    params.string = "par"
 
 It is possible to assign a version (or a range of versions)
 to a parameter.
@@ -1104,24 +1103,24 @@ to a parameter.
 
     delim = audobject.Parameter(
         value_type=str,
-        description='defines the delimiter',
-        default_value=',',
-        version='>=2.0.0,<3.0.0'
+        description="defines the delimiter",
+        default_value=",",
+        version=">=2.0.0,<3.0.0"
     )
-    params['delimiter'] = delim
+    params["delimiter"] = delim
     print(params)
 
 We can check if a parameter is available for a specific version.
 
 .. jupyter-execute::
 
-    '1.0.0' in delim, '2.4.0' in delim
+    "1.0.0" in delim, "2.4.0" in delim
 
 We can also filter a list of parameters by version.
 
 .. jupyter-execute::
 
-    params_v3 = params.filter_by_version('3.0.0')
+    params_v3 = params.filter_by_version("3.0.0")
     print(params_v3)
 
 Or add them to a command line interface.
@@ -1140,7 +1139,7 @@ Or update the values from a command line interface.
 .. jupyter-execute::
 
     args = parser.parse_args(
-        args=['--string=Bar', '--delimiter=;']
+        args=["--string=Bar", "--delimiter=;"]
     )
     params.from_command_line(args)
     print(params)
@@ -1156,7 +1155,7 @@ Last but not least, we can read/write the parameters from/to a file.
 
 .. jupyter-execute::
 
-    file = 'params.yaml'
+    file = "params.yaml"
     params.to_yaml(file)
     params2 = audobject.from_yaml(file)
     print(params2)

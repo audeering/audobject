@@ -64,6 +64,10 @@
           
             
             
+              <div class="version">
+                v0.7.12
+              </div>
+            
           
 
           
@@ -139,21 +143,23 @@
            <div itemprop="articleBody">
             
   <h1>Source code for audobject.core.parameter</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">typing</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">packaging.specifiers</span>
-<span class="kn">import</span> <span class="nn">packaging.version</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">audobject.core.decorator</span> <span class="kn">import</span> <span class="n">init_decorator</span>
-<span class="kn">import</span> <span class="nn">audobject.core.define</span> <span class="k">as</span> <span class="nn">define</span>
-<span class="kn">from</span> <span class="nn">audobject.core.dictionary</span> <span class="kn">import</span> <span class="n">Dictionary</span>
-<span class="kn">from</span> <span class="nn">audobject.core.object</span> <span class="kn">import</span> <span class="n">Object</span>
-<span class="kn">import</span> <span class="nn">audobject.core.resolver</span> <span class="k">as</span> <span class="nn">resolver</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">packaging.specifiers</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">packaging.version</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">audobject.core.decorator</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_decorator</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">audobject.core.define</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">define</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">audobject.core.dictionary</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dictionary</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">audobject.core.object</span><span class="w"> </span><span class="kn">import</span> <span class="n">Object</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">audobject.core.resolver</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">resolver</span>
 
 
-<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Parameter</span><span class="p">(</span><span class="n">Object</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single parameter.</span>
 
 <span class="sd">    A parameter steers the behaviour of a an object (e.g. tuning a model).</span>
@@ -179,25 +185,25 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; foo = Parameter(</span>
 <span class="sd">        ...     value_type=str,</span>
-<span class="sd">        ...     description=&#39;some parameter&#39;,</span>
-<span class="sd">        ...     default_value=&#39;bar&#39;,</span>
-<span class="sd">        ...     choices=[&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;],</span>
-<span class="sd">        ...     version=&#39;&gt;=1.0.0,&lt;2.0.0&#39;,</span>
+<span class="sd">        ...     description=&quot;some parameter&quot;,</span>
+<span class="sd">        ...     default_value=&quot;bar&quot;,</span>
+<span class="sd">        ...     choices=[&quot;bar&quot;, &quot;Bar&quot;, &quot;BAR&quot;],</span>
+<span class="sd">        ...     version=&quot;&gt;=1.0.0,&lt;2.0.0&quot;,</span>
 <span class="sd">        ... )</span>
 <span class="sd">        &gt;&gt;&gt; # check version</span>
-<span class="sd">        &gt;&gt;&gt; &#39;1.5.0&#39; in foo</span>
+<span class="sd">        &gt;&gt;&gt; &quot;1.5.0&quot; in foo</span>
 <span class="sd">        True</span>
-<span class="sd">        &gt;&gt;&gt; &#39;2.0.0&#39; in foo</span>
+<span class="sd">        &gt;&gt;&gt; &quot;2.0.0&quot; in foo</span>
 <span class="sd">        False</span>
 <span class="sd">        &gt;&gt;&gt; # get/set value</span>
 <span class="sd">        &gt;&gt;&gt; foo.value</span>
 <span class="sd">        &#39;bar&#39;</span>
-<span class="sd">        &gt;&gt;&gt; foo.set_value(&#39;Bar&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; foo.set_value(&quot;Bar&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; foo.value</span>
 <span class="sd">        &#39;Bar&#39;</span>
 <span class="sd">        &gt;&gt;&gt; # set invalid value</span>
 <span class="sd">        &gt;&gt;&gt; try:</span>
-<span class="sd">        ...     foo.set_value(&#39;par&#39;)</span>
+<span class="sd">        ...     foo.set_value(&quot;par&quot;)</span>
 <span class="sd">        ... except ValueError as ex:</span>
 <span class="sd">        ...     print(ex)</span>
 <span class="sd">        Invalid value &#39;par&#39;, expected one of [&#39;bar&#39;, &#39;Bar&#39;, &#39;BAR&#39;].</span>
@@ -206,20 +212,19 @@
 
     <span class="nd">@init_decorator</span><span class="p">(</span>
         <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span>
-            <span class="s1">&#39;value_type&#39;</span><span class="p">:</span> <span class="n">resolver</span><span class="o">.</span><span class="n">Type</span><span class="p">,</span>
+            <span class="s2">&quot;value_type&quot;</span><span class="p">:</span> <span class="n">resolver</span><span class="o">.</span><span class="n">Type</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="o">*</span><span class="p">,</span>
-            <span class="n">value_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-            <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">default_value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">choices</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Sequence</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">value_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">default_value</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">choices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">object</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">value_type</span> <span class="o">=</span> <span class="n">value_type</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Data type of parameter&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
@@ -241,7 +246,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">default_value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Parameter.__contains__"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Parameter.__contains__"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter.__contains__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if parameter is in parameter object.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -251,7 +256,7 @@
 
         <span class="k">return</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">version_range</span></div>
 
-<div class="viewcode-block" id="Parameter.set_value"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter.set_value"><a class="viewcode-back" href="../../../api/audobject.Parameter.html#audobject.Parameter.set_value">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets a new value.</span>
 
 <span class="sd">        Applies additional checks, e.g. if value is of the expected type.</span>
@@ -267,21 +272,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span></div>
 
-    <span class="k">def</span> <span class="nf">_check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if value matches expected type.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_type</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value_type</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;, &quot;</span> <span class="sa">f</span><span class="s2">&quot;expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value_type</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;, &quot;</span> <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Parameters"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters">[docs]</a><span class="k">class</span> <span class="nc">Parameters</span><span class="p">(</span><span class="n">Dictionary</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameters"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Parameters</span><span class="p">(</span><span class="n">Dictionary</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;List of parameters.</span>
 
 <span class="sd">    Args:</span>
@@ -291,21 +294,21 @@
 <span class="sd">        &gt;&gt;&gt; # create parameter</span>
 <span class="sd">        &gt;&gt;&gt; foo = Parameter(</span>
 <span class="sd">        ...     value_type=str,</span>
-<span class="sd">        ...     description=&#39;foo&#39;,</span>
+<span class="sd">        ...     description=&quot;foo&quot;,</span>
 <span class="sd">        ... )</span>
 <span class="sd">        &gt;&gt;&gt; # create list of parameters</span>
 <span class="sd">        &gt;&gt;&gt; params = Parameters(foo=foo)</span>
 <span class="sd">        &gt;&gt;&gt; # get / set parameter value</span>
-<span class="sd">        &gt;&gt;&gt; params.foo = &#39;bar&#39;</span>
+<span class="sd">        &gt;&gt;&gt; params.foo = &quot;bar&quot;</span>
 <span class="sd">        &gt;&gt;&gt; params.foo</span>
 <span class="sd">        &#39;bar&#39;</span>
 <span class="sd">        &gt;&gt;&gt; # add another parameter to list</span>
 <span class="sd">        &gt;&gt;&gt; pi = Parameter(</span>
 <span class="sd">        ...     value_type=float,</span>
-<span class="sd">        ...     description=&#39;mathematical constant&#39;,</span>
+<span class="sd">        ...     description=&quot;mathematical constant&quot;,</span>
 <span class="sd">        ...     value=3.14159265359,</span>
 <span class="sd">        ... )</span>
-<span class="sd">        &gt;&gt;&gt; params[&#39;pi&#39;] = pi</span>
+<span class="sd">        &gt;&gt;&gt; params[&quot;pi&quot;] = pi</span>
 <span class="sd">        &gt;&gt;&gt; print(params)</span>
 <span class="sd">        Name  Value          Default  Choices  Description            Version</span>
 <span class="sd">        ----  -----          -------  -------  -----------            -------</span>
@@ -316,16 +319,17 @@
 <span class="sd">        {&#39;foo&#39;: &#39;bar&#39;, &#39;pi&#39;: 3.14159265359}</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Parameters.filter_by_version"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.filter_by_version">[docs]</a>    <span class="k">def</span> <span class="nf">filter_by_version</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Parameters&#39;</span><span class="p">:</span>
+<div class="viewcode-block" id="Parameters.filter_by_version"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.filter_by_version">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">filter_by_version</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parameters&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Filter parameters by version.</span>
 
 <span class="sd">        Returns a subset including only those parameters that match a given</span>
@@ -344,10 +348,10 @@
                 <span class="n">params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">param</span>
         <span class="k">return</span> <span class="n">params</span></div>
 
-<div class="viewcode-block" id="Parameters.from_command_line"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.from_command_line">[docs]</a>    <span class="k">def</span> <span class="nf">from_command_line</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Parameters&#39;</span><span class="p">:</span>
+<div class="viewcode-block" id="Parameters.from_command_line"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.from_command_line">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_command_line</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Parameters&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Parse parameters from command line parser.</span>
 
 <span class="sd">        Args:</span>
@@ -359,9 +363,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Parameters.to_command_line"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.to_command_line">[docs]</a>    <span class="k">def</span> <span class="nf">to_command_line</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">,</span>
+<div class="viewcode-block" id="Parameters.to_command_line"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.to_command_line">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_command_line</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Add parameters to command line parser.</span>
 
@@ -372,34 +376,33 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
             <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">help</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s1"> (version: </span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s1">)&#39;</span>
+                <span class="n">help</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2"> (version: </span><span class="si">{</span><span class="n">param</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">)&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">help</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">description</span>
 
-            <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">value_type</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">value_type</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># noqa: E721</span>
                 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;--</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
                     <span class="n">help</span><span class="o">=</span><span class="n">help</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">&#39;--</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="nb">type</span><span class="o">=</span><span class="n">param</span><span class="o">.</span><span class="n">value_type</span><span class="p">,</span>
                     <span class="n">default</span><span class="o">=</span><span class="n">param</span><span class="o">.</span><span class="n">default_value</span><span class="p">,</span>
                     <span class="n">choices</span><span class="o">=</span><span class="n">param</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span>
                     <span class="n">help</span><span class="o">=</span><span class="n">help</span><span class="p">,</span>
                 <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Parameters.to_path"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.to_path">[docs]</a>    <span class="k">def</span> <span class="nf">to_path</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="o">*</span><span class="p">,</span>
-            <span class="n">delimiter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span>
-            <span class="n">include</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">exclude</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">sort</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<div class="viewcode-block" id="Parameters.to_path"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.to_path">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">delimiter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span>
+        <span class="n">include</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exclude</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sort</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Creates path from parameters.</span>
 
@@ -413,9 +416,7 @@
         <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
             <span class="n">names</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">name</span><span class="p">:</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span>
-        <span class="p">}</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">}</span>
         <span class="n">exclude</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">exclude</span> <span class="ow">or</span> <span class="p">[])</span>
         <span class="k">if</span> <span class="n">include</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
@@ -423,42 +424,52 @@
                     <span class="n">exclude</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
             <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">[</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
         <span class="k">return</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Parameters.__call__"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameters.__call__"><a class="viewcode-back" href="../../../api/audobject.Parameters.html#audobject.Parameters.__call__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return parameters as dictionary.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="n">name</span><span class="p">:</span> <span class="n">param</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-        <span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">param</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
-    <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>  <span class="c1"># noqa: D105</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;__dict__&#39;</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>  <span class="c1"># noqa: D105</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;__dict__&quot;</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
             <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">value</span>
         <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>  <span class="c1"># noqa: D105</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>  <span class="c1"># noqa: D105</span>
         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="n">p</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover  # noqa: D105</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover  # noqa: D105</span>
         <span class="n">table</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">[</span>
-                <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="s1">&#39;Choices&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;Description&#39;</span><span class="p">,</span> <span class="s1">&#39;Version&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Value&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Default&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Choices&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Version&quot;</span><span class="p">,</span>
             <span class="p">],</span>
             <span class="p">[</span>
-                <span class="s1">&#39;----&#39;</span><span class="p">,</span> <span class="s1">&#39;-----&#39;</span><span class="p">,</span> <span class="s1">&#39;-------&#39;</span><span class="p">,</span> <span class="s1">&#39;-------&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;-----------&#39;</span><span class="p">,</span> <span class="s1">&#39;-------&#39;</span><span class="p">,</span>
-            <span class="p">]</span>
+                <span class="s2">&quot;----&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;-----&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;-------&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;-------&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;-----------&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;-------&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">define</span><span class="o">.</span><span class="n">ROOT_ATTRIBUTE</span><span class="p">:</span>
                 <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="p">[</span>
-                        <span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">default_value</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span>
-                        <span class="n">p</span><span class="o">.</span><span class="n">description</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+                        <span class="n">name</span><span class="p">,</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">default_value</span><span class="p">,</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
                     <span class="p">]</span>
                 <span class="p">)</span>
         <span class="n">padding</span> <span class="o">=</span> <span class="mi">2</span>
@@ -471,12 +482,10 @@
         <span class="c1"># Don&#39;t pad the last column</span>
         <span class="n">col_width</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">padding</span>
         <span class="n">row</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="nb">str</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">width</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col_width</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">width</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col_width</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span>
         <span class="p">]</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -492,7 +501,7 @@
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org">Sphinx</a> on 2025/06/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -500,7 +509,7 @@
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2023 audEERING GmbH
+      &copy; audEERING GmbH
     </p>
   </div> 
 

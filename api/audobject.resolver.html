@@ -66,6 +66,10 @@
           
             
             
+              <div class="version">
+                v0.7.12
+              </div>
+            
           
 
           
@@ -171,10 +175,10 @@ and a warning will be raised.
 It is recommended to use a special resolver in those cases.</p>
 <p>To apply a resolver,
 register it using the <a class="reference internal" href="audobject.init_decorator.html#audobject.init_decorator" title="audobject.init_decorator"><code class="xref py py-func docutils literal notranslate"><span class="pre">audobject.init_decorator()</span></code></a>, e.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">audobject</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">audobject</span>
 
 
-<span class="k">class</span> <span class="nc">MyObjectWithTuple</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyObjectWithTuple</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">Object</span><span class="p">):</span>
 
     <span class="nd">@audobject</span><span class="o">.</span><span class="n">init_decorator</span><span class="p">(</span>
         <span class="n">resolvers</span><span class="o">=</span><span class="p">{</span>
@@ -182,7 +186,7 @@ register it using the <a class="reference internal" href="audobject.init_decorat
         <span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">t</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
     <span class="p">):</span>
@@ -191,26 +195,26 @@ register it using the <a class="reference internal" href="audobject.init_decorat
 </div>
 <p>To write a custom resolver derive from
 <a class="reference internal" href="audobject.resolver.Base.html#audobject.resolver.Base" title="audobject.resolver.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">audobject.resolver.Base</span></code></a>, e.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
 
 
-<span class="k">class</span> <span class="nc">DeltaResolver</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeltaResolver</span><span class="p">(</span><span class="n">audobject</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">timedelta</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">timedelta</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">timedelta</span><span class="p">(</span>
             <span class="n">days</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;days&#39;</span><span class="p">],</span>
             <span class="n">seconds</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;seconds&#39;</span><span class="p">],</span>
             <span class="n">microseconds</span><span class="o">=</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;microseconds&#39;</span><span class="p">],</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s1">&#39;days&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">days</span><span class="p">,</span>
             <span class="s1">&#39;seconds&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span>
             <span class="s1">&#39;microseconds&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">microseconds</span><span class="p">,</span>
         <span class="p">}</span>
 
-    <span class="k">def</span> <span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">encode_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">dict</span>
 </pre></div>
 </div>
@@ -262,7 +266,7 @@ register it using the <a class="reference internal" href="audobject.init_decorat
         
         
         
-          Built with <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> on 2023/12/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
+          Built with <a href="https://www.sphinx-doc.org">Sphinx</a> on 2025/06/06 using the <a href="https://github.com/audeering/sphinx-audeering-theme/">audEERING theme</a>
         
     </p>
   </div>
@@ -270,7 +274,7 @@ register it using the <a class="reference internal" href="audobject.init_decorat
   <div role="contentinfo">
     <p>
         
-      &copy; 2020-2023 audEERING GmbH
+      &copy; audEERING GmbH
     </p>
   </div> 
 
