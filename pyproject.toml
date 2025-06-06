@@ -47,7 +47,7 @@ documentation = 'https://audeering.github.io/audobject/'
 # ===== Dependency groups =================================================
 [dependency-groups]
 dev = [
-    'audeer',
+    'audeer >=2.2.2',
     'ipykernel',
     'jupyter-sphinx',
     'parse',
