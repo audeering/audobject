@@ -7,6 +7,17 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.12 (2025-06-06)
+---------------------------
+
+* Added: support for Python 3.12
+* Added: support for Python 3.13
+* Added: dependency on ``asttokens``
+* Fixed: get source code of lambda functions
+  under Python 3.11
+* Removed: support for Python 3.8
+
+
 Version 0.7.11 (2023-12-06)
 ---------------------------
 
