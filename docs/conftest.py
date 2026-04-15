@@ -35,15 +35,14 @@ import audobject.core.utils
 # alone, every example from the same rst file would end up with the
 # same filename (``[examplenum]`` is always 0) and each linecache
 # entry would overwrite the previous one. We therefore make the name
-# unique per example using a monotonic counter.
+# unique per example using a counter stored on the runner instance.
 _orig_doctest_run = doctest.DocTestRunner.run
-_example_counter = 0
 
 
 def _run_with_linecache(self, test, *args, **kwargs):
-    global _example_counter
-    _example_counter += 1
-    test.name = f"{test.name}-{_example_counter}"
+    counter = getattr(self, "_example_counter", 0) + 1
+    self._example_counter = counter
+    test.name = f"{test.name}-{counter}"
     for examplenum, example in enumerate(test.examples):
         filename = "<doctest %s[%d]>" % (test.name, examplenum)
         lines = example.source.splitlines(keepends=True)
@@ -74,10 +73,7 @@ doctest.DocTestRunner.run = _run_with_linecache
 #      defined there get ``__module__ == "mypkg"``;
 #   2) patch ``audobject.core.utils.get_version`` so that when asked for
 #      ``mypkg``'s version it returns the current ``__version__`` from
-#      the live doctest namespace.
-_doctest_namespace: dict = {}
-
-
+#      the live doctest namespace bound on the fake module.
 class _MyPkgModule(types.ModuleType):
     """Fake ``mypkg`` module backed by the live doctest namespace.
 
@@ -86,9 +82,16 @@ class _MyPkgModule(types.ModuleType):
     deserialising YAML.
     """
 
+    def __init__(self, name):
+        super().__init__(name)
+        self._namespace: dict = {}
+
+    def bind_namespace(self, namespace: dict) -> None:
+        self._namespace = namespace
+
     def __getattr__(self, name):
-        if name in _doctest_namespace:
-            return _doctest_namespace[name]
+        if name in self._namespace:
+            return self._namespace[name]
         raise AttributeError(name)
 
 
@@ -100,8 +103,8 @@ _orig_get_version = audobject.core.utils.get_version
 
 def _patched_get_version(module_name):
     root = module_name.split(".")[0]
-    if root == "mypkg" and "__version__" in _doctest_namespace:
-        return _doctest_namespace["__version__"]
+    if root == "mypkg" and "__version__" in _mypkg._namespace:
+        return _mypkg._namespace["__version__"]
     return _orig_get_version(module_name)
 
 
@@ -113,7 +116,6 @@ audobject.core.utils.get_version = _patched_get_version
 
 def imports(namespace):
     """Provide modules to the doctest namespace."""
-    global _doctest_namespace
     # Make classes defined here end up in the fake ``mypkg`` module.
     namespace["__name__"] = "mypkg"
     namespace["__version__"] = "1.0.0"
@@ -121,7 +123,7 @@ def imports(namespace):
     # Bind the live namespace so ``_patched_get_version`` and the fake
     # ``mypkg`` module can look up ``__version__`` and classes as they
     # are defined during doctest execution.
-    _doctest_namespace = namespace
+    _mypkg.bind_namespace(namespace)
 
 
 @pytest.fixture(scope="module")

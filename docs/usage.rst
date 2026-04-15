@@ -225,7 +225,7 @@ with the :meth:`audobject.init_decorator` decorator.
                 print("LOG: print message")
             return " ".join([self.string] * self.num_repeat)
 
-If we set ``verbose=True``, debug message are printed.
+If we set ``verbose=True``, debug messages are printed.
 
 .. code-block:: pycon
 
@@ -779,7 +779,7 @@ that derives from
     18
 
 In that case,
-the YAML representation is store
+the YAML representation is stored
 instead of the function code.
 
 .. code-block:: pycon
@@ -849,8 +849,8 @@ looks pretty nested.
 This is not always handy,
 e.g. if we try to store the object to a lookup table,
 this would not work.
-Therefore, in can sometimes be useful to
-get a flatten version of the dictionary.
+Therefore, it can sometimes be useful to
+get a flattened version of the dictionary.
 
 .. code-block:: pycon
 
@@ -964,7 +964,7 @@ the strings are now separated by comma.
     I am a 1.0.0!,I am a 1.0.0!
 
 In the next release, we decide to introduce an argument
-that let the user set a custom delimiter.
+that lets the user set a custom delimiter.
 
 .. code-block:: python
 
