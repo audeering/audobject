@@ -129,11 +129,11 @@ class Parameter(Object):
         r"""Check if value matches expected type."""
         if value is not None and not isinstance(value, self.value_type):
             raise TypeError(
-                f"Invalid type '{type(value)}', " f"expected {self.value_type}."
+                f"Invalid type '{type(value)}', expected {self.value_type}."
             )
         if self.choices is not None and value not in self.choices:
             raise ValueError(
-                f"Invalid value '{value}', " f"expected one of {self.choices}."
+                f"Invalid value '{value}', expected one of {self.choices}."
             )
 
 
