@@ -100,7 +100,7 @@ class Object:
                     can_borrow = True
             if not can_borrow:
                 raise RuntimeError(
-                    "Cannot borrow attribute " f"'{key}' " "from " f"'self.{value}'."
+                    f"Cannot borrow attribute '{key}' from 'self.{value}'."
                 )
 
         # pick arguments from self and borrowed attributes

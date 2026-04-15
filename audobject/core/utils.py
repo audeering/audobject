@@ -49,7 +49,7 @@ def create_class_key(cls: type, include_version: bool) -> str:
             key += f"{define.VERSION_TAG}{version}"
         else:
             warnings.warn(
-                f"Could not determine a version for " f"module '{cls.__module__}'.",
+                f"Could not determine a version for module '{cls.__module__}'.",
                 RuntimeWarning,
             )
 
