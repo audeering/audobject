@@ -193,6 +193,8 @@ class Function(Base):
     since ``plus_1()`` relies on ``_plus_1()``,
     which is defined outside the function:
 
+    .. skip: next
+
     .. code-block:: python
 
         def _plus_1(x):
