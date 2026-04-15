@@ -32,9 +32,11 @@ Let's create a class that derives from :class:`audobject.Object`.
 
 Now we instantiate an object and print it.
 
->>> o = MyObject("hello object!", num_repeat=2)
->>> print(o)
-hello object! hello object!
+.. code-block:: pycon
+
+    >>> o = MyObject("hello object!", num_repeat=2)
+    >>> print(o)
+    hello object! hello object!
 
 As expected we see that ``string`` is repeated ``num_repeat`` times.
 But since we derived from :class:`audobject.Object`
@@ -43,83 +45,105 @@ we get some additional functionality.
 For instance, we can get a dictionary
 with the arguments the object was initialized with.
 
->>> o.arguments
-{'string': 'hello object!', 'num_repeat': 2}
+.. code-block:: pycon
+
+    >>> o.arguments
+    {'string': 'hello object!', 'num_repeat': 2}
 
 Or a dictionary that also stores module,
 object name and package version.
 
->>> o_dict = o.to_dict()
->>> print(o_dict)
-{'$mypkg.MyObject==1.0.0': {'string': 'hello object!', 'num_repeat': 2}}
+.. code-block:: pycon
+
+    >>> o_dict = o.to_dict()
+    >>> print(o_dict)
+    {'$mypkg.MyObject==1.0.0': {'string': 'hello object!', 'num_repeat': 2}}
 
 And we can re-instantiate the object from it.
 
->>> o2 = audobject.from_dict(o_dict)
->>> print(o2)
-hello object! hello object!
+.. code-block:: pycon
+
+    >>> o2 = audobject.from_dict(o_dict)
+    >>> print(o2)
+    hello object! hello object!
 
 We can also convert it to YAML.
 
->>> o_yaml = o.to_yaml_s()
->>> print(o_yaml)
-$mypkg.MyObject==1.0.0:
-  string: hello object!
-  num_repeat: 2
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> o_yaml = o.to_yaml_s()
+    >>> print(o_yaml)
+    $mypkg.MyObject==1.0.0:
+      string: hello object!
+      num_repeat: 2
+    <BLANKLINE>
 
 And create the object from YAML.
 
->>> o3 = audobject.from_yaml_s(o_yaml)
->>> print(o3)
-hello object! hello object!
+.. code-block:: pycon
+
+    >>> o3 = audobject.from_yaml_s(o_yaml)
+    >>> print(o3)
+    hello object! hello object!
 
 If we want, we can override
 arguments when we instantiate an object.
 
->>> o4 = audobject.from_yaml_s(
-...     o_yaml,
-...     override_args={
-...         "string": "I was set to a different value!"
-...     }
-... )
->>> print(o4)
-I was set to a different value! I was set to a different value!
+.. code-block:: pycon
+
+    >>> o4 = audobject.from_yaml_s(
+    ...     o_yaml,
+    ...     override_args={
+    ...         "string": "I was set to a different value!"
+    ...     }
+    ... )
+    >>> print(o4)
+    I was set to a different value! I was set to a different value!
 
 Or save an object to disk and re-instantiate it from there.
 
->>> file = "my.yaml"
->>> o.to_yaml(file)
->>> o5 = audobject.from_yaml(file)
->>> print(o5)
-hello object! hello object!
+.. code-block:: pycon
+
+    >>> file = "my.yaml"
+    >>> o.to_yaml(file)
+    >>> o5 = audobject.from_yaml(file)
+    >>> print(o5)
+    hello object! hello object!
 
 Object ID
 ---------
 
 Every object has an ID.
 
->>> o = MyObject("I am unique!", num_repeat=2)
->>> print(o.id)
-9268115e-7caf-aa02-7fbb-da4e83b2f575
+.. code-block:: pycon
+
+    >>> o = MyObject("I am unique!", num_repeat=2)
+    >>> print(o.id)
+    9268115e-7caf-aa02-7fbb-da4e83b2f575
 
 Objects with exact same arguments share the same ID.
 
->>> o2 = MyObject("I am unique!", num_repeat=2)
->>> print(o.id == o2.id)
-True
+.. code-block:: pycon
+
+    >>> o2 = MyObject("I am unique!", num_repeat=2)
+    >>> print(o.id == o2.id)
+    True
 
 When an object is serialized the ID does not change.
 
->>> o3 = audobject.from_yaml_s(o.to_yaml_s())
->>> print(o3.id == o.id)
-True
+.. code-block:: pycon
+
+    >>> o3 = audobject.from_yaml_s(o.to_yaml_s())
+    >>> print(o3.id == o.id)
+    True
 
 Objects with different arguments get different IDs.
 
->>> o4 = MyObject("I am different!", num_repeat=2)
->>> print(o.id == o4.id)
-False
+.. code-block:: pycon
+
+    >>> o4 = MyObject("I am different!", num_repeat=2)
+    >>> print(o.id == o4.id)
+    False
 
 Malformed objects
 -----------------
@@ -147,17 +171,21 @@ Let's create a class where we don't follow this rule.
 
 At a first glance, everything works as expected.
 
->>> bad = MyBadObject("test", num_repeat=2)
->>> print(bad)
-test test
+.. code-block:: pycon
+
+    >>> bad = MyBadObject("test", num_repeat=2)
+    >>> print(bad)
+    test test
 
 But if we try to serialize the object to YAML,
 we'll get an error.
 
->>> bad.to_yaml_s()
-Traceback (most recent call last):
-    ...
-RuntimeError: Arguments ['string', 'num_repeat'] of <class 'mypkg.MyBadObject'> not assigned to attributes of same name.
+.. code-block:: pycon
+
+    >>> bad.to_yaml_s()
+    Traceback (most recent call last):
+        ...
+    RuntimeError: Arguments ['string', 'num_repeat'] of <class 'mypkg.MyBadObject'> not assigned to attributes of same name.
 
 However, in the next section we'll learn
 that it's possible to hide arguments.
@@ -199,57 +227,69 @@ with the :meth:`audobject.init_decorator` decorator.
 
 If we set ``verbose=True``, debug message are printed.
 
->>> o = MyObjectWithHiddenArgument(
-...     "hello object!",
-...     num_repeat=3,
-...     verbose=True,
-... )
->>> print(o)
-LOG: print message
-hello object! hello object! hello object!
+.. code-block:: pycon
+
+    >>> o = MyObjectWithHiddenArgument(
+    ...     "hello object!",
+    ...     num_repeat=3,
+    ...     verbose=True,
+    ... )
+    >>> print(o)
+    LOG: print message
+    hello object! hello object! hello object!
 
 But since ``verbose`` is a hidden argument,
 it is not stored to YAML.
 
->>> o_yaml = o.to_yaml_s()
->>> print(o_yaml)
-$mypkg.MyObjectWithHiddenArgument==1.0.0:
-  string: hello object!
-  num_repeat: 3
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> o_yaml = o.to_yaml_s()
+    >>> print(o_yaml)
+    $mypkg.MyObjectWithHiddenArgument==1.0.0:
+      string: hello object!
+      num_repeat: 3
+    <BLANKLINE>
 
 That means when we re-instantiate the object,
 ``verbose`` will be set to its default value (``False``)
 and we won't see debug messages.
 
->>> o2 = audobject.from_yaml_s(o_yaml)
->>> print(o2)
-hello object! hello object! hello object!
+.. code-block:: pycon
+
+    >>> o2 = audobject.from_yaml_s(o_yaml)
+    >>> print(o2)
+    hello object! hello object! hello object!
 
 However, we can still set ``verbose``
 to ``True`` when we load the object.
 
->>> o3 = audobject.from_yaml_s(
-...     o_yaml,
-...     override_args={
-...         "verbose": True,
-...     }
-... )
->>> print(o3)
-LOG: print message
-hello object! hello object! hello object!
+.. code-block:: pycon
+
+    >>> o3 = audobject.from_yaml_s(
+    ...     o_yaml,
+    ...     override_args={
+    ...         "verbose": True,
+    ...     }
+    ... )
+    >>> print(o3)
+    LOG: print message
+    hello object! hello object! hello object!
 
 Note that hidden arguments are not taken into account for the UID.
 
->>> print(o2.id)
-26eddeb8-2ead-69e1-0eb2-37c2a2d19174
->>> print(o3.id)
-26eddeb8-2ead-69e1-0eb2-37c2a2d19174
+.. code-block:: pycon
+
+    >>> print(o2.id)
+    26eddeb8-2ead-69e1-0eb2-37c2a2d19174
+    >>> print(o3.id)
+    26eddeb8-2ead-69e1-0eb2-37c2a2d19174
 
 It is possible to get a list of hidden arguments.
 
->>> o3.hidden_arguments
-['verbose']
+.. code-block:: pycon
+
+    >>> o3.hidden_arguments
+    ['verbose']
 
 Borrowed arguments
 ------------------
@@ -295,13 +335,15 @@ to add properties with the name of an argument.
         def z(self):  # property sharing the name of an argument
             return self.d["z"]
 
->>> o = ObjectWithBorrowedArguments(0, 1, 2)
->>> print(o.to_yaml_s())
-$mypkg.ObjectWithBorrowedArguments==1.0.0:
-  x: 0
-  y: 1
-  z: 2
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> o = ObjectWithBorrowedArguments(0, 1, 2)
+    >>> print(o.to_yaml_s())
+    $mypkg.ObjectWithBorrowedArguments==1.0.0:
+      x: 0
+      y: 1
+      z: 2
+    <BLANKLINE>
 
 Object with kwargs
 ------------------
@@ -330,20 +372,24 @@ from the signature of the function.
         def __str__(self) -> str:
             return " ".join([self.string] * self.num_repeat)
 
->>> o = MyObjectWithKwargs("I have kwargs", num_repeat=3)
->>> print(o)
-I have kwargs I have kwargs I have kwargs
+.. code-block:: pycon
+
+    >>> o = MyObjectWithKwargs("I have kwargs", num_repeat=3)
+    >>> print(o)
+    I have kwargs I have kwargs I have kwargs
 
 When we serialize the object,
 we see that keyword argument
 ``num_repeat`` will be included.
 
->>> o_yaml = o.to_yaml_s()
->>> print(o_yaml)
-$mypkg.MyObjectWithKwargs==1.0.0:
-  string: I have kwargs
-  num_repeat: 3
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> o_yaml = o.to_yaml_s()
+    >>> print(o_yaml)
+    $mypkg.MyObjectWithKwargs==1.0.0:
+      string: I have kwargs
+      num_repeat: 3
+    <BLANKLINE>
 
 Object as argument
 ------------------
@@ -367,27 +413,33 @@ For instance, we can define the following class.
 
 And initialize it with an instance of ``MyObject``.
 
->>> o = MyObject("eat me!")
->>> w = MySuperObject(o)
->>> print(w)
-[eat me!]
+.. code-block:: pycon
+
+    >>> o = MyObject("eat me!")
+    >>> w = MySuperObject(o)
+    >>> print(w)
+    [eat me!]
 
 This translates to the following YAML string.
 
->>> w_yaml = w.to_yaml_s()
->>> print(w_yaml)
-$mypkg.MySuperObject==1.0.0:
-  obj:
-    $mypkg.MyObject==1.0.0:
-      string: eat me!
-      num_repeat: 1
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> w_yaml = w.to_yaml_s()
+    >>> print(w_yaml)
+    $mypkg.MySuperObject==1.0.0:
+      obj:
+        $mypkg.MyObject==1.0.0:
+          string: eat me!
+          num_repeat: 1
+    <BLANKLINE>
 
 From which we can re-instantiate the object.
 
->>> w2 = audobject.from_yaml_s(w_yaml)
->>> print(w2)
-[eat me!]
+.. code-block:: pycon
+
+    >>> w2 = audobject.from_yaml_s(w_yaml)
+    >>> print(w2)
+    [eat me!]
 
 Value resolver
 --------------
@@ -429,18 +481,20 @@ To illustrate this, let's use an instance of timedelta_.
 
 As before, we can create an instance and print it.
 
->>> delta = timedelta(
-...     days=50,
-...     seconds=27,
-...     microseconds=10,
-...     milliseconds=29000,
-...     minutes=5,
-...     hours=8,
-...     weeks=2
-... )
->>> d = MyDeltaObject(delta)
->>> print(d)
-64 days, 8:05:56.000010
+.. code-block:: pycon
+
+    >>> delta = timedelta(
+    ...     days=50,
+    ...     seconds=27,
+    ...     microseconds=10,
+    ...     milliseconds=29000,
+    ...     minutes=5,
+    ...     hours=8,
+    ...     weeks=2
+    ... )
+    >>> d = MyDeltaObject(delta)
+    >>> print(d)
+    64 days, 8:05:56.000010
 
 But if we convert it to YAML,
 we'll see a warning.
@@ -510,15 +564,17 @@ decorator of the ``__init__`` function.
 Now, we don't get a warning
 and the ``!!python/object`` tag has disappeared.
 
->>> d = MyResolvedDeltaObject(delta)
->>> d_yaml = d.to_yaml_s()
->>> print(d_yaml)
-$mypkg.MyResolvedDeltaObject==1.0.0:
-  delta:
-    days: 64
-    seconds: 29156
-    microseconds: 10
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> d = MyResolvedDeltaObject(delta)
+    >>> d_yaml = d.to_yaml_s()
+    >>> print(d_yaml)
+    $mypkg.MyResolvedDeltaObject==1.0.0:
+      delta:
+        days: 64
+        seconds: 29156
+        microseconds: 10
+    <BLANKLINE>
 
 Resolve file paths
 ------------------
@@ -558,55 +614,63 @@ This can be achieved using
 
 Here, we create a file and pass it to the object.
 
->>> import os
->>> import audeer
->>> root = "root"
->>> res_path = os.path.join(root, "re", "source.txt")  # root/re/source.txt
->>> _ = audeer.mkdir(os.path.dirname(res_path))
->>> with open(res_path, "w") as fp:
-...     _ = fp.write("You found me!")
->>> o = MyObjectWithFile(res_path)
->>> o.read()
-root/re/source.txt
-['You found me!']
+.. code-block:: pycon
+
+    >>> import os
+    >>> import audeer
+    >>> root = "root"
+    >>> res_path = os.path.join(root, "re", "source.txt")  # root/re/source.txt
+    >>> _ = audeer.mkdir(os.path.dirname(res_path))
+    >>> with open(res_path, "w") as fp:
+    ...     _ = fp.write("You found me!")
+    >>> o = MyObjectWithFile(res_path)
+    >>> o.read()
+    root/re/source.txt
+    ['You found me!']
 
 When we serialize the object,
 the path is
 stored relative to the directory
 of the YAML file.
 
->>> import yaml
->>> yaml_path = os.path.join(root, "yaml", "object.yaml")  # root/yaml/object.yaml
->>> o.to_yaml(yaml_path)
->>> with open(yaml_path, "r") as fp:
-...     content = yaml.load(fp, Loader=yaml.Loader)
->>> content
-{'$mypkg.MyObjectWithFile==1.0.0': {'path': '../re/source.txt'}}
+.. code-block:: pycon
+
+    >>> import yaml
+    >>> yaml_path = os.path.join(root, "yaml", "object.yaml")  # root/yaml/object.yaml
+    >>> o.to_yaml(yaml_path)
+    >>> with open(yaml_path, "r") as fp:
+    ...     content = yaml.load(fp, Loader=yaml.Loader)
+    >>> content
+    {'$mypkg.MyObjectWithFile==1.0.0': {'path': '../re/source.txt'}}
 
 When we re-instantiate the object
 the path gets expanded again.
 
->>> o2 = audobject.from_yaml(yaml_path)
->>> print(o2.path.endswith(os.path.join("root", "re", "source.txt")))
-True
->>> with open(o2.path, "r") as fp:
-...     fp.readlines()
-['You found me!']
+.. code-block:: pycon
+
+    >>> o2 = audobject.from_yaml(yaml_path)
+    >>> print(o2.path.endswith(os.path.join("root", "re", "source.txt")))
+    True
+    >>> with open(o2.path, "r") as fp:
+    ...     fp.readlines()
+    ['You found me!']
 
 This will also work from another location.
 Note that we have to move all referenced files as well,
 as their relative location to the YAML file must not change.
 
->>> import shutil
->>> new_root = os.path.join("some", "where", "else")
->>> _ = shutil.move(root, new_root)
->>> yaml_path_new = os.path.join(new_root, "yaml", "object.yaml")
->>> o3 = audobject.from_yaml(yaml_path_new)
->>> print(o3.path.endswith(os.path.join("else", "re", "source.txt")))
-True
->>> with open(o3.path, "r") as fp:
-...     fp.readlines()
-['You found me!']
+.. code-block:: pycon
+
+    >>> import shutil
+    >>> new_root = os.path.join("some", "where", "else")
+    >>> _ = shutil.move(root, new_root)
+    >>> yaml_path_new = os.path.join(new_root, "yaml", "object.yaml")
+    >>> o3 = audobject.from_yaml(yaml_path_new)
+    >>> print(o3.path.endswith(os.path.join("else", "re", "source.txt")))
+    True
+    >>> with open(o3.path, "r") as fp:
+    ...     fp.readlines()
+    ['You found me!']
 
 
 Serialize functions
@@ -758,20 +822,22 @@ as input a string, a list and a dictionary.
 
 And initialize an object.
 
->>> inner = MyObject("hello")
->>> o = MyListDictObject(
-...     a_str="test",
-...     a_list=[1, "2", inner],
-...     a_dict={"pi": 3.1416, "e": 2.71828},
-... )
->>> import pprint
->>> pprint.pprint(o.to_dict())
-{'$mypkg.MyListDictObject==1.0.0': {'a_dict': {'e': 2.71828, 'pi': 3.1416},
-                                    'a_list': [1,
-                                               '2',
-                                               {'$mypkg.MyObject==1.0.0': {'num_repeat': 1,
-                                                                           'string': 'hello'}}],
-                                    'a_str': 'test'}}
+.. code-block:: pycon
+
+    >>> inner = MyObject("hello")
+    >>> o = MyListDictObject(
+    ...     a_str="test",
+    ...     a_list=[1, "2", inner],
+    ...     a_dict={"pi": 3.1416, "e": 2.71828},
+    ... )
+    >>> import pprint
+    >>> pprint.pprint(o.to_dict())
+    {'$mypkg.MyListDictObject==1.0.0': {'a_dict': {'e': 2.71828, 'pi': 3.1416},
+                                        'a_list': [1,
+                                                   '2',
+                                                   {'$mypkg.MyObject==1.0.0': {'num_repeat': 1,
+                                                                               'string': 'hello'}}],
+                                        'a_str': 'test'}}
 
 As expected, the dictionary of the object
 looks pretty nested.
@@ -781,14 +847,16 @@ this would not work.
 Therefore, in can sometimes be useful to
 get a flatten version of the dictionary.
 
->>> pprint.pprint(o.to_dict(flatten=True))
-{'a_dict.e': 2.71828,
- 'a_dict.pi': 3.1416,
- 'a_list.0': 1,
- 'a_list.1': '2',
- 'a_list.2.num_repeat': 1,
- 'a_list.2.string': 'hello',
- 'a_str': 'test'}
+.. code-block:: pycon
+
+    >>> pprint.pprint(o.to_dict(flatten=True))
+    {'a_dict.e': 2.71828,
+     'a_dict.pi': 3.1416,
+     'a_list.0': 1,
+     'a_list.1': '2',
+     'a_list.2.num_repeat': 1,
+     'a_list.2.string': 'hello',
+     'a_str': 'test'}
 
 However, it's important to note that it's not possible
 to re-instantiate an object from a flattened dictionary.
@@ -803,26 +871,32 @@ with a different package version?
 
 Let's create another instance of ``MyObject``.
 
->>> o = MyObject("I am a 1.0.0!", num_repeat=2)
->>> print(o)
-I am a 1.0.0! I am a 1.0.0!
+.. code-block:: pycon
+
+    >>> o = MyObject("I am a 1.0.0!", num_repeat=2)
+    >>> print(o)
+    I am a 1.0.0! I am a 1.0.0!
 
 And convert it to YAML.
 
->>> o_yaml = o.to_yaml_s()
->>> print(o_yaml)
-$mypkg.MyObject==1.0.0:
-  string: I am a 1.0.0!
-  num_repeat: 2
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> o_yaml = o.to_yaml_s()
+    >>> print(o_yaml)
+    $mypkg.MyObject==1.0.0:
+      string: I am a 1.0.0!
+      num_repeat: 2
+    <BLANKLINE>
 
 Loading it with a newer version of the package
 works without problems.
 
->>> __version__ = "1.1.0"
->>> o2 = audobject.from_yaml_s(o_yaml)
->>> print(o2)
-I am a 1.0.0! I am a 1.0.0!
+.. code-block:: pycon
+
+    >>> __version__ = "1.1.0"
+    >>> o2 = audobject.from_yaml_s(o_yaml)
+    >>> print(o2)
+    I am a 1.0.0! I am a 1.0.0!
 
 But if we load it with an older version,
 a warning will be shown.
@@ -878,9 +952,11 @@ the object will be created without problems.
 However, when we print the object
 the strings are now separated by comma.
 
->>> o3 = audobject.from_yaml_s(o_yaml)
->>> print(o3)
-I am a 1.0.0!,I am a 1.0.0!
+.. code-block:: pycon
+
+    >>> o3 = audobject.from_yaml_s(o_yaml)
+    >>> print(o3)
+    I am a 1.0.0!,I am a 1.0.0!
 
 In the next release, we decide to introduce an argument
 that let the user set a custom delimiter.
@@ -910,10 +986,12 @@ we will get an error,
 because we are missing a value
 for the new argument.
 
->>> audobject.from_yaml_s(o_yaml)
-Traceback (most recent call last):
-    ...
-RuntimeError: Missing mandatory arguments ['delimiter'] while instantiating <class 'mypkg.MyObject'> from version '1.0.0' when using version '2.1.0'.
+.. code-block:: pycon
+
+    >>> audobject.from_yaml_s(o_yaml)
+    Traceback (most recent call last):
+        ...
+    RuntimeError: Missing mandatory arguments ['delimiter'] while instantiating <class 'mypkg.MyObject'> from version '1.0.0' when using version '2.1.0'.
 
 Since we want to be backward compatible,
 we decide to release a bug fix,
@@ -942,26 +1020,32 @@ where we initialize the new argument with a default value.
 And in fact, it successfully creates the object again.
 It works, because it now has a default value for the missing argument.
 
->>> o4 = audobject.from_yaml_s(o_yaml)
->>> print(o4)
-I am a 1.0.0! I am a 1.0.0!
+.. code-block:: pycon
+
+    >>> o4 = audobject.from_yaml_s(o_yaml)
+    >>> print(o4)
+    I am a 1.0.0! I am a 1.0.0!
 
 Finally, we will do it the other way round.
 Create an object with version ``2.1.1``.
 
->>> o5 = MyObject("I am a 2.1.1!", num_repeat=2)
->>> print(o5)
-I am a 2.1.1! I am a 2.1.1!
+.. code-block:: pycon
+
+    >>> o5 = MyObject("I am a 2.1.1!", num_repeat=2)
+    >>> print(o5)
+    I am a 2.1.1! I am a 2.1.1!
 
 Convert it to YAML.
 
->>> o5_yaml = o5.to_yaml_s()
->>> print(o5_yaml)
-$mypkg.MyObject==2.1.1:
-  string: I am a 2.1.1!
-  delimiter: ','
-  num_repeat: 2
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> o5_yaml = o5.to_yaml_s()
+    >>> print(o5_yaml)
+    $mypkg.MyObject==2.1.1:
+      string: I am a 2.1.1!
+      delimiter: ','
+      num_repeat: 2
+    <BLANKLINE>
 
 And load it with ``1.0.0``.
 
@@ -1013,61 +1097,69 @@ Dictionary
 :class:`audobject.Dictionary` implements a
 :class:`audobject.Object` that can used like a dictionary.
 
->>> d = audobject.Dictionary(
-...     string="I am a dictionary!",
-...     pi=3.14159265359,
-... )
->>> print(d)
-$audobject.core.dictionary.Dictionary:
-  string: I am a dictionary!
-  pi: 3.14159265359
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> d = audobject.Dictionary(
+    ...     string="I am a dictionary!",
+    ...     pi=3.14159265359,
+    ... )
+    >>> print(d)
+    $audobject.core.dictionary.Dictionary:
+      string: I am a dictionary!
+      pi: 3.14159265359
+    <BLANKLINE>
 
 We can use ``[]`` notation to access the
 values of the dictionary.
 
->>> d["string"] = "Still a dictionary!"
->>> d["new"] = None
->>> print(d)
-$audobject.core.dictionary.Dictionary:
-  string: Still a dictionary!
-  pi: 3.14159265359
-  new: null
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> d["string"] = "Still a dictionary!"
+    >>> d["new"] = None
+    >>> print(d)
+    $audobject.core.dictionary.Dictionary:
+      string: Still a dictionary!
+      pi: 3.14159265359
+      new: null
+    <BLANKLINE>
 
 And update from another dictionary.
 
->>> d2 = audobject.Dictionary(
-...     string="I will be a dictionary forever!",
-...     object=MyObject("Hey, I am an object."),
-... )
->>> d.update(d2)
->>> print(d)
-$audobject.core.dictionary.Dictionary:
-  string: I will be a dictionary forever!
-  pi: 3.14159265359
-  new: null
-  object:
-    $mypkg.MyObject:
-      string: Hey, I am an object.
-      num_repeat: 1
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> d2 = audobject.Dictionary(
+    ...     string="I will be a dictionary forever!",
+    ...     object=MyObject("Hey, I am an object."),
+    ... )
+    >>> d.update(d2)
+    >>> print(d)
+    $audobject.core.dictionary.Dictionary:
+      string: I will be a dictionary forever!
+      pi: 3.14159265359
+      new: null
+      object:
+        $mypkg.MyObject:
+          string: Hey, I am an object.
+          num_repeat: 1
+    <BLANKLINE>
 
 And we can read/write the dictionary from/to a file.
 
->>> file = "dict.yaml"
->>> d.to_yaml(file)
->>> d3 = audobject.from_yaml(file)
->>> print(d3)
-$audobject.core.dictionary.Dictionary:
-  string: I will be a dictionary forever!
-  pi: 3.14159265359
-  new: null
-  object:
-    $mypkg.MyObject:
-      string: Hey, I am an object.
-      num_repeat: 1
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> file = "dict.yaml"
+    >>> d.to_yaml(file)
+    >>> d3 = audobject.from_yaml(file)
+    >>> print(d3)
+    $audobject.core.dictionary.Dictionary:
+      string: I will be a dictionary forever!
+      pi: 3.14159265359
+      new: null
+      object:
+        $mypkg.MyObject:
+          string: Hey, I am an object.
+          num_repeat: 1
+    <BLANKLINE>
 
 Parameters
 ----------
@@ -1089,158 +1181,184 @@ And it can be bound a parameter to a specific versions.
 Let's pick up the previous example and define two parameters.
 A parameter that holds a string.
 
->>> string = audobject.Parameter(
-...     value_type=str,
-...     description="the string we want to repeat",
-...     value="bar",
-...     choices=["bar", "Bar", "BAR"],
-... )
->>> print(string)
-$audobject.core.parameter.Parameter:
-  value_type: str
-  description: the string we want to repeat
-  value: bar
-  default_value: null
-  choices:
-  - bar
-  - Bar
-  - BAR
-  version: null
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> string = audobject.Parameter(
+    ...     value_type=str,
+    ...     description="the string we want to repeat",
+    ...     value="bar",
+    ...     choices=["bar", "Bar", "BAR"],
+    ... )
+    >>> print(string)
+    $audobject.core.parameter.Parameter:
+      value_type: str
+      description: the string we want to repeat
+      value: bar
+      default_value: null
+      choices:
+      - bar
+      - Bar
+      - BAR
+      version: null
+    <BLANKLINE>
 
 And a parameter that defines how many times we want to repeat the string.
 
->>> repeat = audobject.Parameter(
-...     value_type=int,
-...     description="the number of times we want to repeat",
-...     default_value=1,
-... )
->>> print(repeat)
-$audobject.core.parameter.Parameter:
-  value_type: int
-  description: the number of times we want to repeat
-  value: 1
-  default_value: 1
-  choices: null
-  version: null
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> repeat = audobject.Parameter(
+    ...     value_type=int,
+    ...     description="the number of times we want to repeat",
+    ...     default_value=1,
+    ... )
+    >>> print(repeat)
+    $audobject.core.parameter.Parameter:
+      value_type: int
+      description: the number of times we want to repeat
+      value: 1
+      default_value: 1
+      choices: null
+      version: null
+    <BLANKLINE>
 
 Now we combine the two parameters into a list.
 
->>> params = audobject.Parameters(
-...     string=string,
-...     num_repeat=repeat,
-... )
->>> print(params)
-Name        Value  Default  Choices                Description                            Version
-----        -----  -------  -------                -----------                            -------
-string      bar    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
-num_repeat  1      1        None                   the number of times we want to repeat  None
+.. code-block:: pycon
+
+    >>> params = audobject.Parameters(
+    ...     string=string,
+    ...     num_repeat=repeat,
+    ... )
+    >>> print(params)
+    Name        Value  Default  Choices                Description                            Version
+    ----        -----  -------  -------                -----------                            -------
+    string      bar    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
+    num_repeat  1      1        None                   the number of times we want to repeat  None
 
 If we call the list,
 we get a dictionary of parameter names and values.
 
->>> params()
-{'string': 'bar', 'num_repeat': 1}
+.. code-block:: pycon
+
+    >>> params()
+    {'string': 'bar', 'num_repeat': 1}
 
 We can access the values of the parameters using ``.`` notation.
 
->>> params.string = "BAR"
->>> params.num_repeat = 2
->>> print(params)
-Name        Value  Default  Choices                Description                            Version
-----        -----  -------  -------                -----------                            -------
-string      BAR    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
-num_repeat  2      1        None                   the number of times we want to repeat  None
+.. code-block:: pycon
+
+    >>> params.string = "BAR"
+    >>> params.num_repeat = 2
+    >>> print(params)
+    Name        Value  Default  Choices                Description                            Version
+    ----        -----  -------  -------                -----------                            -------
+    string      BAR    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
+    num_repeat  2      1        None                   the number of times we want to repeat  None
 
 If we try to assign a value that is not in choices,
 we will get an error.
 
->>> params.string = "par"
-Traceback (most recent call last):
-    ...
-ValueError: Invalid value 'par', expected one of ['bar', 'Bar', 'BAR'].
+.. code-block:: pycon
+
+    >>> params.string = "par"
+    Traceback (most recent call last):
+        ...
+    ValueError: Invalid value 'par', expected one of ['bar', 'Bar', 'BAR'].
 
 It is possible to assign a version (or a range of versions)
 to a parameter.
 
->>> delim = audobject.Parameter(
-...     value_type=str,
-...     description="defines the delimiter",
-...     default_value=",",
-...     version=">=2.0.0,<3.0.0"
-... )
->>> params["delimiter"] = delim
->>> print(params)
-Name        Value  Default  Choices                Description                            Version
-----        -----  -------  -------                -----------                            -------
-string      BAR    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
-num_repeat  2      1        None                   the number of times we want to repeat  None
-delimiter   ,      ,        None                   defines the delimiter                  >=2.0.0,<3.0.0
+.. code-block:: pycon
+
+    >>> delim = audobject.Parameter(
+    ...     value_type=str,
+    ...     description="defines the delimiter",
+    ...     default_value=",",
+    ...     version=">=2.0.0,<3.0.0"
+    ... )
+    >>> params["delimiter"] = delim
+    >>> print(params)
+    Name        Value  Default  Choices                Description                            Version
+    ----        -----  -------  -------                -----------                            -------
+    string      BAR    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
+    num_repeat  2      1        None                   the number of times we want to repeat  None
+    delimiter   ,      ,        None                   defines the delimiter                  >=2.0.0,<3.0.0
 
 We can check if a parameter is available for a specific version.
 
->>> "1.0.0" in delim, "2.4.0" in delim
-(False, True)
+.. code-block:: pycon
+
+    >>> "1.0.0" in delim, "2.4.0" in delim
+    (False, True)
 
 We can also filter a list of parameters by version.
 
->>> params_v3 = params.filter_by_version("3.0.0")
->>> print(params_v3)
-Name        Value  Default  Choices                Description                            Version
-----        -----  -------  -------                -----------                            -------
-string      BAR    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
-num_repeat  2      1        None                   the number of times we want to repeat  None
+.. code-block:: pycon
+
+    >>> params_v3 = params.filter_by_version("3.0.0")
+    >>> print(params_v3)
+    Name        Value  Default  Choices                Description                            Version
+    ----        -----  -------  -------                -----------                            -------
+    string      BAR    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
+    num_repeat  2      1        None                   the number of times we want to repeat  None
 
 Or add them to a command line interface.
 
->>> import argparse
->>> parser = argparse.ArgumentParser(prog="")
->>> params.to_command_line(parser)
->>> print(parser.format_help())
-usage:  [-h] [--string {bar,Bar,BAR}] [--num_repeat NUM_REPEAT]
-        [--delimiter DELIMITER]
-<BLANKLINE>
-options:
-  -h, --help            show this help message and exit
-  --string {bar,Bar,BAR}
-                        the string we want to repeat
-  --num_repeat NUM_REPEAT
-                        the number of times we want to repeat
-  --delimiter DELIMITER
-                        defines the delimiter (version: >=2.0.0,<3.0.0)
-<BLANKLINE>
+.. code-block:: pycon
+
+    >>> import argparse
+    >>> parser = argparse.ArgumentParser(prog="")
+    >>> params.to_command_line(parser)
+    >>> print(parser.format_help())
+    usage:  [-h] [--string {bar,Bar,BAR}] [--num_repeat NUM_REPEAT]
+            [--delimiter DELIMITER]
+    <BLANKLINE>
+    options:
+      -h, --help            show this help message and exit
+      --string {bar,Bar,BAR}
+                            the string we want to repeat
+      --num_repeat NUM_REPEAT
+                            the number of times we want to repeat
+      --delimiter DELIMITER
+                            defines the delimiter (version: >=2.0.0,<3.0.0)
+    <BLANKLINE>
 
 Or update the values from a command line interface.
 
->>> args = parser.parse_args(
-...     args=["--string=Bar", "--delimiter=;"]
-... )
->>> _ = params.from_command_line(args)
->>> print(params)
-Name        Value  Default  Choices                Description                            Version
-----        -----  -------  -------                -----------                            -------
-string      Bar    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
-num_repeat  1      1        None                   the number of times we want to repeat  None
-delimiter   ;      ,        None                   defines the delimiter                  >=2.0.0,<3.0.0
+.. code-block:: pycon
+
+    >>> args = parser.parse_args(
+    ...     args=["--string=Bar", "--delimiter=;"]
+    ... )
+    >>> _ = params.from_command_line(args)
+    >>> print(params)
+    Name        Value  Default  Choices                Description                            Version
+    ----        -----  -------  -------                -----------                            -------
+    string      Bar    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
+    num_repeat  1      1        None                   the number of times we want to repeat  None
+    delimiter   ;      ,        None                   defines the delimiter                  >=2.0.0,<3.0.0
 
 It is possible to convert it into a file path
 that keeps track of the parameters.
 
->>> params.to_path(sort=True)
-'delimiter[;]/num_repeat[1]/string[Bar]'
+.. code-block:: pycon
+
+    >>> params.to_path(sort=True)
+    'delimiter[;]/num_repeat[1]/string[Bar]'
 
 Last but not least, we can read/write the parameters from/to a file.
 
->>> file = "params.yaml"
->>> params.to_yaml(file)
->>> params2 = audobject.from_yaml(file)
->>> print(params2)
-Name        Value  Default  Choices                Description                            Version
-----        -----  -------  -------                -----------                            -------
-string      Bar    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
-num_repeat  1      1        None                   the number of times we want to repeat  None
-delimiter   ;      ,        None                   defines the delimiter                  >=2.0.0,<3.0.0
+.. code-block:: pycon
+
+    >>> file = "params.yaml"
+    >>> params.to_yaml(file)
+    >>> params2 = audobject.from_yaml(file)
+    >>> print(params2)
+    Name        Value  Default  Choices                Description                            Version
+    ----        -----  -------  -------                -----------                            -------
+    string      Bar    None     ['bar', 'Bar', 'BAR']  the string we want to repeat           None
+    num_repeat  1      1        None                   the number of times we want to repeat  None
+    delimiter   ;      ,        None                   defines the delimiter                  >=2.0.0,<3.0.0
 
 .. _timedelta: https://docs.python.org/3/library/datetime.html#timedelta-objects
 .. _argparse: https://docs.python.org/3/library/argparse.html
