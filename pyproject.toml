@@ -49,7 +49,7 @@ dev = [
     'ipykernel',
     'jupyter-sphinx',
     'parse',
-    'pytest<7.0.0',
+    'pytest',
     'pytest-doctestplus',
     'pytest-console-scripts',
     'pytest-cov',
