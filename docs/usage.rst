@@ -169,7 +169,7 @@ Let's create a class where we don't follow this rule.
         def __str__(self) -> str:
             return " ".join([self.msg] * self.repeat)
 
-At a first glance, everything works as expected.
+At first glance, everything works as expected.
 
 .. code-block:: pycon
 
@@ -957,7 +957,7 @@ with a slightly changed ``__str__`` function.
 Since the signature of the constructor has not changed,
 the object will be created without problems.
 However, when we print the object
-the strings are now separated by comma.
+the strings are now separated by a comma.
 
 .. code-block:: pycon
 
@@ -1102,7 +1102,7 @@ Dictionary
 ----------
 
 :class:`audobject.Dictionary` implements a
-:class:`audobject.Object` that can used like a dictionary.
+:class:`audobject.Object` that can be used like a dictionary.
 
 .. code-block:: pycon
 

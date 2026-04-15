@@ -50,7 +50,19 @@ def _run_with_linecache(self, test, *args, **kwargs):
     return _orig_doctest_run(self, test, *args, **kwargs)
 
 
-doctest.DocTestRunner.run = _run_with_linecache
+@pytest.fixture(scope="session")
+def _patch_doctest_runner():
+    """Install the linecache-aware ``DocTestRunner.run`` for doctests.
+
+    Scoped to the session so the original is restored after the docs
+    tests run, keeping the patch from leaking into other tests in the
+    same process.
+    """
+    doctest.DocTestRunner.run = _run_with_linecache
+    try:
+        yield
+    finally:
+        doctest.DocTestRunner.run = _orig_doctest_run
 
 
 # --- Fake user package ---------------------------------------------------
@@ -96,7 +108,6 @@ class _MyPkgModule(types.ModuleType):
 
 
 _mypkg = _MyPkgModule("mypkg")
-sys.modules["mypkg"] = _mypkg
 
 _orig_get_version = audobject.core.utils.get_version
 
@@ -108,10 +119,27 @@ def _patched_get_version(module_name):
     return _orig_get_version(module_name)
 
 
-# ``get_version`` inspects ``module.__dict__`` directly, bypassing our
-# module ``__getattr__``, so we patch it to read from the live doctest
-# namespace whenever ``mypkg`` is queried.
-audobject.core.utils.get_version = _patched_get_version
+@pytest.fixture(scope="session")
+def _patch_mypkg_version():
+    """Register the fake ``mypkg`` module and patch ``get_version``.
+
+    ``get_version`` inspects ``module.__dict__`` directly, bypassing our
+    module's ``__getattr__``, so we patch it to read from the live
+    doctest namespace whenever ``mypkg`` is queried. Both changes are
+    scoped to the session and reverted on teardown so other tests in
+    the same process are unaffected.
+    """
+    orig_module = sys.modules.get("mypkg")
+    sys.modules["mypkg"] = _mypkg
+    audobject.core.utils.get_version = _patched_get_version
+    try:
+        yield
+    finally:
+        audobject.core.utils.get_version = _orig_get_version
+        if orig_module is None:
+            sys.modules.pop("mypkg", None)
+        else:
+            sys.modules["mypkg"] = orig_module
 
 
 def imports(namespace):
@@ -146,6 +174,6 @@ pytest_collect_file = Sybil(
         SkipParser(),
     ],
     patterns=["usage.rst"],
-    fixtures=["run_in_tmpdir"],
+    fixtures=["run_in_tmpdir", "_patch_doctest_runner", "_patch_mypkg_version"],
     setup=imports,
 ).pytest()
