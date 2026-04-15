@@ -1,5 +1,7 @@
+import doctest
 from doctest import ELLIPSIS
 from doctest import NORMALIZE_WHITESPACE
+import linecache
 import os
 import sys
 import types
@@ -12,6 +14,44 @@ from sybil.parsers.rest import SkipParser
 
 import audobject
 import audobject.core.utils
+
+
+# --- Make ``inspect.getsource`` work for doctest-defined functions -------
+#
+# ``audobject.resolver.Function`` calls ``inspect.getsource(func)`` to
+# serialise the source code of a function. ``inspect.getsource`` reads
+# source lines from ``linecache`` keyed by ``func.__code__.co_filename``.
+#
+# Python's ``doctest`` module compiles each example with a synthetic
+# filename (``<doctest name[N]>``) but does *not* register the source
+# in ``linecache``, so ``inspect.getsource`` raises ``OSError`` for
+# functions defined inline in doctests. IPython/Jupyter avoids this by
+# registering cell sources in ``linecache`` — we do the same here by
+# wrapping ``DocTestRunner.run``.
+#
+# sybil feeds every example through ``DocTestRunner.run`` as its own
+# single-example ``DocTest``, and ``doctest`` builds the filename as
+# ``<doctest <test.name>[<examplenum>]>``. If we left ``test.name``
+# alone, every example from the same rst file would end up with the
+# same filename (``[examplenum]`` is always 0) and each linecache
+# entry would overwrite the previous one. We therefore make the name
+# unique per example using a monotonic counter.
+_orig_doctest_run = doctest.DocTestRunner.run
+_example_counter = 0
+
+
+def _run_with_linecache(self, test, *args, **kwargs):
+    global _example_counter
+    _example_counter += 1
+    test.name = f"{test.name}-{_example_counter}"
+    for examplenum, example in enumerate(test.examples):
+        filename = "<doctest %s[%d]>" % (test.name, examplenum)
+        lines = example.source.splitlines(keepends=True)
+        linecache.cache[filename] = (len(example.source), None, lines, filename)
+    return _orig_doctest_run(self, test, *args, **kwargs)
+
+
+doctest.DocTestRunner.run = _run_with_linecache
 
 
 # --- Fake user package ---------------------------------------------------

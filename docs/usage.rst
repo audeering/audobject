@@ -683,13 +683,6 @@ can be used.
 It encodes the source code of the function
 and dynamically creates the function during decoding.
 
-.. note::
-    The examples in this section require function source code
-    to be stored in a real ``.py`` file,
-    so they are not executed as doctests here.
-
-.. skip: start
-
 The following class takes as arguments a function with two parameters.
 
 .. code-block:: python
@@ -715,44 +708,50 @@ The following class takes as arguments a function with two parameters.
 
 Here, we initialize an object with a function that sums up the two parameters.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    def add(a, b):
-        return a + b
-
-
-    o = MyObjectWithFunction(add)
-    o(1, 2)
+    >>> def add(a, b):
+    ...     return a + b
+    >>> o = MyObjectWithFunction(add)
+    >>> o(1, 2)
+    3
 
 When we serialize the object,
 the definition of our function is stored in plain text.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    o_yaml = o.to_yaml_s()
-    print(o_yaml)
+    >>> o_yaml = o.to_yaml_s()
+    >>> print(o_yaml)
+    $mypkg.MyObjectWithFunction==1.0.0:
+      func: "def add(a, b):\n    return a + b\n"
+    <BLANKLINE>
 
 From which the function can be dynamically initialized
 when the object is recreated.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    o2 = audobject.from_yaml_s(o_yaml)
-    o2(2, 3)
+    >>> o2 = audobject.from_yaml_s(o_yaml)
+    >>> o2(2, 3)
+    5
 
 It also works for lambda expressions.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    o3 = MyObjectWithFunction(lambda a, b: a * b)
+    >>> o3 = MyObjectWithFunction(lambda a, b: a * b)
+    >>> o3_yaml = o3.to_yaml_s()
+    >>> print(o3_yaml)
+    $mypkg.MyObjectWithFunction==1.0.0:
+      func: 'lambda a, b: a * b'
+    <BLANKLINE>
 
-    o3_yaml = o3.to_yaml_s()
-    print(o3_yaml)
+.. code-block:: pycon
 
-.. code-block:: python
-
-    o4 = audobject.from_yaml_s(o3_yaml)
-    o4(2, 3)
+    >>> o4 = audobject.from_yaml_s(o3_yaml)
+    >>> o4(2, 3)
+    6
 
 Instead of a function,
 we can also pass a callable object
@@ -772,28 +771,34 @@ that derives from
         def __call__(self, a: int, b: int):
             return (a + b) * self.n
 
+.. code-block:: pycon
 
-    a_callable_object = MyCallableObject(2)
-    o5 = MyObjectWithFunction(a_callable_object)
-    o5(4, 5)
+    >>> a_callable_object = MyCallableObject(2)
+    >>> o5 = MyObjectWithFunction(a_callable_object)
+    >>> o5(4, 5)
+    18
 
 In that case,
 the YAML representation is store
 instead of the function code.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    o5_yaml = o5.to_yaml_s()
-    print(o5_yaml)
+    >>> o5_yaml = o5.to_yaml_s()
+    >>> print(o5_yaml)
+    $mypkg.MyObjectWithFunction==1.0.0:
+      func:
+        $mypkg.MyCallableObject==1.0.0:
+          n: 2
+    <BLANKLINE>
 
 And we can still restore the original object.
 
-.. code-block:: python
+.. code-block:: pycon
 
-    o6 = audobject.from_yaml_s(o5_yaml)
-    o6(4, 5)
-
-.. skip: end
+    >>> o6 = audobject.from_yaml_s(o5_yaml)
+    >>> o6(4, 5)
+    18
 
 .. warning:: Since the described mechanism
     offers a way to execute arbitrary Python code,
