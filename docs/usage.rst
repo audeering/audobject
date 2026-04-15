@@ -619,7 +619,7 @@ Here, we create a file and pass it to the object.
     >>> import os
     >>> import audeer
     >>> root = "root"
-    >>> res_path = os.path.join(root, "re", "source.txt")  # root/re/source.txt
+    >>> res_path = "root/re/source.txt"
     >>> _ = audeer.mkdir(os.path.dirname(res_path))
     >>> with open(res_path, "w") as fp:
     ...     _ = fp.write("You found me!")
@@ -636,12 +636,14 @@ of the YAML file.
 .. code-block:: pycon
 
     >>> import yaml
-    >>> yaml_path = os.path.join(root, "yaml", "object.yaml")  # root/yaml/object.yaml
+    >>> yaml_path = "root/yaml/object.yaml"
     >>> o.to_yaml(yaml_path)
     >>> with open(yaml_path, "r") as fp:
     ...     content = yaml.load(fp, Loader=yaml.Loader)
-    >>> content
-    {'$mypkg.MyObjectWithFile==1.0.0': {'path': '../re/source.txt'}}
+    >>> # Normalize separator for portable output across platforms
+    >>> path = content["$mypkg.MyObjectWithFile==1.0.0"]["path"]
+    >>> print(path.replace(os.sep, "/"))
+    ../re/source.txt
 
 When we re-instantiate the object
 the path gets expanded again.
@@ -1348,7 +1350,7 @@ that keeps track of the parameters.
 
 .. code-block:: pycon
 
-    >>> params.to_path(sort=True)
+    >>> params.to_path(delimiter="/", sort=True)
     'delimiter[;]/num_repeat[1]/string[Bar]'
 
 Last but not least, we can read/write the parameters from/to a file.
