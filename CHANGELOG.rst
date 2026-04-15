@@ -7,6 +7,14 @@ The format is based on `Keep a Changelog`_,
 and this project adheres to `Semantic Versioning`_.
 
 
+Version 0.7.13 (2026-04-15)
+---------------------------
+
+* Added: support for Python 3.14
+* Changed: exclude tests/ and docs/ folders from the Python package
+* Removed: support for Python 3.9
+
+
 Version 0.7.12 (2025-06-06)
 ---------------------------
 
