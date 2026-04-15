@@ -920,7 +920,6 @@ by adjusting
     __version__ = "0.9.0"
 
     o3 = audobject.from_yaml_s(o_yaml)
-    print(o3)
 
 .. Silently apply the old-version state for the rest of the section.
 
@@ -931,6 +930,14 @@ by adjusting
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         o3 = audobject.from_yaml_s(o_yaml)
+
+The object is loaded successfully
+and behaves as before.
+
+.. code-block:: pycon
+
+    >>> print(o3)
+    I am a 1.0.0! I am a 1.0.0!
 
 Now we pretend that we update the package to ``2.0.0``.
 It includes a new version of ``MyObject``,
@@ -1077,7 +1084,6 @@ And load it with ``1.0.0``.
             return " ".join([self.string] * self.num_repeat)
 
     o6 = audobject.from_yaml_s(o5_yaml)
-    print(o6)
 
 .. invisible-code-block: python
 
@@ -1097,6 +1103,11 @@ And load it with ``1.0.0``.
 
 In fact, it works, too.
 However, a warning is given that an argument was ignored.
+
+.. code-block:: pycon
+
+    >>> print(o6)
+    I am a 2.1.1! I am a 2.1.1!
 
 Dictionary
 ----------
