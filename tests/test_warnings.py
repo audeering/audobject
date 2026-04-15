@@ -46,7 +46,7 @@ class MyObject(audobject.Object):
 
 
 with pytest.warns(RuntimeWarning):
-    audobject.Object.from_yaml_s(o_yaml)
+    audobject.from_yaml_s(o_yaml)
 
 
 # an argument is removed
@@ -62,7 +62,7 @@ class MyObject(audobject.Object):
 
 
 with pytest.warns(RuntimeWarning):
-    audobject.Object.from_yaml_s(o_yaml)
+    audobject.from_yaml_s(o_yaml)
 
 
 # a mandatory argument is added
