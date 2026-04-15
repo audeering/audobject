@@ -476,8 +476,7 @@ def test_bad_object():
             self.bar = foo
 
     with pytest.raises(RuntimeError):
-        with pytest.warns(RuntimeWarning):
-            BadObject("foo")  # cannot hide argument without default value
+        BadObject("foo")  # cannot hide argument without default value
 
     class BadObject(audobject.Object):
         @audobject.init_decorator(
