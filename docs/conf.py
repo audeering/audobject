@@ -1,12 +1,12 @@
 import os
 import shutil
-
-import toml
+import tomllib
 
 import audeer
 
 
-config = toml.load(audeer.path("..", "pyproject.toml"))
+with open(audeer.path("..", "pyproject.toml"), "rb") as fp:
+    config = tomllib.load(fp)
 
 
 # Project -----------------------------------------------------------------
